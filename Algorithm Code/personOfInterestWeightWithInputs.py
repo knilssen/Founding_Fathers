@@ -55,7 +55,10 @@ def main(Url, Keywords):
 
 
     for item in st.tag(sentence):
-        firstItem = (str(item[0])).strip(")('?.,:`")
+        if item[0] == u'\u2014':
+            firstItem = (item[0]).strip(")('?.,:`")
+        else:
+            firstItem = (str(item[0])).strip(")('?.,:`")
         if firstItem:
             if item[1] not in categories:
                 categories[item[1]].append(firstItem)
@@ -65,6 +68,7 @@ def main(Url, Keywords):
                 output.append(item[0])
                 if item[0] in count:
                     count[item[0]] = count[item[0]] + 1
+
 
 
     for key in keywordtotalcount:
