@@ -10,7 +10,7 @@ Date: 2/1/2017
 
 Usage:
 
-    python personOfInterstWeight [ Text to be weighted ] [ keywords ]
+    python keywordMatchWeight [ Text to be weighted ] [ keywords ]
 '''
 
 import sys
@@ -20,7 +20,6 @@ import nltk
 import time
 from nltk import FreqDist
 from nltk import word_tokenize
-from nltk import FreqDist
 from nltk.tag import StanfordNERTagger
 
 def main():
@@ -66,6 +65,7 @@ def main():
     for freq in frequency:
         totalcount = totalcount + freq[1]
 
+    print st.tag(sentence)
     print keywordtotalcount
     print "Top 5 peoples total accurences:", totalcount
     for person in keywordtotalcount:
