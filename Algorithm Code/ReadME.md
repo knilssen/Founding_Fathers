@@ -1,6 +1,5 @@
-# Founding_Fathers_Project
+# Algorithm Code
 # Code that will be used to find, analyze, and present news and or relevant articles
-# around our website.
 
 To run personOfInterestweight.py or personOfInterestweightWithInputs.py on your own machine, you need to install newspaper(only needed while running  personOfInterestweightWithInputs), nltk, and as well as Stanford NLP on your own machine.
 
