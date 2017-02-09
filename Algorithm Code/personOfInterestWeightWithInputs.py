@@ -10,7 +10,7 @@ Date: 2/4/2017
 
 Usage:
 
-    python keywordMatchWeightWIthInputs [ URL To Article ] [ Keywords ]
+    python keywordMatchWeightWIthInputs [ URL To Article ] [ Keywords ] [ keyword type <PERSON | LOCATION | ORGANIZATION> ]
 '''
 
 import sys
@@ -26,7 +26,8 @@ from nltk import FreqDist
 from nltk.tag.stanford import StanfordNERTagger
 from newspaper import Article
 
-def main(Url, Keywords):
+def main(Url, Keywords, Type):
+    Keywords = Keywords.lower()
     article = Article(Url)
     article.download()
     article.parse()
@@ -55,20 +56,16 @@ def main(Url, Keywords):
 
 
     for item in st.tag(sentence):
-        if item[0] == u'\u2014':
-            firstItem = (item[0]).strip(")('?.,:`")
-        else:
-            firstItem = (str(item[0])).strip(")('?.,:`")
+        firstItem = item[0].encode('utf-8').strip(")('?.,:`")
         if firstItem:
             if item[1] not in categories:
                 categories[item[1]].append(firstItem)
             else:
                 categories[item[1]].append(firstItem)
-            if item[1] == "PERSON":
+            if item[1] == Type:
                 output.append(item[0])
-                if item[0] in count:
-                    count[item[0]] = count[item[0]] + 1
-
+                if item[0].lower() in count:
+                    count[item[0].lower()] = count[item[0].lower()] + 1
 
 
     for key in keywordtotalcount:
@@ -82,7 +79,7 @@ def main(Url, Keywords):
 
     for cat in categories:
         print cat,":", categories[cat], "\n"
-    print "The top 5 most accuring people in this article added up for a total of:", totalcount, "name mentions"
+    print "The top 5 most accuring", Type, "in this article added up for a total of:", totalcount, Type, "mentions"
     for person in keywordtotalcount:
         print person, "is in the article", (round((keywordtotalcount[person]/float(totalcount)), 4) * 100), "%", "of the total top 5 accurences"
     return frequency
@@ -97,7 +94,9 @@ if __name__ == "__main__":
 
     # some preliminary error checking
 
-    if len(sys.argv) != 3:
-        print 'python keywordMatchWeight [Text to be weighted] [keywords]'
+    if len(sys.argv) != 4:
+        print 'python keywordMatchWeight [Url to article to be weighted] [keywords] [keyword type <PERSON|LOCATION|ORGANIZATION>]'
+    elif sys.argv[3] == 'PERSON' or sys.argv[3] == 'LOCATION' or sys.argv[3] == 'ORGANIZATION':
+        print main(sys.argv[1], sys.argv[2], sys.argv[3])
     else:
-        print main(sys.argv[1], sys.argv[2])
+        print 'Invalid keyword type: Must be [PERSON | LOCATION | ORGANIZATION]'
