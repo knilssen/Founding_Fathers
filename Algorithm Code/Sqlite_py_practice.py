@@ -15,7 +15,8 @@ import sys
 import sqlite3
 
 
-def main(DC, DF, S, ATS, AT, AK, T, U):
+def main(name, DC, DF, S, ATS, AT, AK, T, U):
+    personName = name.replace(" ", "")
     Date_Created = DC
     Date_Found = DF
     Source = S
@@ -25,25 +26,17 @@ def main(DC, DF, S, ATS, AT, AK, T, U):
     article_Text = T
     Url = U
 
+    # print personName
 
     sqlite_file = '/Users/kristiannilssen/Documents/"Westminster College"/"Spring 2017"/"CMPT 322 Software Engineering"/FF_Practice_Code/db.sqlite3'
     conn = sqlite3.connect('sqlite_file')
     c = conn.cursor()
 
     # Create table
-    c.execute('''CREATE TABLE "Article_Test"
-    (id INTEGER PRIMARY KEY,
-    date_Created text,
-    date_Found text,
-    source text,
-    summary text,
-    title text,
-    keywords text,
-    article_Text text,
-    url text)''')
+    c.execute("CREATE TABLE IF NOT EXISTS " + personName + " (id text, date_Created text, date_Found text, source text, summary text, title text, keywords text, article_Text text)")
 
     # Insert a row of data
-    c.execute("INSERT INTO Article_Test (id, date_Created, date_Found, source, summary, title, keywords, article_Text, url) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)", (1, Date_Created, Date_Found, Source, article_Summary, article_Title, article_Keywords, article_Text, Url))
+    c.execute("INSERT INTO " + personName + " VALUES (?, ?, ?, ?, ?, ?, ?, ?)", (Url, Date_Created, Date_Found, Source, article_Summary, article_Title, article_Keywords, article_Text))
 
     # Save (commit) the changes
     conn.commit()
@@ -56,6 +49,6 @@ def main(DC, DF, S, ATS, AT, AK, T, U):
 if __name__ == "__main__":
 
     if len(sys.argv) != 8:
-        print 'usage: python Sqlite_py_practice.py [ Date_Created ] [ Date_Found ] [ Source ] [ Title ] [ Article_Text ] [ Url ]'
+        print 'usage: python Sqlite_py_practice.py [ Url ] [ Date_Created ] [ Date_Found ] [ Source ] [ Title ] [ Article_Text ]'
     else:
-        main(sys.argv[1], sys.argv[2], sys.argv[3], sys.argv[4], sys.argv[5], sys.argv[6], sys.argv[7])
+        main(sys.argv[1], sys.argv[2], sys.argv[3], sys.argv[4], sys.argv[5], sys.argv[6], sys.argv[7], sys.argv[8])
