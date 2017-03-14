@@ -15,7 +15,19 @@ Including another URLconf
 """
 from django.conf.urls import url
 from django.contrib import admin
+from . import views
 
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
+    url(r'^$', views.index, name = 'index'),
+    # url(r'^login/$', views.login, name = 'login'),
+    url(r'^accounts/login$', views.login, name = 'login'),
+    url(r'^accounts/auth$', views.auth_view, name = 'auth_view'),
+    url(r'^accounts/logout$', views.logout, name = 'logout'),
+    url(r'^accounts/loggedin$', views.loggedin, name = 'loggedin'),
+    url(r'^accounts/invalid$', views.invalid, name = 'invalid'),
+    url(r'^accounts/register$', views.UserFormView, name ='register')
+
+
+
 ]
