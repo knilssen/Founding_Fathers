@@ -26,7 +26,7 @@ def auth_view(request):
     else:
         return HttpResponseRedirect('accounts/invalid')
 def loggedin(request):
-    return render_to_response('News/home.html', {'fullname' : request.user.username})
+    return render_to_response('news/home.html', {'fullname' : request.user.username})
 
 def logout(request):
     auth.logout(request)
