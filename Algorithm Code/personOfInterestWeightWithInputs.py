@@ -15,12 +15,6 @@ Usage:
 
     python keywordMatchWeightWIthInputs [ URL To Article ] [ Keywords ] [ keyword type <PERSON | LOCATION | ORGANIZATION> ]
 
-
-*****
-Problem: Code replaces ' with ? so if a word like don't and disqus's, the stanford NERT thinks don and disqus is a person name...
-find a fix for this
-*****
-
 '''
 
 import sys
@@ -37,23 +31,23 @@ from nltk import FreqDist
 from nltk.tag.stanford import StanfordNERTagger
 from newspaper import Article
 
-def main(Url, Keywords, otherNames, Type):
+def main(Url, pub_time, Source, Keywords, otherNames, Type):
     Keywords = Keywords.lower()
     article = Article(Url)
     article.download()
     article.parse()
-    # print article.text
     articleText = (article.text)
     articleText = articleText.encode('ascii', 'replace').replace(u"\u0029", "").replace(u"\u0028", "")
+    dateTime = time.strftime("%Y-%m-%d %I:%M:%S")
 
-    # for line in articleText:
-    #     if UnicodeDecodeError:
-    #     # if "\xe2" in line:
-    #         print line
-
-    # print articleText
-
-    dateTime = time.strftime("%m/%d/%Y/%I:%M:%S")
+    if len(str(pub_time[0][2])) < 3:
+        pub_time[0][2] = int("20" + str(pub_time[0][2]))
+    if len(str(pub_time[0][0])) < 2:
+        pub_time[0][0] = int("0" + str(pub_time[0][0]))
+    if len(str(pub_time[0][1])) < 2:
+        pub_time[0][1] = int("0" + str(pub_time[0][1]))
+    post_date = (str(pub_time[0][2]) + "-" + str(pub_time[0][0]) + "-" + str(pub_time[0][1]) + " " +
+                str(pub_time[1][0]) + ":" + str(pub_time[1][1]) + ":" + str(pub_time[1][2]))
 
     charOfPeriod = 0
     source = " "
@@ -64,19 +58,11 @@ def main(Url, Keywords, otherNames, Type):
         if char == ".":
             charOfPeriod = charOfPeriod + 1
 
-
-    # print Url
-    # print Keywords, "\n"
-
     Keywords = Keywords.split(",")
     classifier = '/usr/local/share/stanford-ner/classifiers/english.all.3class.distsim.crf.ser.gz'
     jar = '/usr/local/share/stanford-ner/stanford-ner.jar'
-
     st = StanfordNERTagger(classifier,jar,encoding='utf-8')
-
     sentence = word_tokenize(articleText)
-    # print sentence
-
     output = []
     realtypefind = []
     keywordtotalcount = {}
@@ -84,21 +70,16 @@ def main(Url, Keywords, otherNames, Type):
     categories = defaultdict(list)
     totalcount = 0
 
-    print Keywords
-
     for key in Keywords:
         keywordtotalcount[key] = 0
         for key2 in key.split():
             count[key2] = 0
-
-    print keywordtotalcount
 
     itemposition = 0
     totoltypecount = 0
     taged = st.tag(sentence)
     for item in taged:
         firstItem = item[0].encode('utf-8').strip("\)(?.,:`")
-        # print firstItem
         if firstItem:
             if item[1] not in categories:
                 categories[item[1]].append(firstItem)
@@ -116,25 +97,14 @@ def main(Url, Keywords, otherNames, Type):
                     count[item[0].lower()] = count[item[0].lower()] + 1
         itemposition = itemposition + 1
 
-    print totoltypecount
-
     #Creats full name list, is checked against to make sure a article with mike newton is counting mike johnson or sam newton
     #as people who are mentioned in the article.
-
-    # print realtypefind
-    # if "mike noel" in realtypefind:
-    #     print "hello"
 
     for key in keywordtotalcount:
         for T in range(0, len(key.split())):
             (keywordtotalcount[key]) = (keywordtotalcount[key]) + count[(key.split())[T]]
 
-    print keywordtotalcount
-
-    print realtypefind
-
     frequency = (FreqDist(output)).most_common(5)
-
 
     for freq in frequency:
         totalcount = totalcount + freq[1]
@@ -142,30 +112,18 @@ def main(Url, Keywords, otherNames, Type):
     article.nlp()
     keywords_database = ' '.join(article.keywords)
 
-    # for cat in categories:
-    print "Person",":", categories["PERSON"], "\n"
-    print "The top 5 most accuring", Type+"s","in this article added up for a total of:", totalcount, Type, "mentions"
-    print "\n"
-    print "\n"
-    print "\n"
-
-
-
     for person in keywordtotalcount:
         if person in realtypefind:
             if person in otherNames and otherNames[person] in realtypefind:
-                print person, "is in the article", (round(((keywordtotalcount[person] + keywordtotalcount[otherNames[person]])/float(totoltypecount)), 4) * 100), "%", "of the total top 5 accurences"
-                Sqlite_py_practice.main(person, article.publish_date, dateTime, source, article.summary, article.title, keywords_database, article.text, Url)
+                # print person, "is in the article", (round(((keywordtotalcount[person] + keywordtotalcount[otherNames[person]])/float(totoltypecount)), 4) * 100), "%"
+                Sqlite_py_practice.main(Url, Source, post_date, dateTime, article.title, str(article.authors), str(keywords_database), article.summary, articleText)
             else:
-                print person, "is in the article", (round((keywordtotalcount[person]/float(totoltypecount)), 4) * 100), "%", "of the total top 5 accurences"
-                Sqlite_py_practice.main(person, article.publish_date, dateTime, source, article.summary, article.title, keywords_database, article.text, Url)
+                # print person, "is in the article", (round((keywordtotalcount[person]/float(totoltypecount)), 4) * 100), "%"
+                Sqlite_py_practice.main(Url, Source, post_date, dateTime, article.title, str(article.authors), str(keywords_database), article.summary, articleText)
         else:
             if person in otherNames and otherNames[person] in realtypefind:
-                print person, "is in the article", (round((keywordtotalcount[person]/float(totoltypecount)), 4) * 100), "%", "of the total top 5 accurences"
-                Sqlite_py_practice.main(person, article.publish_date, dateTime, source, article.summary, article.title, keywords_database, article.text, Url)
-
-
-
+                # print person, "is in the article", (round((keywordtotalcount[person]/float(totoltypecount)), 4) * 100), "%"
+                Sqlite_py_practice.main(Url, Source, post_date, dateTime, article.title, str(article.authors), str(keywords_database), article.summary, articleText)
 
 
 if __name__ == "__main__":
@@ -175,6 +133,6 @@ if __name__ == "__main__":
     if len(sys.argv) != 4:
         print 'python keywordMatchWeight [Url to article to be weighted] [keywords] [keyword type <PERSON|LOCATION|ORGANIZATION>]'
     elif sys.argv[3] == 'PERSON' or sys.argv[3] == 'LOCATION' or sys.argv[3] == 'ORGANIZATION':
-        print main(sys.argv[1], sys.argv[2], sys.argv[3])
+        print main(sys.argv[1], sys.argv[2], sys.argv[3], sys.argv[4], sys.argv[5], sys.argv[6])
     else:
         print 'Invalid keyword type: Must be [PERSON | LOCATION | ORGANIZATION]'

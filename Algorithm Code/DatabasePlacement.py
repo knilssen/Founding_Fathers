@@ -11,7 +11,44 @@ Usage:
 
 import sys
 import personOfInterestWeightWithInputs
-import article_Grabber
+import time
+import threading
+import /article_grabbers/grabber_ksl
+import /article_grabbers/grabber_deseret_news
+import /article_grabbers/grabber_fox13
+import /article_grabbers/grabber_slt
+import /article_grabbers/grabber_utah_policy
+import /article_grabbers/grabber_upc_legislative
+import /article_grabbers/grabber_upc_judicial
+import /article_grabbers/grabber_upc_flagged_bill_status
+import /article_grabbers/grabber_upc_executive
+import multiprocessing
+
+maxthreads = multiprocessing.cpu_count()
+print maxthreads
+sema = threading.Semaphore(value=maxthreads)
+thread = list()
+threads = list()
+
+def article_worker(article, pub_time, source, allkeywords, DiffName):
+    # thread worker function
+    sema.acquire()
+    t = threading.currentThread()
+    personOfInterestWeightWithInputs.main(article, pub_time, source, allkeywords, DiffName,  "PERSON")
+    sema.release()
+
+
+def grabber_worker(source_name, source, currentTime, allkeywords, DiffName):
+    # thread worker function
+    sema.acquire()
+    t = threading.currentThread()
+    art = source.main(currentTime)
+    for url in art:
+        print (url)
+        a = threading.Thread(target=article_worker, args=(url, art[url], source_name, allkeywords, DiffName))
+        thread.append(a)
+        a.start()
+    sema.release()
 
 
 def main():
@@ -43,22 +80,31 @@ def main():
                 ' daniel hemmert' : ' dan hemmert', ' gregory hughes' : ' greg hughes', ' michael kennedy' : ' mike kennedy',
                 ' bradley last' : ' brad last', ' daniel  mccay' : ' dan mccay', ' michael noel' : ' mike noel', ' edward redd' : ' ed redd',
                 ' daniel thatcher' : ' dan thatcher', ' norman thurston' : ' norm thurston', ' raymond ward' : ' ray ward'}
-
+    currentTime = []
     urls = {}
-    urls = article_Grabber.main()
-    print len(urls)
 
     allkeywords = str(Governer) + "," + str(senators) + "," + str(HouseReps)
     allkeywords = allkeywords.replace("'", "")
     allkeywords = allkeywords.replace("]", "")
     allkeywords = allkeywords.replace("[", "")
 
-    # print allkeywords
+    currentTime.append((time.strftime("%x").replace("/", " ")).split())
+    currentTime.append((time.strftime("%X").replace(":", " ")).split())
 
-    for article in urls:
-        print article
-        print article[0]
-        personOfInterestWeightWithInputs.main(article, allkeywords, DiffName,  "PERSON")
+    # print currentTime
+
+    grabberlist = [grabber_ksl, grabber_deseret_news, grabber_fox13, grabber_slt, grabber_utah_policy, grabber_upc_legislative,
+                    grabber_upc_judicial, grabber_upc_flagged_bill_status, grabber_upc_executive]
+    source_name = ["KSL", "Deseret News", "Fox 13", "Salt Lake Tribune", "Utah Policy", "Utah Political Capitol Legislative",
+                    "Utah Political Capitol J", "Utah Political Capitol Flagged Bill Status", "Utah Political Capitol Executive"]
+
+
+    for i in range(len(grabberlist)):
+        t = threading.Thread(target=grabber_worker, args=(source_name[i], grabberlist[i], currentTime, allkeywords, DiffName))
+        threads.append(t)
+        t.start()
+
+    # personOfInterestWeightWithInputs.main('http://www.ksl.com/?sid=43580434&nid=148&title=utah-restaurant-associations-ask-governor-to-veto-05-dui-law', allkeywords, DiffName,  "PERSON")
 
 
 
