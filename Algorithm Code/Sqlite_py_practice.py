@@ -12,43 +12,52 @@ Usage:
 '''
 
 import sys
-import sqlite3
+import mysql.connector
+from mysql.connector import errorcode
 
+def main(url, source, post_date, found_date, title, author, keywords, summary, text):
 
-def main(name, DC, DF, S, ATS, AT, AK, T, U):
-    personName = name.replace(" ", "")
-    Date_Created = DC
-    Date_Found = DF
-    Source = S
-    article_Summary = ATS
-    article_Title = AT
-    article_Keywords = AK
-    article_Text = T
-    Url = U
+    config = {
+        'user': 'root',
+        'password': 'FF_database',
+        'host': '127.0.0.1',
+        'database': 'ff_database',
+        'raise_on_warnings': True,
+    }
 
-    # print personName
+    try:
+        cnx = mysql.connector.connect(**config)
 
-    sqlite_file = '/Users/kristiannilssen/Documents/"Westminster College"/"Spring 2017"/"CMPT 322 Software Engineering"/FF_Practice_Code/db.sqlite3'
-    conn = sqlite3.connect('sqlite_file')
-    c = conn.cursor()
+    except mysql.connector.Error as err:
+        if err.errno == errorcode.ER_ACCESS_DENIED_ERROR:
+            print("Something is wrong with your user name or password")
+        elif err.errno == errorcode.ER_BAD_DB_ERROR:
+            print("Database does not exist")
+        else:
+            print(err)
+    else:
 
-    # Create table
-    c.execute("CREATE TABLE IF NOT EXISTS " + personName + " (id text, date_Created text, date_Found text, source text, summary text, title text, keywords text, article_Text text)")
+        cursor = cnx.cursor()
 
-    # Insert a row of data
-    c.execute("INSERT INTO " + personName + " VALUES (?, ?, ?, ?, ?, ?, ?, ?)", (Url, Date_Created, Date_Found, Source, article_Summary, article_Title, article_Keywords, article_Text))
+        add_article = ("INSERT INTO articles "
+               "(url, source, post_date, found_date, title, author, keywords, summary, text) "
+               "VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s)")
 
-    # Save (commit) the changes
-    conn.commit()
+        data_article = (url, source, post_date, found_date, title, author, keywords, summary, text)
 
-    # We can also close the connection if we are done with it.
-    # Just be sure any changes have been committed or they will be lost.
-    conn.close()
+        # Insert new article
+        cursor.execute(add_article, data_article)
+
+        # Make sure data is committed to the database
+        cnx.commit()
+
+        cursor.close()
+        cnx.close()
 
 
 if __name__ == "__main__":
 
     if len(sys.argv) != 8:
-        print 'usage: python Sqlite_py_practice.py [ Url ] [ Date_Created ] [ Date_Found ] [ Source ] [ Title ] [ Article_Text ]'
+        print 'usage: python Sqlite_py_practice.py [ url ] [ source ] [ post_date ] [ found_date ] [ title ] [ author ] [ keywords ] [ summary ] [ text ]'
     else:
-        main(sys.argv[1], sys.argv[2], sys.argv[3], sys.argv[4], sys.argv[5], sys.argv[6], sys.argv[7], sys.argv[8])
+        main(sys.argv[1], sys.argv[2], sys.argv[3], sys.argv[4], sys.argv[5], sys.argv[6], sys.argv[7], sys.argv[8], sys.argv[9], sys.argv[10], sys.argv[11], sys.argv[12])
