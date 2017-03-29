@@ -1,0 +1,65 @@
+'''
+Python script that is to familierize myself to the workings about how pyhon interacts
+with a Sqlite database, and then ultimatly use this to create a python script to find
+and save articles to the database for futher use.
+
+Author: Founding Fathers, Kristian Nilssen
+Date: 2/10/2017
+
+Usage:
+
+    python Sqlite_py_practice.py
+'''
+
+import sys
+import mysql.connector
+from mysql.connector import errorcode
+
+def main(article_id, article_people):
+
+    config = {
+        'user': 'root',
+        'password': 'FF_database',
+        'host': '127.0.0.1',
+        'database': 'ff_database',
+        'raise_on_warnings': True,
+    }
+
+    try:
+        cnx = mysql.connector.connect(**config)
+
+    except mysql.connector.Error as err:
+        if err.errno == errorcode.ER_ACCESS_DENIED_ERROR:
+            print("Something is wrong with your user name or password")
+        elif err.errno == errorcode.ER_BAD_DB_ERROR:
+            print("Database does not exist")
+        else:
+            print(err)
+    else:
+
+        cursor = cnx.cursor()
+
+        add_article_person = ("INSERT INTO article_person "
+               "(articles_id, people_id) "
+               "VALUES (%s, %s)")
+
+        for person in article_people:
+            person = person.split()
+            cursor.execute(("SELECT id FROM people WHERE last_name = '%s' AND first_name = '%s'") % (str(person[1]), str(person[0])))
+            data = cursor.fetchall()
+            data = data[0]
+            print person
+            print data
+            data_article_person = (article_id, data[0])
+            cursor.execute(add_article_person, data_article_person)
+
+        cnx.commit()
+        cursor.close()
+    cnx.close()
+
+if __name__ == "__main__":
+
+    if len(sys.argv) != 2:
+        print 'usage: python Sqlite_py_practice.py [ article_id ] [ people ] '
+    else:
+        main(sys.argv[1], sys.argv[2])
