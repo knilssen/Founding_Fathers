@@ -77,8 +77,12 @@ WSGI_APPLICATION = 'CYP.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME' : 'database'
+        'ENGINE': 'django.db.backends.mysql',
+        'NAME': 'database',
+        'USER' : 'CYP',
+        'PASSWORD' : 'password',
+        'HOST' : '127.0.0.1',
+        'PORT' : ''
 
         #
     }
