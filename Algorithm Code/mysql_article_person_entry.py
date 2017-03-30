@@ -15,7 +15,7 @@ import sys
 import mysql.connector
 from mysql.connector import errorcode
 
-def main(url, source, post_date, found_date, title, author, keywords, summary, text):
+def main(last_name, first_name, person_id, image, role, party, district, legislative_since, profession, profession_affiliations, education, recognitions_and_honors, counties, mailing_address, email, cell, work_phone, home_phone, legislation):
 
     config = {
         'user': 'root',
@@ -39,25 +39,26 @@ def main(url, source, post_date, found_date, title, author, keywords, summary, t
 
         cursor = cnx.cursor()
 
-        add_article = ("INSERT INTO articles "
-               "(url, source, post_date, found_date, title, author, keywords, summary, text) "
-               "VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s)")
+        add_person = ("INSERT INTO people "
+               "(last_name, first_name, person_id, image, role, party, district, legislative_since, profession, profession_affiliations, education, recognitions_and_honors, counties, mailing_address, email, cell, work_phone, home_phone, legislation_link) "
+               "VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s)")
 
-        data_article = (url, source, post_date, found_date, title, author, keywords, summary, text)
+        data_person = (last_name, first_name, person_id, image, role, party, district, legislative_since, profession, profession_affiliations, education, recognitions_and_honors, counties, mailing_address, email, cell, work_phone, home_phone, legislation)
 
-        # Insert new employee
-        cursor.execute(add_article, data_article)
-
-        article_id = cursor.lastrowid
+        # Insert new person
+        cursor.execute(add_person, data_person)
 
         # Make sure data is committed to the database
         cnx.commit()
 
         cursor.close()
+        cnx.close()
 
-    cnx.close()
 
-    return int(article_id)
+
+
+
+
 
 
 if __name__ == "__main__":
@@ -65,4 +66,4 @@ if __name__ == "__main__":
     if len(sys.argv) != 8:
         print 'usage: python Sqlite_py_practice.py [ url ] [ source ] [ post_date ] [ found_date ] [ title ] [ author ] [ keywords ] [ summary ] [ text ]'
     else:
-        main(sys.argv[1], sys.argv[2], sys.argv[3], sys.argv[4], sys.argv[5], sys.argv[6], sys.argv[7], sys.argv[8], sys.argv[9], sys.argv[10], sys.argv[11])
+        main(sys.argv[1], sys.argv[2], sys.argv[3], sys.argv[4], sys.argv[5], sys.argv[6], sys.argv[7], sys.argv[8], sys.argv[9], sys.argv[10], sys.argv[11], sys.argv[12])

@@ -15,7 +15,7 @@ import sys
 import mysql.connector
 from mysql.connector import errorcode
 
-def main(article_id, article_people):
+def main(article_id, length, is_local):
 
     config = {
         'user': 'root',
@@ -39,19 +39,9 @@ def main(article_id, article_people):
 
         cursor = cnx.cursor()
 
-        add_article_person = ("INSERT INTO article_person "
-               "(articles_id, people_id) "
-               "VALUES (%s, %s)")
-
-        for person in article_people:
-            person = person.split()
-            cursor.execute(("SELECT id FROM people WHERE last_name = '%s' AND first_name = '%s'") % (str(person[1]), str(person[0])))
-            data = cursor.fetchall()
-            data = data[0]
-            print person
-            print data
-            data_article_person = (article_id, data[0])
-            cursor.execute(add_article_person, data_article_person)
+        add_article_based_weight = ("INSERT INTO article_based_weights "
+               "(articles_id, length, is_local) "
+               "VALUES (%s, %s, %s)")
 
         cnx.commit()
         cursor.close()
@@ -60,6 +50,6 @@ def main(article_id, article_people):
 if __name__ == "__main__":
 
     if len(sys.argv) != 2:
-        print 'usage: python Sqlite_py_practice.py [ article_id ] [ people ] '
+        print 'usage: python Sqlite_py_practice.py [ article_id ] [ length ] [ source_size_ratio ] [ is_local ]'
     else:
-        main(sys.argv[1], sys.argv[2])
+        main(sys.argv[1], sys.argv[2], sys.argv[3])

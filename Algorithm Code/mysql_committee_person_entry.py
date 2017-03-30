@@ -15,7 +15,7 @@ import sys
 import mysql.connector
 from mysql.connector import errorcode
 
-def main(url, source, post_date, found_date, title, author, keywords, summary, text):
+def main(member, committee_id, position):
 
     config = {
         'user': 'root',
@@ -39,30 +39,36 @@ def main(url, source, post_date, found_date, title, author, keywords, summary, t
 
         cursor = cnx.cursor()
 
-        add_article = ("INSERT INTO articles "
-               "(url, source, post_date, found_date, title, author, keywords, summary, text) "
-               "VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s)")
+        add_person = ("INSERT INTO  person_committies"
+               "(people_id, committies_idcommitties, position) "
+               "VALUES (%s, %s, %s)")
 
-        data_article = (url, source, post_date, found_date, title, author, keywords, summary, text)
+        cursor.execute(("SELECT id FROM people WHERE person_id = '%s'") % (str(member)))
+        data = cursor.fetchall()
+        data = data[0]
 
-        # Insert new employee
-        cursor.execute(add_article, data_article)
 
-        article_id = cursor.lastrowid
+        data_person = (data[0], committee_id, position)
+
+        # Insert new person
+        cursor.execute(add_person, data_person)
 
         # Make sure data is committed to the database
         cnx.commit()
 
         cursor.close()
+        cnx.close()
 
-    cnx.close()
 
-    return int(article_id)
+
+
+
+
 
 
 if __name__ == "__main__":
 
     if len(sys.argv) != 8:
-        print 'usage: python Sqlite_py_practice.py [ url ] [ source ] [ post_date ] [ found_date ] [ title ] [ author ] [ keywords ] [ summary ] [ text ]'
+        print 'usage: python Sqlite_py_practice.py [ url ] [ source ]'
     else:
-        main(sys.argv[1], sys.argv[2], sys.argv[3], sys.argv[4], sys.argv[5], sys.argv[6], sys.argv[7], sys.argv[8], sys.argv[9], sys.argv[10], sys.argv[11])
+        main(sys.argv[1], sys.argv[2])
