@@ -1,3 +1,4 @@
 from django.shortcuts import render
 
-# Create your views here.
+def newsHome(request):
+    return render(request, 'news/home.html')
