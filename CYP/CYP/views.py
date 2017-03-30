@@ -8,7 +8,7 @@ from .forms import UserForm
 
 # Create your views here.
 def index(request):
-    return render(request, 'CYP/home.html')
+    return render(request, 'News/home.html')
 
 def login(request):
     # c = {}

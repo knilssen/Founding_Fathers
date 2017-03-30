@@ -19,7 +19,7 @@
 		box-sizing: border-box;
 		}
 
-#news_iframe_scroll iframe 
+#news_iframe_scroll iframe
 		{
 		width: 100%;
 		height: 176px; /* IF YOU EDIT HEIGHT EDIT THE SCROLLING SCRIPT HEIGHT!!!! */
@@ -29,7 +29,7 @@
 		overflow: hidden;
 		}
 
-.news_scroll-title 
+.news_scroll-title
 		{
 		color: #FFFFFF;
 		font: normal 20px "Droid Sans", arial, sans-serif;
@@ -78,6 +78,3 @@ body.news-scroll {
 .news-scroll a:active	{ color: #0033FF; text-decoration: none; }
 
 .news-scroll a:hover	{ color: #6699FF; text-decoration: underline; }
-
-
-

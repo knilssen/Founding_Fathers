@@ -19,6 +19,8 @@ from . import views
 
 urlpatterns = [
     url(r'^news/home$', views.home, name = 'Home'),
+    url(r'^news_scroll.html$', views.news_scroll, name = 'news_scroll'),
+
 
 
 ]
