@@ -24,8 +24,6 @@ import nltk
 import newspaper
 import time
 import Sqlite_py_practice
-import mysql_article_person_link
-import mysql_article_based_weights
 from collections import defaultdict
 from nltk import FreqDist
 from nltk import word_tokenize
@@ -50,6 +48,15 @@ def main(Url, pub_time, Source, Keywords, otherNames, Type):
         pub_time[0][1] = int("0" + str(pub_time[0][1]))
     post_date = (str(pub_time[0][2]) + "-" + str(pub_time[0][0]) + "-" + str(pub_time[0][1]) + " " +
                 str(pub_time[1][0]) + ":" + str(pub_time[1][1]) + ":" + str(pub_time[1][2]))
+
+    charOfPeriod = 0
+    source = " "
+
+    for char in Url:
+        if 0 < charOfPeriod < 3:
+            source = source + char
+        if char == ".":
+            charOfPeriod = charOfPeriod + 1
 
     Keywords = Keywords.split(",")
     classifier = '/usr/local/share/stanford-ner/classifiers/english.all.3class.distsim.crf.ser.gz'
@@ -105,34 +112,19 @@ def main(Url, pub_time, Source, Keywords, otherNames, Type):
     article.nlp()
     keywords_database = ' '.join(article.keywords)
 
-    article_people = []
-
     for person in keywordtotalcount:
         if person in realtypefind:
             if person in otherNames and otherNames[person] in realtypefind:
-                article_people.append(person)
-                totalcountofperson = (keywordtotalcount[person] + keywordtotalcount[otherNames[person]])
                 # print person, "is in the article", (round(((keywordtotalcount[person] + keywordtotalcount[otherNames[person]])/float(totoltypecount)), 4) * 100), "%"
-                # Sqlite_py_practice.main(Url, Source, post_date, dateTime, article.title, str(article.authors), str(keywords_database), article.summary, articleText)
+                Sqlite_py_practice.main(Url, Source, post_date, dateTime, article.title, str(article.authors), str(keywords_database), article.summary, articleText)
             else:
-                article_people.append(person)
-                totalcountofperson = keywordtotalcount[person]
                 # print person, "is in the article", (round((keywordtotalcount[person]/float(totoltypecount)), 4) * 100), "%"
-                # Sqlite_py_practice.main(Url, Source, post_date, dateTime, article.title, str(article.authors), str(keywords_database), article.summary, articleText)
+                Sqlite_py_practice.main(Url, Source, post_date, dateTime, article.title, str(article.authors), str(keywords_database), article.summary, articleText)
         else:
             if person in otherNames and otherNames[person] in realtypefind:
-                article_people.append(person)
-                totalcountofperson = keywordtotalcount[person]
                 # print person, "is in the article", (round((keywordtotalcount[person]/float(totoltypecount)), 4) * 100), "%"
-                # Sqlite_py_practice.main(Url, Source, post_date, dateTime, article.title, str(article.authors), str(keywords_database), article.summary, articleText)
+                Sqlite_py_practice.main(Url, Source, post_date, dateTime, article.title, str(article.authors), str(keywords_database), article.summary, articleText)
 
-
-
-    if len(article_people) >= 1:
-        print Url
-        article_id = Sqlite_py_practice.main(Url, Source, post_date, dateTime, article.title, str(article.authors), str(keywords_database), article.summary, articleText)
-        mysql_article_person_link.main(article_id, article_people, totalcountofperson, (round((totalcountofperson/float(totoltypecount)), 4) * 100), totoltypecount)
-        mysql_article_based_weights.main(article_id, len(articleText), "yes")
 
 if __name__ == "__main__":
 

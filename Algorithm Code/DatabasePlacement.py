@@ -11,7 +11,6 @@ Usage:
 
 import sys
 import personOfInterestWeightWithInputs
-import article_Grabber
 import time
 import threading
 import /article_grabbers/grabber_ksl
@@ -45,7 +44,7 @@ def grabber_worker(source_name, source, currentTime, allkeywords, DiffName):
     t = threading.currentThread()
     art = source.main(currentTime)
     for url in art:
-        # print (url)
+        print (url)
         a = threading.Thread(target=article_worker, args=(url, art[url], source_name, allkeywords, DiffName))
         thread.append(a)
         a.start()

@@ -74,9 +74,6 @@ CREATE TABLE IF NOT EXISTS `ff_database`.`article_person` (
   `articles_id` INT NOT NULL,
   `people_id` INT NOT NULL,
   `weight` INT NULL,
-  `name_mentions` INT NOT NULL,
-  `mention_percentage` INT NOT NULL,
-  `article_total_count_mentions` INT NOT NULL,
   PRIMARY KEY (`articles_id`, `people_id`),
   INDEX `fk_article_person_articles_idx` (`articles_id` ASC),
   INDEX `fk_article_person_people1_idx` (`people_id` ASC),
@@ -176,8 +173,7 @@ ENGINE = InnoDB;
 -- Table `ff_database`.`location`
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS `ff_database`.`location` (
-  `idlocations` INT NOT NULL AUTO_INCREMENT,
-  `location` VARCHAR(45) NOT NULL,
+  `idlocations` INT NOT NULL COMMENT 'Utah\nUnited States\nSalt Lake City\n',
   PRIMARY KEY (`idlocations`))
 ENGINE = InnoDB;
 
@@ -189,9 +185,6 @@ CREATE TABLE IF NOT EXISTS `ff_database`.`article_location` (
   `articles_id` INT NOT NULL,
   `location_idlocations` INT NOT NULL,
   `weight` INT NULL,
-  `location_mentions` INT NOT NULL,
-  `mention_percentage` INT NOT NULL,
-  `place_mention_total` INT NULL,
   PRIMARY KEY (`articles_id`, `location_idlocations`),
   INDEX `fk_article_location_location1_idx` (`location_idlocations` ASC),
   CONSTRAINT `fk_article_location_articles1`
@@ -212,6 +205,8 @@ ENGINE = InnoDB;
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS `ff_database`.`article_based_weights` (
   `articles_id` INT NOT NULL,
+  `name_mentions_total` INT NULL,
+  `place_mention_total` INT NULL,
   `length` INT NULL,
   `source_size_ratio` VARCHAR(255) NULL,
   `is_local` VARCHAR(45) NULL,
@@ -230,8 +225,8 @@ ENGINE = InnoDB;
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS `ff_database`.`committies` (
   `idcommitties` INT NOT NULL AUTO_INCREMENT,
-  `committie` VARCHAR(255) NOT NULL,
-  `overview` TEXT NULL,
+  `committie` VARCHAR(45) NOT NULL,
+  `overview` VARCHAR(255) NULL,
   PRIMARY KEY (`idcommitties`))
 ENGINE = InnoDB;
 
@@ -242,7 +237,6 @@ ENGINE = InnoDB;
 CREATE TABLE IF NOT EXISTS `ff_database`.`person_committies` (
   `people_id` INT NOT NULL,
   `committies_idcommitties` INT NOT NULL,
-  `position` VARCHAR(45) NOT NULL,
   PRIMARY KEY (`people_id`, `committies_idcommitties`),
   INDEX `fk_person_committies_committies1_idx` (`committies_idcommitties` ASC),
   CONSTRAINT `fk_person_committies_people1`
@@ -253,6 +247,40 @@ CREATE TABLE IF NOT EXISTS `ff_database`.`person_committies` (
   CONSTRAINT `fk_person_committies_committies1`
     FOREIGN KEY (`committies_idcommitties`)
     REFERENCES `ff_database`.`committies` (`idcommitties`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION)
+ENGINE = InnoDB;
+
+
+-- -----------------------------------------------------
+-- Table `ff_database`.`person_weight`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `ff_database`.`person_weight` (
+  `article_person_articles_id` INT NOT NULL,
+  `article_person_people_id` INT NOT NULL,
+  `name_mentions` INT NOT NULL,
+  `mention_percentage` INT NOT NULL,
+  PRIMARY KEY (`article_person_articles_id`, `article_person_people_id`),
+  CONSTRAINT `fk_weights_article_person1`
+    FOREIGN KEY (`article_person_articles_id` , `article_person_people_id`)
+    REFERENCES `ff_database`.`article_person` (`articles_id` , `people_id`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION)
+ENGINE = InnoDB;
+
+
+-- -----------------------------------------------------
+-- Table `ff_database`.`location_weight`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `ff_database`.`location_weight` (
+  `article_location_articles_id` INT NOT NULL,
+  `article_location_location_idlocations` INT NOT NULL,
+  `location_mentions` INT NOT NULL,
+  `mention_percentage` INT NOT NULL,
+  PRIMARY KEY (`article_location_articles_id`, `article_location_location_idlocations`),
+  CONSTRAINT `fk_location_weight_article_location1`
+    FOREIGN KEY (`article_location_articles_id` , `article_location_location_idlocations`)
+    REFERENCES `ff_database`.`article_location` (`articles_id` , `location_idlocations`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
 ENGINE = InnoDB;
