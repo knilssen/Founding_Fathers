@@ -13,15 +13,15 @@ import sys
 import article_NERT_parser
 import time
 import threading
-import article_grabbers/grabber_ksl
-import article_grabbers/grabber_deseret_news
-import article_grabbers/grabber_fox13
-import article_grabbers/grabber_slt
-import article_grabbers/grabber_utah_policy
-import article_grabbers/grabber_upc_legislative
-import article_grabbers/grabber_upc_judicial
-import article_grabbers/grabber_upc_flagged_bill_status
-import article_grabbers/grabber_upc_executive
+from article_grabbers import grabber_ksl
+from article_grabbers import grabber_deseret_news
+from article_grabbers import grabber_fox13
+from article_grabbers import grabber_slt
+from article_grabbers import grabber_utah_policy
+from article_grabbers import grabber_upc_legislative
+from article_grabbers import grabber_upc_judicial
+from article_grabbers import grabber_upc_flagged_bill_status
+from article_grabbers import grabber_upc_executive
 import multiprocessing
 
 maxthreads = multiprocessing.cpu_count()
