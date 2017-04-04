@@ -8,7 +8,7 @@ Date: 3/15/2017
 
 Usage:
 
-    python ksl_grabber.py [ current_time ]
+    python grabber_ksl.py [ current_time ]
 
 '''
 
@@ -67,7 +67,7 @@ def main(current_time):
 if __name__ == "__main__":
 
     if len(sys.argv) != 1:
-        print "Usage: python ksl_grabber.py [ current_time ]"
+        print "Usage: python grabber_ksl.py [ current_time ]"
     else:
         currentTime = []
         currentTime.append((time.strftime("%x").replace("/", " ")).split())
