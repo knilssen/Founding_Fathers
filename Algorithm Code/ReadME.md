@@ -5,7 +5,16 @@ To run article_NERT_parser.py on your own machine, you need to install newspaper
 
 To instal newspaper:      sudo pip instal newspaper
 
-To instal nltk:           sudo pip instal -U nltk
+To instal nltk:           sudo pip instal nltk
+
+go into terminal:         python
+                          >>> import nltk
+                          >>> nltk.download()
+    Set the download directory to:
+          Windows  C:\nltk_data
+          Mac      /usr/local/share/nltk_data
+          Unix     /usr/share/nltk_data
+                            
 
 To instal stanford nlp:   http://nlp.stanford.edu/software/stanford-ner-2016-10-31.zip rename the file from stanford-ner-2016-10-31 to stanford-ner then move the file into either your /usr/share or /usr/local/share
 
