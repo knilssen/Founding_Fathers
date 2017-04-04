@@ -23,9 +23,9 @@ import re
 import nltk
 import newspaper
 import time
-import Sqlite_py_practice
-import mysql_article_person_link
-import mysql_article_based_weights
+import /database_interactors/Sqlite_py_practice
+import /database_interactors/mysql_article_person_link
+import /database_interactors/mysql_article_based_weights
 from collections import defaultdict
 from nltk import FreqDist
 from nltk import word_tokenize

@@ -30,7 +30,7 @@ def main(current_time):
     tempList = []
     tempListud = {}
     articleTime = current_time[:]
-    prefix = "http://utahpolicy.com"
+    prefix = "https://utahpolicy.com"
     letters = soups.find_all("td", class_="list-title")
     for element in letters:
         url = (prefix + ((str(element).split())[3]).encode('utf-8').strip('href=">'))

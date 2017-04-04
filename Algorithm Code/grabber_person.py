@@ -18,7 +18,7 @@ import urllib
 import date_subtracter
 import json
 import requests
-import mysql_person_entry
+import /database_interactors/mysql_person_entry
 from newspaper import Article
 from bs4 import BeautifulSoup
 import time

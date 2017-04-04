@@ -8,7 +8,7 @@ Date: 3/15/2017
 
 Usage:
 
-    python grabber_ksl.py [ current_time ]
+    python ksl_grabber.py [ current_time ]
 
 '''
 
@@ -32,7 +32,7 @@ def main(current_time):
     tempList = []
     tempListud = {}
     inc = 0
-    prefix = "http://www.ksl.com/"
+    prefix = "https://www.ksl.com/"
     articleTime = current_time[:]
     for dates in publishDate:
         dateTimeForm = [["0", "0", "0"],["0", "0", "0"]]
@@ -57,7 +57,7 @@ def main(current_time):
         # print tempList[inc], articleTime
         dateDiff = date_subtracter.main(articleTime,tempList[inc])
         if dateDiff[0] == 1:
-            tempListud[(prefix + letters[inc].a["href"])] = tempList[inc]
+            tempListud[(prefix + letters[inc].a["href"]).rpartition('&')[0]] = tempList[inc]
         inc = inc + 1
 
     # for article in tempListud:
@@ -67,7 +67,7 @@ def main(current_time):
 if __name__ == "__main__":
 
     if len(sys.argv) != 1:
-        print "Usage: python grabber_ksl.py [ current_time ]"
+        print "Usage: python ksl_grabber.py [ current_time ]"
     else:
         currentTime = []
         currentTime.append((time.strftime("%x").replace("/", " ")).split())

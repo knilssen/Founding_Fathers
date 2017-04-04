@@ -281,7 +281,11 @@ ENGINE = InnoDB;
 CREATE TABLE IF NOT EXISTS `ff_database`.`social_media` (
   `article_based_weights_articles_id` INT NOT NULL,
   `facebook_shares` INT NULL,
-  `reddit` INT NULL,
+  `facebook_comments` INT NULL,
+  `reddit_shares` INT NULL,
+  `reddit_upvotes` INT NULL,
+  `pinterest_pins` INT NULL,
+  `linkedIn_shares` INT NULL,
   `total_count` INT NULL,
   PRIMARY KEY (`article_based_weights_articles_id`),
   CONSTRAINT `fk_social_media_article_based_weights1`
