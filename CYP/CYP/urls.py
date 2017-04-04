@@ -28,6 +28,4 @@ urlpatterns = [
     url(r'^accounts/invalid$', views.invalid, name = 'invalid'),
     url(r'^accounts/register$', views.UserFormView, name ='register')
 
-
-
 ]
