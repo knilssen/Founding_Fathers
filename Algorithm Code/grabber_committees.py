@@ -18,8 +18,8 @@ import urllib
 import date_subtracter
 import json
 import requests
-import /database_interactors/mysql_committee_entry
-import /database_interactors/mysql_committee_person_entry
+import database_interactors/mysql_committee_entry
+import database_interactors/mysql_committee_person_entry
 from newspaper import Article
 from bs4 import BeautifulSoup
 import time
