@@ -4,6 +4,8 @@ Python script that is to grab all the articles from a specific source
 Author: Founding Fathers, Kristian Nilssen
 Date: 2/14/2017
 
+Hi mike
+
 Usage:
 
     python article_Grabber.py
