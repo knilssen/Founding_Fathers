@@ -32,7 +32,7 @@ def main(current_time):
     tempList = []
     tempListud = {}
     inc = 0
-    prefix = "http://www.ksl.com/"
+    prefix = "https://www.ksl.com/"
     articleTime = current_time[:]
     for dates in publishDate:
         dateTimeForm = [["0", "0", "0"],["0", "0", "0"]]
@@ -57,7 +57,7 @@ def main(current_time):
         # print tempList[inc], articleTime
         dateDiff = date_subtracter.main(articleTime,tempList[inc])
         if dateDiff[0] == 1:
-            tempListud[(prefix + letters[inc].a["href"])] = tempList[inc]
+            tempListud[(prefix + letters[inc].a["href"]).rpartition('&')[0]] = tempList[inc]
         inc = inc + 1
 
     # for article in tempListud:

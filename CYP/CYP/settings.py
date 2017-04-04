@@ -77,8 +77,12 @@ WSGI_APPLICATION = 'CYP.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME' : 'database'
+        'ENGINE': 'django.db.backends.mysql',
+        'NAME': 'cyp',
+        'USER' : 'root',
+        'PASSWORD' : 'password',
+        'HOST' : '127.0.0.1',
+        'PORT' : ''
 
         #
     }
@@ -115,10 +119,12 @@ USE_I18N = True
 
 USE_L10N = True
 
-USE_TZ = True
+USE_TZ = False
 
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/1.10/howto/static-files/
 
 STATIC_URL = '/static/'
+
+#Founding Fathers version 2.5

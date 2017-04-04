@@ -15,7 +15,7 @@ import sys
 import mysql.connector
 from mysql.connector import errorcode
 
-def main(url, source, post_date, found_date, title, author, keywords, summary, text):
+def main(article_id, length, is_local):
 
     config = {
         'user': 'root',
@@ -39,25 +39,17 @@ def main(url, source, post_date, found_date, title, author, keywords, summary, t
 
         cursor = cnx.cursor()
 
-        add_article = ("INSERT INTO articles "
-               "(url, source, post_date, found_date, title, author, keywords, summary, text) "
-               "VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s)")
+        add_article_based_weight = ("INSERT INTO article_based_weights "
+               "(articles_id, length, is_local) "
+               "VALUES (%s, %s, %s)")
 
-        data_article = (url, source, post_date, found_date, title, author, keywords, summary, text)
-
-        # Insert new article
-        cursor.execute(add_article, data_article)
-
-        # Make sure data is committed to the database
         cnx.commit()
-
         cursor.close()
-        cnx.close()
-
+    cnx.close()
 
 if __name__ == "__main__":
 
-    if len(sys.argv) != 8:
-        print 'usage: python Sqlite_py_practice.py [ url ] [ source ] [ post_date ] [ found_date ] [ title ] [ author ] [ keywords ] [ summary ] [ text ]'
+    if len(sys.argv) != 2:
+        print 'usage: python Sqlite_py_practice.py [ article_id ] [ length ] [ source_size_ratio ] [ is_local ]'
     else:
-        main(sys.argv[1], sys.argv[2], sys.argv[3], sys.argv[4], sys.argv[5], sys.argv[6], sys.argv[7], sys.argv[8], sys.argv[9], sys.argv[10], sys.argv[11], sys.argv[12])
+        main(sys.argv[1], sys.argv[2], sys.argv[3])

@@ -6,11 +6,11 @@ Date: 2/25/2017
 
 Usage:
 
-    python DatabasePlacement.py
+    python database_placement.py
 '''
 
 import sys
-import personOfInterestWeightWithInputs
+import article_NERT_parser
 import time
 import threading
 import /article_grabbers/grabber_ksl
@@ -34,7 +34,7 @@ def article_worker(article, pub_time, source, allkeywords, DiffName):
     # thread worker function
     sema.acquire()
     t = threading.currentThread()
-    personOfInterestWeightWithInputs.main(article, pub_time, source, allkeywords, DiffName,  "PERSON")
+    article_NERT_parser.main(article, pub_time, source, allkeywords, DiffName,  "PERSON")
     sema.release()
 
 
@@ -104,7 +104,7 @@ def main():
         threads.append(t)
         t.start()
 
-    # personOfInterestWeightWithInputs.main('http://www.ksl.com/?sid=43580434&nid=148&title=utah-restaurant-associations-ask-governor-to-veto-05-dui-law', allkeywords, DiffName,  "PERSON")
+    # article_NERT_parser.main('http://www.ksl.com/?sid=43580434&nid=148&title=utah-restaurant-associations-ask-governor-to-veto-05-dui-law', allkeywords, DiffName,  "PERSON")
 
 
 
@@ -113,6 +113,6 @@ if __name__ == "__main__":
     # some preliminary error checking
 
     # if len(sys.argv) != 1:
-    #     print 'python keywordMatchWeight [Url to article to be weighted] [keywords] [keyword type <PERSON|LOCATION|ORGANIZATION>]'
+    #     print 'python database_placement [Url to article to be weighted] [keywords] [keyword type <PERSON|LOCATION|ORGANIZATION>]'
     # else:
     main()
