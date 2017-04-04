@@ -4,6 +4,8 @@ Python script that is to grab all the articles from a specific source
 Author: Founding Fathers, Kristian Nilssen
 Date: 2/14/2017
 
+Hi mike
+
 Usage:
 
     python article_Grabber.py
@@ -141,9 +143,9 @@ def main():
             dateTimeForm[1][1] = articleTime[1][1][:]
             dateTimeForm[1][2] = articleTime[1][2][:]
 
-            if article_split[urlcount+2] == '"yesterday"':
+            if article_split[urlcount+1] == '"yesterday"':
                 article_split[urlcount+1] = article_split[urlcount+1].replace('"', "").split()
-                dateTimeForm[0][1] = str(int(dateTimeForm[0][1][:]) - 1)
+                dateTimeForm[0][1] = str(int(dateTimeForm[0][1][:]) + 1)
             elif article_split[urlcount+2] == '"less"':
                 article_split[urlcount+1] = article_split[urlcount+1].replace('"', "").split()
                 dateTimeForm[1][1] = str(int(dateTimeForm[1][1][:]) - 0)
@@ -153,6 +155,8 @@ def main():
             elif article_split[urlcount+2] == "hour" or article_split[urlcount+2] == "hours":
                 article_split[urlcount+1] = article_split[urlcount+1].replace('"', "").split()
                 dateTimeForm[1][0] = str(int(dateTimeForm[1][0][:]) - int(article_split[urlcount+1][0]))
+            else:
+                dateTimeForm[0][0] = str(1)
 
             if int(dateTimeForm[1][1]) < 0:
                 dateTimeForm[1][1] = str(int(dateTimeForm[1][1][:]) + 60)
@@ -447,9 +451,9 @@ def main():
             count = count + 1
     returnArticles.update(tempListud)
 
-    print len(returnArticles)
-    for articles in returnArticles:
-        print articles, returnArticles[articles]
+    # print len(returnArticles)
+    # for articles in returnArticles:
+    #     print articles, returnArticles[articles]
     return returnArticles
 
 # Returns a one if the article in refernce has been posted within the past 5 minutes (The last time we searched).
@@ -521,7 +525,7 @@ def subtractDate(currentDate, articleDate):
     subtractedDate = [[str(monthDiff), str(dayDiff), str(yearDiff)],[str(hourDiff), str(minDiff), str(secDiff)]]
 
 # and dayDiff == 0 and yearDiff == 0 and hourDiff < 9
-    if monthDiff == 0 and dayDiff == 0 and yearDiff == 0 and hourDiff <= 5:
+    if monthDiff == 0 and dayDiff <= 1 and yearDiff == 0:
         return [1, subtractedDate]
     else:
         return [0, subtractedDate]
