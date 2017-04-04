@@ -5,7 +5,7 @@ The objective is to match keywords with text such as an article description, the
 title, the content of the article, or any other text that is to be weighted against
 the inputed keywords. Returns an integer that represents the computed weight
 
-Also invokes Sqlite_py_practice and sends it information/date to be entered into Sqlite
+Also invokes mysql_article_entry and sends it information/date to be entered into Sqlite
 database.
 
 Author: Founding Fathers, Kristian Nilssen
@@ -23,7 +23,7 @@ import re
 import nltk
 import newspaper
 import time
-import /database_interactors/Sqlite_py_practice
+import /database_interactors/mysql_article_entry
 import /database_interactors/mysql_article_person_link
 import /database_interactors/mysql_article_based_weights
 from collections import defaultdict
@@ -130,7 +130,7 @@ def main(Url, pub_time, Source, Keywords, otherNames, Type):
 
     if len(article_people) >= 1:
         print Url
-        article_id = Sqlite_py_practice.main(Url, Source, post_date, dateTime, article.title, str(article.authors), str(keywords_database), article.summary, articleText)
+        article_id = mysql_article_entry.main(Url, Source, post_date, dateTime, article.title, str(article.authors), str(keywords_database), article.summary, articleText)
         mysql_article_person_link.main(article_id, article_people, totalcountofperson, (round((totalcountofperson/float(totoltypecount)), 4) * 100), totoltypecount)
         mysql_article_based_weights.main(article_id, len(articleText), "yes")
 
