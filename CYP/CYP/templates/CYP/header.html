@@ -2,18 +2,30 @@
 <html lang="en">
 
 
-<head>
+	<style type="text/css">
+	header {
+	    float: left;
+	    margin:0 0 30px 0;
+	    padding: 5px 0 0 0 ;
+	    width: 100%;
+	  background-image:url('../images/founding.jpg');
+	  }
+	</style>
 
+<header>
 	{% load staticfiles %}
+        <img src="{% static 'images/founding.jpg' %}" align="middle" style='max-height:150px;' alt="Logo" />
+</header>
 
-	<style>
+<head>
+<style>
 h1 {
     text-align: center;
 }
 </style>
 
 <p></P>
-<img src="{% static 'images/ffLogo1.png' %}" class="responsive-img" align="middle" style='max-height:150px;' alt="face">
+<img src="{% static 'images/ffLogo.png' %}" class="responsive-img" align="middle" style='max-height:150px;' alt="face">
 	<meta charset="utf-8" />
 
 	<link rel="stylesheet" href="{% static '/css/bootstrap.min.css' %}" type = "text/css"/>
@@ -23,8 +35,6 @@ h1 {
             because django combines all static dir
             -->
 	<meta name="viewport" content = "width=device-width, initial-scale=1.0">
-
-
 	<style type="text/css">
 		html,
 		body {
@@ -80,7 +90,7 @@ h1 {
 	  <li><a class="active" href="#home">Home</a></li>
 	  <li><a href="">News</a></li>
 	  <li><a href="">Share</a></li>
-	  <li><a href="http://google.com">About</a></li>
+	  <li><a href="CYP/aboutUs/about.html">About</a></li>
 	</ul>
 <body class="body" style="background-color:#f6f6f6">
 	<div class="container-fluid" style="min-height:95%; ">

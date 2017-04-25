@@ -18,8 +18,8 @@ from django.contrib import admin
 from . import views
 
 urlpatterns = [
-    url(r'^News/home$', views.home, name = 'Home'),
-    url(r'^news_scroll.html$', views.news_scroll, name = 'news_scroll')
+    url(r'^aboutUs/about$', views.aboutUs, name = 'About')
+
 
 
 ]

@@ -33,6 +33,7 @@ ALLOWED_HOSTS = []
 INSTALLED_APPS = [
     'CYP',
     'News',
+    'aboutUs',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -80,9 +81,9 @@ DATABASES = {
         'ENGINE': 'django.db.backends.mysql',
         'NAME': 'cyp',
         'USER' : 'root',
-        'PASSWORD' : 'password',
+        'PASSWORD' : 'goose86',
         'HOST' : '127.0.0.1',
-        'PORT' : ''
+        'PORT' : '3306'
 
         #
     }

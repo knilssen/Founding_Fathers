@@ -10,6 +10,9 @@ from .forms import UserForm
 def index(request):
     return render(request, 'News/home.html')
 
+def aboutUs (request):
+    return render(request, 'aboutUs/about.html')
+
 def login(request):
     # c = {}
     # c.update(csrf(request))
