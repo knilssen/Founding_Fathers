@@ -21,7 +21,7 @@ def main(last_name, first_name, person_id, image, role, party, district, legisla
         'user': 'root',
         'password': 'password',
         'host': '127.0.0.1',
-        'database': 'CYP',
+        'database': 'cyp',
         'raise_on_warnings': True,
     }
 
