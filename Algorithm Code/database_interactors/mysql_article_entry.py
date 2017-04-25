@@ -19,7 +19,7 @@ def main(url, source, post_date, found_date, title, author, keywords, summary, t
 
     config = {
         'user': 'root',
-        'password': 'FF_database',
+        'password': 'password',
         'host': '127.0.0.1',
         'database': 'CYP',
         'raise_on_warnings': True,

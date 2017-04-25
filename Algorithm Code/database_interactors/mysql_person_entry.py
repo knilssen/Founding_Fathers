@@ -19,7 +19,7 @@ def main(last_name, first_name, person_id, image, role, party, district, legisla
 
     config = {
         'user': 'root',
-        'password': 'FF_database',
+        'password': 'password',
         'host': '127.0.0.1',
         'database': 'CYP',
         'raise_on_warnings': True,

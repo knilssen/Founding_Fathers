@@ -19,7 +19,7 @@ def main(article_id, length, is_local):
 
     config = {
         'user': 'root',
-        'password': 'FF_database',
+        'password': 'password',
         'host': '127.0.0.1',
         'database': 'CYP',
         'raise_on_warnings': True,

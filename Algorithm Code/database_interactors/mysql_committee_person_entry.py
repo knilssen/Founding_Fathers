@@ -19,7 +19,7 @@ def main(member, committee_id, position):
 
     config = {
         'user': 'root',
-        'password': 'FF_database',
+        'password': 'password',
         'host': '127.0.0.1',
         'database': 'CYP',
         'raise_on_warnings': True,

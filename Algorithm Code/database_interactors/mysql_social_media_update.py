@@ -18,7 +18,7 @@ def main():
 
     config = {
         'user': 'root',
-        'password': 'FF_database',
+        'password': 'password',
         'host': '127.0.0.1',
         'database': 'ff_database',
         'raise_on_warnings': True,
