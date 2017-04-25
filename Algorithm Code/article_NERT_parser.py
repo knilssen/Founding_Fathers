@@ -62,8 +62,8 @@ def main(Url, pub_time, Source, Keywords, otherNames, Type):
                 str(pub_time[1][0]) + ":" + str(pub_time[1][1]) + ":" + str(pub_time[1][2]))
 
     Keywords = Keywords.split(",")
-    classifier = '../english.all.3class.distsim.crf.ser.gz'
-    jar = '../stanford-ner/stanford-ner.jar'
+    classifier = 'stanford-ner/classifiers/english.all.3class.distsim.crf.ser.gz'
+    jar = 'stanford-ner/stanford-ner.jar'
     st = StanfordNERTagger(classifier,jar,encoding='utf-8')
     sentence = word_tokenize(articleText)
     output = []

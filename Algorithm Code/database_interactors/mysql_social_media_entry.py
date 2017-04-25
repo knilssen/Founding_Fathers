@@ -9,7 +9,7 @@ from os.path import dirname, abspath
 import mysql.connector
 from mysql.connector import errorcode
 sys.path.append(dirname(dirname(abspath(__file__))))
-import social_shares
+import Social_Shares
 
 
 def main(article_id, url):
@@ -26,7 +26,7 @@ def main(article_id, url):
         'raise_on_warnings': True,
     }
 
-    social_media = social_shares.main(url)
+    social_media = Social_Shares.main(url)
 
     fb_shares = social_media["Facebook Shares"]
     fb_comments = social_media["Facebook Comments"]
