@@ -39,7 +39,7 @@ def main(article_id, length, is_local):
 
         cursor = cnx.cursor()
 
-        add_article_based_weight = ("INSERT INTO NEWS_Article_Based_Weights "
+        add_article_based_weight = ("INSERT INTO News_Article_Based_Weights "
                "(articles_id_id, length, is_local) "
                "VALUES (%s, %s, %s)")
 

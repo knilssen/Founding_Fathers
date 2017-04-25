@@ -39,11 +39,11 @@ def main(member, committee_id, position):
 
         cursor = cnx.cursor()
 
-        add_person = ("INSERT INTO  NEWS_Person_Committies"
+        add_person = ("INSERT INTO  News_Person_Committies"
                "(people_id_id, idcommitties_id, position) "
                "VALUES (%s, %s, %s)")
 
-        cursor.execute(("SELECT id FROM NEWS_people WHERE person_id = '%s'") % (str(member)))
+        cursor.execute(("SELECT id FROM News_people WHERE person_id = '%s'") % (str(member)))
         data = cursor.fetchall()
         data = data[0]
 

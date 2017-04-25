@@ -39,13 +39,13 @@ def main(article_id, article_people, name_mentions, mention_percentage, article_
 
         cursor = cnx.cursor()
 
-        add_article_person = ("INSERT INTO NEWS_Article_Person "
+        add_article_person = ("INSERT INTO News_Article_Person "
                "(articles_id_id, people_id_id, name_mentions, mention_percentage, article_total_count_mentions) "
                "VALUES (%s, %s, %s, %s, %s)")
 
         for person in article_people:
             person = person.split()
-            cursor.execute(("SELECT id FROM NEWS_People WHERE last_name = '%s' AND first_name = '%s'") % (str(person[1]), str(person[0])))
+            cursor.execute(("SELECT id FROM News_People WHERE last_name = '%s' AND first_name = '%s'") % (str(person[1]), str(person[0])))
             data = cursor.fetchall()
             data = data[0]
             print person

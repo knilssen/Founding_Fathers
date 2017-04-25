@@ -38,13 +38,13 @@ def main():
 
         cursor = cnx.cursor()
 
-        cursor.execute("SELECT COUNT(*) FROM NEWS_articles")
+        cursor.execute("SELECT COUNT(*) FROM News_articles")
         data = cursor.fetchall()
         data = data[0]
 
         for social_media_entry in range(23,data[0]):
 
-            cursor.execute(("SELECT url FROM NEWS_articles WHERE id=%s") % (social_media_entry))
+            cursor.execute(("SELECT url FROM News_articles WHERE id=%s") % (social_media_entry))
             print social_media_entry
             data = cursor.fetchall()
             data = data[0]
@@ -61,7 +61,7 @@ def main():
             linkedin_shares = social_media["LinkedIn Shares"]
             # total = social_media["Greater Total"]
 
-            update_social = ("UPDATE NEWS_Social_media SET "
+            update_social = ("UPDATE News_Social_media SET "
                     "facebook_shares=%s, facebook_comments=%s, reddit_shares=%s, reddit_upvotes=%s, pinterest_pins=%s, linkedIn_shares=%s "
                     "WHERE article_based_weights_articles_id=%s")
 

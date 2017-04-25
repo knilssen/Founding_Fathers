@@ -49,7 +49,7 @@ def main(article_id, url):
 
         cursor = cnx.cursor()
 
-        add_social = ("INSERT INTO NEWS_Social_Media "
+        add_social = ("INSERT INTO News_Social_Media "
                "(articles_id_id, facebook_shares, facebook_comments, reddit_shares, reddit_upvotes, pinterest_pins, linkedIn_shares) "
                "VALUES (%s, %s, %s, %s, %s, %s, %s)")
 
