@@ -9,7 +9,7 @@ from os.path import dirname, abspath
 import mysql.connector
 from mysql.connector import errorcode
 sys.path.append(dirname(dirname(abspath(__file__))))
-import social_shares
+import Social_Shares
 
 
 def main():
