@@ -21,7 +21,7 @@ def main(member, committee_id, position):
         'user': 'root',
         'password': 'FF_database',
         'host': '127.0.0.1',
-        'database': 'ff_database',
+        'database': 'CYP',
         'raise_on_warnings': True,
     }
 
@@ -39,11 +39,11 @@ def main(member, committee_id, position):
 
         cursor = cnx.cursor()
 
-        add_person = ("INSERT INTO  person_committies"
-               "(people_id, committies_idcommitties, position) "
+        add_person = ("INSERT INTO  NEWS_Person_Committies"
+               "(people_id_id, idcommitties_id, position) "
                "VALUES (%s, %s, %s)")
 
-        cursor.execute(("SELECT id FROM people WHERE person_id = '%s'") % (str(member)))
+        cursor.execute(("SELECT id FROM NEWS_people WHERE person_id = '%s'") % (str(member)))
         data = cursor.fetchall()
         data = data[0]
 

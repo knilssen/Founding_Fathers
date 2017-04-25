@@ -21,7 +21,7 @@ def main(last_name, first_name, person_id, image, role, party, district, legisla
         'user': 'root',
         'password': 'FF_database',
         'host': '127.0.0.1',
-        'database': 'ff_database',
+        'database': 'CYP',
         'raise_on_warnings': True,
     }
 
@@ -39,7 +39,7 @@ def main(last_name, first_name, person_id, image, role, party, district, legisla
 
         cursor = cnx.cursor()
 
-        add_person = ("INSERT INTO people "
+        add_person = ("INSERT INTO NEWS_People "
                "(last_name, first_name, person_id, image, role, party, district, legislative_since, profession, profession_affiliations, education, recognitions_and_honors, counties, mailing_address, email, cell, work_phone, home_phone, legislation_link) "
                "VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s)")
 

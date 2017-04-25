@@ -21,7 +21,7 @@ def main(committee_name, overview):
         'user': 'root',
         'password': 'FF_database',
         'host': '127.0.0.1',
-        'database': 'ff_database',
+        'database': 'CYP',
         'raise_on_warnings': True,
     }
 
@@ -39,7 +39,7 @@ def main(committee_name, overview):
 
         cursor = cnx.cursor()
 
-        add_person = ("INSERT INTO committies "
+        add_person = ("INSERT INTO NEWS_Committies "
                "(committie, overview) "
                "VALUES (%s, %s)")
 

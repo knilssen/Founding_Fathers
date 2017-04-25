@@ -15,7 +15,7 @@ Usage:
 import sys
 import newspaper
 import urllib
-import date_subtracter
+from article_grabbers import date_subtracter
 import json
 import requests
 from database_interactors import mysql_committee_entry
@@ -860,14 +860,15 @@ def main():
         soup = BeautifulSoup(r)
         letters = soup.find_all("div", id="overview")
         prefix = "http://le.utah.gov/asp/roster/"
-        overview = letters[0].text
-        overview = overview.replace(u'\u2022', ' ').replace(u'\u201c', ' ').replace(u'\u201d', ' ').replace(u'\u2019', ' ')
+        overview = letters[0].text.encode('ascii', 'replace').replace(u'\u2022', '()').replace(u'\u201c', ' ').replace(u'\u201d', ' ').replace(u'\u2019', ' ')
+
+        # overview = overview.replace(u'\u201c', ' ').replace(u'\u201d', ' ').replace(u'\u2019', ' ')
+        print overview
         committee_id = mysql_committee_entry.main(committee_name, str(overview))
         for member in committee["members"]:
             member_id = member["id"]
             position = member["position"]
             mysql_committee_person_entry.main(member_id, committee_id, str(position))
-
 
 
 

@@ -1,6 +1,7 @@
 '''
-
-
+Python script that is to familierize myself to the workings about how pyhon interacts
+with a Sqlite database, and then ultimatly use this to create a python script to find
+and save articles to the database for futher use.
 
 Author: Founding Fathers, Kristian Nilssen
 Date: 2/10/2017
@@ -20,7 +21,7 @@ def main(url, source, post_date, found_date, title, author, keywords, summary, t
         'user': 'root',
         'password': 'FF_database',
         'host': '127.0.0.1',
-        'database': 'ff_database',
+        'database': 'CYP',
         'raise_on_warnings': True,
     }
 
@@ -38,7 +39,7 @@ def main(url, source, post_date, found_date, title, author, keywords, summary, t
 
         cursor = cnx.cursor()
 
-        add_article = ("INSERT INTO articles "
+        add_article = ("INSERT INTO NEWS_Articles "
                "(url, source, post_date, found_date, title, author, keywords, summary, text) "
                "VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s)")
 
@@ -48,6 +49,10 @@ def main(url, source, post_date, found_date, title, author, keywords, summary, t
         cursor.execute(add_article, data_article)
 
         article_id = cursor.lastrowid
+
+        add_social = ("INSERT INTO NEWS_Social_Media "
+               "() "
+               "VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s)")
 
         # Make sure data is committed to the database
         cnx.commit()

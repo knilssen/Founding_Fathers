@@ -8,7 +8,7 @@ Date: 2/10/2017
 
 Usage:
 
-    python Sqlite_py_practice.py
+    python mysql_article_person_link.py
 '''
 
 import sys
@@ -21,7 +21,7 @@ def main(article_id, article_people, name_mentions, mention_percentage, article_
         'user': 'root',
         'password': 'FF_database',
         'host': '127.0.0.1',
-        'database': 'ff_database',
+        'database': 'CYP',
         'raise_on_warnings': True,
     }
 
@@ -39,17 +39,17 @@ def main(article_id, article_people, name_mentions, mention_percentage, article_
 
         cursor = cnx.cursor()
 
-        add_article_person = ("INSERT INTO article_person "
-               "(articles_id, people_id, name_mentions, mention_percentage, article_total_count_mentions) "
+        add_article_person = ("INSERT INTO NEWS_Article_Person "
+               "(articles_id_id, people_id_id, name_mentions, mention_percentage, article_total_count_mentions) "
                "VALUES (%s, %s, %s, %s, %s)")
 
         for person in article_people:
             person = person.split()
-            cursor.execute(("SELECT id FROM people WHERE last_name = '%s' AND first_name = '%s'") % (str(person[1]), str(person[0])))
+            cursor.execute(("SELECT id FROM NEWS_People WHERE last_name = '%s' AND first_name = '%s'") % (str(person[1]), str(person[0])))
             data = cursor.fetchall()
             data = data[0]
             print person
-            print data
+            # print data
             data_article_person = (article_id, data[0], name_mentions, mention_percentage, article_total_count_mentions)
             cursor.execute(add_article_person, data_article_person)
 
@@ -60,6 +60,6 @@ def main(article_id, article_people, name_mentions, mention_percentage, article_
 if __name__ == "__main__":
 
     if len(sys.argv) != 5:
-        print 'usage: python Sqlite_py_practice.py [ article_id ] [ people ] [ name_mentions ] [ mention_percentage ] [ article_total_count_mentions ]'
+        print 'usage: python mysql_article_person_link.py [ article_id ] [ people ] [ name_mentions ] [ mention_percentage ] [ article_total_count_mentions ]'
     else:
         main(sys.argv[1], sys.argv[2], sys.argv[3], sys.argv[4], sys.argv[5])
