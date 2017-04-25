@@ -50,7 +50,7 @@ def main():
             data = data[0]
             print data[0]
 
-            social_media = social_shares.main(str(data[0]))
+            social_media = Social_Shares.main(str(data[0]))
 
 
             fb_shares = social_media["Facebook Shares"]

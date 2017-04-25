@@ -53,13 +53,14 @@ def main():
         # print article_person_link_data
         for link in article_person_link_data:
             total_shares = 0
-            cursor.execute(("SELECT * FROM News_article_based_weights WHERE articles_id = '%s'") % (link[0]))
+            cursor.execute(("SELECT * FROM News_article_based_weights WHERE articles_id_id = '%s'") % (link[0]))
             article_based_weights_data = cursor.fetchall()[0]
-            cursor.execute(("SELECT * FROM News_social_media WHERE articles_id = '%s'") % (link[0]))
+            cursor.execute(("SELECT * FROM News_social_media WHERE articles_id_id = '%s'") % (link[0]))
             social_media_data = (cursor.fetchall())[0]
             cursor.execute(("SELECT post_date, url, source, keywords, summary FROM News_articles WHERE id = '%s'") % (link[0]))
             articles_data = (cursor.fetchall())[0]
-            cursor.execute(("SELECT first_name, last_name FROM News_people WHERE id = '%s'") % (link[1]))
+            cursor.execute(("SELECT first_name, last_name FROM News_people WHERE id = '%s'") % (link[2]))
+            # print cursor.fetchall()[0]
             name_data = (cursor.fetchall())[0]
 
             total_shares = social_media_data[1] + social_media_data[3] + social_media_data[5] + social_media_data[6]
@@ -92,7 +93,7 @@ def main():
 
             add_score = ("UPDATE News_article_person SET "
                    "weight=%s "
-                   "WHERE articles_id=%s AND people_id=%s")
+                   "WHERE articles_id_id=%s AND people_id_id=%s")
 
             data_score = (score, link[0], link[1])
 
@@ -101,6 +102,8 @@ def main():
 
 
             print link, article_based_weights_data, social_media_data, time_diff_seconds, total_shares, (total_shares * p), score
+
+            print "\n"
 
         cnx.commit()
         cursor.close()
