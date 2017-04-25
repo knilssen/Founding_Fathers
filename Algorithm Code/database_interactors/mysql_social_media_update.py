@@ -61,7 +61,7 @@ def main():
             linkedin_shares = social_media["LinkedIn Shares"]
             # total = social_media["Greater Total"]
 
-            update_social = ("UPDATE News_Social_media SET "
+            update_social = ("UPDATE News_social_media SET "
                     "facebook_shares=%s, facebook_comments=%s, reddit_shares=%s, reddit_upvotes=%s, pinterest_pins=%s, linkedIn_shares=%s "
                     "WHERE article_based_weights_articles_id=%s")
 

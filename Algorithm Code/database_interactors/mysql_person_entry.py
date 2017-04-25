@@ -39,7 +39,7 @@ def main(last_name, first_name, person_id, image, role, party, district, legisla
 
         cursor = cnx.cursor()
 
-        add_person = ("INSERT INTO News_People "
+        add_person = ("INSERT INTO News_people "
                "(last_name, first_name, person_id, image, role, party, district, legislative_since, profession, profession_affiliations, education, recognitions_and_honors, counties, mailing_address, email, cell, work_phone, home_phone, legislation_link) "
                "VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s)")
 

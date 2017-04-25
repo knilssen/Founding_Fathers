@@ -39,7 +39,7 @@ def main(member, committee_id, position):
 
         cursor = cnx.cursor()
 
-        add_person = ("INSERT INTO  News_Person_Committies"
+        add_person = ("INSERT INTO  News_person_committies"
                "(people_id_id, idcommitties_id, position) "
                "VALUES (%s, %s, %s)")
 

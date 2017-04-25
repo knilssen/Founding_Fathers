@@ -39,7 +39,7 @@ def main(url, source, post_date, found_date, title, author, keywords, summary, t
 
         cursor = cnx.cursor()
 
-        add_article = ("INSERT INTO News_Articles "
+        add_article = ("INSERT INTO News_articles "
                "(url, source, post_date, found_date, title, author, keywords, summary, text) "
                "VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s)")
 
@@ -50,7 +50,7 @@ def main(url, source, post_date, found_date, title, author, keywords, summary, t
 
         article_id = cursor.lastrowid
 
-        add_social = ("INSERT INTO News_Social_Media "
+        add_social = ("INSERT INTO News_social_media "
                "() "
                "VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s)")
 
