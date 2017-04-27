@@ -11,12 +11,12 @@ def index(request):
     return render(request, 'News/home.html')
 
 def aboutUs (request):
-    return render(request, 'aboutUs/about.html')
+    return render(request, 'News/about.html')
 
-def login(request):
+#def login(request):
     # c = {}
     # c.update(csrf(request))
-    return render_to_response('CYP/Login.html')
+    #return render_to_response('CYP/Login.html')
 
 def auth_view(request):
     username = request.POST.get('username','')

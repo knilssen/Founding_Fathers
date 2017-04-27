@@ -4,12 +4,17 @@
 
 	<style type="text/css">
 	header {
-	    float: left;
-	    margin:0 0 30px 0;
-	    padding: 5px 0 0 0 ;
-	    width: 100%;
-	  background-image:url('../images/founding.jpg');
-	  }
+	    display: flex;
+	    justify-content: center;
+	    align-items: center;
+	    overflow: hidden
+	}
+	header img {
+	    flex-shrink: 0;
+	    min-width: 50%;
+	    min-height: 50%
+	}
+}
 	</style>
 
 <header>
@@ -23,7 +28,6 @@ h1 {
     text-align: center;
 }
 </style>
-
 <p></P>
 <img src="{% static 'images/ffLogo.png' %}" class="responsive-img" align="middle" style='max-height:150px;' alt="face">
 	<meta charset="utf-8" />
@@ -34,6 +38,7 @@ h1 {
             We could make the static directory local by adding another directory in the static folder
             because django combines all static dir
             -->
+
 	<meta name="viewport" content = "width=device-width, initial-scale=1.0">
 	<style type="text/css">
 		html,
@@ -42,12 +47,10 @@ h1 {
 		}
 	</style>
 
-    <right>
-      <a href="{% url 'login' %}">Login</a>
-		</right>
-		<a href="{% url 'register' %}">Register</a>
 
-<h1> Choose Your Politics </h1>
+
+		<h1> Choose Your Politics </h1>
+
 
 </head>
 <p></p>
@@ -90,7 +93,7 @@ h1 {
 	  <li><a class="active" href="#home">Home</a></li>
 	  <li><a href="">News</a></li>
 	  <li><a href="">Share</a></li>
-	  <li><a href="CYP/aboutUs/about.html">About</a></li>
+	  <li><a class="active" href=" {% url 'About' %}">About</a></li>
 	</ul>
 <body class="body" style="background-color:#f6f6f6">
 	<div class="container-fluid" style="min-height:95%; ">
@@ -136,7 +139,7 @@ h1 {
 	</div>
 	<footer>
 		<div class="container-fluid" style='margin-left:15px'>
-			<p><a href="#" target="blank">Contact</a> | <a href="#" target="blank">LinkedIn</a> | <a href="#" target="blank">Twitter</a> | <a href="#" target="blank">Google+</a></p>
+			<p><a href="#" target="blank">Contact</a> | <a href="#" target="blank">Instagram</a> | <a href="#" target="blank">Twitter</a> | <a href="#" target="blank">Google+</a></p>
 		</div>
 	</footer>
 
