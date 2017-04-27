@@ -19,9 +19,9 @@ def main(article_id, length, is_local):
 
     config = {
         'user': 'root',
-        'password': 'FF_database',
+        'password': 'password',
         'host': '127.0.0.1',
-        'database': 'ff_database',
+        'database': 'cyp',
         'raise_on_warnings': True,
     }
 
@@ -39,9 +39,14 @@ def main(article_id, length, is_local):
 
         cursor = cnx.cursor()
 
-        add_article_based_weight = ("INSERT INTO article_based_weights "
-               "(articles_id, length, is_local) "
+        add_article_based_weight = ("INSERT INTO News_article_based_weights "
+               "(articles_id_id, length, is_local) "
                "VALUES (%s, %s, %s)")
+
+        data_article_based_weight = (article_id, length, is_local)
+
+        # Insert new person
+        cursor.execute(add_article_based_weight, data_article_based_weight)
 
         cnx.commit()
         cursor.close()

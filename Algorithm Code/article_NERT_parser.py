@@ -1,19 +1,28 @@
 '''
-Python script that reads in text that is to be given a keyword matching weight number
+Python script that reads in text from an article, keywords, and the type of matching to be done.
 
-The objective is to match keywords with text such as an article description, the article
-title, the content of the article, or any other text that is to be weighted against
-the inputed keywords. Returns an integer that represents the computed weight
+The objective is to match keywords with text and the type of marching to be done such as people,
+places, and orginizations. It does this by using Standfords Named Entity Reconization Tagger software
+to give text from the article a classification such as a person, place, orginization, or other. This uses
+those tags to search and compare the amount of times our keywords appear and how they compare with other
+person, places, or orginaztions tagged through this proccess. This also posts:
+    The article and its data to the articles table in our database
+    The link data between the article and the person, place, or orginizations thats being tested agianst
+    The static weighting objects assoiciated with that article
+    The social media weighting objects associated with that article
 
-Also invokes mysql_article_entry and sends it information/date to be entered into Sqlite
-database.
+Invokes the following database publishers from the database_interactors directory:
+    mysql_article_entry
+    mysql_article_person_link
+    mysql_article_based_weights
+    mysql_social_media_entry
 
 Author: Founding Fathers, Kristian Nilssen
 Date: 2/4/2017
 
 Usage:
 
-    python keywordMatchWeightWIthInputs [ URL To Article ] [ Keywords ] [ keyword type <PERSON | LOCATION | ORGANIZATION> ]
+    python article_NERT_parser [Url to article to be weighted] [ pub_time ] [ Source ] [ Keywords ] [ otherNames ] [ keyword type <PERSON | LOCATION | ORGANIZATION> ]
 
 '''
 
@@ -26,6 +35,7 @@ import time
 from database_interactors import mysql_article_entry
 from database_interactors import mysql_article_person_link
 from database_interactors import mysql_article_based_weights
+from database_interactors import mysql_social_media_entry
 from collections import defaultdict
 from nltk import FreqDist
 from nltk import word_tokenize
@@ -52,8 +62,8 @@ def main(Url, pub_time, Source, Keywords, otherNames, Type):
                 str(pub_time[1][0]) + ":" + str(pub_time[1][1]) + ":" + str(pub_time[1][2]))
 
     Keywords = Keywords.split(",")
-    classifier = '/usr/local/share/stanford-ner/classifiers/english.all.3class.distsim.crf.ser.gz'
-    jar = '/usr/local/share/stanford-ner/stanford-ner.jar'
+    classifier = 'stanford-ner/classifiers/english.all.3class.distsim.crf.ser.gz'
+    jar = 'stanford-ner/stanford-ner.jar'
     st = StanfordNERTagger(classifier,jar,encoding='utf-8')
     sentence = word_tokenize(articleText)
     output = []
@@ -112,19 +122,13 @@ def main(Url, pub_time, Source, Keywords, otherNames, Type):
             if person in otherNames and otherNames[person] in realtypefind:
                 article_people.append(person)
                 totalcountofperson = (keywordtotalcount[person] + keywordtotalcount[otherNames[person]])
-                # print person, "is in the article", (round(((keywordtotalcount[person] + keywordtotalcount[otherNames[person]])/float(totoltypecount)), 4) * 100), "%"
-                # Sqlite_py_practice.main(Url, Source, post_date, dateTime, article.title, str(article.authors), str(keywords_database), article.summary, articleText)
             else:
                 article_people.append(person)
                 totalcountofperson = keywordtotalcount[person]
-                # print person, "is in the article", (round((keywordtotalcount[person]/float(totoltypecount)), 4) * 100), "%"
-                # Sqlite_py_practice.main(Url, Source, post_date, dateTime, article.title, str(article.authors), str(keywords_database), article.summary, articleText)
         else:
             if person in otherNames and otherNames[person] in realtypefind:
                 article_people.append(person)
                 totalcountofperson = keywordtotalcount[person]
-                # print person, "is in the article", (round((keywordtotalcount[person]/float(totoltypecount)), 4) * 100), "%"
-                # Sqlite_py_practice.main(Url, Source, post_date, dateTime, article.title, str(article.authors), str(keywords_database), article.summary, articleText)
 
 
 
@@ -133,13 +137,14 @@ def main(Url, pub_time, Source, Keywords, otherNames, Type):
         article_id = mysql_article_entry.main(Url, Source, post_date, dateTime, article.title, str(article.authors), str(keywords_database), article.summary, articleText)
         mysql_article_person_link.main(article_id, article_people, totalcountofperson, (round((totalcountofperson/float(totoltypecount)), 4) * 100), totoltypecount)
         mysql_article_based_weights.main(article_id, len(articleText), "yes")
+        mysql_social_media_entry.main(article_id, Url)
 
 if __name__ == "__main__":
 
     # some preliminary error checking
 
     if len(sys.argv) != 4:
-        print 'python keywordMatchWeight [Url to article to be weighted] [keywords] [keyword type <PERSON|LOCATION|ORGANIZATION>]'
+        print 'python article_NERT_parser [Url to article to be weighted] [ pub_time ] [ Source ] [ Keywords ] [ otherNames ] [ Type ]'
     elif sys.argv[3] == 'PERSON' or sys.argv[3] == 'LOCATION' or sys.argv[3] == 'ORGANIZATION':
         print main(sys.argv[1], sys.argv[2], sys.argv[3], sys.argv[4], sys.argv[5], sys.argv[6])
     else:

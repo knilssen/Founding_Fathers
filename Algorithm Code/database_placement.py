@@ -6,7 +6,7 @@ Date: 2/25/2017
 
 Usage:
 
-    python database_placement.py
+    python DatabasePlacement.py
 '''
 
 import sys
@@ -44,7 +44,7 @@ def grabber_worker(source_name, source, currentTime, allkeywords, DiffName):
     t = threading.currentThread()
     art = source.main(currentTime)
     for url in art:
-        print (url)
+        # print (url)
         a = threading.Thread(target=article_worker, args=(url, art[url], source_name, allkeywords, DiffName))
         thread.append(a)
         a.start()
@@ -80,10 +80,12 @@ def main():
                 ' daniel hemmert' : ' dan hemmert', ' gregory hughes' : ' greg hughes', ' michael kennedy' : ' mike kennedy',
                 ' bradley last' : ' brad last', ' daniel  mccay' : ' dan mccay', ' michael noel' : ' mike noel', ' edward redd' : ' ed redd',
                 ' daniel thatcher' : ' dan thatcher', ' norman thurston' : ' norm thurston', ' raymond ward' : ' ray ward'}
+    utah_senators_us = [" Orrin Hatch","Mike Lee"]
+    utah_reps_us = [" Rob Bishop","Chris Stewart","Jason Chaffetz","Mia Love"]
     currentTime = []
     urls = {}
 
-    allkeywords = str(Governer) + "," + str(senators) + "," + str(HouseReps)
+    allkeywords = str(Governer) + "," + str(senators) + "," + str(HouseReps) + "," + str(utah_senators_us) + "," + str(utah_reps_us)
     allkeywords = allkeywords.replace("'", "")
     allkeywords = allkeywords.replace("]", "")
     allkeywords = allkeywords.replace("[", "")
@@ -104,7 +106,7 @@ def main():
         threads.append(t)
         t.start()
 
-    # article_NERT_parser.main('http://www.ksl.com/?sid=43580434&nid=148&title=utah-restaurant-associations-ask-governor-to-veto-05-dui-law', allkeywords, DiffName,  "PERSON")
+    # personOfInterestWeightWithInputs.main('http://www.ksl.com/?sid=43580434&nid=148&title=utah-restaurant-associations-ask-governor-to-veto-05-dui-law', allkeywords, DiffName,  "PERSON")
 
 
 
@@ -113,6 +115,6 @@ if __name__ == "__main__":
     # some preliminary error checking
 
     # if len(sys.argv) != 1:
-    #     print 'python database_placement [Url to article to be weighted] [keywords] [keyword type <PERSON|LOCATION|ORGANIZATION>]'
+    #     print 'python keywordMatchWeight [Url to article to be weighted] [keywords] [keyword type <PERSON|LOCATION|ORGANIZATION>]'
     # else:
     main()

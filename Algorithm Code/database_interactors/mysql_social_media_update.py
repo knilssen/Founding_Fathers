@@ -5,9 +5,11 @@
 '''
 
 import sys
+from os.path import dirname, abspath
 import mysql.connector
-import social_shares
 from mysql.connector import errorcode
+sys.path.append(dirname(dirname(abspath(__file__))))
+import Social_Shares
 
 
 def main():
@@ -16,9 +18,9 @@ def main():
 
     config = {
         'user': 'root',
-        'password': 'FF_database',
+        'password': 'password',
         'host': '127.0.0.1',
-        'database': 'ff_database',
+        'database': 'cyp',
         'raise_on_warnings': True,
     }
 
@@ -36,18 +38,20 @@ def main():
 
         cursor = cnx.cursor()
 
-        cursor.execute("SELECT COUNT(*) FROM articles")
+        cursor.execute("SELECT COUNT(*) FROM News_articles")
         data = cursor.fetchall()
         data = data[0]
 
-        for social_media_entry in range(1,data[0] + 1):
+        for social_media_entry in range(23,data[0]):
 
-            cursor.execute(("SELECT url FROM articles WHERE id=%s") % (social_media_entry))
+            cursor.execute(("SELECT url FROM News_articles WHERE id=%s") % (social_media_entry))
+            print social_media_entry
             data = cursor.fetchall()
             data = data[0]
             print data[0]
 
-            social_media = social_shares.main(str(data[0]))
+            social_media = Social_Shares.main(str(data[0]))
+
 
             fb_shares = social_media["Facebook Shares"]
             fb_comments = social_media["Facebook Comments"]
@@ -55,16 +59,16 @@ def main():
             reddit_upvotes = social_media["Reddit Upvotes"]
             pinterest_pins = social_media["Pinterest Pins"]
             linkedin_shares = social_media["LinkedIn Shares"]
-            total = social_media["Greater Total"]
+            # total = social_media["Greater Total"]
 
-            add_social = ("INSERT INTO social_media "
-                   "(article_based_weights_articles_id, facebook_shares, facebook_comments, reddit_shares, reddit_upvotes, pinterest_pins, linkedIn_shares, total_count) "
-                   "VALUES (%s, %s, %s, %s, %s, %s, %s, %s)")
+            update_social = ("UPDATE News_social_media SET "
+                    "facebook_shares=%s, facebook_comments=%s, reddit_shares=%s, reddit_upvotes=%s, pinterest_pins=%s, linkedIn_shares=%s "
+                    "WHERE article_based_weights_articles_id=%s")
 
-            data_social = (social_media_entry, fb_shares, fb_comments, reddit_shares, reddit_upvotes, pinterest_pins, linkedin_shares, total)
+            data_social = (fb_shares, fb_comments, reddit_shares, reddit_upvotes, pinterest_pins, linkedin_shares, social_media_entry)
 
             # Insert new person
-            cursor.execute(add_social, data_social)
+            cursor.execute(update_social, data_social)
 
             # Make sure data is committed to the database
             cnx.commit()

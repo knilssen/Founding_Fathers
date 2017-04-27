@@ -4,47 +4,52 @@ from django.db import models
 # Create your models here.
 class Articles(models.Model):
     id = models.AutoField(primary_key=True)
-    url = models.URLField(max_length = 45)
-    source = models.CharField(max_length=45)
+    url = models.URLField(max_length = 255)
+    source = models.CharField(max_length=255)
     post_date = models.DateTimeField()
     found_date = models.DateTimeField()
-    title = models.CharField(max_length=45)
-    aurthor = models.CharField(max_length=45, blank=True)
-    keywords = models.CharField(max_length=45, blank=True)
-    summary = models.CharField(max_length=45, blank=True)
+    title = models.CharField(max_length=255)
+    author = models.CharField(max_length=255, blank=True)
+    keywords = models.CharField(max_length=255, blank=True)
+    summary = models.TextField(null=True)
     text = models.TextField()
-    top_image = models.URLField(blank=True)
-    video = models.URLField(blank=True)
+    top_image = models.URLField(null=True)
+    video = models.URLField(null=True)
 
 
 class People(models.Model):
     id = models.AutoField(primary_key=True)
     last_name = models.CharField(max_length=45)
     first_name = models.CharField(max_length=45)
+    person_id = models.CharField(max_length=45, null=True)
     party = models.CharField(max_length=45)
     role = models.CharField(max_length=45)
-    legislative_since = models.CharField(max_length=45, blank=True)
-    image = models.URLField(blank=True)
-    biography = models.CharField(max_length=45, blank=True)
-    district = models.CharField(max_length=45, blank=True)
-    counties = models.CharField(max_length=45, blank=True)
-    profession = models.CharField(max_length=255, blank=True)
-    profession_affiliations = models.TextField(blank=True)
-    education = models.CharField(max_length=255, blank=True)
-    home_phone = models.CharField(max_length=45, blank=True)
-    work_phone = models.CharField(max_length=45, blank=True)
-    cell = models.CharField(max_length=45, blank=True)
-    email = models.EmailField(blank=True)
-    social_media = models.CharField(max_length=45,blank=True)
-    legislation_link = models.URLField(blank=True)
-    mailing_address = models.CharField(max_length=45)
-    committies = models.CharField(max_length=45)
-    social_media = models.CharField(max_length=45)
+    legislative_since = models.CharField(max_length=255, null=True)
+    image = models.URLField(null=True)
+    biography = models.CharField(max_length=45, null=True)
+    district = models.CharField(max_length=45, null=True)
+    counties = models.CharField(max_length=255, null=True)
+    profession = models.CharField(max_length=255, null=True)
+    profession_affiliations = models.TextField(null=True)
+    education = models.CharField(max_length=255, null=True)
+    recognitions_and_honors = models.TextField(null=True)
+    home_phone = models.CharField(max_length=45, null=True)
+    work_phone = models.CharField(max_length=45, null=True)
+    cell = models.CharField(max_length=45, null=True)
+    email = models.EmailField(null=True)
+    social_media = models.CharField(max_length=45,null=True)
+    legislation_link = models.URLField(null=True)
+    mailing_address = models.CharField(max_length=255)
+    committies = models.CharField(max_length=45, null=True)
+    social_media = models.CharField(max_length=45, null=True)
 
 class Article_Person(models.Model):
-    weight = models.IntegerField(blank=True)
     articles_id = models.ForeignKey('Articles', on_delete=models.CASCADE)
     people_id = models.ForeignKey('People', on_delete=models.CASCADE)
+    weight = models.IntegerField(null=True)
+    name_mentions = models.IntegerField(default=0, null=True)
+    mention_percentage = models.IntegerField(default=0, null=True)
+    article_total_count_mentions = models.IntegerField(default=0, null=True)
 
 class Bills(models.Model):
     bill_name_id = models.IntegerField(primary_key=True)
@@ -61,10 +66,10 @@ class Bills(models.Model):
     bill_type = models.CharField(max_length=100, choices=bill_type_choices)
     sponser = models.CharField(max_length=45, blank=True)
     floor_sponser = models.CharField(max_length=45, blank=True)
-    substitute_sponser = models.CharField(max_length=45, blank=True)
-    last_action = models.CharField(max_length=45, blank=True)
-    last_location = models.CharField(max_length=45, blank=True)
-    text = models.CharField(max_length=45, blank=True)
+    substitute_sponser = models.CharField(max_length=45, null=True)
+    last_action = models.CharField(max_length=45, null=True)
+    last_location = models.CharField(max_length=45, null=True)
+    text = models.CharField(max_length=45, null=True)
 
 class Bill_Status(models.Model):
     bill_name_id = models.ForeignKey('Bills')
@@ -83,7 +88,7 @@ class Bill_Status(models.Model):
 class Article_Bill(models.Model):
     articles_id = models.ForeignKey('Articles')
     bill_name_id = models.ForeignKey('Bills')
-    weight = models.IntegerField()
+    weight = models.IntegerField(null=True)
 
 class Person_Bill(models.Model):
     people_id = models.ForeignKey('People')
@@ -91,54 +96,44 @@ class Person_Bill(models.Model):
 
 class Location(models.Model):
     idlocations = models.IntegerField(primary_key=True)
-
-class Articles_Bills(models.Model):
-    article_id = models.ForeignKey('Articles')
-    location_id = models.ForeignKey('Location')
-    weight = models.IntegerField(blank=True)
-
-class Article_Based_Weights(models.Model):
-    articles_id = models.ForeignKey('Articles')
-    name_mentions_total = models.CharField(max_length=45, blank=True)
-    place_mention_total = models.CharField(max_length=45, blank=True)
-    length = models.CharField(max_length = 45, blank=True)
-    source_size_ration = models.CharField(max_length=45, blank=True)
-    is_local = models.CharField(max_length=45, blank=True)
-
-class Committies(models.Model):
-    idcommitties = models.AutoField(primary_key=True)
-    committie = models.CharField(max_length=45)
-    overview = models.CharField(max_length=45, blank=True)
-
-class Person_Committies(models.Model):
-    people_id = models.ForeignKey('People')
-    idcommitties = models.ForeignKey('Committies')
-
-class Person_Weight(models.Model):
-    person_article_id = models.ForeignKey('Articles')
-    people_id = models.ForeignKey('People')
-    name_mentions = models.CharField(max_length=45, blank=True)
-    mention_percentage = models.CharField(max_length=45, blank=True)
+    location = models.CharField(max_length= 45, blank=True)
 
 class Article_Location(models.Model):
     articles_id = models.ForeignKey('Articles')
     idlocaiton = models.ForeignKey('Location')
-    weight = models.IntegerField(blank=True)
+    weight = models.IntegerField(null=True)
+    location_mentions = models.IntegerField(default=0, null=True)
+    mention_percentage = models.IntegerField(default=0, null=True)
+    place_mention_total = models.IntegerField(default=0, null=True)
 
-class Location_Weight(models.Model):
+class Article_Based_Weights(models.Model):
     articles_id = models.ForeignKey('Articles')
-    idlocations = models.ForeignKey('Location')
-    location_mentions = models.CharField(max_length=45, blank=True)
-    mention_percentage = models.CharField(max_length=45, blank=True)
+    length = models.IntegerField(null=True)
+    source_size_ration = models.IntegerField(null=True)
+    is_local = models.CharField(max_length=45, null=True)
+
+class Committies(models.Model):
+    idcommitties = models.AutoField(primary_key=True)
+    committie = models.CharField(max_length=255)
+    overview = models.TextField(null=True)
+
+class Person_Committies(models.Model):
+    people_id = models.ForeignKey('People')
+    idcommitties = models.ForeignKey('Committies')
+    position = models.CharField(max_length= 45, null=True)
 
 class Bill_Weight(models.Model):
     articles_id = models.ForeignKey('Articles')
     bill_name_id = models.ForeignKey('Bills')
-    location_mentions = models.CharField(max_length=45, blank=True)
-    mention_percentage = models.CharField(max_length=45, blank=True)
+    location_mentions = models.IntegerField(null=True)
+    mention_percentage = models.IntegerField(null=True)
 
 class Social_Media(models.Model):
     articles_id = models.ForeignKey('Articles')
-    facebook_share = models.CharField(max_length=45, blank=True)
-    reddit = models.CharField(max_length=45, blank=True)
-    total_count = models.CharField(max_length=45, blank=True)
+    facebook_shares = models.IntegerField(default=0, null=True)
+    facebook_comments = models.IntegerField(default=0, null=True)
+    reddit_shares = models.IntegerField(default=0, null=True)
+    reddit_upvotes = models.IntegerField(default=0, null=True)
+    pinterest_pins = models.IntegerField(default=0, null=True)
+    linkedin_shares = models.IntegerField(default=0, null=True)
+    total_count = models.IntegerField(default=0, null=True)
