@@ -13,6 +13,10 @@ def index(request):
 def aboutUs (request):
     return render(request, 'News/about.html')
 
+def news_scroll(request):
+    return render(request, "News/news_scroll.html")
+
+
 #def login(request):
     # c = {}
     # c.update(csrf(request))

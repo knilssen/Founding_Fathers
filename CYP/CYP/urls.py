@@ -21,6 +21,7 @@ urlpatterns = [
     url(r'^admin/', admin.site.urls),
     url(r'^$', views.index, name = 'index'),
     url(r'^aboutUS/$', views.aboutUs, name = 'About'),
+    url(r'^News/news_scroll.html$', views.news_scroll, name = 'news_scroll')
     # url(r'^login/$', views.login, name = 'login'),
     #url(r'^accounts/login$', views.login, name = 'login'),
     #url(r'^accounts/auth$', views.auth_view, name = 'auth_view'),
