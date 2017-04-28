@@ -46,7 +46,7 @@ class People(models.Model):
 class Article_Person(models.Model):
     articles_id = models.ForeignKey('Articles', on_delete=models.CASCADE)
     people_id = models.ForeignKey('People', on_delete=models.CASCADE)
-    weight = models.IntegerField(null=True)
+    weight = models.DecimalField(null=True, max_digits=19, decimal_places=4)
     name_mentions = models.IntegerField(default=0, null=True)
     mention_percentage = models.IntegerField(default=0, null=True)
     article_total_count_mentions = models.IntegerField(default=0, null=True)
