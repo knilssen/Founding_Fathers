@@ -39,6 +39,14 @@
 		border-bottom: #C0C0C0 5px solid;
 		}
 
+.name
+		{
+		color: #666666;
+		font: normal 12px "Droid Sans", arial, sans-serif;
+		text-align: center;
+		padding: 5px 5px 5px 5px;
+		}
+
 
 
 
