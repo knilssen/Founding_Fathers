@@ -3,8 +3,6 @@
 <head>
 <meta charset="utf-8">
 
-<!---> Add code to pull from news algorithm below, 9 different feeds<--->
-
 <title>Recent News</title>
 
 <base target="_parent">
@@ -22,135 +20,15 @@
 
 <!-- This is where content starts -->
 
-
-
-
+{% for article in scrolls %}
 <span class="scroll-title-if">
-News Source 1<br>
+<a href={{article.url}}>{{article.title}}</a><br>
 </span>
 
-****************NEWS PULL
-
-<a href="News/home.html">Sample Link</a>.
+{{article.source}}
 
 <br><br>
-
-
-
-
-
-
-<span class="scroll-title-if">
-News Source 2<br>
-</span>
-
-****************NEWS PULL
-
-<a href="News/home.html">Sample Link</a>.
-
-<br><br>
-
-
-
-
-
-
-<span class="scroll-title-if">
-News Source 3<br>
-</span>
-
-****************NEWS PULL
-
-<a href="News/home.html">Sample Link</a>.
-
-<br><br>
-
-
-
-
-
-
-<span class="scroll-title-if">
-News Source 4<br>
-</span>
-
-****************NEWS PULL
-
-<a href="News/home.html">Sample Link</a>.
-
-<br><br>
-
-
-
-
-
-
-<span class="scroll-title-if">
-News Source 5<br>
-</span>
-
-****************NEWS PULL
-
-<a href="News/home.html">Sample Link</a>.
-
-<br><br>
-
-
-
-
-
-
-<span class="scroll-title-if">
-News Source 6<br>
-</span>
-
-****************NEWS PULL
-
-<a href="News/home.html">Sample Link</a>.
-
-<br><br>
-
-
-
-
-
-<span class="scroll-title-if">
-News Source 7<br>
-</span>
-
-****************NEWS PULL
-
-<a href="News/home.html">Sample Link</a>.
-
-<br><br>
-
-
-
-
-
-<span class="scroll-title-if">
-News Source 8<br>
-</span>
-
-****************NEWS PULL
-
-<a href="News/home.html">Sample Link</a>.
-
-<br><br>
-
-
-
-
-
-<span class="scroll-title-if">
-News Source 9<br>
-</span>
-
-****************NEWS PULL
-
-<a href="News/home.html">Sample Link</a>.
-
-</br>
+{% endfor %}
 
 
 <!-- END SCROLLER CONTENT -->

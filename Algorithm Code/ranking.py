@@ -23,6 +23,7 @@ import sys
 import math
 import mysql.connector
 import datetime as dt
+from datetime import timedelta
 from mysql.connector import errorcode
 
 def main():
@@ -53,13 +54,14 @@ def main():
         # print article_person_link_data
         for link in article_person_link_data:
             total_shares = 0
-            cursor.execute(("SELECT * FROM News_article_based_weights WHERE articles_id_id = '%s'") % (link[0]))
+            print link
+            cursor.execute(("SELECT * FROM News_article_based_weights WHERE articles_id_id = '%s'") % (link[2]))
             article_based_weights_data = cursor.fetchall()[0]
-            cursor.execute(("SELECT * FROM News_social_media WHERE articles_id_id = '%s'") % (link[0]))
+            cursor.execute(("SELECT * FROM News_social_media WHERE articles_id_id = '%s'") % (link[2]))
             social_media_data = (cursor.fetchall())[0]
-            cursor.execute(("SELECT post_date, url, source, keywords, summary FROM News_articles WHERE id = '%s'") % (link[0]))
+            cursor.execute(("SELECT post_date, url, source, keywords, summary FROM News_articles WHERE id = '%s'") % (link[2]))
             articles_data = (cursor.fetchall())[0]
-            cursor.execute(("SELECT first_name, last_name FROM News_people WHERE id = '%s'") % (link[2]))
+            cursor.execute(("SELECT first_name, last_name FROM News_people WHERE id = '%s'") % (link[3]))
             # print cursor.fetchall()[0]
             name_data = (cursor.fetchall())[0]
 
@@ -71,9 +73,10 @@ def main():
                 total_shares = total_shares + link[4] + 1
             if total_shares == 1:
                 total_shares = total_shares + 1
-            if articles_data[2] == "Utah Policy":
+            # print dt.datetime.now()
+            if articles_data[2] == "Utah Policy" and articles_data[0] < dt.datetime.now() - timedelta(days=2):
                 # print "Utah Policy"
-                total_shares = total_shares * total_shares * total_shares * total_shares * total_shares
+                total_shares = total_shares * total_shares * total_shares
 
             time_diff_seconds = (dt.datetime.now()-articles_data[0]).total_seconds()
             time_diff_seconds = ((time_diff_seconds / 60) / 60)
@@ -91,11 +94,13 @@ def main():
                 score = ((total_shares * p) / math.pow((time_diff_seconds+2), 1.6))
 
 
+            print score
+
             add_score = ("UPDATE News_article_person SET "
                    "weight=%s "
                    "WHERE articles_id_id=%s AND people_id_id=%s")
 
-            data_score = (score, link[0], link[1])
+            data_score = (score, link[2], link[3])
 
             # Insert new person
             cursor.execute(add_score, data_score)
