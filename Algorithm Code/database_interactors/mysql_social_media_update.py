@@ -63,7 +63,7 @@ def main():
 
             update_social = ("UPDATE News_social_media SET "
                     "facebook_shares=%s, facebook_comments=%s, reddit_shares=%s, reddit_upvotes=%s, pinterest_pins=%s, linkedIn_shares=%s "
-                    "WHERE article_based_weights_articles_id=%s")
+                    "WHERE articles_id_id=%s")
 
             data_social = (fb_shares, fb_comments, reddit_shares, reddit_upvotes, pinterest_pins, linkedin_shares, social_media_entry)
 
