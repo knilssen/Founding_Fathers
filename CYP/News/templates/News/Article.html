@@ -1,7 +1,9 @@
-{% extends "CYP/header.html" %}
-
+<html>
+<a href="{% url 'index' %}">Back</a>
 {% block content %}
+
   <h3>{{article.title}}</h3>
   <h6>on {{article.date}}</h6>
   {{article.text|linebreaks}}
 {% endblock %}
+</html>
