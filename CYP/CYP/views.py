@@ -19,7 +19,7 @@ def index(request):
             for stuff in scrolls[4]:
                 ats += stuff.encode("utf-8")
             ats = ats.strip("[]")
-        return render_to_response('News/article.html', {'url': scrolls[0], 'source': scrolls[1], 'post_date': scrolls[2], 'title': scrolls[3], 'author': ats, 'texts': scrolls[5]})
+        return render_to_response('News/Article.html', {'url': scrolls[0], 'source': scrolls[1], 'post_date': scrolls[2], 'title': scrolls[3], 'author': ats, 'texts': scrolls[5]})
     else:
         return render(request, 'News/home.html')
 
