@@ -17,11 +17,6 @@ from article_grabbers import grabber_ksl
 from article_grabbers import grabber_deseret_news
 from article_grabbers import grabber_fox13
 from article_grabbers import grabber_slt
-from article_grabbers import grabber_utah_policy
-from article_grabbers import grabber_upc_legislative
-from article_grabbers import grabber_upc_judicial
-from article_grabbers import grabber_upc_flagged_bill_status
-from article_grabbers import grabber_upc_executive
 import multiprocessing
 
 maxthreads = multiprocessing.cpu_count()
@@ -95,10 +90,8 @@ def main():
 
     # print currentTime
 
-    grabberlist = [grabber_ksl, grabber_deseret_news, grabber_fox13, grabber_slt, grabber_utah_policy, grabber_upc_legislative,
-                    grabber_upc_judicial, grabber_upc_flagged_bill_status, grabber_upc_executive]
-    source_name = ["KSL", "Deseret News", "Fox 13", "Salt Lake Tribune", "Utah Policy", "Utah Political Capitol Legislative",
-                    "Utah Political Capitol J", "Utah Political Capitol Flagged Bill Status", "Utah Political Capitol Executive"]
+    grabberlist = [grabber_ksl, grabber_deseret_news, grabber_fox13, grabber_slt]
+    source_name = ["KSL", "Deseret News", "Fox 13", "Salt Lake Tribune"]
 
 
     for i in range(len(grabberlist)):
