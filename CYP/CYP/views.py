@@ -25,7 +25,7 @@ def news_scroll_one(request):
         else:
             article_pool_size = 9
         for x in range(0,article_pool_size):
-            scroll[x].update({'id': ("/" + scrolls[x][0]), 'url': scrolls[x][1], 'source': scrolls[x][2], 'post_date': scrolls[x][3], 'title': scrolls[x][4]})
+            scroll[x].update({'id': ("/" + str(scrolls[x][0])), 'url': scrolls[x][1], 'source': scrolls[x][2], 'post_date': scrolls[x][3], 'title': scrolls[x][4]})
     return render_to_response('News/news_scroll_one.html', {'scrolls': scroll})
 
 def news_scroll_two(request):
