@@ -4,6 +4,7 @@ from django.contrib import auth
 from django.views.generic import View
 from .forms import UserForm
 from django.db import connection
+
 # from django.core.context_processors import csrf
 
 
@@ -16,7 +17,7 @@ def aboutUs (request):
 
 def news_scroll_one(request):
     with connection.cursor() as cursor:
-        cursor.execute("SELECT url, source, post_date, title FROM cyp.News_articles JOIN cyp.News_article_person on cyp.News_articles.id = cyp.News_article_person.articles_id_id WHERE cyp.News_article_person.people_id_id = 110 ORDER BY cyp.News_article_person.weight DESC")
+        cursor.execute("SELECT News_articles.id, url, source, post_date, title FROM cyp.News_articles JOIN cyp.News_article_person on cyp.News_articles.id = cyp.News_article_person.articles_id_id WHERE cyp.News_article_person.people_id_id = 110 ORDER BY cyp.News_article_person.weight DESC")
         scrolls = cursor.fetchall()
         scroll=[{},{},{},{},{},{},{},{},{}]
         if len(scrolls) < 9:
@@ -24,7 +25,7 @@ def news_scroll_one(request):
         else:
             article_pool_size = 9
         for x in range(0,article_pool_size):
-            scroll[x].update({'url': scrolls[x][0], 'source': scrolls[x][1], 'post_date': scrolls[x][2], 'title': scrolls[x][3], 'id':})
+            scroll[x].update({'id': scrolls[x][0], 'url': scrolls[x][1], 'source': scrolls[x][2], 'post_date': scrolls[x][3], 'title': scrolls[x][4]})
     return render_to_response('News/news_scroll_one.html', {'scrolls': scroll})
 
 def news_scroll_two(request):

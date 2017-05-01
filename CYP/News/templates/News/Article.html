@@ -1,5 +1,7 @@
 {% extends "CYP/header.html" %}
 
 {% block content %}
-  <h3></h3>
+  <h3>{{article.title}}</h3>
+  <h6>on {{article.date}}</h6>
+  {{article.text|linebreaks}}
 {% endblock %}

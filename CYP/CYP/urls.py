@@ -17,6 +17,8 @@ from django.conf.urls import url, include
 from django.views.generic import DetailView
 from django.contrib import admin
 from . import views
+from News import models
+
 
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
@@ -25,7 +27,7 @@ urlpatterns = [
     url(r'^News/news_scroll_one.html$', views.news_scroll_one, name = 'news_scroll_one'),
     url(r'^News/news_scroll_two.html$', views.news_scroll_two, name = 'news_scroll_two'),
     url(r'^News/news_scroll_three.html$', views.news_scroll_three, name = 'news_scroll_three'),
-    url(r'^(?P<pk>\d+)$', DetailView.as_view(model=Articles, template_name='News/Article.html'))
+    url(r'^(?P<pk>\d+)$', DetailView.as_view(model=models.Articles, template_name='News/Article.html'))
     # url(r'^login/$', views.login, name = 'login'),
     #url(r'^accounts/login$', views.login, name = 'login'),
     #url(r'^accounts/auth$', views.auth_view, name = 'auth_view'),
