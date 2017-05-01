@@ -27,7 +27,8 @@ urlpatterns = [
     url(r'^News/news_scroll_one.html$', views.news_scroll_one, name = 'news_scroll_one'),
     url(r'^News/news_scroll_two.html$', views.news_scroll_two, name = 'news_scroll_two'),
     url(r'^News/news_scroll_three.html$', views.news_scroll_three, name = 'news_scroll_three'),
-    url(r'^(?P<pk>\d+)$', DetailView.as_view(model=models.Articles, template_name='News/Article.html'))
+    # url(r'^(?P<pk>\d+)$', views.article, name = 'Article'),
+    # url(r'^(?P<pk>\d+)$', DetailView.as_view(model=models.Articles, template_name='News/Article.html'))
     # url(r'^login/$', views.login, name = 'login'),
     #url(r'^accounts/login$', views.login, name = 'login'),
     #url(r'^accounts/auth$', views.auth_view, name = 'auth_view'),

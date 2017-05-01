@@ -1,9 +1,9 @@
 <html>
 <a href="{% url 'index' %}">Back</a>
 {% block content %}
-
-  <h3>{{article.title}}</h3>
-  <h6>on {{article.date}}</h6>
-  {{article.text|linebreaks}}
+  <h3>{{title}}</h3>
+  <h6>on {{post_date}}</h6>
+  <h6>Author: {{author}}</h6>
+  {{texts|linebreaks}}
 {% endblock %}
 </html>
