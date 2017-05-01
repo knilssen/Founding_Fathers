@@ -94,6 +94,7 @@ def main():
                 score = ((total_shares * p) / math.pow((time_diff_seconds+2), 1.6))
 
 
+            score = float("{0:.2f}".format(score))
             print score
 
             add_score = ("UPDATE News_article_person SET "

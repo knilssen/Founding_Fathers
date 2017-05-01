@@ -1,9 +1,3 @@
-'''
-
-
-
-'''
-
 import sys
 from os.path import dirname, abspath
 import mysql.connector
@@ -42,7 +36,7 @@ def main():
         data = cursor.fetchall()
         data = data[0]
 
-        for social_media_entry in range(1,):
+        for social_media_entry in range(1,data[0]):
 
             cursor.execute(("SELECT url FROM News_articles WHERE id=%s") % (social_media_entry))
             print social_media_entry
