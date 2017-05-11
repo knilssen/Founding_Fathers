@@ -16,6 +16,7 @@ import sys
 import newspaper
 import urllib
 import date_subtracter
+import time
 from newspaper import Article
 from bs4 import BeautifulSoup
 
@@ -58,14 +59,17 @@ def main(current_time):
         if dateDiff[0] == 1:
             tempListud[url] = dateTimeForm
 
-    # for article in tempListud:
-    #     print article, tempListud[article]
+    for article in tempListud:
+        print article, tempListud[article]
 
     return tempListud
 
 if __name__ == "__main__":
 
-    if len(sys.argv) != 2:
+    if len(sys.argv) != 1:
         print "Usage: python grabber_fox13.py [ current_time ]"
     else:
-        main(sys.argv[1])
+        currentTime = []
+        currentTime.append((time.strftime("%x").replace("/", " ")).split())
+        currentTime.append((time.strftime("%X").replace(":", " ")).split())
+        main(currentTime)

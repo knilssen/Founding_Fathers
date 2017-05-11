@@ -1,0 +1,48 @@
+
+header {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    overflow: hidden
+}
+header img {
+    flex-shrink: 0;
+    min-width: 50%;
+    min-height: 50%
+}
+
+html,body {
+  height:100%
+}
+
+h1 {
+    text-align: center;
+}
+
+ul {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+    background-color: #1D305B;
+}
+
+li {
+    float: left;
+}
+
+li a {
+    display: block;
+    color: white;
+    text-align: center;
+    padding: 14px 16px;
+    text-decoration: none;
+}
+
+li a:hover:not(.active) {
+    background-color: #CC5222;
+}
+
+.active {
+    background-color: #CC5222;
+}

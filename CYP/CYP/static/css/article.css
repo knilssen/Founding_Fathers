@@ -1,0 +1,9 @@
+.text_container {
+  width: 80%;
+  
+}
+
+.text {
+  display: inline-block;
+  font: normal 18px "Droid Sans", arial, sans-serif;
+}

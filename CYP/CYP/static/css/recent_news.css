@@ -1,0 +1,14 @@
+.well {
+  text-align: center;
+  height: 780px;
+  width: 100%;
+  border: none;
+  color: inherit;
+}
+
+iframe {
+  display: inline-block;
+  height: 100%;
+  width: 40%;
+  border: none;
+}

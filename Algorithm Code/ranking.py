@@ -55,13 +55,13 @@ def main():
         for link in article_person_link_data:
             total_shares = 0
             print link
-            cursor.execute(("SELECT * FROM News_article_based_weights WHERE articles_id_id = '%s'") % (link[2]))
+            cursor.execute(("SELECT * FROM News_article_based_weights WHERE articles_id_id = '%s'") % (link[1]))
             article_based_weights_data = cursor.fetchall()[0]
-            cursor.execute(("SELECT * FROM News_social_media WHERE articles_id_id = '%s'") % (link[2]))
+            cursor.execute(("SELECT * FROM News_social_media WHERE articles_id_id = '%s'") % (link[1]))
             social_media_data = (cursor.fetchall())[0]
-            cursor.execute(("SELECT post_date, url, source, keywords, summary FROM News_articles WHERE id = '%s'") % (link[2]))
+            cursor.execute(("SELECT post_date, url, source, keywords, summary FROM News_articles WHERE id = '%s'") % (link[1]))
             articles_data = (cursor.fetchall())[0]
-            cursor.execute(("SELECT first_name, last_name FROM News_people WHERE id = '%s'") % (link[3]))
+            cursor.execute(("SELECT first_name, last_name FROM News_people WHERE id = '%s'") % (link[2]))
             # print cursor.fetchall()[0]
             name_data = (cursor.fetchall())[0]
 
@@ -101,7 +101,7 @@ def main():
                    "weight=%s "
                    "WHERE articles_id_id=%s AND people_id_id=%s")
 
-            data_score = (score, link[2], link[3])
+            data_score = (score, link[1], link[2])
 
             # Insert new person
             cursor.execute(add_score, data_score)

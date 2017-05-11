@@ -26,6 +26,87 @@ def index(request):
 def aboutUs (request):
     return render(request, 'News/about.html')
 
+def republican(request):
+    if (request.GET.get('id')):
+        id_num = request.GET.get('id')
+        with connection.cursor() as cursor:
+            cursor.execute(("SELECT url, source, post_date, title, author, text FROM cyp.News_articles WHERE cyp.News_articles.id = '%s'") % (int(id_num)))
+            scrolls = cursor.fetchall()[0]
+            ats = ""
+            for stuff in scrolls[4]:
+                ats += stuff.encode("utf-8")
+            ats = ats.strip("[]")
+        return render_to_response('News/Article.html', {'url': scrolls[0], 'source': scrolls[1], 'post_date': scrolls[2], 'title': scrolls[3], 'author': ats, 'texts': scrolls[5]})
+    else:
+        return render(request, 'News/recent_news.html')
+
+def republican_scroll(request):
+    with connection.cursor() as cursor:
+        cursor.execute("SELECT News_articles.id, url, source, post_date, title FROM cyp.News_articles JOIN cyp.News_article_person on cyp.News_articles.id = cyp.News_article_person.articles_id_id JOIN cyp.News_people on cyp.news_people.id = cyp.News_article_person.people_id_id WHERE cyp.News_people.party = 'republican' ORDER BY cyp.News_articles.post_date DESC")
+        scrolls = cursor.fetchall()
+        scroll=[{},{},{},{},{},{},{},{},{}]
+        if len(scrolls) < 9:
+            article_pool_size = len(scrolls)
+        else:
+            article_pool_size = 9
+        for x in range(0,article_pool_size):
+            scroll[x].update({'id': ("http://127.0.0.1:8000/?id=" + str(scrolls[x][0])), 'url': scrolls[x][1], 'source': scrolls[x][2], 'post_date': scrolls[x][3], 'title': scrolls[x][4]})
+    return render_to_response('News/news_scroll.html', {'scrolls': scroll})
+
+def democrat(request):
+    if (request.GET.get('id')):
+        id_num = request.GET.get('id')
+        with connection.cursor() as cursor:
+            cursor.execute(("SELECT url, source, post_date, title, author, text FROM cyp.News_articles WHERE cyp.News_articles.id = '%s'") % (int(id_num)))
+            scrolls = cursor.fetchall()[0]
+            ats = ""
+            for stuff in scrolls[4]:
+                ats += stuff.encode("utf-8")
+            ats = ats.strip("[]")
+        return render_to_response('News/Article.html', {'url': scrolls[0], 'source': scrolls[1], 'post_date': scrolls[2], 'title': scrolls[3], 'author': ats, 'texts': scrolls[5]})
+    else:
+        return render(request, 'News/recent_news.html')
+
+def democrat_scroll(request):
+    with connection.cursor() as cursor:
+        cursor.execute("SELECT News_articles.id, url, source, post_date, title FROM cyp.News_articles JOIN cyp.News_article_person on cyp.News_articles.id = cyp.News_article_person.articles_id_id JOIN cyp.News_people on cyp.news_people.id = cyp.News_article_person.people_id_id WHERE cyp.News_people.party = 'democrat' ORDER BY cyp.News_articles.post_date DESC")
+        scrolls = cursor.fetchall()
+        scroll=[{},{},{},{},{},{},{},{},{}]
+        if len(scrolls) < 9:
+            article_pool_size = len(scrolls)
+        else:
+            article_pool_size = 9
+        for x in range(0,article_pool_size):
+            scroll[x].update({'id': ("http://127.0.0.1:8000/?id=" + str(scrolls[x][0])), 'url': scrolls[x][1], 'source': scrolls[x][2], 'post_date': scrolls[x][3], 'title': scrolls[x][4]})
+    return render_to_response('News/news_scroll.html', {'scrolls': scroll})
+
+def recent_news(request):
+    if (request.GET.get('id')):
+        id_num = request.GET.get('id')
+        with connection.cursor() as cursor:
+            cursor.execute(("SELECT url, source, post_date, title, author, text FROM cyp.News_articles WHERE cyp.News_articles.id = '%s'") % (int(id_num)))
+            scrolls = cursor.fetchall()[0]
+            ats = ""
+            for stuff in scrolls[4]:
+                ats += stuff.encode("utf-8")
+            ats = ats.strip("[]")
+        return render_to_response('News/Article.html', {'url': scrolls[0], 'source': scrolls[1], 'post_date': scrolls[2], 'title': scrolls[3], 'author': ats, 'texts': scrolls[5]})
+    else:
+        return render(request, 'News/recent_news.html')
+
+def news_scroll(request):
+    with connection.cursor() as cursor:
+        cursor.execute("SELECT News_articles.id, url, source, post_date, title FROM cyp.News_articles JOIN cyp.News_article_person on cyp.News_articles.id = cyp.News_article_person.articles_id_id  ORDER BY cyp.News_articles.post_date DESC")
+        scrolls = cursor.fetchall()
+        scroll=[{},{},{},{},{},{},{},{},{}]
+        if len(scrolls) < 9:
+            article_pool_size = len(scrolls)
+        else:
+            article_pool_size = 9
+        for x in range(0,article_pool_size):
+            scroll[x].update({'id': ("http://127.0.0.1:8000/?id=" + str(scrolls[x][0])), 'url': scrolls[x][1], 'source': scrolls[x][2], 'post_date': scrolls[x][3], 'title': scrolls[x][4]})
+    return render_to_response('News/news_scroll.html', {'scrolls': scroll})
+
 def news_scroll_one(request):
     with connection.cursor() as cursor:
         cursor.execute("SELECT News_articles.id, url, source, post_date, title FROM cyp.News_articles JOIN cyp.News_article_person on cyp.News_articles.id = cyp.News_article_person.articles_id_id WHERE cyp.News_article_person.people_id_id = 110 ORDER BY cyp.News_article_person.weight DESC")

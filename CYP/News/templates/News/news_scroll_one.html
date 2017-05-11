@@ -1,4 +1,5 @@
 <!doctype html>
+{% load staticfiles %}
 <html lang="en">
 <head>
 <meta charset="utf-8">
@@ -7,11 +8,12 @@
 
 <base target="_parent">
 
-<link rel="stylesheet" href="news_scroll.css" type="text/css">
+<link rel="stylesheet" href="{% static 'css/news_scroll.css' %}" type="text/css">
 
 </head>
 
 <span class="name">Jason Chaffetz</span>
+
 
 <body class="news-scroll" onMouseover="scrollspeed=0" onMouseout="scrollspeed=current" OnLoad="NewsScrollStart();">
 
@@ -19,6 +21,7 @@
 <!-- Start News Feed -->
 <div id="NewsDiv">
 <div class="scroll-text-if">
+<br>
 
 <!-- This is where content starts -->
 
@@ -46,7 +49,7 @@
 
 <!-- YOU DO NOT NEED TO EDIT BELOW THIS LINE -->
 
-<script type="text/javascript">
+<!-- <script type="text/javascript">
 
 
 var startdelay 		= 2; 		// START SCROLLING DELAY IN SECONDS
@@ -89,7 +92,7 @@ setTimeout("ScrollNewsDiv()",speedjump)
 }}
 
 
-</script>
+</script> -->
 
 
 </body>

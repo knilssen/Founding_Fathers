@@ -13,6 +13,7 @@ import sys
 import article_NERT_parser
 import time
 import threading
+from threading import current_thread
 from article_grabbers import grabber_ksl
 from article_grabbers import grabber_deseret_news
 from article_grabbers import grabber_fox13
@@ -24,25 +25,39 @@ print maxthreads
 sema = threading.Semaphore(value=maxthreads)
 thread = list()
 threads = list()
+threadErrors = []
+
+def do_something_with_exception(source):
+    exc_type, exc_value = sys.exc_info()[:2]
+    print 'Handling %s exception with message "%s" in %s' % \
+        (exc_type.__name__, source, threading.current_thread().name)
+
 
 def article_worker(article, pub_time, source, allkeywords, DiffName):
     # thread worker function
     sema.acquire()
     t = threading.currentThread()
-    article_NERT_parser.main(article, pub_time, source, allkeywords, DiffName,  "PERSON")
+    print "hi"
+    # article_NERT_parser.main(article, pub_time, source, allkeywords, DiffName,  "PERSON")
     sema.release()
 
-
-def grabber_worker(source_name, source, currentTime, allkeywords, DiffName):
-    # thread worker function
-    sema.acquire()
-    t = threading.currentThread()
+def article_grabbing(source_name, source, currentTime, allkeywords, DiffName):
     art = source.main(currentTime)
     for url in art:
         # print (url)
         a = threading.Thread(target=article_worker, args=(url, art[url], source_name, allkeywords, DiffName))
         thread.append(a)
         a.start()
+
+def grabber_worker(source_name, source, currentTime, allkeywords, DiffName):
+    # thread worker function
+    sema.acquire()
+    t = threading.currentThread()
+    try:
+        article_grabbing(source_name, source, currentTime, allkeywords, DiffName)
+    except Exception, e:
+        do_something_with_exception()
+
     sema.release()
 
 
@@ -98,6 +113,10 @@ def main():
         t = threading.Thread(target=grabber_worker, args=(source_name[i], grabberlist[i], currentTime, allkeywords, DiffName))
         threads.append(t)
         t.start()
+
+    if len(threadErrors) > 0: #check if there are any errors
+        for e in threadErrors:
+            print(threadErrors[e][0]+' occurred in thread grabbing articles from: '+threadErrors[e][1])
 
     # personOfInterestWeightWithInputs.main('http://www.ksl.com/?sid=43580434&nid=148&title=utah-restaurant-associations-ask-governor-to-veto-05-dui-law', allkeywords, DiffName,  "PERSON")
 

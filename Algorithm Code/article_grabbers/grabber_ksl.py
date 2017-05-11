@@ -25,19 +25,20 @@ def main(current_time):
     # print "\n"
     # print "KSL"
     # print "\n"
+
     r = urllib.urlopen('http://www.ksl.com/?nid=599').read()
+    prefix = "https://www.ksl.com/"
     soup = BeautifulSoup(r)
-    letters = soup.find_all("figure", class_="image_box")
+    letters = soup.find_all("div", class_="headline")
     publishDate = soup.find_all("span", class_="short")
     tempList = []
     tempListud = {}
-    inc = 0
-    prefix = "https://www.ksl.com/"
+    article_step = 0
     articleTime = current_time[:]
-    for dates in publishDate:
+    for letter in letters:
+        url = prefix + letter.a["href"]
+        dates = publishDate[article_step].text
         dateTimeForm = [["0", "0", "0"],["0", "0", "0"]]
-        dates = dates.encode('utf-8')
-        dates = dates.strip('<span class="short"></')
         dates = dates.replace("-", " ")
         dates = dates.replace(":", " ")
         dates = dates.split()
@@ -52,13 +53,11 @@ def main(current_time):
         dateTimeForm[1][0] = dates[2]
         dateTimeForm[1][1] = dates[3]
         dateTimeForm[1][2] = articleTime[1][2][:]
-        tempList.append(dateTimeForm)
-    for letter in letters:
-        # print tempList[inc], articleTime
-        dateDiff = date_subtracter.main(articleTime,tempList[inc])
+        dateDiff = date_subtracter.main(articleTime,dateTimeForm)
         if dateDiff[0] == 1:
-            tempListud[(prefix + letters[inc].a["href"]).rpartition('&')[0]] = tempList[inc]
-        inc = inc + 1
+                tempListud[url] = dateTimeForm
+
+        article_step = article_step + 1
 
     # for article in tempListud:
     #     print article, tempListud[article]
