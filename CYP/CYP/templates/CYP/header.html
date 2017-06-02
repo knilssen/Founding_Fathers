@@ -8,7 +8,7 @@
 
 <head>
 	<link rel="stylesheet" href="{% static 'css/header.css' %}" type="text/css">
-<p></P>
+
 <!-- <img src="{% static 'images/ffLogo.png' %}" class="responsive-img" align="middle" style='max-height:150px;' alt="face"> -->
 	<meta charset="utf-8" />
 
@@ -25,8 +25,6 @@
 
 
 </head>
-<p></p>
-
 <!-- /* CYP Nav Bar */ -->
 
 
@@ -41,37 +39,8 @@
 	  <li><a href=" {% url 'About' %}">About</a></li>
 	</ul>
 <body class="body" style="background-color:#f6f6f6">
-	<div class="container-fluid" style="min-height:95%; ">
-		<div class="row">
-			  <div class="col-sm-2">
-				  <center>
-					<!--<img src="{% static 'img/profile.jpg' %}" class="responsive-img" style='max-height:100px;' alt="face">-->
-				  </center>
-			  </div>
-			  <div class="col-sm-10">
-
-				  <center>
-				  <!-- <h3>Choose Your Politics</h3> -->
-				  </center>
-			  </div>
-		</div><hr>
-
-		<div class="row">
-		  <div class="col-sm-2">
-
-		   <!-- Great, til you resize. -->
-			<!--<div class="well bs-sidebar affix" id="sidebar" style="background-color:#fff">-->
-			<!-- <div class="well bs-sidebar" id="sidebar" style="background-color:#fff">
-			  <ul class="nav nav-pills nav-stacked">
-				<li><a href='/'>Home</a></li> -->
-				<!--<li><a href='/blog/'>Blog</a></li>
-				<li><a href='/contact/'>Contact</a></li>-->
-			  </ul>
-			</div> <!--well bs-sidebar affix-->
-		  </div> <!--col-sm-2-->
-		  <div class="col-sm-10">
-
-			<div class='container-fluid'>
+	<div class="container-fluid" style="min-height:90%; ">
+		  
 			   {% block content %}
 			   {% endblock %}
 			</div>

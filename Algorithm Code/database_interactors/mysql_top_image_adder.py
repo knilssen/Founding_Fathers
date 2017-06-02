@@ -12,10 +12,12 @@ Usage:
 '''
 
 import sys
+import newspaper
 import mysql.connector
 from mysql.connector import errorcode
+from newspaper import Article
 
-def main(url, source, post_date, found_date, title, author, keywords, summary, text, top_image):
+def main():
 
     config = {
         'user': 'root',
@@ -39,20 +41,30 @@ def main(url, source, post_date, found_date, title, author, keywords, summary, t
 
         cursor = cnx.cursor()
 
-        add_article = ("INSERT INTO News_articles "
-               "(url, source, post_date, found_date, title, author, keywords, summary, text, top_image) "
-               "VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s)")
+        cursor.execute("SELECT url FROM News_articles")
+        data = cursor.fetchall()
+        data = data
 
-        data_article = (url, source, post_date, found_date, title, author, keywords, summary, text, top_image)
+        for Url in data:
+            Url = Url[0]
+            article = Article(Url)
+            article.download()
+            article.parse()
+            top_image = article.top_image
+            print Url, top_image, "\n"
 
-        # Insert new employee
-        cursor.execute(add_article, data_article)
+            if len(top_image) < 4:
+                print "error on: " + Url
+            add_top_image = ("UPDATE News_articles SET "
+                   "top_image = %s "
+                   "WHERE url = %s")
 
-        article_id = cursor.lastrowid
+            data_top_image = (top_image, Url)
 
-        # add_social = ("INSERT INTO News_social_media "
-        #        "() "
-        #        "VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s)")
+            # Insert new employee
+            cursor.execute(add_top_image, data_top_image)
+
+
 
         # Make sure data is committed to the database
         cnx.commit()
@@ -61,12 +73,12 @@ def main(url, source, post_date, found_date, title, author, keywords, summary, t
 
     cnx.close()
 
-    return int(article_id)
+
 
 
 if __name__ == "__main__":
 
-    if len(sys.argv) != 8:
-        print 'usage: python mysql_article_entry.py [ url ] [ source ] [ post_date ] [ found_date ] [ title ] [ author ] [ keywords ] [ summary ] [ text ]'
+    if len(sys.argv) != 1:
+        print 'usage: python mysql_top_image_adder.py'
     else:
-        main(sys.argv[1], sys.argv[2], sys.argv[3], sys.argv[4], sys.argv[5], sys.argv[6], sys.argv[7], sys.argv[8], sys.argv[9], sys.argv[10], sys.argv[11])
+        main()

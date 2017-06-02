@@ -23,7 +23,7 @@
 		{
 		width: 100%;
 		height: 376px; /* IF YOU EDIT HEIGHT EDIT THE SCROLLING SCRIPT HEIGHT!!!! */
-		display: block;
+		display: inline-block;
 		margin: 0px;
 		padding: 0px;
 		overflow: hidden;

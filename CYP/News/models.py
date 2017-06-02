@@ -13,7 +13,7 @@ class Articles(models.Model):
     keywords = models.CharField(max_length=255, blank=True)
     summary = models.TextField(null=True)
     text = models.TextField()
-    top_image = models.URLField(null=True)
+    top_image = models.URLField(null=True, max_length = 500)
     video = models.URLField(null=True)
 
 

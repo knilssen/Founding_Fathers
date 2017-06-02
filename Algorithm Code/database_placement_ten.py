@@ -7,6 +7,7 @@ Date: 2/25/2017
 Usage:
 
     python DatabasePlacement.py
+
 '''
 
 import sys

@@ -1,6 +1,11 @@
+.article_container {
+  padding-left: 10%;
+  padding-right: 10%;
+}
+
 .text_container {
   width: 80%;
-  
+
 }
 
 .text {

@@ -25,6 +25,7 @@
 
 {% for article in scrolls %}
 <span class="scroll-title-if">
+<img src='{{article.top_image}}' style='max-height:60px; float: left; padding: 2px;'>
 <a href='{{article.id}}'>{{article.title}}</a><br>
 </span>
 
@@ -32,7 +33,7 @@
 <br>
 {{article.post_date}}
 
-<br><br>
+<br><br><br>
 {% endfor %}
 
 

@@ -1,8 +1,8 @@
 '''
-Python script that is to place articles into senators/house members/bills/governer/judicial database tables from article_grabber.py
+Python script that is to place articles into senators/house members/bills/governer/judicial/articles database tables from source article grabbers.
 
 Author: Founding Fathers, Kristian Nilssen
-Date: 2/25/2017
+Date: 4/25/2017
 
 Usage:
 
@@ -53,8 +53,8 @@ def article_worker(article, pub_time, source, allkeywords, DiffName):
     else:
 
         cursor = cnx.cursor()
-
-        cursor.execute(("SELECT EXISTS (SELECT * FROM News_articles WHERE News_articles.url = %s") % (social_media_entry))
+        print article
+        cursor.execute(("SELECT EXISTS (SELECT * FROM News_articles WHERE News_articles.url = %s") % (article))
         data = cursor.fetchall()
         data = data[0]
 
@@ -122,7 +122,7 @@ def main():
     # print currentTime
 
     grabberlist = [grabber_utah_policy, grabber_upc_legislative, grabber_upc_judicial, grabber_upc_flagged_bill_status, grabber_upc_executive]
-    source_name = ["Utah Policy", "Utah Political Capitol Legislative", "Utah Political Capitol J", "Utah Political Capitol Flagged Bill Status",
+    source_name = ["Utah Policy", "Utah Political Capitol Legislative", "Utah Political Capitol Judicial", "Utah Political Capitol Flagged Bill Status",
                     "Utah Political Capitol Executive"]
 
 
