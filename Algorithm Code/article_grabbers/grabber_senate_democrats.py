@@ -1,4 +1,4 @@
-http://www.utahsenatedemocrats.org/home/main/blog
+# http://www.utahsenatedemocrats.org/home/main/blog
 
 
 '''
@@ -18,6 +18,7 @@ Usage:
 import sys
 import newspaper
 import urllib
+import time
 import date_subtracter
 from newspaper import Article
 from bs4 import BeautifulSoup
@@ -32,35 +33,32 @@ def main(current_time):
     soups = BeautifulSoup(article.html)
     tempList = []
     tempListud = {}
+    count = 0
     articleTime = current_time[:]
     prefix = "http://www.utahsenatedemocrats.org"
+    letters = soups.find_all("h4", class_="post-title")
+    postdate = soups.find_all("div", class_="post-footer")
+    for element in letters:
+        url = element.a["href"]
+        tempList.append(url)
 
-    #
-    # letters = soups.find_all("td", class_="list-title")
-    # for element in letters:
-    #     url = (prefix + ((str(element).split())[3]).encode('utf-8').strip('href=">'))
-    #     tempList.append(url)
-    #     article = Article(url)
-    #     article.download()
-    #     soups = BeautifulSoup(article.html)
-    #     publishDate = soups.find_all("dd", class_="create")
-    #     for pub in publishDate:
-    #         dateTimeForm = [["0", "0", "0"],["0", "0", "0"]]
-    #         pub = pub.encode('utf-8').split()
-    #         dateTimeForm[0][0] = pub[9][:]
-    #         dateTimeForm[0][1] = pub[8][:]
-    #         dateTimeForm[0][2] = pub[10][:]
-    #         dateTimeForm[1][0] = articleTime[1][0][:]
-    #         dateTimeForm[1][1] = articleTime[1][1][:]
-    #         dateTimeForm[1][2] = articleTime[1][2][:]
-    #         dateDiff = date_subtracter.main(articleTime,dateTimeForm)
-    #         if dateDiff[0] == 1:
-    #             tempListud[url] = dateTimeForm
+        pub = postdate[count]
+        dateTimeForm = [["0", "0", "0"],["0", "0", "0"]]
+        pub = pub.text.split()
+        dateTimeForm[0][0] = pub[1][:]
+        dateTimeForm[0][1] = pub[0][:]
+        dateTimeForm[0][2] = pub[2][:]
+        dateTimeForm[1][0] = articleTime[1][0][:]
+        dateTimeForm[1][1] = articleTime[1][1][:]
+        dateTimeForm[1][2] = articleTime[1][2][:]
+        dateDiff = date_subtracter.main(articleTime,dateTimeForm)
+        if dateDiff[0] == 1:
+            tempListud[url] = dateTimeForm
+        count  = count + 1
 
-
-    # for article in tempListud:
-    #     print article, tempListud[article]
-    return tempListud
+    for article in tempListud:
+        print article, tempListud[article]
+    # return tempListud
 
 if __name__ == "__main__":
 

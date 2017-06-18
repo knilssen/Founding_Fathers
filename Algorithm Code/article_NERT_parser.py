@@ -36,12 +36,14 @@ from database_interactors import mysql_article_entry
 from database_interactors import mysql_article_person_link
 from database_interactors import mysql_article_based_weights
 from database_interactors import mysql_social_media_entry
+from database_interactors import mysql_check_duplicate
 from collections import defaultdict
 from nltk import FreqDist
 from nltk import word_tokenize
 from nltk import FreqDist
 from nltk.tag.stanford import StanfordNERTagger
 from newspaper import Article
+
 
 def main(Url, pub_time, Source, Keywords, otherNames, Type):
     Keywords = Keywords.lower()
@@ -133,11 +135,12 @@ def main(Url, pub_time, Source, Keywords, otherNames, Type):
 
 
     if len(article_people) >= 1:
-        print Url
-        article_id = mysql_article_entry.main(Url, Source, post_date, dateTime, article.title, str(article.authors), str(keywords_database), article.summary, articleText, article.top_image)
-        mysql_article_person_link.main(article_id, article_people, totalcountofperson, (round((totalcountofperson/float(totoltypecount)), 4) * 100), totoltypecount)
-        mysql_article_based_weights.main(article_id, len(articleText), "yes")
-        mysql_social_media_entry.main(article_id, Url)
+        if mysql_check_duplicate.main(Url) == 0:
+            print Url
+            article_id = mysql_article_entry.main(Url, Source, post_date, dateTime, article.title, str(article.authors), str(keywords_database), article.summary, articleText, article.top_image)
+            mysql_article_person_link.main(article_id, article_people, totalcountofperson, (round((totalcountofperson/float(totoltypecount)), 4) * 100), totoltypecount)
+            mysql_article_based_weights.main(article_id, len(articleText), "yes")
+            mysql_social_media_entry.main(article_id, Url)
 
 if __name__ == "__main__":
 

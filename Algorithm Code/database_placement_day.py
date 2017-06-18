@@ -1,4 +1,8 @@
 '''
+Utah Political Capitol Flagged Bill Status  Is no longer being used due to it no longer being updated regularly
+'''
+
+'''
 Python script that is to place articles into senators/house members/bills/governer/judicial/articles database tables from source article grabbers.
 
 Author: Founding Fathers, Kristian Nilssen
@@ -54,7 +58,7 @@ def article_worker(article, pub_time, source, allkeywords, DiffName):
 
         cursor = cnx.cursor()
         print article
-        cursor.execute(("SELECT EXISTS (SELECT * FROM News_articles WHERE News_articles.url = %s") % (article))
+        cursor.execute(("SELECT EXISTS (SELECT * FROM News_articles WHERE News_articles.url = %s") % (str(article)))
         data = cursor.fetchall()
         data = data[0]
 
@@ -122,8 +126,7 @@ def main():
     # print currentTime
 
     grabberlist = [grabber_utah_policy, grabber_upc_legislative, grabber_upc_judicial, grabber_upc_flagged_bill_status, grabber_upc_executive]
-    source_name = ["Utah Policy", "Utah Political Capitol Legislative", "Utah Political Capitol Judicial", "Utah Political Capitol Flagged Bill Status",
-                    "Utah Political Capitol Executive"]
+    source_name = ["Utah Policy", "Utah Political Capitol Legislative", "Utah Political Capitol Judicial", "Utah Political Capitol Executive"]
 
 
     for i in range(len(grabberlist)):

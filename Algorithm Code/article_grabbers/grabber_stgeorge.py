@@ -15,6 +15,7 @@ Usage:
 import sys
 import newspaper
 import urllib
+import time
 import date_subtracter
 from newspaper import Article
 from bs4 import BeautifulSoup
@@ -32,27 +33,20 @@ def main(current_time):
     articleTime = current_time[:]
     prefix = "https://www.stgeorgeutah.com"
 
-    #
-    # letters = soups.find_all("td", class_="list-title")
-    # for element in letters:
-    #     url = (prefix + ((str(element).split())[3]).encode('utf-8').strip('href=">'))
-    #     tempList.append(url)
-    #     article = Article(url)
-    #     article.download()
-    #     soups = BeautifulSoup(article.html)
-    #     publishDate = soups.find_all("dd", class_="create")
-    #     for pub in publishDate:
-    #         dateTimeForm = [["0", "0", "0"],["0", "0", "0"]]
-    #         pub = pub.encode('utf-8').split()
-    #         dateTimeForm[0][0] = pub[9][:]
-    #         dateTimeForm[0][1] = pub[8][:]
-    #         dateTimeForm[0][2] = pub[10][:]
-    #         dateTimeForm[1][0] = articleTime[1][0][:]
-    #         dateTimeForm[1][1] = articleTime[1][1][:]
-    #         dateTimeForm[1][2] = articleTime[1][2][:]
-    #         dateDiff = date_subtracter.main(articleTime,dateTimeForm)
-    #         if dateDiff[0] == 1:
-    #             tempListud[url] = dateTimeForm
+    letters = soups.find_all("div", class_="recent-story")
+    for element in letters:
+        url = element.a["href"]
+        pub_date = element.text.split()
+        dateTimeForm = [["0", "0", "0"],["0", "0", "0"]]
+        dateTimeForm[0][0] = pub_date[-4][:]
+        dateTimeForm[0][1] = pub_date[-3][:-3]
+        dateTimeForm[0][2] = pub_date[-2][:]
+        dateTimeForm[1][0] = articleTime[1][0][:]
+        dateTimeForm[1][1] = articleTime[1][1][:]
+        dateTimeForm[1][2] = articleTime[1][2][:]
+        dateDiff = date_subtracter.main(articleTime,dateTimeForm)
+        if dateDiff[0] == 1:
+            tempListud[url] = dateTimeForm
 
 
     # for article in tempListud:
