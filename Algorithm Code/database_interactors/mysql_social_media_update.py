@@ -42,30 +42,33 @@ def main():
             print social_media_entry
             data = cursor.fetchall()
             data = data[0]
-            print data[0]
+            if data[0] != "www.google.com":
+                print data[0]
 
-            social_media = Social_Shares.main(str(data[0]))
+                social_media = Social_Shares.main(str(data[0]))
 
 
-            fb_shares = social_media["Facebook Shares"]
-            fb_comments = social_media["Facebook Comments"]
-            reddit_shares = social_media["Reddit Shares"]
-            reddit_upvotes = social_media["Reddit Upvotes"]
-            pinterest_pins = social_media["Pinterest Pins"]
-            linkedin_shares = social_media["LinkedIn Shares"]
-            # total = social_media["Greater Total"]
+                fb_shares = social_media["Facebook Shares"]
+                fb_comments = social_media["Facebook Comments"]
+                reddit_shares = social_media["Reddit Shares"]
+                reddit_upvotes = social_media["Reddit Upvotes"]
+                pinterest_pins = social_media["Pinterest Pins"]
+                linkedin_shares = social_media["LinkedIn Shares"]
+                # total = social_media["Greater Total"]
 
-            update_social = ("UPDATE News_social_media SET "
-                    "facebook_shares=%s, facebook_comments=%s, reddit_shares=%s, reddit_upvotes=%s, pinterest_pins=%s, linkedIn_shares=%s "
-                    "WHERE articles_id_id=%s")
+                update_social = ("UPDATE News_social_media SET "
+                        "facebook_shares=%s, facebook_comments=%s, reddit_shares=%s, reddit_upvotes=%s, pinterest_pins=%s, linkedIn_shares=%s "
+                        "WHERE articles_id_id=%s")
 
-            data_social = (fb_shares, fb_comments, reddit_shares, reddit_upvotes, pinterest_pins, linkedin_shares, social_media_entry)
+                data_social = (fb_shares, fb_comments, reddit_shares, reddit_upvotes, pinterest_pins, linkedin_shares, social_media_entry)
 
-            # Insert new person
-            cursor.execute(update_social, data_social)
+                # Insert new person
+                cursor.execute(update_social, data_social)
 
-            # Make sure data is committed to the database
-            cnx.commit()
+                # Make sure data is committed to the database
+                cnx.commit()
+            else:
+                print "DUPLICATE ARTICLE"
 
         cursor.close()
         cnx.close()

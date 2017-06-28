@@ -46,10 +46,20 @@ from newspaper import Article
 
 
 def main(Url, pub_time, Source, Keywords, otherNames, Type):
+    print Url
     Keywords = Keywords.lower()
     article = Article(Url)
     article.download()
-    article.parse()
+    if article.is_downloaded:
+        article.parse()
+        if article.is_parsed:
+            print "parsed"
+            article.nlp()
+    else:
+        print "failed download"
+        article = urllib.urlopen(Url).read()
+        article.download()
+        article.parse()
     articleText = (article.text)
     articleText = articleText.encode('ascii', 'replace').replace(u"\u0029", "").replace(u"\u0028", "")
     dateTime = time.strftime("%Y-%m-%d %I:%M:%S")

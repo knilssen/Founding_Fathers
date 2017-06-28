@@ -47,7 +47,7 @@ def main(current_time):
         dateTimeForm[1][1] = articleTime[1][1][:]
         dateTimeForm[1][2] = articleTime[1][2][:]
         dateDiff = date_subtracter.main(articleTime,dateTimeForm)
-        print dateTimeForm
+        # print dateTimeForm
         if dateDiff[0] == 1:
             tempListud[tempList[count]] = dateTimeForm
         count = count + 1

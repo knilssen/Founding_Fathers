@@ -52,9 +52,17 @@ def main():
         cursor.execute(("SELECT * FROM News_article_person"))
         article_person_link_data = cursor.fetchall()
         # print article_person_link_data
+        
+        print "\n"
+        print " Ranking Data: "
+        print "________________________________________________________________________________________________"
+        print " ID   Article ID   People ID   Length  FB_S   FB_C   R_S   R_U   P_P   LI_S   HRS_PSTD   SCORE  "
+        print "________________________________________________________________________________________________"
+
+
         for link in article_person_link_data:
             total_shares = 0
-            print link
+            # print link
             cursor.execute(("SELECT * FROM News_article_based_weights WHERE articles_id_id = '%s'") % (link[1]))
             article_based_weights_data = cursor.fetchall()[0]
             cursor.execute(("SELECT * FROM News_social_media WHERE articles_id_id = '%s'") % (link[1]))
@@ -76,7 +84,7 @@ def main():
             # print dt.datetime.now()
             if articles_data[2] == "Utah Policy" and articles_data[0] < dt.datetime.now() - timedelta(days=2):
                 # print "Utah Policy"
-                total_shares = total_shares * total_shares * total_shares
+                total_shares = total_shares * total_shares
 
             time_diff_seconds = (dt.datetime.now()-articles_data[0]).total_seconds()
             time_diff_seconds = ((time_diff_seconds / 60) / 60)
@@ -95,7 +103,7 @@ def main():
 
 
             score = float("{0:.2f}".format(score))
-            print score
+            # print score
 
             add_score = ("UPDATE News_article_person SET "
                    "weight=%s "
@@ -107,9 +115,43 @@ def main():
             cursor.execute(add_score, data_score)
 
 
-            print link, article_based_weights_data, social_media_data, time_diff_seconds, total_shares, (total_shares * p), score
+            # print link, article_based_weights_data, social_media_data, time_diff_seconds, total_shares, (total_shares * p), score
 
-            print "\n"
+            # print "\n"
+            space1 =  " "
+            space2 =  " "
+            space3 =  " "
+            space4 =  " "
+            space5 =  " "
+            space6 =  " "
+            space7 =  " "
+            space8 =  ""
+            space9 =  " "
+            space10 = " "
+            space11 = "   "
+            for x in range(0, 5 - len(str(link[0]))):
+                space1 =  space1 + " "
+            for x in range(0, 9 - len(str(link[1]))):
+                space2 = space2 + " "
+            for x in range(0, 7 - len(str(link[2]))):
+                space3 = space3 + " "
+            for x in range(0, 5 - len(str(article_based_weights_data[2]))):
+                space4 = space4 + " "
+            for x in range(0, 4 - len(str(social_media_data[2]))):
+                space5 = space5 + " "
+            for x in range(0, 4 - len(str(social_media_data[3]))):
+                space6 = space6 + " "
+            for x in range(0, 3 - len(str(social_media_data[4]))):
+                space7 = space7 + " "
+            for x in range(0, 4 - len(str(social_media_data[5]))):
+                space8 = space8 + " "
+            for x in range(0, 3 - len(str(social_media_data[6]))):
+                space9 = space9 + " "
+            for x in range(0, 4 - len(str(social_media_data[7]))):
+                space10 = space10 + " "
+            # for x in range(0, 4 - link[2]):
+            #     link[2] = link[2] + " "
+            print " ", link[0], space1, link[1], space2, link[2], space3, article_based_weights_data[2], space4, social_media_data[2], space5, social_media_data[3], space6, social_media_data[4], space7, social_media_data[5], space8, social_media_data[6], space9, social_media_data[7], space10, str(time_diff_seconds)[:6], space11, score
 
         cnx.commit()
         cursor.close()

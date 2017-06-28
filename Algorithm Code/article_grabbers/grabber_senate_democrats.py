@@ -56,9 +56,9 @@ def main(current_time):
             tempListud[url] = dateTimeForm
         count  = count + 1
 
-    for article in tempListud:
-        print article, tempListud[article]
-    # return tempListud
+    # for article in tempListud:
+    #     print article, tempListud[article]
+    return tempListud
 
 if __name__ == "__main__":
 

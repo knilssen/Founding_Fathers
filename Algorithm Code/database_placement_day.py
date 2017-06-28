@@ -17,54 +17,45 @@ import sys
 import article_NERT_parser
 import time
 import threading
+# from article_grabbers import grabber_deseret_news
+from article_grabbers import grabber_fox13
 from article_grabbers import grabber_utah_policy
 from article_grabbers import grabber_upc_legislative
 from article_grabbers import grabber_upc_judicial
 from article_grabbers import grabber_upc_flagged_bill_status
 from article_grabbers import grabber_upc_executive
+from article_grabbers import grabber_house_democrats
+from article_grabbers import grabber_ksl
+from article_grabbers import grabber_senate_democrats
+# from article_grabbers import grabber_senate_site
+from article_grabbers import grabber_slt
+# from article_grabbers import grabber_stgeorge
+from article_grabbers import grabber_uou_daily_chronicle
+from article_grabbers import grabber_utah_datapoints
+from article_grabbers import grabber_utah_foundation
+from article_grabbers import grabber_utah_reps
 import multiprocessing
 import mysql.connector
 from mysql.connector import errorcode
 
 maxthreads = multiprocessing.cpu_count()
-print maxthreads
+print "\n"
+print "Maximun number of threads on current machine:", maxthreads
+print "\n"
+print "\n"
 sema = threading.Semaphore(value=maxthreads)
 thread = list()
 threads = list()
-config = {
-    'user': 'root',
-    'password': 'password',
-    'host': '127.0.0.1',
-    'database': 'cyp',
-    'raise_on_warnings': True,
-}
+
 
 
 def article_worker(article, pub_time, source, allkeywords, DiffName):
     # thread worker function
     sema.acquire()
     t = threading.currentThread()
-    try:
-        cnx = mysql.connector.connect(**config)
-
-    except mysql.connector.Error as err:
-        if err.errno == errorcode.ER_ACCESS_DENIED_ERROR:
-            print("Something is wrong with your user name or password")
-        elif err.errno == errorcode.ER_BAD_DB_ERROR:
-            print("Database does not exist")
-        else:
-            print(err)
-    else:
-
-        cursor = cnx.cursor()
-        print article
-        cursor.execute(("SELECT EXISTS (SELECT * FROM News_articles WHERE News_articles.url = %s") % (str(article)))
-        data = cursor.fetchall()
-        data = data[0]
-
-        if data[0] == False:
-            article_NERT_parser.main(article, pub_time, source, allkeywords, DiffName,  "PERSON")
-
+    # print article
+    print t, article
+    article_NERT_parser.main(article, pub_time, source, allkeywords, DiffName,  "PERSON")
     sema.release()
 
 
@@ -73,6 +64,13 @@ def grabber_worker(source_name, source, currentTime, allkeywords, DiffName):
     sema.acquire()
     t = threading.currentThread()
     art = source.main(currentTime)
+    # print source
+    source_length = len(source_name)
+    max_source_length = 43
+    source_output = source_name
+    for x in range(0, max_source_length - source_length):
+        source_output = source_output + " "
+    print source_output, len(art)
     for url in art:
         # print (url)
         a = threading.Thread(target=article_worker, args=(url, art[url], source_name, allkeywords, DiffName))
@@ -125,11 +123,18 @@ def main():
 
     # print currentTime
 
-    grabberlist = [grabber_utah_policy, grabber_upc_legislative, grabber_upc_judicial, grabber_upc_flagged_bill_status, grabber_upc_executive]
-    source_name = ["Utah Policy", "Utah Political Capitol Legislative", "Utah Political Capitol Judicial", "Utah Political Capitol Executive"]
+    grabberlist = [grabber_fox13, grabber_utah_policy, grabber_upc_legislative, grabber_upc_judicial, grabber_upc_executive, grabber_house_democrats,
+                    grabber_ksl, grabber_senate_democrats, grabber_slt, grabber_uou_daily_chronicle, grabber_utah_datapoints, grabber_utah_foundation, grabber_utah_reps]
+    source_name = ["Fox 13", "Utah Policy", "Utah Political Capitol Legislative", "Utah Political Capitol Judicial", "Utah Political Capitol Executive", "House Democrats", "KSL", "Senate Democrats",
+                    "Salt Lake Tribune", "Daily Utah Chronicle", "Utah Data Points", "Utah Foundation", "Utah House of Representatives"]
 
+    # grabber_deseret_news, grabber_senate_site, grabber_stgeorge, "Deseret News", "Senate Site", "St George"
+
+    print "       Source                         Articles Found"
+    print "______________________________________________________"
 
     for i in range(len(grabberlist)):
+        # print "Start: ", source_name[i]
         t = threading.Thread(target=grabber_worker, args=(source_name[i], grabberlist[i], currentTime, allkeywords, DiffName))
         threads.append(t)
         t.start()

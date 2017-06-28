@@ -51,15 +51,16 @@ def main(current_time):
             dateTimeForm[1][1] = pub_date[5][:]
             dateTimeForm[1][2] = articleTime[1][2][:]
             dateDiff = date_subtracter.main(articleTime,dateTimeForm)
-            if dateDiff[0] == 0:
+            if dateDiff[0] == 1:
                 tempListud[element_url] = dateTimeForm
             count = count + 1
         if article_count == article_total:
             break
 
-    for article in tempListud:
-        print article, tempListud[article]
-    # return tempListud
+
+    # for article in tempListud:
+    #     print article, tempListud[article]
+    return tempListud
 
 if __name__ == "__main__":
 

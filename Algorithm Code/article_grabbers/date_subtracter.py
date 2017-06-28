@@ -81,7 +81,7 @@ def main(currentDate, articleDate):
 
 
 # and hourDiff <= 1 and minDiff <= 10
-    if monthDiff <=1 and dayDiff <= 1 and yearDiff <= 1:
+    if monthDiff <=1 and yearDiff <= 1:
         return [1, subtractedDate]
     else:
         return [0, subtractedDate]
