@@ -52,8 +52,9 @@ def main():
         cursor.execute(("SELECT * FROM News_article_person"))
         article_person_link_data = cursor.fetchall()
         # print article_person_link_data
-        
+
         print "\n"
+        print " *** Ranking In Progress *** "
         print " Ranking Data: "
         print "________________________________________________________________________________________________"
         print " ID   Article ID   People ID   Length  FB_S   FB_C   R_S   R_U   P_P   LI_S   HRS_PSTD   SCORE  "
@@ -117,7 +118,7 @@ def main():
 
             # print link, article_based_weights_data, social_media_data, time_diff_seconds, total_shares, (total_shares * p), score
 
-            # print "\n"
+            # TO Print out the data in a more readable way
             space1 =  " "
             space2 =  " "
             space3 =  " "
