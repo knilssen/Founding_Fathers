@@ -51,6 +51,7 @@ def main(url):
         FBShares = FBdata['share']['share_count'] #this parses the specific portion of the JSON data we want
         FBComments = FBdata['share']['comment_count']
     else:
+        "Problem with FB data"
         FBShares = 0
         FBComments = 0
     # print "Facebook Shares: ", FBShares

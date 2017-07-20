@@ -16,6 +16,7 @@ import sys
 import newspaper
 import urllib
 import date_subtracter
+import time
 from newspaper import Article
 from bs4 import BeautifulSoup
 
@@ -32,11 +33,15 @@ def main(current_time):
     tempListud = {}
     articleTime = current_time[:]
     prefix = "h"
+    feature_letters = soups.find_all("h2", class_="entry-title")
     letters = soups.find_all("h4", class_="entry-title")
     for element in letters:
         element = str(element).replace("<", " ")
         element = element.replace(">", " ")
         tempList.append((prefix + ((element.split())[3]).encode('utf-8').strip('href=">')))
+    ft_element = str(feature_letters[0]).replace("<", " ")
+    ft_element = ft_element.replace(">", " ")
+    tempList.append((prefix + ((ft_element.split())[3]).encode('utf-8').strip('href=">')))
     for url in tempList:
         article = Article(url)
         article.download()
@@ -65,7 +70,10 @@ def main(current_time):
 
 if __name__ == "__main__":
 
-    if len(sys.argv) != 2:
+    if len(sys.argv) != 1:
         print "Usage: python grabber_fox13.py [ current_time ]"
     else:
-        main(sys.argv[1])
+        currentTime = []
+        currentTime.append((time.strftime("%x").replace("/", " ")).split())
+        currentTime.append((time.strftime("%X").replace(":", " ")).split())
+        main(currentTime)

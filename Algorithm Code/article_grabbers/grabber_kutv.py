@@ -39,7 +39,7 @@ def main(current_time):
     letters = soups.find_all("div", class_="grid-item")
     soupDate = soupTime.find_all("time", class_="published")
     for element in letters:
-        print element.text
+        print element
 
         # url = (prefix + ((str(element).split())[3]).encode('utf-8').strip('href=">'))
         # tempList.append(url)

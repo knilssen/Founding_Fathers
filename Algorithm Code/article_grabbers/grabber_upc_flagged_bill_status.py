@@ -1,5 +1,15 @@
 '''
 
+This is no longer updated. For the time being, it won't be used.
+
+            *** NEEDS FIXING ***
+
+Has error, but wont be fixed until it becomes regularly updatin agian
+
+'''
+
+'''
+
 Python script that is to grab all the articles from the source: Utah Political Capitol,
 more specifically for the Utah Political Capitol 2017 session status of flagged bills section.
 
@@ -14,6 +24,7 @@ Usage:
 import sys
 import newspaper
 import urllib
+import time
 import date_subtracter
 from newspaper import Article
 from bs4 import BeautifulSoup
@@ -56,7 +67,10 @@ def main(current_time):
 
 if __name__ == "__main__":
 
-    if len(sys.argv) != 2:
+    if len(sys.argv) != 1:
         print "Usage: python grabber_upc_flagged_bills_status.py [ current_time ]"
     else:
-        main(sys.argv[1])
+        currentTime = []
+        currentTime.append((time.strftime("%x").replace("/", " ")).split())
+        currentTime.append((time.strftime("%X").replace(":", " ")).split())
+        main(currentTime)

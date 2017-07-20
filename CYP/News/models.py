@@ -9,11 +9,11 @@ class Articles(models.Model):
     post_date = models.DateTimeField()
     found_date = models.DateTimeField()
     title = models.CharField(max_length=255)
-    author = models.CharField(max_length=255, blank=True)
+    author = models.TextField()
     keywords = models.CharField(max_length=255, blank=True)
     summary = models.TextField(null=True)
     text = models.TextField()
-    top_image = models.URLField(null=True)
+    top_image = models.URLField(null=True, max_length = 500)
     video = models.URLField(null=True)
 
 

@@ -1,9 +1,25 @@
-<html>
-<a href="{% url 'index' %}">Back</a>
+{% extends "CYP/header.html" %}
+{% load staticfiles %}
 {% block content %}
-  <h3>{{title}}</h3>
-  <h6>on {{post_date}}</h6>
-  <h6>Author: {{author}}</h6>
-  {{texts|linebreaks}}
-{% endblock %}
-</html>
+<link rel="stylesheet" href="{% static 'css/article.css' %}" type="text/css">
+<head>
+  <body>
+    <input action="action" type="button" value="Back" onclick="history.go(-1);" />
+    <div class="article_container">
+      <h3>{{title}}</h3>
+      <h6>on {{post_date}}</h6>
+      <h6>Author: {{author}}</h6>
+      <br>
+      <img src='{{top_image}}' style='float: left; padding: 2px;'>
+
+      <div class="text_container">
+      <span class="text">
+        <br>
+        <br>
+      {{texts|linebreaks}}
+    </span>
+    </div>
+    {% endblock %}
+    </div>
+  </body>
+</head>

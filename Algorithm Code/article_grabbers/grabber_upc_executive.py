@@ -15,6 +15,7 @@ Usage:
 import sys
 import newspaper
 import urllib
+import time
 import date_subtracter
 from newspaper import Article
 from bs4 import BeautifulSoup
@@ -55,7 +56,10 @@ def main(current_time):
 
 if __name__ == "__main__":
 
-    if len(sys.argv) != 2:
+    if len(sys.argv) != 1:
         print "Usage: python grabber_upc_executive.py [ current_time ]"
     else:
-        main(sys.argv[1])
+        currentTime = []
+        currentTime.append((time.strftime("%x").replace("/", " ")).split())
+        currentTime.append((time.strftime("%X").replace(":", " ")).split())
+        main(currentTime)

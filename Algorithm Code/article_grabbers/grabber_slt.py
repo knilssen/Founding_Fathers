@@ -15,6 +15,7 @@ Usage:
 import sys
 import newspaper
 import urllib
+import time
 import date_subtracter
 from newspaper import Article
 from bs4 import BeautifulSoup
@@ -29,41 +30,33 @@ def main(current_time):
     soups = BeautifulSoup(article.html)
     tempList = []
     tempListud = {}
+    count = 1
+    article_total = 24
+    article_count = 0
     articleTime = current_time[:]
-    prefix = "http://www.sltrib.com"
-    letters = soups.find_all("ul", class_="articles")
+    postdate = soups.find_all("div", class_="extras")
 
-    for element in letters:
-        for elements in element:
-            if elements != "\n":
-                tempList.append(elements.encode('utf-8').strip('<>l/i').split())
-    for temps in tempList:
-        count = 0
-        for temp in temps:
-            if temp == "<a":
-                splits = temps[count+1]
-                splits = splits.replace('"', " ")
-                splits = splits.split()
-                if splits[0] == "href=":
-                    article_split = (splits[1]).replace("/", " ")
-                    article_split = article_split.encode('utf-8').split()
-                    if article_split[4] != "5-reasons-why-family-river-rafting":
-                        if article_split[3] != "politics":
-                            dateTimeForm = [["0", "0", "0"],["0", "0", "0"]]
-                            timeFound = temps[temps.index("Updated"):temps.index("Updated")+6]
-                            timeFound[4] = timeFound[4].replace(":", " ").split()
-                            if timeFound[5] == "pm":
-                                timeFound[4][0] = str(int(timeFound[4][0]) + int("12"))
-                            dateTimeForm[0][0] = timeFound[1][:]
-                            dateTimeForm[0][1] = timeFound[2][:]
-                            dateTimeForm[0][2] = timeFound[3][:]
-                            dateTimeForm[1][0] = timeFound[4][0][:]
-                            dateTimeForm[1][1] = timeFound[4][1][:]
-                            dateTimeForm[1][2] = articleTime[1][2][:]
-                            dateDiff = date_subtracter.main(articleTime,dateTimeForm)
-                            if dateDiff[0] == 1:
-                                tempListud[splits[1]] = dateTimeForm
+    for element in postdate:
+        if element.a["href"]:
+            element_url = element.a["href"][:-14]
+            article_count = article_count + 1
+            pub_date = element.text.replace(":", " ").split()
+            if pub_date[6] == "pm":
+                pub_date[4] = str(int(pub_date[4]) + 12)
+            dateTimeForm = [["0", "0", "0"],["0", "0", "0"]]
+            dateTimeForm[0][0] = pub_date[1][:]
+            dateTimeForm[0][1] = pub_date[2][:]
+            dateTimeForm[0][2] = pub_date[3][:]
+            dateTimeForm[1][0] = pub_date[4][:]
+            dateTimeForm[1][1] = pub_date[5][:]
+            dateTimeForm[1][2] = articleTime[1][2][:]
+            dateDiff = date_subtracter.main(articleTime,dateTimeForm)
+            if dateDiff[0] == 1:
+                tempListud[element_url] = dateTimeForm
             count = count + 1
+        if article_count == article_total:
+            break
+
 
     # for article in tempListud:
     #     print article, tempListud[article]
@@ -71,7 +64,10 @@ def main(current_time):
 
 if __name__ == "__main__":
 
-    if len(sys.argv) != 2:
+    if len(sys.argv) != 1:
         print "Usage: python slt_grabber.py [ current_time ]"
     else:
-        main(sys.argv[1])
+        currentTime = []
+        currentTime.append((time.strftime("%x").replace("/", " ")).split())
+        currentTime.append((time.strftime("%X").replace(":", " ")).split())
+        main(currentTime)

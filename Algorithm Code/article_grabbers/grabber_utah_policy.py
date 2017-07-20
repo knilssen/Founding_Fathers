@@ -15,6 +15,7 @@ Usage:
 import sys
 import newspaper
 import urllib
+import time
 import date_subtracter
 from newspaper import Article
 from bs4 import BeautifulSoup
@@ -34,6 +35,7 @@ def main(current_time):
     letters = soups.find_all("td", class_="list-title")
     for element in letters:
         url = (prefix + ((str(element).split())[3]).encode('utf-8').strip('href=">'))
+        # print url
         tempList.append(url)
         article = Article(url)
         article.download()
@@ -59,7 +61,11 @@ def main(current_time):
 
 if __name__ == "__main__":
 
-    if len(sys.argv) != 2:
+    if len(sys.argv) != 1:
         print "Usage: python grabber_utah_policy.py [ current_time ]"
     else:
-        main(sys.argv[1])
+        currentTime = []
+        currentTime.append((time.strftime("%x").replace("/", " ")).split())
+        currentTime.append((time.strftime("%X").replace(":", " ")).split())
+        main(currentTime)
+        # main(sys.argv[1])
