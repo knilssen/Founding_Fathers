@@ -1,4 +1,5 @@
-# Founding_Fathers_Project
+# Founding Fathers Project
+# Choose Your Politics (CYP)
 
 Goals:
 * Focus on local state politics
