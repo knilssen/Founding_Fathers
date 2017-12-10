@@ -18,6 +18,7 @@ Utah | Washington
 ## Sources by state
  
  ## Utah
+ 
  **Supported** | **In development**
  --- | ---
   Deseret New | 
