@@ -1,5 +1,4 @@
-Founding Fathers, Choose Your Politics (CYP)
-
+# H1
 Goals:
 
 Focus on local state politics
