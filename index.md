@@ -13,6 +13,24 @@ Choose Your Politics, also known as CYP, was created with the sole pupose of fix
 --- | ---
 Utah | Washington
 
----
 
-## How CYP Works
+
+## Sources by state
+ 
+ ### Utah
+  * Deseret New
+  * Fox 13
+  * House Democrats
+  * KSL
+  * KUTV
+  * Senate Democrats
+  * Senate Site
+  * Salt Lake Tribune
+  * St George
+  * University of Utah Daily Chronicle
+  * Utah Political Capital
+  * Utah DataPoints
+  * Utah Foundation
+  * Utah Policy
+  * Utah Representatives
+
