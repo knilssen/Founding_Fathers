@@ -37,7 +37,9 @@ Utah Foundation |
 Utah Policy | 
 Utah Representatives | 
 
+
 **Washington:**
+
 **Supported** | **In development**
 --- | ---
- | 
+None | None
