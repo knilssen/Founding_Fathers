@@ -17,7 +17,7 @@ Utah | Washington
 
 ## Sources by state
  
-`Utah:`
+**Utah:**
  
 **Supported** | **In development**
 --- | ---
@@ -38,7 +38,7 @@ Utah Policy |
 Utah Representatives | 
 
 
-`Washington:`
+**Washington:**
 
 **Supported** | **In development**
 --- | ---
