@@ -9,8 +9,5 @@ Choose Your Politics, also known as CYP, was created with the sole pupose of fix
 
 
 
-## States supported by CYP
- 1. Utah
- 
-## States soon to be supported by CYP
- 1. Washington
+## Supported | ## In development
+ 1. Utah | 1. Washington
