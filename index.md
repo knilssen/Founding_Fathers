@@ -17,23 +17,23 @@ Utah | Washington
 
 ## Sources by state
  
- ## Utah
+## Utah
  
- **Supported** | **In development**
- --- | ---
-  Deseret New | 
-  Fox 13 | 
-  House Democrats | 
-  KSL | 
-  KUTV | 
-  Senate Democrats | 
-  Senate Site | 
-  Salt Lake Tribune | 
-  St George | 
-  University of Utah Daily Chronicle | 
-  Utah Political Capital | 
-  Utah DataPoints | 
-  Utah Foundation | 
-  Utah Policy | 
-  Utah Representatives | 
+**Supported** | **In development**
+--- | ---
+Deseret New | 
+Fox 13 | 
+House Democrats | 
+KSL | 
+KUTV | 
+Senate Democrats | 
+Senate Site | 
+Salt Lake Tribune | 
+St George | 
+University of Utah Daily Chronicle | 
+Utah Political Capital | 
+Utah DataPoints | 
+Utah Foundation | 
+Utah Policy | 
+Utah Representatives | 
 
