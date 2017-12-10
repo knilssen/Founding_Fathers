@@ -1,5 +1,5 @@
 
-# Goals:
+### Goals:
 
 ...* Focus on local state politics
 ...* Provide a reliable political feed for readers; reducing potential exposures to fake news
