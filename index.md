@@ -7,3 +7,10 @@ Choose Your Politics, also known as CYP, was created with the sole pupose of fix
   * Present fair-sided sources to avoid one-sided arguments
   * Encourage and create informed knowledgeable voters
 
+
+
+## States supported by CYP
+ 1. Utah
+ 
+## States soon to be supported by CYP
+ 1. Washington
