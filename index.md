@@ -15,7 +15,7 @@ Utah | Washington
 
 **How CYP Works**
 
-CYP works by scraping articles posted by reliable news sources.
+CYP works by scraping articles posted by reliable news sources. It takes these articles and analyzes them to determine if they are of value and importance and to who, to what, and where. From this information, CYP matches the article up with senators, house members, governers, ect. Then, after determining that the article has value and to who, what, and where, we run the article through social media platforms. We collect data from these platforms such as likes, shares, comments, mentions, and the rates at which they grow. Our algorithm, based on an extreamly simple version drawn from features of Facebooks early Edge Rank, can use the data we found with the article and the data we found when running the article through social media platforms to can create a score for that article in relation to the people, places, and orginizations that we found in the first step. This score constantly is changing with variables such as time depreatiation and the rise in popularity of the article on social media platforms. Using this score, we present articles for the people, places, orginizations, and ideas that the reader seeks more knowledge on. Eliminating the need to seek out informations, becuase the information is already curated in a simplistic, easy to use and read format.
 
 
 
