@@ -6,12 +6,16 @@ Choose Your Politics, also known as CYP, was created with the sole pupose of fix
   * Provide a reliable unbaised political feed for readers; reducing information feedback loops
   * Present fair-sided sources to avoid one-sided arguments
   * Encourage and create informed knowledgeable voters
-
-
+  
 
 **Supported** | **In development**
 --- | ---
 Utah | Washington
+
+## Voting, By the Numbers
+![Voter Turnout](/Screen Shot 2017-12-11 at 10.19.22 AM.png)
+
+
 
 **How CYP Works**
 
