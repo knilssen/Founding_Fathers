@@ -15,6 +15,8 @@ Utah | Washington
 **National Voter Turnout Rates, 1916 - 2016**
 
 ![Voter Turnout](/Screen Shot 2017-12-11 at 11.41.10 AM.png)
+*source: http://www.fairvote.org/voter_turnout#voter_turnout_101*
+
 
 **Washington State 2017 General Election Voter Turnout by County**
 
