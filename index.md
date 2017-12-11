@@ -38,7 +38,7 @@ CYP works by scraping articles posted by reliable news sources. It takes these a
  
 **Supported** | **In development**
 --- | ---
-Deseret New | 
+Deseret New | None
 Fox 13 | 
 House Democrats | 
 KSL | 
@@ -59,4 +59,21 @@ Utah Representatives |
 
 **Supported** | **In development**
 --- | ---
-None | None
+Seattle Times | None
+The Olympian | 
+Washington State Wire | 
+Seattle PI | 
+King 5 | 
+The News Tribune | 
+Washington State Republican Party | 
+Washington Democrats | 
+KOUW | 
+Public News Service | 
+Crosscut | 
+The Spokesman-Review | 
+Washington Education Association | 
+Office of Washington State Secratary of State | 
+The Capitol Record | 
+Q13 Fox | 
+NW News Network | 
+Kitsap Sun | 
