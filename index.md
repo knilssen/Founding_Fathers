@@ -18,7 +18,7 @@ Utah | Washington
 
 
 ![Washington State 2017 General Election Voter Turnout](Screen Shot 2017-12-11 at 10.43.57 AM.png)
-source: https://www.sos.wa.gov/elections/research/Ballot-Return-Statistics.aspx
+*source: https://www.sos.wa.gov/elections/research/Ballot-Return-Statistics.aspx*
 
 
 **How CYP Works**
