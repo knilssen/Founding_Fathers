@@ -12,7 +12,6 @@ Choose Your Politics, also known as CYP, was created with the sole pupose of fix
 --- | ---
 Utah | Washington
 
-## Voting, By the Numbers
 ![Voter Turnout](/Screen Shot 2017-12-11 at 10.19.22 AM.png)
 
 
