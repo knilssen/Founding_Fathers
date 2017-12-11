@@ -12,12 +12,14 @@ Choose Your Politics, also known as CYP, was created with the sole pupose of fix
 --- | ---
 Utah | Washington
 
-![Voter Turnout](/Screen Shot 2017-12-11 at 10.19.22 AM.png)
+**National Voter Turnout Rates, 1916 - 2016**
+
+![Voter Turnout](/Screen Shot 2017-12-11 at 11.41.10 AM.png)
 
 **Washington State 2017 General Election Voter Turnout by County**
 
 
-![Washington State 2017 General Election Voter Turnout](Screen Shot 2017-12-11 at 10.43.57 AM.png)
+![Washington State 2017 General Election Voter Turnout](/Screen Shot 2017-12-11 at 10.43.57 AM.png)
 *source: https://www.sos.wa.gov/elections/research/Ballot-Return-Statistics.aspx*
 
 
