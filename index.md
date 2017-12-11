@@ -1,7 +1,5 @@
 ## Choose Your Politics (CYP)
 
-![Voter Turnout](/Screen Shot 2017-12-11 at 10.19.22 AM.png)
-
 Choose Your Politics, also known as CYP, was created with the sole pupose of fixing some of the problems we have in the     United States with electing governing officials. To attemp to fix some of the problems, CYP focuses on doing the following:
 
   * Focus on local state politics
@@ -13,6 +11,8 @@ Choose Your Politics, also known as CYP, was created with the sole pupose of fix
 **Supported** | **In development**
 --- | ---
 Utah | Washington
+
+![Voter Turnout](/Screen Shot 2017-12-11 at 10.19.22 AM.png)
 
 **How CYP Works**
 
