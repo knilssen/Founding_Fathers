@@ -15,7 +15,7 @@ Utah | Washington
 
 **How CYP Works**
 
-CYP works by scraping 
+CYP works by scraping articles posted by reliable news sources.
 
 
 
