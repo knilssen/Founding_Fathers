@@ -13,6 +13,11 @@ Choose Your Politics, also known as CYP, was created with the sole pupose of fix
 --- | ---
 Utah | Washington
 
+**How CYP Works**
+CYP works by scraping 
+
+
+
 ---
 
 ## Sources by state
