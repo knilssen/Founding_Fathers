@@ -60,7 +60,7 @@ Utah Representatives |
 **Supported** | **In development**
 --- | ---
 None | Seattle Times
---- | The Olympian  
+| --- | The Olympian  
  | Washington State Wire 
  | Seattle PI
  | King 5
