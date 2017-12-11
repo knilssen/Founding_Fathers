@@ -15,14 +15,14 @@ Utah | Washington
 **National Voter Turnout Rates, 1916 - 2016**
 
 ![Voter Turnout](/Screen Shot 2017-12-11 at 11.41.10 AM.png)
-*source: [http://www.fairvote.org/voter_turnout#voter_turnout_101](http://www.fairvote.org/voter_turnout#voter_turnout_101)*
+*source: [fairvote.org/voter_turnout#voter_turnout_101](http://www.fairvote.org/voter_turnout#voter_turnout_101)*
 
 
 **Washington State 2017 General Election Voter Turnout by County**
 
 
 ![Washington State 2017 General Election Voter Turnout](/Screen Shot 2017-12-11 at 10.43.57 AM.png)
-*source: [https://www.sos.wa.gov/elections/research/Ballot-Return-Statistics.aspx](https://www.sos.wa.gov/elections/research/Ballot-Return-Statistics.aspx)*
+*source: [sos.wa.gov/elections/research/Ballot-Return-Statistics.aspx](https://www.sos.wa.gov/elections/research/Ballot-Return-Statistics.aspx)*
 
 
 **How CYP Works**
