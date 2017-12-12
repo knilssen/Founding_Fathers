@@ -63,7 +63,7 @@ Utah Representatives |
 --- | ---
 None | Seattle Times
 || The Olympian  
-| | Washington State Wire 
+|| Washington State Wire 
 || Seattle PI
 || King 5
 || The News Tribune
