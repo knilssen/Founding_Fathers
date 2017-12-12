@@ -1,4 +1,5 @@
 ## Choose Your Politics (CYP)
+---
 
 Choose Your Politics, also known as CYP, was created with the sole purpose of fixing some of the problems we have in the     United States with electing governing officials. To attempt to fix some of the problems, CYP focuses on doing the following:
 
@@ -30,10 +31,11 @@ CYP works by scraping articles posted by reliable news sources. It takes these a
 
 
 
----
+
 
 ## Sources by state
- 
+---
+
 **Utah:**
  
 **Supported** | **In development**
