@@ -25,9 +25,10 @@ python article_NERT_parser 'https://www.ksl.com/?sid=43675196' "2017-03-29 17:30
 
 
 If problem with importing lxml.etree and get the reason, Reason: Incompatible library version: etree.so requires version 12.0.0 or later, but libxml2.2.dylib provides version 10.0.0, fix with the following:
-'''
+
+```
 brew install libxml2
 brew install libxslt
 brew link libxml2 --force
 brew link libxslt --force
-'''
+```
