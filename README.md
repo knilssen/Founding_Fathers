@@ -7,5 +7,5 @@ Goals:
 * Encourage and create informed knowledgeable voters
 
 
-To find out more about what this project is or why it was created, please visit:
+To find out more about what this project is, how it works, or why it was created please visit:
 https://knilssen.github.io/Founding_Fathers/
