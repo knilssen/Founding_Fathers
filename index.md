@@ -62,15 +62,13 @@ Utah Representatives |
 **Supported** | **In development**
 --- | ---
 Seattle Times | Seattle PI
-The Olympian | Washington Democrats
-Washington State Wire | KOUW
-King 5 | Public News Service
-The News Tribune | Crosscut
-Washington State Republican Party | The Spokesman-Review
-  | Washington Education Association
-  | Office of Washington State Secratary of State
-  | The Capitol Record
-  | Q13 Fox
+The Olympian | Public News Service
+Washington State Wire | Crosscut
+King 5 | The Spokesman-Review
+The News Tribune | Washington Education Association
+Washington State Republican Party | Office of Washington State Secratary of State
+Washington Democrats  | The Capitol Record
+KOUW  | Q13 Fox
   | NW News Network
   | Kitsap Sun
 
