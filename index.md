@@ -63,9 +63,9 @@ Utah Representatives |
 --- | ---
 Seattle Times | Seattle PI
 The Olympian | Office of Washington State Secratary of State
-Washington State Wire | Q13 Fox
-King 5 | NW News Network
-The News Tribune | Kitsap Sun
+Washington State Wire | 
+King 5 | 
+The News Tribune | 
 Washington State Republican Party |  
 Washington Democrats  | 
 KOUW  | 
@@ -74,3 +74,6 @@ Crosscut  |
 The Spokesman-Review  | 
 Washington Education Association  | 
 The Capitol Record  | 
+Q13 Fox  | 
+NW News Network  | 
+Kitsap Sun  | 
