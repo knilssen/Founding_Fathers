@@ -8,7 +8,7 @@ Date: 12/17/2017
 
 Usage:
 
-    python grabber_person.py
+    python senator_grabber_person.py
 
 
 '''
