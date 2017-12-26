@@ -61,6 +61,9 @@ def main(Url, pub_time, Source, Keywords, otherNames, Type):
         article.download()
         article.parse()
     articleText = (article.text)
+
+    # Change the .encode('ascii', 'replace')  to something like utf-8 and look into the replace thing.
+    # Could be the root of your text problems replace things like ', -, and : into the ? mark
     articleText = articleText.encode('ascii', 'replace').replace(u"\u0029", "").replace(u"\u0028", "")
     dateTime = time.strftime("%Y-%m-%d %I:%M:%S")
 
