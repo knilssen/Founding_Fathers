@@ -46,7 +46,7 @@ from newspaper import Article
 
 
 def main(Url, pub_time, Source, Keywords, otherNames, Type):
-    print Url
+    # print Url
     Keywords = Keywords.lower()
     article = Article(Url)
     article.download()
@@ -55,6 +55,8 @@ def main(Url, pub_time, Source, Keywords, otherNames, Type):
         if article.is_parsed:
             print "parsed"
             article.nlp()
+        else:
+            print "Failed Parse"
     else:
         print "failed download"
         article = urllib.urlopen(Url).read()
@@ -90,12 +92,14 @@ def main(Url, pub_time, Source, Keywords, otherNames, Type):
 
     for key in Keywords:
         keywordtotalcount[key] = 0
+        # attemps to add last name reconization in which I have taken out, need to add a reliable for of this
         for key2 in key.split():
             count[key2] = 0
 
     itemposition = 0
     totoltypecount = 0
     taged = st.tag(sentence)
+    print taged
     for item in taged:
         firstItem = item[0].encode('utf-8').strip("\)(?.,:`")
         if firstItem:
@@ -104,33 +108,37 @@ def main(Url, pub_time, Source, Keywords, otherNames, Type):
             else:
                 categories[item[1]].append(firstItem)
             if item[1] == Type:
-                totoltypecount = totoltypecount + 1
+                totoltypecount += 1
                 #Creats full name list, is checked against to make sure a article with mike newton is counting mike johnson or sam newton
                 #as people who are mentioned in the article.
                 if itemposition != (len(taged) -1):
                     if taged[itemposition + 1][1] == Type:
-                        realtypefind.append(" " + (item[0].lower() + " " + (taged[itemposition + 1][0]).lower()).encode('utf-8'))
+                        realtypefind.append((item[0].lower() + " " + (taged[itemposition + 1][0]).lower()).encode('utf-8'))
                 output.append(item[0])
                 if item[0].lower() in count:
-                    count[item[0].lower()] = count[item[0].lower()] + 1
+                    count[item[0].lower()] += 1
         itemposition = itemposition + 1
 
-    #Creats full name list, is checked against to make sure a article with mike newton is counting mike johnson or sam newton
+    #Creats full name list, is checked against to make sure a article with mike newton is not counting mike johnson or sam newton
     #as people who are mentioned in the article.
 
     for key in keywordtotalcount:
         for T in range(0, len(key.split())):
-            (keywordtotalcount[key]) = (keywordtotalcount[key]) + count[(key.split())[T]]
+            (keywordtotalcount[key]) += count[(key.split())[T]]
 
     frequency = (FreqDist(output)).most_common(5)
 
     for freq in frequency:
-        totalcount = totalcount + freq[1]
+        totalcount += freq[1]
 
     article.nlp()
     keywords_database = ' '.join(article.keywords)
 
     article_people = []
+    # print "keywordtotalcount", keywordtotalcount
+
+    print "keywordtotalcount:   ", keywordtotalcount
+    print "realtypefind:    ", realtypefind
 
     for person in keywordtotalcount:
         if person in realtypefind:
@@ -149,18 +157,18 @@ def main(Url, pub_time, Source, Keywords, otherNames, Type):
 
     if len(article_people) >= 1:
         if mysql_check_duplicate.main(Url) == 0:
-            # print Url
-            article_id = mysql_article_entry.main(Url, Source, post_date, dateTime, article.title, str(article.authors), str(keywords_database), article.summary, articleText, article.top_image)
-            mysql_article_person_link.main(article_id, article_people, totalcountofperson, (round((totalcountofperson/float(totoltypecount)), 4) * 100), totoltypecount)
-            mysql_article_based_weights.main(article_id, len(articleText), "yes")
-            mysql_social_media_entry.main(article_id, Url)
+            print Url, "test", article_people, "test"
+            # article_id = mysql_article_entry.main(Url, Source, post_date, dateTime, article.title, str(article.authors), str(keywords_database), article.summary, articleText, article.top_image)
+            # mysql_article_person_link.main(article_id, article_people, totalcountofperson, (round((totalcountofperson/float(totoltypecount)), 4) * 100), totoltypecount)
+            # mysql_article_based_weights.main(article_id, len(articleText), "yes")
+            # mysql_social_media_entry.main(article_id, Url)
 
 if __name__ == "__main__":
 
     # some preliminary error checking
 
-    if len(sys.argv) != 4:
-        print 'python article_NERT_parser [Url to article to be weighted] [ pub_time ] [ Source ] [ Keywords ] [ otherNames ] [ Type ]'
+    if len(sys.argv) != 6:
+        print len(sys.argv), 'python article_NERT_parser [Url to article to be weighted] [ pub_time ] [ Source ] [ Keywords ] [ otherNames ] [ Type ]'
     elif sys.argv[3] == 'PERSON' or sys.argv[3] == 'LOCATION' or sys.argv[3] == 'ORGANIZATION':
         print main(sys.argv[1], sys.argv[2], sys.argv[3], sys.argv[4], sys.argv[5], sys.argv[6])
     else:

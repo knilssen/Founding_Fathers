@@ -10,7 +10,7 @@ Usage:
 '''
 
 import sys
-# import article_NERT_parser
+import article_NERT_parser
 import time
 import threading
 
@@ -47,8 +47,8 @@ def article_worker(article, pub_time, source, allkeywords, DiffName):
     # thread worker function
     sema.acquire()
     t = threading.currentThread()
-    print t, article
-    # article_NERT_parser.main(article, pub_time, source, allkeywords, DiffName,  "PERSON")
+    # print t, article
+    article_NERT_parser.main(article, pub_time, source, allkeywords, DiffName,  "PERSON")
     sema.release()
 
 
@@ -79,43 +79,56 @@ def grabber_worker(source_name, source, currentTime, allkeywords, DiffName):
 
 def main():
 
-    HouseReps = [" Scott Sandall","Jefferson Moss","Val Potter","Edward Redd","Curt Webb",
-                "Cory Maloy","Justin Fawson","Gage Froerer","Jeremy Peterson","Dixon Pitcher",
-                "Kelly Miles","Mike Schultz","Paul Ray","Karianne Lisonbee","Brad Wilson",
-                "Stephen Handy","Stewart Barlow","Timothy Hawkes","Raymond Ward","Rebbeca Edwards",
-                "Douglas Sagers","Susan Duckworth","Sandra Hollins","Rebbeca Chavez-Houck","Joel Briscoe",
-                "Angela Romero","Michael Kennedy","Brian King","Lee Perry","Mike Winder",
-                "Elizabeth Weight","LaVar Christensen","Craig Hall","Karen Kwan","Mark Wheatley",
-                "Patrice Arent","Carol Moss","Eric Hutchings","James Dunnigan","Lynn Hemingway",
-                "Daniel  McCay","Kim Coleman","Adam Gardiner","Bruce Cutler","Steve Eliason",
-                "Marie Poulson","Ken Ivory","Kevin Stratton","Robert Spendlove","Susan Pulsipher",
-                "Gregory Hughes","John Knotwell","Logan Wilde","Tim Quinn","Scott Chew",
-                "Kay Christofferson","Brian Greene","Derrin Owens","Val Peterson","Brad Daw",
-                "Keith Grover","Jon Stanard","Dean Sanpei","Norman Thurston","Francis Gibson",
-                "Mike McKell","Marc Roberts","Merril Nelson","Christine Watkins","Carl Albrecht",
-                "Bradley Last","John Westwood","Michael Noel","Lowry Snow","Walt Brooks"]
-    senators = [" Luz Escamilla","Jim Dabakis","Gene Davis","Jani Iwamoto","Karen Mayne",
-                "Wayne Harper","Deidre Henderson","Brian Shiozawa","Wayne Niederhauser",
-                "Lincoln Fillmore","Howard Stephenson","Daniel Thatcher","Jacob Anderegg","Daniel Hemmert",
-                "Margaret Dayton","Curtis Bramble","Peter Knudson","Ann Millner","Allen Christensen",
-                "Gregg Buxton","Jerry Stevenson","Stuart Adams","Todd Weiler","Ralph Okerlund",
-                "Lyle Hillyard","Kevin Van Tassell","David Hinkins","Evan Vickers","Don Ipson"]
-    Governer = [" Gary Herbert"]
-    DiffName = {' jacob anderegg' : ' jake anderegg', ' curtis bramble' : ' curt bramble', ' susan duckworth' : ' sue duckworth',
-                ' james dunnigan' : ' jim dunnigan', ' rebbeca edwards' : ' becky edwards', ' stephen handy' : ' steve handy',
-                ' daniel hemmert' : ' dan hemmert', ' gregory hughes' : ' greg hughes', ' michael kennedy' : ' mike kennedy',
-                ' bradley last' : ' brad last', ' daniel  mccay' : ' dan mccay', ' michael noel' : ' mike noel', ' edward redd' : ' ed redd',
-                ' daniel thatcher' : ' dan thatcher', ' norman thurston' : ' norm thurston', ' raymond ward' : ' ray ward'}
-    utah_senators_us = [" Orrin Hatch","Mike Lee"]
-    utah_reps_us = [" Rob Bishop","Chris Stewart","Jason Chaffetz","Mia Love"]
+    HouseReps = [u'Sherry Appleton', u'Andrew Barkis', u'Steve Bergquist', u'Brian Blake', u'Vincent Buys',
+                u'Michelle Caldier', u'Bruce Chandler', u'Mike Chapman', u'Frank Chopp', u'Judy Clibborn',
+                u'Eileen Cody', u'Cary Condotta', u'Richard DeBolt', u'Tom Dent', u'Beth Doglio', u'Laurie Dolan',
+                u'Mary Dye', u'Carolyn Eslick', u'Jake Fey', u'Joe Fitzgibbon', u'Noel Frame', u'Roger Goodman',
+                u'Paul Graves', u'Mia Gregerson', u'Dan Griffey', u'Larry Haler', u'Drew Hansen', u'Mark Hargrove',
+                u'Mark Harmsworth', u'Paul Harris', u'Dave Hayes', u'Jeff Holy', u'Zack Hudgins',
+                u'Morgan Irwin', u'Bill Jenkin', u'Laurie Jinkins', u'Norm Johnson', u'Ruth Kagi',
+                u'Christine Kilduff', u'Steve Kirby', u'Brad Klippert', u'Shelley Kloba', u'Vicki Kraft',
+                u'Joel Kretz', u'Dan Kristiansen', u'John Lovick', u'Kristine Lytton', u'Drew MacEwen',
+                u'Nicole Macri', u'Matt Manweller', u'Jacquelin Maycumber', u'Joan McBride', u'Gina McCabe',
+                u'Bob McCaslin', u'Joyce McDonald', u'Jeff Morris', u'Dick Muri', u'Terry Nealey', u'Ed Orcutt',
+                u'Timm Ormsby', u'Lillian Ortiz-Self', u'Tina Orwall', u'Mike Pellicciotti', u'Strom Peterson',
+                u'Eric Pettigrew', u'Liz Pike', u'Gerry Pollet', u'Kristine Reeves', u'Marcus Riccelli', u'June Robinson',
+                u'Jay Rodne', u'Cindy Ryu', u'Sharon Tomiko Santos', u'David Sawyer', u'Joe Schmick', u'Mike Sells',
+                u'Tana Senn', u'Matt Shea', u'Vandana Slatter', u'Norma Smith', u'Larry Springer', u'Melanie Stambaugh',
+                u'Derek Stanford', u'Mike Steele', u'Drew Stokesbary', u'Monica Jurado Stonier', u'Pat Sullivan',
+                u'Gael Tarleton', u'David Taylor', u'Steve Tharinger', u'Javier Valdez', u'Luanne Van Werven',
+                u'Brandon Vick', u'Mike Volz', u'Jim Walsh', u'J.T. Wilcox', u'Sharon Wylie', u'Jesse Young']
+
+    senators = [u'Jan Angel', u'Barbara Bailey', u'Michael Baumgartner', u'Randi Becker', u'Andy Billig',
+                u'John Braun', u'Sharon Brown', u'Reuven Carlyle', u'Maralyn Chase', u'Annette Cleveland',
+                u'Steve Conway', u'Jeannie Darneille', u'Manka Dhingra', u'Doug Ericksen', u'Joe Fain',
+                u'Phil Fortunato', u'David Frockt', u'Bob Hasegawa', u'Brad Hawkins', u'Steve Hobbs',
+                u'Jim Honeyford', u'Sam Hunt', u'Karen Keiser', u'Curtis King',u'Patty Kuderer',
+                u'Marko Liias', u'John McCoy', u'Mark Miloscia', u'Mark Mullet', u'Sharon Nelson',
+                u"Steve O'Ban", u'Mike Padden', u'Guy Palumbo', u'Kirk Pearson', u'Jamie Pedersen',
+                u'Kevin Ranker', u'Ann Rivers', u'Christine Rolfes', u'Rebecca Salda\xc3a', u'Mark Schoesler',
+                u'Tim Sheldon', u'Shelly Short', u'Dean Takko', u'Kevin Van De Wege', u'Maureen Walsh',
+                u'Judy Warnick', u'Lisa Wellman', u'Lynda Wilson', u'Hans Zeiger']
+
+    Governer = [u'Jay Inslee']
+    DiffName = {' Jay Inslee' : ' Governer Inslee'}
+
+    # DiffName = {' Jay Inslee' : ' Governer Inslee', ' curtis bramble' : ' curt bramble', ' susan duckworth' : ' sue duckworth',
+    #             ' james dunnigan' : ' jim dunnigan', ' rebbeca edwards' : ' becky edwards', ' stephen handy' : ' steve handy',
+    #             ' daniel hemmert' : ' dan hemmert', ' gregory hughes' : ' greg hughes', ' michael kennedy' : ' mike kennedy',
+    #             ' bradley last' : ' brad last', ' daniel  mccay' : ' dan mccay', ' michael noel' : ' mike noel', ' edward redd' : ' ed redd',
+    #             ' daniel thatcher' : ' dan thatcher', ' norman thurston' : ' norm thurston', ' raymond ward' : ' ray ward'}
+
+    utah_senators_us = [u'Patty Murry', u'Maria Cantwell']
+
+    utah_reps_us = [u'Adam Smith', u'Cathy McMorris Rodgers', u'Dan Newhouse', u'Dave Reichert', u'Denny Heck', u'Derek Kilmer',
+                    u'Jaime Herrera Beutler', u'Pramila Jayapal', u'Rick Larsen', u'Suzan DelBene']
+
     currentTime = []
     urls = {}
-
     allkeywords = str(Governer) + "," + str(senators) + "," + str(HouseReps) + "," + str(utah_senators_us) + "," + str(utah_reps_us)
     allkeywords = allkeywords.replace("'", "")
     allkeywords = allkeywords.replace("]", "")
     allkeywords = allkeywords.replace("[", "")
-
     currentTime.append((time.strftime("%x").replace("/", " ")).split())
     currentTime.append((time.strftime("%X").replace(":", " ")).split())
 
@@ -143,15 +156,19 @@ def main():
     print "       Source                         Articles Found"
     print "______________________________________________________"
 
-    article_dic = grabber_worker(source_name, grabberlist, currentTime, allkeywords, DiffName)
+    article_dic = grabber_worker(source_name, grabberlist, currentTime, allkeywords, [])
 
     # for duh in article_dic:
     #     for hud in article_dic[duh]:
     #         print hud, article_dic[duh][hud]
 
+
+
+
+
     for i in article_dic:
         for art in article_dic[i]:
-            print art
+            # print art
             # print art, article_dic[i][art], i
             # t = threading.Thread(target=article_worker, args=(art, article_dic[i][art], i, allkeywords, DiffName))
             # thread.append(t)
