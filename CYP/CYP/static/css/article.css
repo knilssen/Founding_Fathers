@@ -1,11 +1,21 @@
 .article_container {
   padding-left: 10%;
   padding-right: 10%;
+  /*display: block;*/
 }
 
 .text_container {
   width: 80%;
 
+}
+
+.article_image {
+  width: -webkit-fill-available;
+}
+
+.col-xs-12 {
+  overflow: hidden;
+  position:relative;
 }
 
 .text {

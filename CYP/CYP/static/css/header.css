@@ -5,30 +5,44 @@ header {
     align-items: center;
     overflow: hidden
 }
-header img {
-    flex-shrink: 0;
-    min-width: 50%;
-    min-height: 50%
-}
 
 html,body {
-  height:100%
+  height:100vh;
+}
+
+#header {
+  background: #000;
+}
+
+.container-fluid {
+  padding-right: 0px;
+  padding-left: 0px;
 }
 
 h1 {
     text-align: center;
 }
 
-ul {
+.header {
     list-style-type: none;
-    margin: 0;
     padding: 0;
     overflow: hidden;
-    background-color: #1D305B;
+    background: #000;
+    margin-bottom: 0px;
+}
+
+.header-content {
+  display: block;
+    margin-right: auto;
+    margin-left: auto;
+    position: relative;
+    width: 1240px;
+    height: 100%;
 }
 
 li {
     float: left;
+    /*padding-left: 40px;*/
 }
 
 li a {

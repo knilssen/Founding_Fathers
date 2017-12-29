@@ -2,9 +2,18 @@
 {% load staticfiles %}
 <html lang="en">
 
-<!-- <header>
-        <img src="{% static 'images/founding.jpg' %}" align="middle" style='max-height:150px;' alt="Logo" />
-</header> -->
+<header id="header">
+	<div class="header-content">
+		<ul class="header">
+			<li><a href=" {% url 'index' %}">CYP</a></li>
+			<li><a href="{% url 'recent_news' %}">Recent News</a></li>
+			<li><a href="{% url 'house' %}">House</a></li>
+			<li><a href="{% url 'senate' %}">Senate</a></li>
+			<li><a href=" {% url 'About' %}">About</a></li>
+		</ul>
+	</div>
+        <!-- <img src="{% static 'images/founding.jpg' %}" align="middle" style='max-height:150px;' alt="Logo" /> -->
+</header>
 
 <head>
 	<link rel="stylesheet" href="{% static 'css/header.css' %}" type="text/css">
@@ -25,35 +34,16 @@
 
 
 </head>
-<!-- /* CYP Nav Bar */ -->
 
-
-	</head>
 	<body>
+	<div class="container-fluid" style="padding:0px;">
 
-	<ul>
-	  <li><a href=" {% url 'index' %}">Home</a></li>
-	  <li><a href="{% url 'recent_news' %}">Recent News</a></li>
-		<li><a href="{% url 'republican' %}">Republican News</a></li>
-		<li><a href="{% url 'democrat' %}">Democrat News</a></li>
-	  <li><a href=" {% url 'About' %}">About</a></li>
-	</ul>
-<body class="body" style="background-color:#f6f6f6">
-	<div class="container-fluid" style="min-height:90%; ">
-		  
 			   {% block content %}
 			   {% endblock %}
 			</div>
 		  </div>
 		</div>
 	</div>
-
-
-	<footer>
-		<div class="container-fluid" style='margin-left:15px'>
-			<p><a href="#" target="blank">Contact</a> | <a href="#" target="blank">Instagram</a> | <a href="#" target="blank">Twitter</a> | <a href="#" target="blank">Google+</a></p>
-		</div>
-	</footer>
 
 
 
