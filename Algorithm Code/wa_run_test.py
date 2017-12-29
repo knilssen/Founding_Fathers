@@ -54,9 +54,16 @@ def article_worker(article, pub_time, source, allkeywords, DiffName):
     sema.acquire()
     t = threading.currentThread()
     # print t, article
-    article_NERT_parser.main(article, pub_time, source, allkeywords, DiffName,  "PERSON")
-    sema.release()
+    pt = ""
+    try:
+        article_NERT_parser.main(article, pub_time, source, allkeywords, DiffName,  "PERSON")
+    except:
+        print "\n"
+        print "ERROR:       An error occured while running NERT on article: ", article, "\n       from source: ", source
+        print "\n"
 
+    finally:
+        sema.release()
 
 def grabber_worker(source_name, source, currentTime, allkeywords, DiffName):
     source_dic = {}
@@ -65,15 +72,21 @@ def grabber_worker(source_name, source, currentTime, allkeywords, DiffName):
         article_source = source[y]
         article_source_name = source_name[y]
         source_output = article_source_name
-        art = article_source.main(currentTime)
-        source_length = len(article_source_name)
-        max_source_length = 43
-        for x in range(0, max_source_length - source_length):
-            source_output = source_output + " "
-        if len(art) != 0:
-            source_dic[article_source_name] = art
-        print " ", source_output, len(art)
-        total_article_count += len(art)
+        try:
+            art = article_source.main(currentTime)
+            if len(art) != 0:
+                source_dic[article_source_name] = art
+            art_len = len(art)
+            total_article_count += art_len
+        except:
+            art_len = "Error              !!! An Error Occured While Grabbing For Articles From this Source !!!"
+        finally:
+            source_length = len(article_source_name)
+            max_source_length = 43
+            for x in range(0, max_source_length - source_length):
+                source_output = source_output + " "
+
+            print " ", source_output, art_len
     print "\n"
     total_output = "Total Articles Found"
     for x in range(0, max_source_length - len(total_output)):
@@ -84,8 +97,7 @@ def grabber_worker(source_name, source, currentTime, allkeywords, DiffName):
 
 
 def main():
-
-
+    HouseRep = {}
     HouseReps = [u'Sherry Appleton', u'Andrew Barkis', u'Steve Bergquist', u'Brian Blake', u'Vincent Buys',
                 u'Michelle Caldier', u'Bruce Chandler', u'Mike Chapman', u'Frank Chopp', u'Judy Clibborn',
                 u'Eileen Cody', u'Cary Condotta', u'Richard DeBolt', u'Tom Dent', u'Beth Doglio', u'Laurie Dolan',
@@ -105,6 +117,7 @@ def main():
                 u'Gael Tarleton', u'David Taylor', u'Steve Tharinger', u'Javier Valdez', u'Luanne Van Werven',
                 u'Brandon Vick', u'Mike Volz', u'Jim Walsh', u'J.T. Wilcox', u'Sharon Wylie', u'Jesse Young']
 
+    senator = {}
     senators = [u'Jan Angel', u'Barbara Bailey', u'Michael Baumgartner', u'Randi Becker', u'Andy Billig',
                 u'John Braun', u'Sharon Brown', u'Reuven Carlyle', u'Maralyn Chase', u'Annette Cleveland',
                 u'Steve Conway', u'Jeannie Darneille', u'Manka Dhingra', u'Doug Ericksen', u'Joe Fain',
@@ -116,21 +129,48 @@ def main():
                 u'Tim Sheldon', u'Shelly Short', u'Dean Takko', u'Kevin Van De Wege', u'Maureen Walsh',
                 u'Judy Warnick', u'Lisa Wellman', u'Lynda Wilson', u'Hans Zeiger']
 
-    Governer = [u'Jay Inslee']
+    Governer = {}
+    Governers = [u'Jay Inslee']
 
-    DiffName = {' Jay Inslee' : ' Governer Inslee'}
+    DiffName = {'Jay Inslee' : 'Governor Inslee'}
 
+    washington_senators_us = {}
     utah_senators_us = [u'Patty Murry', u'Maria Cantwell']
 
+    washington_reps_us = {}
     utah_reps_us = [u'Adam Smith', u'Cathy McMorris Rodgers', u'Dan Newhouse', u'Dave Reichert', u'Denny Heck', u'Derek Kilmer',
                     u'Jaime Herrera Beutler', u'Pramila Jayapal', u'Rick Larsen', u'Suzan DelBene']
 
+
+    for HP in HouseReps:
+        hps = HP.split()
+        HouseRep[" ".join(hps[1:])] = hps[0]
+
+    senators += utah_senators_us
+    for sen in senators:
+        sens = sen.split()
+        senator[" ".join(sens[1:])] = sens[0]
+
+    for gov in Governers:
+        govs = gov.split()
+        Governer[" ".join(govs[1:])] = govs[0]
+
+    # for usen in utah_senators_us:
+    #     usens = usen.split()
+    #     washington_senators_us[" ".join(usens[1:])] = usens[0]
+
+    for urep in utah_reps_us:
+        ureps = urep.split()
+        washington_reps_us[" ".join(ureps[1:])] = ureps[0]
+
+    names = {"represenative": HouseRep, "senator": senator, "governor": Governer, "washington_senators_us": washington_senators_us, "washington_reps_us": washington_reps_us}
+
     currentTime = []
     urls = {}
-    allkeywords = str(Governer) + "," + str(senators) + "," + str(HouseReps) + "," + str(utah_senators_us) + "," + str(utah_reps_us)
-    allkeywords = allkeywords.replace("'", "")
-    allkeywords = allkeywords.replace("]", "")
-    allkeywords = allkeywords.replace("[", "")
+    # allkeywords = str(Governer) + "," + str(senators) + "," + str(HouseReps) + "," + str(utah_senators_us) + "," + str(utah_reps_us)
+    # allkeywords = allkeywords.replace("'", "")
+    # allkeywords = allkeywords.replace("]", "")
+    # allkeywords = allkeywords.replace("[", "")
     currentTime.append((time.strftime("%x").replace("/", " ")).split())
     currentTime.append((time.strftime("%X").replace(":", " ")).split())
 
@@ -158,7 +198,7 @@ def main():
     print "       Source                         Articles Found"
     print "______________________________________________________"
 
-    article_dic = grabber_worker(source_name, grabberlist, currentTime, allkeywords, [])
+    article_dic = grabber_worker(source_name, grabberlist, currentTime, names, DiffName)
 
     # for duh in article_dic:
     #     for hud in article_dic[duh]:
@@ -168,7 +208,7 @@ def main():
         for art in article_dic[i]:
             # print art
             # print art, article_dic[i][art], i
-            t = threading.Thread(target=article_worker, args=(art, article_dic[i][art], i, allkeywords, DiffName))
+            t = threading.Thread(target=article_worker, args=(art, article_dic[i][art], i, names, DiffName))
             thread.append(t)
             t.start()
 
