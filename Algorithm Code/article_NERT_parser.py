@@ -84,6 +84,8 @@ def main(Url, pub_time, Source, Keywords, otherNames, Type):
     realtypefind = {}
     keywordtotalcount = {}
     article_people = {}
+    found_people_by_last_name = {}
+    people_by_last_name = {}
     otherPositionTitles = []
     positionTitles = ['governor', 'senator', 'represenative']
     categories = defaultdict(list)
@@ -92,9 +94,16 @@ def main(Url, pub_time, Source, Keywords, otherNames, Type):
     for position_key in Keywords:
         for name_value in Keywords[position_key]:
             keywordtotalcount[(Keywords[position_key][name_value] + " " + name_value).lower()] = 0
+            people_by_last_name[name_value] = Keywords[position_key][name_value]
 
     totoltypecount = 0
     taged = st.tag(sentence)
+
+    # Prints out the article after Stanfords Named Entity Reconization Tagger has been ran, showing its text
+    # and its named entities that have been matched, used mostly for debuging and seeing the article if need-be. 
+    #
+    # print taged
+    # print "\n"
 
     for itemPosition in range(0,len(taged)-1):
         item = taged[itemPosition]
@@ -111,7 +120,7 @@ def main(Url, pub_time, Source, Keywords, otherNames, Type):
                 #Creats full name list, is checked against to make sure a article with mike newton is counting mike johnson or sam newton
                 #as people who are mentioned in the article.
 
-                #case:1
+                # Case:1
                 # Full, normal name is used in text
                 # Solve by looking for PERSON tag, if found, if the next position is also a PERSON tag
                 # SubCase: if person has multiple last or first names, keep on checking for more name tags, if two are found.
@@ -122,34 +131,70 @@ def main(Url, pub_time, Source, Keywords, otherNames, Type):
                         itemPosition += 1
                     found_real_type_find = " ".join(temp_realtypefind)
 
-                #case:2
+                # Case:2
                 # If persons full name is not used and is originally called by a title like senaotor __name___ or representative __name___
                 # Solve by looking for PERSON tag, if found, if not case1 then if the previous position in Senator or Rep, or ect.....
-                #
-                # ***Still Need to figure out subcase if multiple last name or first names***
-                #
+                # SubCase: if person has multiple last or first names, keep on checking for more name tags.
                 elif taged[itemPosition - 1][1] != Type:
                     if taged[itemPosition -1][0].lower() in positionTitles:
-                        if item[0].lower() in Keywords[(taged[itemPosition - 1][0]).lower()]:
-                            # Find name of person and add that to realtypefind
-                            found_real_type_find = (Keywords[(taged[itemPosition - 1][0]).lower()][item[0]]).lower() + " " + item[0].lower()
-                            keywordtotalcount[(Keywords[(taged[itemPosition - 1][0]).lower()][item[0]]).lower() + " " + item[0].lower()] += 1
+                        title_tag = taged[itemPosition -1][0].lower()
+                        temp_realtypefind = [item[0].lower().encode("utf-8")]
+                        # If the person has a multi named last name, make sure to find and use their whole last name.
+                        while itemPosition < len(taged) - 1 and taged[itemPosition + 1][1] == Type:
+                            temp_realtypefind.append(((taged[itemPosition + 1][0]).lower()).encode("utf-8"))
+                            itemPosition += 1
+
+                        temp_realtypefind = " ".join(temp_realtypefind)
+
+                        # If our last name is in their respected title, then we have found their first name and concluded they are of value and interest
+                        if temp_realtypefind in Keywords[title_tag]:
+                            found_real_type_find = (Keywords[(taged[itemPosition - 1][0]).lower()][temp_realtypefind]).lower() + " " + temp_realtypefind
+
+                    # If the persons title is not in our list of approved titles then add that title so we can check later if we are skipping something that
+                    # matters. Also check if a person is mentioned but has no title reference, this could be extreamly complex or basicly simple, all depends on
+                    # how much we want to spend on this and the accuracy we achieve but putting more time and resources into it.
                     else:
+                        # Case:2.1
+                        # Person is mentioned by only their last name, with previous word in article not PERSON but also not in the list of approved titles.
+                        # This can be unaccurate if its mentioning someone who's not of importance but also has the last name of someone that does. Even though
+                        # that would be an extreamly rare occurance, it has the possibility of happening. Maybe create a log system of people that are found using
+                        # this method so we can check it periodically for inconsistencies and solve/create fixes and checks.
+                        temp_realtypefind = [item[0].lower().encode("utf-8")]
+                        while itemPosition < len(taged) - 1 and taged[itemPosition + 1][1] == Type:
+                            temp_realtypefind.append(((taged[itemPosition + 1][0]).lower()).encode("utf-8"))
+                            itemPosition += 1
+                        temp_realtypefind = " ".join(temp_realtypefind)
+
                         otherPositionTitles.append(taged[itemPosition - 1])
 
-                #case3
+                        # If the last name has already been found before, associate that last name with that found first name
+                        if temp_realtypefind in found_people_by_last_name:
+                            found_real_type_find = found_people_by_last_name[temp_realtypefind] + " " + temp_realtypefind
+
+                        # If the last name has not been found already at this stage, look into last name dict, and if last name of importance found that matches,
+                        # associate the found last name that name
+                        else:
+                            if temp_realtypefind in people_by_last_name:
+                                found_real_type_find = people_by_last_name[temp_realtypefind] + " " + temp_realtypefind
+
+
+                # Case:3
                 #
                 #
 
 
-
+                # If we find a persons name
                 if found_real_type_find != "":
+                    # If the person has not already occured in the acticle so far
+                    # Add full name to realtypefind so it can be increment later if we come across it agian
+                    # Split up name to be added into found_people_by_last_name so they are searchable in case 2.1
                     if found_real_type_find not in realtypefind:
                         realtypefind[found_real_type_find] = 1
+                        found_real_type_find = found_real_type_find.split()
+                        found_people_by_last_name[found_real_type_find[0]] = found_real_type_find[1:]
+                    # If the person has already been found in the acticle, increment their occurance count
                     else:
                         realtypefind[found_real_type_find] += 1
-
-
 
 
 
@@ -164,7 +209,7 @@ def main(Url, pub_time, Source, Keywords, otherNames, Type):
         if key in keywordtotalcount:
             (keywordtotalcount[key]) += realtypefind[key]
 
-    #
+
     # Small print statement to show all the counts in keywordtotalcount
     #
     # print "\n"
@@ -174,6 +219,10 @@ def main(Url, pub_time, Source, Keywords, otherNames, Type):
     # print "\n"
 
 
+    # Not to sure what this is doing exactly or why we need it, its just using up time and resources. Lets come back to this and find a more efficiant
+    # way of doing this. Not sure exactly but recently saw something that can give us a article "preview" instead of just keywords. But keywords like
+    # this could be useful if implementing an article search function in the site, it would need the keywords to search for, for relevency and accuracy
+    #
     # article.nlp()
     # keywords_database = ' '.join(article.keywords)
 
@@ -189,7 +238,6 @@ def main(Url, pub_time, Source, Keywords, otherNames, Type):
             if person in otherNames and otherNames[person] in realtypefind:
                 article_people[person] = keywordtotalcount[person]
 
-
     if len(article_people) >= 1:
         # if mysql_check_duplicate.main(Url) == 0:
         print Url, article_people
@@ -197,6 +245,8 @@ def main(Url, pub_time, Source, Keywords, otherNames, Type):
             # mysql_article_person_link.main(article_id, article_people, totalcountofperson, (round((totalcountofperson/float(totoltypecount)), 4) * 100), totoltypecount)
             # mysql_article_based_weights.main(article_id, len(articleText), "yes")
             # mysql_social_media_entry.main(article_id, Url)
+
+
 
 
 if __name__ == "__main__":

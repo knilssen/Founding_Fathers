@@ -19,6 +19,10 @@ import sys
 import article_NERT_parser
 import time
 import threading
+from Queue import Queue
+from threading import Thread
+from timeit import default_timer as timer
+import petext
 # from /Washington/ import Washington.article_grabbers
 from Washington.article_grabbers import grabber_seattle_times
 from Washington.article_grabbers import grabber_olympian
@@ -42,61 +46,98 @@ maxthreads = multiprocessing.cpu_count()
 print "\n"
 print "Maximun number of threads on current machine:", maxthreads
 print "\n"
-print "\n"
+# print "\n"
 sema = threading.Semaphore(value=maxthreads)
 thread = list()
 threads = list()
 
 
+class grabber_worker(Thread):
+   def __init__(self, queue, source_dic):
+       Thread.__init__(self)
+       self.queue = queue
+       self.source_dic = source_dic
 
-def article_worker(article, pub_time, source, allkeywords, DiffName):
-    # thread worker function
-    sema.acquire()
-    t = threading.currentThread()
-    # print t, article
-    pt = ""
-    try:
-        article_NERT_parser.main(article, pub_time, source, allkeywords, DiffName,  "PERSON")
-    except:
-        print "\n"
-        print "ERROR:       An error occured while running NERT on article: ", article, "\n       from source: ", source
-        print "\n"
+   def run(self):
+       while True:
+           # Get the work from the queue and expand the tuple
+           source_name, source, currentTime = self.queue.get()
 
-    finally:
-        sema.release()
+           article_source = source
+           article_source_name = source_name
+           source_output = article_source_name
+           try:
+               art = article_source.main(currentTime)
+               if len(art) != 0:
+                   self.source_dic[article_source_name] = art
+               art_len = len(art)
+            #    total_article_count += art_len
+           except:
+               art_len = "Error              !!! An Error Occured While Grabbing For Articles From this Source !!!"
+           finally:
+               source_length = len(article_source_name)
+               max_source_length = 43
+               for x in range(0, max_source_length - source_length):
+                   source_output = source_output + " "
 
-def grabber_worker(source_name, source, currentTime, allkeywords, DiffName):
-    source_dic = {}
-    total_article_count = 0
-    for y in range(0, len(source_name)):
-        article_source = source[y]
-        article_source_name = source_name[y]
-        source_output = article_source_name
-        try:
-            art = article_source.main(currentTime)
-            if len(art) != 0:
-                source_dic[article_source_name] = art
-            art_len = len(art)
-            total_article_count += art_len
-        except:
-            art_len = "Error              !!! An Error Occured While Grabbing For Articles From this Source !!!"
-        finally:
-            source_length = len(article_source_name)
-            max_source_length = 43
-            for x in range(0, max_source_length - source_length):
-                source_output = source_output + " "
+               print " ", source_output, art_len
 
-            print " ", source_output, art_len
-    print "\n"
-    total_output = "Total Articles Found"
-    for x in range(0, max_source_length - len(total_output)):
-        total_output = total_output + " "
-    print " ", total_output, total_article_count
-    print "\n"
-    return source_dic
+
+           self.queue.task_done()
+
+
+
+
+
+# def article_worker(article, pub_time, source, allkeywords, DiffName):
+#     # thread worker function
+#     sema.acquire()
+#     t = threading.currentThread()
+#     # print t, article
+#     pt = ""
+#     try:
+#         article_NERT_parser.main(article, pub_time, source, allkeywords, DiffName,  "PERSON")
+#     except:
+#         print "\n"
+#         print "ERROR:       An error occured while running NERT on article: ", article, "\n       from source: ", source
+#         print "\n"
+#
+#     finally:
+#         sema.release()
+
+# def grabber_worker(source_name, source, currentTime, allkeywords, DiffName):
+    # source_dic = {}
+    # total_article_count = 0
+    # for y in range(0, len(source_name)):
+        # article_source = source[y]
+        # article_source_name = source_name[y]
+        # source_output = article_source_name
+        # try:
+        #     art = article_source.main(currentTime)
+        #     if len(art) != 0:
+        #         source_dic[article_source_name] = art
+        #     art_len = len(art)
+        #     total_article_count += art_len
+        # except:
+        #     art_len = "Error              !!! An Error Occured While Grabbing For Articles From this Source !!!"
+        # finally:
+        #     source_length = len(article_source_name)
+        #     max_source_length = 43
+        #     for x in range(0, max_source_length - source_length):
+        #         source_output = source_output + " "
+        #
+        #     print " ", source_output, art_len
+    # print "\n"
+    # total_output = "Total Articles Found"
+    # for x in range(0, max_source_length - len(total_output)):
+    #     total_output = total_output + " "
+    # print " ", total_output, total_article_count
+    # print "\n"
+    # return source_dic
 
 
 def main():
+    start_grabbing = timer()
     HouseRep = {}
     HouseReps = [u'Sherry Appleton', u'Andrew Barkis', u'Steve Bergquist', u'Brian Blake', u'Vincent Buys',
                 u'Michelle Caldier', u'Bruce Chandler', u'Mike Chapman', u'Frank Chopp', u'Judy Clibborn',
@@ -188,31 +229,67 @@ def main():
 
     # grabber_deseret_news, grabber_senate_site, grabber_stgeorge, "Deseret News", "Senate Site", "St George"
 
+    # print "\n"
+    print " *** Article Finding in Progress *** "
     print "\n"
-    print " *** Article Finding and Parsing in Progress *** "
-    print "\n"
-    print "  ____________________"
-    print " | Found Article Data: |"
-    print "  ____________________"
+    # print "  ____________________"
+    # print " | Found Article Data: |"
+    # print "  ____________________"
     print "\n"
     print "       Source                         Articles Found"
     print "______________________________________________________"
 
-    start_grabbing = time.time()
-    article_dic = grabber_worker(source_name, grabberlist, currentTime, names, DiffName)
-    print time.time() - start_grabbing
 
-    # for duh in article_dic:
-    #     for hud in article_dic[duh]:
-    #         print hud, article_dic[duh][hud]
+    # ts = time()
+    # Create a queue to communicate with the worker threads
+    queue = Queue()
+    source_dic = {}
+    # Create 4 worker threads
+    for x in range(4):
+        worker = grabber_worker(queue,source_dic)
+        # Setting daemon to True will let the main thread exit even though the workers are blocking
+        worker.daemon = True
+        worker.start()
 
-    for i in article_dic:
-        for art in article_dic[i]:
-            # print art
-            # print art, article_dic[i][art], i
-            t = threading.Thread(target=article_worker, args=(art, article_dic[i][art], i, names, DiffName))
-            thread.append(t)
-            t.start()
+    # Put the tasks into the queue as a tuple
+    for x in range(0,len(source_name)-1):
+    # for source in source_name:
+        # logger.info('Queueing {}'.format(source_name[x]))
+        queue.put((source_name[x], grabberlist[x], currentTime))
+    # Causes the main thread to wait for the queue to finish processing all the tasks
+    queue.join()
+    # print('Took {}'.format(time() - ts))
+    # print source_dic
+
+    # article_dic = grabber_worker(source_name, grabberlist, currentTime, names, DiffName)
+    total_article_count = 0
+    for arts in source_dic:
+        total_article_count += len(source_dic[arts])
+
+
+    print "\n"
+    total_output = "Total Articles Found" + " (" + str(timer() - start_grabbing)[:5] + " Seconds)"
+    for x in range(0, 45 - len(total_output)):
+        total_output = total_output + " "
+    print total_output, total_article_count
+    # print "\n"
+
+    # nert_start = timer()
+    petext.main(source_dic, names, DiffName, total_article_count)
+
+    # print str(time.time() - start_grabbing)[:5], "Seconds"
+
+    # # for duh in article_dic:
+    # #     for hud in article_dic[duh]:
+    # #         print hud, article_dic[duh][hud]
+    #
+    # for i in article_dic:
+    #     for art in article_dic[i]:
+    #         # print art
+    #         # print art, article_dic[i][art], i
+    #         t = threading.Thread(target=article_worker, args=(art, article_dic[i][art], i, names, DiffName))
+    #         thread.append(t)
+    #         t.start()
 
     # personOfInterestWeightWithInputs.main('http://www.ksl.com/?sid=43580434&nid=148&title=utah-restaurant-associations-ask-governor-to-veto-05-dui-law', allkeywords, DiffName,  "PERSON")
 

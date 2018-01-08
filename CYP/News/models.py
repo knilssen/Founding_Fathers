@@ -24,6 +24,7 @@ class People(models.Model):
     person_id = models.CharField(max_length=45, null=True)
     party = models.CharField(max_length=45)
     role = models.CharField(max_length=45)
+    state = models.CharField(max_length=45)
     legislative_since = models.CharField(max_length=255, null=True)
     image = models.URLField(null=True)
     biography = models.CharField(max_length=45, null=True)

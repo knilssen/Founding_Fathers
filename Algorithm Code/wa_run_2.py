@@ -101,8 +101,15 @@ def main():
     currentTime.append((time.strftime("%X").replace(":", " ")).split())
 
 
-    article_NERT_parser.main('http://www.theolympian.com/entertainment/celebrities/article192108104.html#navlink=SecList', [['12', '14', '17'], ['21', '17', '46']], "Washington Education Association", names, DiffName,  "PERSON")
-    
+    article_NERT_parser.main('https://www.seattletimes.com/nation-world/how-your-u-s-lawmaker-voted-14/', [['12', '14', '17'], ['21', '17', '46']], "Washington Education Association", names, DiffName,  "PERSON")
+
+
+    #1
+    # https://www.seattletimes.com/nation-world/how-your-u-s-lawmaker-voted-14/ {u'maria cantwell': 1, u'derek kilmer': 1, u'rick larsen': 1, u'cathy mcmorris rodgers': 1, u'adam smith': 1, u'denny heck': 1, u'jaime herrera beutler': 1, u'suzan delbene': 1, u'pramila jayapal': 1, u'dan newhouse': 1, u'dave reichert': 1}
+
+    # 2
+    # https://www.seattletimes.com/nation-world/how-your-u-s-lawmaker-voted-14/ {u'maria cantwell': 1, u'derek kilmer': 1, u'rick larsen': 1, u'cathy mcmorris rodgers': 1, u'adam smith': 1, u'denny heck': 1, u'patty murray': 1, u'jaime herrera beutler': 1, u'suzan delbene': 1, u'pramila jayapal': 1, u'dan newhouse': 1, u'dave reichert': 1}
+
 
 if __name__ == "__main__":
 
