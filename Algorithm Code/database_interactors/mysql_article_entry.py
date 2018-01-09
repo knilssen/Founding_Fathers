@@ -59,6 +59,7 @@ def main(url, source, post_date, found_date, title, author, keywords, summary, t
 
         cursor.close()
 
+        
     cnx.close()
 
     return int(article_id)

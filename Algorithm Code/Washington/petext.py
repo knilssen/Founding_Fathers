@@ -25,8 +25,10 @@ Run times on my machine:
 
 '''
 
+import os
 import sys
 import string
+import time
 import re
 import nltk
 import newspaper
@@ -36,7 +38,7 @@ from nltk import FreqDist
 from nltk import word_tokenize
 from nltk import FreqDist
 import warnings
-from nltk.tag import StanfordNERTagger
+# from nltk.tag import StanfordNERTagger
 from newspaper import Article
 
 import threading
@@ -44,6 +46,15 @@ import thread
 from Queue import Queue
 from threading import Thread
 import multiprocessing
+
+sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
+# path now set to root, use From database_interactors to emulate:    from ../database_interactors/ import _____
+from database_interactors import mysql_article_entry
+from database_interactors import mysql_article_person_link
+from database_interactors import mysql_article_based_weights
+from database_interactors import mysql_social_media_entry
+from database_interactors import mysql_check_duplicate
+from nltk.tag import StanfordNERTagger
 
 maxthreads = multiprocessing.cpu_count()
 sema = threading.Semaphore(value=maxthreads)
@@ -105,32 +116,45 @@ def article_processor(stuff):
 
     Url = stuff[0]
     Source = stuff[1]
-    articleText = stuff[2]
+    article = stuff[2]
     pub_time = stuff[3]
     Keywords = stuff[4]
     otherNames = stuff[5]
     found_article_number = stuff[6]
+    article_people = {}
 
-    if articleText == "ERROR WITH DOWNLOADING ARTICLE TEXT":
+    if article == "ERROR WITH DOWNLOADING ARTICLE TEXT":
         print "ERROR WITH DOWNLOADING ARTICLE TEXT FOR ARTICLE:", Url
     else:
 
         if 0 == 0:
-            articleText.parse()
-            articleText = articleText.text
+            article.parse()
+            articleText = article.text
+            submitted_v_articleText = articleText
 
             # Uses unicode() to change text from article to unicode
             articleText = unicode(articleText)
 
+            dateTime = time.strftime("%Y-%m-%d %I:%M:%S")
+
+            if len(str(pub_time[0][2])) < 3:
+                pub_time[0][2] = int("20" + str(pub_time[0][2]))
+            if len(str(pub_time[0][0])) < 2:
+                pub_time[0][0] = int("0" + str(pub_time[0][0]))
+            if len(str(pub_time[0][1])) < 2:
+                pub_time[0][1] = int("0" + str(pub_time[0][1]))
+            post_date = (str(pub_time[0][2]) + "-" + str(pub_time[0][0]) + "-" + str(pub_time[0][1]) + " " +
+                        str(pub_time[1][0]) + ":" + str(pub_time[1][1]) + ":" + str(pub_time[1][2]))
+
             Type = "PERSON"
-            classifier = 'stanford-ner/classifiers/english.all.3class.distsim.crf.ser.gz'
-            jar = 'stanford-ner/stanford-ner-3.4.jar'
+            classifier = '../stanford-ner/classifiers/english.all.3class.distsim.crf.ser.gz'
+            jar = '../stanford-ner/stanford-ner.jar'
             st = StanfordNERTagger(classifier,jar)
             sentence = word_tokenize(articleText)
             taged = st.tag(sentence)
             realtypefind = {}
             keywordtotalcount = {}
-            article_people = {}
+            # article_people = {}
             found_people_by_last_name = {}
             people_by_last_name = {}
             otherPositionTitles = []
@@ -162,7 +186,7 @@ def article_processor(stuff):
                     else:
                         categories[item[1]].append(firstItem)
                     if item[1] == Type:
-                        totoltypecount += 1
+                        # totoltypecount += 1
                         found_real_type_find = ""
 
                         #Creats full name list, is checked against to make sure a article with mike newton is counting mike johnson or sam newton
@@ -236,6 +260,9 @@ def article_processor(stuff):
                         # Post Case:
                         # If we find a persons name
                         if found_real_type_find != "":
+                            # We found a persons name so we increment the total amount of names we have found by one
+                            totoltypecount += 1
+
                             # If the person has not already occured in the acticle so far
                             # Add full name to realtypefind so it can be increment later if we come across it agian
                             # Split up name to be added into found_people_by_last_name so they are searchable in case 2.1
@@ -263,6 +290,9 @@ def article_processor(stuff):
             #     print key, keywordtotalcount[key]
             # print "\n"
 
+            article.nlp()
+            keywords_database = 'null'
+
             for person in keywordtotalcount:
                 person = unicode(person)
                 totalcountofperson = 0
@@ -280,9 +310,32 @@ def article_processor(stuff):
             for people in article_people:
                 output_people.append(people)
 
-
+            # If the article has one or more people of interest, then add the article to our database
             if len(article_people) >= 1:
+                # if mysql_check_duplicate.main(Url) == 0:
                 print "  ", found_article_number, (3-len(str(found_article_number))) * " " + "                  ", output_people
+
+                if mysql_check_duplicate.main(Url) == 0:
+                    article_id = mysql_article_entry.main(Url, Source, post_date, dateTime, article.title, ", ".join(article.authors), keywords_database, article.summary, submitted_v_articleText, article.top_image)
+                    mysql_article_person_link.main(article_id, article_people, (round((totalcountofperson/float(totoltypecount)), 4) * 100), totoltypecount)
+                    mysql_article_based_weights.main(article_id, len(articleText), "yes")
+                    mysql_social_media_entry.main(article_id, Url)
+                else:
+
+                    # create a mysql_article something to grab the id from an already entered article
+
+                    print "  ", found_article_number, (3-len(str(found_article_number))) * " " + "                  ", "ARTICLE ALREADY FOUND:", Url
+                    print "  ", found_article_number, (3-len(str(found_article_number))) * " " + "                  ", "NOTHING ADDED TO DATABASE"
+                    print "\n"
+
+
+                # mysql_article_person_link.main(article_id, article_people, (round((totalcountofperson/float(totoltypecount)), 4) * 100), totoltypecount)
+                # mysql_article_based_weights.main(article_id, len(articleText), "yes")
+                # mysql_social_media_entry.main(article_id, Url)
+
+
+
+
         # except:
         #     print "\n"
         #     print "ERROR:       An error occured while running petext on article from source: \n", Source + ":  ", Url, "\n"
@@ -290,8 +343,6 @@ def article_processor(stuff):
         #     print "\n"
         #
         # finally:
-
-
         sema.release()
         return article_people
 
@@ -332,9 +383,12 @@ def main(Urls, Keywords, otherNames, total_article_count):
     people_queue = Queue()
 
     for y, Url in enumerate(article_dict):
+        # if mysql_check_duplicate.main(Url) == 0:
         t = threading.Thread(target=lambda q, arg1: q.put(article_processor(arg1)),  args=(people_queue, [Url, article_dict[Url][0], article_dict[Url][1], article_dict[Url][2], Keywords, otherNames, y]))
         thread.append(t)
         t.start()
+        # else:
+        #     print "DUPLICATE FOUND:", Url
 
     for t in thread:
         t.join()
@@ -372,9 +426,10 @@ def main(Urls, Keywords, otherNames, total_article_count):
     print " Person Not Found"
     print "______________________________________________________"
 
-    for not_found_person in keywordtotalcount:
-        if not_found_person not in total_people:
-            print " ", not_found_person
+    for cat in Keywords:
+        for not_found_person in Keywords[cat]:
+            if not_found_person not in total_people:
+                print " ", not_found_person
 
 
 

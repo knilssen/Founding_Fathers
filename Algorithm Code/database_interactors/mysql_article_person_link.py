@@ -15,7 +15,7 @@ import sys
 import mysql.connector
 from mysql.connector import errorcode
 
-def main(article_id, article_people, name_mentions, mention_percentage, article_total_count_mentions):
+def main(article_id, article_people, mention_percentage, article_total_count_mentions):
 
     config = {
         'user': 'root',
@@ -44,14 +44,35 @@ def main(article_id, article_people, name_mentions, mention_percentage, article_
                "VALUES (%s, %s, %s, %s, %s)")
 
         for person in article_people:
-            person = person.split()
-            cursor.execute(("SELECT id FROM News_people WHERE last_name = '%s' AND first_name = '%s'") % (str(person[1]), str(person[0])))
+            # person = person.split()
+            # print person
+            lname = " ".join(person.split()[1:])
+            fname = person.split()[0]
+            # print fname, lname
+            cursor.execute(("SELECT id FROM News_people WHERE last_name = '%s' AND first_name = '%s'") % (lname, fname))
             data = cursor.fetchall()
-            data = data[0]
-            print person
-            # print data
-            data_article_person = (article_id, data[0], name_mentions, mention_percentage, article_total_count_mentions)
-            cursor.execute(add_article_person, data_article_person)
+            try:
+                data = data[0]
+            except:
+                print "\n"
+                print "     ERROR: PROBLEM WITH MYSQL_ARTICLE_PERSON_LINK"
+                print "            MOST LIKELY HAS TO DO WITH PERSON NOT BEING IN DATABASE TABLE NEWS_PEOPLE"
+                print "\n"
+                print "                                        ARTICLE_ID:                      ", article_id
+                print "                                        ARTICLE_PEOPLE:                  ", article_people
+                print "                                        PERSON:                          ", fname + lname
+                print "                                        MENTION_PERCENTAGE:              ", mention_percentage
+                print "                                        ARTICLE_TOTAL_COUNT_MENTIONS:    ", article_total_count_mentions
+                print "                                        ERROR ON LINE 55:"
+                print "                                                             data = data[0]"
+                print "                                        PRINT DATA:"
+                print "                                                          ", data
+                print "\n"
+            # print person
+            # # print data
+            else:
+                data_article_person = (article_id, data[0], article_people[person], mention_percentage, article_total_count_mentions)
+                cursor.execute(add_article_person, data_article_person)
 
         cnx.commit()
         cursor.close()
@@ -59,7 +80,9 @@ def main(article_id, article_people, name_mentions, mention_percentage, article_
 
 if __name__ == "__main__":
 
-    if len(sys.argv) != 5:
-        print 'usage: python mysql_article_person_link.py [ article_id ] [ people ] [ name_mentions ] [ mention_percentage ] [ article_total_count_mentions ]'
+    if len(sys.argv) != 1:
+        print 'usage: python mysql_article_person_link.py [ article_id ] [ people ] [ mention_percentage ] [ article_total_count_mentions ]'
     else:
-        main(sys.argv[1], sys.argv[2], sys.argv[3], sys.argv[4], sys.argv[5])
+        # 200 'cathy mcmorris rodgers' 2 4
+        # main(argv[1],argv[2],argv[3],argv[4])
+        main(209, {u'jay inslee': 2}, 0.0, 5)

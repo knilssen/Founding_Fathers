@@ -18,6 +18,7 @@ Source URL:
 [Done]  http://q13fox.com/category/news/politics/
 [Done]  http://nwnewsnetwork.org/category/government-and-politics
 *[Done]  http://www.kitsapsun.com/news/politics/
+[ ]    https://www.governor.wa.gov/news-media/news/news-release-archive
 
 
 
@@ -41,6 +42,7 @@ Source Name:
 [Done]  Q13 Fox
 [Done]  NW News Network
 *[Done]  Kitsap Sun
+[ ]     Governor Press Releases
 
 
 

@@ -46,6 +46,8 @@ def main(article_id, url):
         else:
             print(err)
     else:
+        # for printing in [article_id, fb_shares, fb_comments, reddit_shares, reddit_upvotes, pinterest_pins, linkedin_shares]:
+        #     print printing
 
         cursor = cnx.cursor()
 
@@ -62,6 +64,7 @@ def main(article_id, url):
         cnx.commit()
 
         cursor.close()
+
         cnx.close()
 
 

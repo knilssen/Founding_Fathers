@@ -198,8 +198,32 @@ def main():
         mysql_person_entry.main(last_name, first_name, person_id, image, role, party, district, legislative_since, profession, profession_affiliations, education, recognitions_and_honors, counties, mailing_address, email, cell, work_phone, home_phone, legislation, state)
 
 
+        # Enter Governer Manually
+        # Jay Inslee
+        
+        full_name = "jay inslee"
+        last_name = "inslee"
+        first_name = "jay"
+        person_id = 'null'
+        image = 'https://www.governor.wa.gov/sites/default/files/images/720px-for-web_0.jpg'
+        role = "governer"
+        party = "democrat"
+        district = "null"
+        legislative_since = "null"
+        profession = "null"
+        profession_affiliations = "null"
+        education = "University of Washington(BA), Willamette University (JD)"
+        recognitions_and_honors = "null"
+        counties = "null"
+        mailing_address = "Governor Jay Inslee, Office of the Governor, PO Box 40002, Olympia, WA 98504-0002"
+        email = "null"
+        cell = 'null'
+        work_phone = "360-902-4111"
+        home_phone = 'null'
+        legislation = "https://www.governor.wa.gov/office-governor/official-actions/bill-action"
+        state = 'Washington'
 
-
+        mysql_person_entry.main(last_name, first_name, person_id, image, role, party, district, legislative_since, profession, profession_affiliations, education, recognitions_and_honors, counties, mailing_address, email, cell, work_phone, home_phone, legislation, state)
 
 
 if __name__ == "__main__":

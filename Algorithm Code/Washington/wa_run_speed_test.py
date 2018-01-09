@@ -16,7 +16,7 @@ Usage:
 '''
 
 import sys
-import article_NERT_parser
+# import article_NERT_parser
 import time
 import threading
 from Queue import Queue
@@ -24,21 +24,21 @@ from threading import Thread
 from timeit import default_timer as timer
 import petext
 # from /Washington/ import Washington.article_grabbers
-from Washington.article_grabbers import grabber_seattle_times
-from Washington.article_grabbers import grabber_olympian
-from Washington.article_grabbers import grabber_washington_state_wire
-from Washington.article_grabbers import grabber_king_5
-from Washington.article_grabbers import grabber_news_tribune
-from Washington.article_grabbers import grabber_washington_state_republican_party
-from Washington.article_grabbers import grabber_washington_state_democrats
-from Washington.article_grabbers import grabber_kuow
-from Washington.article_grabbers import grabber_public_news_service
-from Washington.article_grabbers import grabber_crosscut
-from Washington.article_grabbers import grabber_spokesman_review
-from Washington.article_grabbers import grabber_washington_education_association
-from Washington.article_grabbers import grabber_capitol_record
-from Washington.article_grabbers import grabber_q13_fox
-from Washington.article_grabbers import grabber_nw_news_network
+from article_grabbers import grabber_seattle_times
+from article_grabbers import grabber_olympian
+from article_grabbers import grabber_washington_state_wire
+from article_grabbers import grabber_king_5
+from article_grabbers import grabber_news_tribune
+from article_grabbers import grabber_washington_state_republican_party
+from article_grabbers import grabber_washington_state_democrats
+from article_grabbers import grabber_kuow
+from article_grabbers import grabber_public_news_service
+from article_grabbers import grabber_crosscut
+from article_grabbers import grabber_spokesman_review
+from article_grabbers import grabber_washington_education_association
+from article_grabbers import grabber_capitol_record
+from article_grabbers import grabber_q13_fox
+from article_grabbers import grabber_nw_news_network
 
 import multiprocessing
 
@@ -173,7 +173,7 @@ def main():
     Governer = {}
     Governers = [u'Jay Inslee']
 
-    DiffName = {'Jay Inslee' : 'Governor Inslee'}
+    DiffName = {'Jay Inslee' : 'Governor Inslee', 'David Reichert': 'Dave Reichert'}
 
     washington_senators_us = {}
     utah_senators_us = [u'Patty Murry', u'Maria Cantwell']
