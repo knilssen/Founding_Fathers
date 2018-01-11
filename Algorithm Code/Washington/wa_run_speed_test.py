@@ -173,10 +173,14 @@ def main():
     Governer = {}
     Governers = [u'Jay Inslee']
 
-    DiffName = {'Jay Inslee' : 'Governor Inslee', 'David Reichert': 'Dave Reichert'}
+
+    DiffName_longLName = {'Sharon Santos':'Sharon Tomiko Santos','Monica Stonier':'Monica Jurado Stonier','Luanne Werven':'Luanne Van Werven','Kevin Wege':'Kevin Van De Wege'}
+    DiffName = {'Governor Inslee':'Jay Inslee', 'Dave Reichert':'David Reichert', 'Sharon Santos':'Sharon Tomiko Santos', 'Monica Stonier':'Monica Jurado Stonier', 'Luanne Werven':'Luanne Van Werven', 'Kevin Wege':'Kevin Van De Wege'}
+    # DiffName = DiffName.update(DiffName_longLName)
+    # print "DiffName", DiffName
 
     washington_senators_us = {}
-    utah_senators_us = [u'Patty Murry', u'Maria Cantwell']
+    utah_senators_us = [u'Patty Murray', u'Maria Cantwell']
 
     washington_reps_us = {}
     utah_reps_us = [u'Adam Smith', u'Cathy McMorris Rodgers', u'Dan Newhouse', u'Dave Reichert', u'Denny Heck', u'Derek Kilmer',

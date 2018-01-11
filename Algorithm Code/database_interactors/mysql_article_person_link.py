@@ -15,7 +15,7 @@ import sys
 import mysql.connector
 from mysql.connector import errorcode
 
-def main(article_id, article_people, mention_percentage, article_total_count_mentions):
+def main(article_id, article_people, article_total_count_mentions):
 
     config = {
         'user': 'root',
@@ -46,6 +46,7 @@ def main(article_id, article_people, mention_percentage, article_total_count_men
         for person in article_people:
             # person = person.split()
             # print person
+            mention_percentage = round((float(article_people[person])/float(article_total_count_mentions)), 4) * 100
             lname = " ".join(person.split()[1:])
             fname = person.split()[0]
             # print fname, lname
@@ -80,9 +81,9 @@ def main(article_id, article_people, mention_percentage, article_total_count_men
 
 if __name__ == "__main__":
 
-    if len(sys.argv) != 1:
-        print 'usage: python mysql_article_person_link.py [ article_id ] [ people ] [ mention_percentage ] [ article_total_count_mentions ]'
+    if len(sys.argv) != 4:
+        print 'usage: python mysql_article_person_link.py [ article_id ] [ people ] [ article_total_count_mentions ]'
     else:
         # 200 'cathy mcmorris rodgers' 2 4
-        # main(argv[1],argv[2],argv[3],argv[4])
-        main(209, {u'jay inslee': 2}, 0.0, 5)
+        main(argv[1],argv[2],argv[4])
+        # main(209, {u'jay inslee': 2}, 0.0, 5)
