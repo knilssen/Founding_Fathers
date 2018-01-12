@@ -51,8 +51,8 @@ from Queue import Queue
 from threading import Thread
 import multiprocessing
 
-sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
-# path now set to root, use From database_interactors to emulate:    from ../database_interactors/ import _____
+# sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
+# # path now set to root, use From database_interactors to emulate:    from ../database_interactors/ import _____
 from database_interactors import mysql_article_entry
 from database_interactors import mysql_article_person_link
 from database_interactors import mysql_article_based_weights
@@ -333,12 +333,16 @@ def article_processor(stuff):
                 mysql_article_person_link.main(article_id, article_people, totoltypecount)
                 mysql_article_based_weights.main(article_id, len(articleText), "yes")
                 mysql_social_media_entry.main(article_id, Url)
-            except (ErrorNumber, ErrorMessage):
+            except DatabaseError, (ErrorNumber, ErrorMessage):
                 print "  ", found_article_number, (3-len(str(found_article_number))) * " " + "                  ", "ERROR WITH DATABASE INTERACTION, URL:", Url
                 print "Article text:", submitted_v_articleText
                 print "\n"
                 print "Congratulation! you tripped a #%d error" % ErrorNumber
                 print ErrorMessage
+                print "\n"
+                sema.release()
+            except:
+                print "Other Error?"
                 print "\n"
                 sema.release()
 
