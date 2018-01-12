@@ -17,6 +17,7 @@ Usage:
 
 import sys
 # import article_NERT_parser
+import os
 import time
 import threading
 from Queue import Queue

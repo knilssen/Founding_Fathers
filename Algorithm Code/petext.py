@@ -29,6 +29,7 @@ Run times on my machine:
 
 '''
 
+import chardet
 import os
 import sys
 import string
@@ -136,9 +137,11 @@ def article_processor(stuff):
                 # print "parsed"
                 article.nlp()
 
+        if Url == "https://www.wa-democrats.org/blog/122-week-review":
+            the_encoding = chardet.detect(article.text)['encoding']
+            print "article:  https://www.wa-democrats.org/blog/122-week-review has an encoding of:",the_encoding
 
-
-        article.parse()
+        # article.parse()
         articleText = article.text
         submitted_v_articleText = articleText
 
@@ -167,7 +170,8 @@ def article_processor(stuff):
         found_people_by_last_name = {}
         people_by_last_name = {}
         otherPositionTitles = []
-        positionTitles = ['governor', 'senator', 'represenative']
+        positionTitles = ['governor', 'senator', 'represenative', 'rep.']
+        alt_position_titles = {'rep.':'represenative'}
         categories = defaultdict(list)
         keywords_database = 'null'
         totalcount = 0
@@ -226,6 +230,11 @@ def article_processor(stuff):
                                 itemPosition += 1
 
                             temp_realtypefind = " ".join(temp_realtypefind)
+
+                            # If our found title is a nickname such as rep. for represenative, then change the nickname to its respected title.
+                            # If not, continue
+                            if title_tag in alt_position_titles:
+                                title_tag = alt_position_titles[title_tag]
 
                             # If our last name is in their respected title, then we have found their first name and concluded they are of value and interest
                             if temp_realtypefind in Keywords[title_tag]:
@@ -327,18 +336,19 @@ def article_processor(stuff):
         if len(article_people) >= 1:
             print "  ", found_article_number, (3-len(str(found_article_number))) * " " + "                  ", output_people
             try:
-                if Url == "https://www.wa-democrats.org/blog/122-week-review":
-                    submitted_v_articleText = submitted_v_articleText.decode("utf-8")
+                # if Url == "https://www.wa-democrats.org/blog/122-week-review":
+                #     submitted_v_articleText = submitted_v_articleText.decode("utf-8")
                 article_id = mysql_article_entry.main(Url, Source, post_date, dateTime, article.title, ", ".join(article.authors), keywords_database, article.summary, submitted_v_articleText, article.top_image)
                 mysql_article_person_link.main(article_id, article_people, totoltypecount)
                 mysql_article_based_weights.main(article_id, len(articleText), "yes")
                 mysql_social_media_entry.main(article_id, Url)
-            except DatabaseError, (ErrorNumber, ErrorMessage):
+            except Exception, err:
                 print "  ", found_article_number, (3-len(str(found_article_number))) * " " + "                  ", "ERROR WITH DATABASE INTERACTION, URL:", Url
                 print "Article text:", submitted_v_articleText
                 print "\n"
-                print "Congratulation! you tripped a #%d error" % ErrorNumber
-                print ErrorMessage
+                # print "Congratulation! you tripped a #%d error" % err
+                print "error:", err
+                print "exception", Exception
                 print "\n"
                 sema.release()
             except:

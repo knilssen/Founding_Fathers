@@ -100,7 +100,7 @@ def main(Url, pub_time, Source, Keywords, otherNames, Type):
     taged = st.tag(sentence)
 
     # Prints out the article after Stanfords Named Entity Reconization Tagger has been ran, showing its text
-    # and its named entities that have been matched, used mostly for debuging and seeing the article if need-be. 
+    # and its named entities that have been matched, used mostly for debuging and seeing the article if need-be.
     #
     # print taged
     # print "\n"
