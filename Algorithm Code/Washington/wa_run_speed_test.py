@@ -22,7 +22,7 @@ import threading
 from Queue import Queue
 from threading import Thread
 from timeit import default_timer as timer
-import petext
+
 # from /Washington/ import Washington.article_grabbers
 from article_grabbers import grabber_seattle_times
 from article_grabbers import grabber_olympian
@@ -39,8 +39,12 @@ from article_grabbers import grabber_washington_education_association
 from article_grabbers import grabber_capitol_record
 from article_grabbers import grabber_q13_fox
 from article_grabbers import grabber_nw_news_network
-
 import multiprocessing
+
+sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
+# path now set to directory: Algorithm Code
+import petext
+
 
 maxthreads = multiprocessing.cpu_count()
 print "\n"
