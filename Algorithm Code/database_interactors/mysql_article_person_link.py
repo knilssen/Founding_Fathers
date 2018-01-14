@@ -61,7 +61,7 @@ def main(article_id, article_people, article_total_count_mentions):
                 print "\n"
                 print "                                        ARTICLE_ID:                      ", article_id
                 print "                                        ARTICLE_PEOPLE:                  ", article_people
-                print "                                        PERSON:                          ", fname + lname
+                print "                                        PERSON:                          ", fname + " " + lname
                 print "                                        MENTION_PERCENTAGE:              ", mention_percentage
                 print "                                        ARTICLE_TOTAL_COUNT_MENTIONS:    ", article_total_count_mentions
                 print "                                        ERROR ON LINE 55:"

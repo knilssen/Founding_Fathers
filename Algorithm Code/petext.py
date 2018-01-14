@@ -27,9 +27,22 @@ Run times on my machine:
                                 sys	    1m16.485s
 
 
+    Date: 1/12/2018
+    Info: 150 articles found
+                                real	3m15.318s
+                                user	10m5.275s
+                                sys	    0m42.121s
+
+
+    Date: 1/14/2018
+    Info: 152 articles found
+                                real	3m36.252s
+                                user	10m44.466s
+                                sys	    0m43.800s
+
+
 '''
 
-import chardet
 import os
 import sys
 import string
@@ -137,9 +150,8 @@ def article_processor(stuff):
                 # print "parsed"
                 article.nlp()
 
-        if Url == "https://www.wa-democrats.org/blog/122-week-review":
-            the_encoding = chardet.detect(article.text)['encoding']
-            print "article:  https://www.wa-democrats.org/blog/122-week-review has an encoding of:",the_encoding
+
+
 
         # article.parse()
         articleText = article.text
