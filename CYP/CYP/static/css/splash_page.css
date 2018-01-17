@@ -1,10 +1,155 @@
 .body {
-  height: 200%;
+  height: 100%;
 }
+
+#content {
+    padding-top:70px;
+    transition: 0.5s; /* 0.5 second transition effect to slide in the sidenav */
+    /* transform: translateX(0); */
+}
+
+#united-states {
+  text-align: center;
+  /* height: calc(100vh - 70px); */
+}
+
+#washington-state {
+  display: none;
+  margin: 0 auto;
+  margin-top: calc((50vh - 70px) - 296.5px);
+}
+
+/* .path #AK {
+fill= #D3D3D3;
+} */
+
+/* a svg:hover #facebook, */
+
+g svg:hover #AK,
+g svg:hover #HI,
+g svg:hover #AL,
+g svg:hover #AR,
+g svg:hover #AZ,
+g svg:hover #CA,
+g svg:hover #CO,
+g svg:hover #CT,
+g svg:hover #DE,
+g svg:hover #FL,
+g svg:hover #GA,
+g svg:hover #IA,
+g svg:hover #ID,
+g svg:hover #IL,
+g svg:hover #IN,
+g svg:hover #KS,
+g svg:hover #KY,
+g svg:hover #LA,
+g svg:hover #MA,
+g svg:hover #MD,
+g svg:hover #ME,
+g svg:hover #MI,
+g svg:hover #MN,
+g svg:hover #MO,
+g svg:hover #MS,
+g svg:hover #MT,
+g svg:hover #NC,
+g svg:hover #ND,
+g svg:hover #NE,
+g svg:hover #NH,
+g svg:hover #NJ,
+g svg:hover #NM,
+g svg:hover #NV,
+g svg:hover #NY,
+g svg:hover #OH,
+g svg:hover #OK,
+g svg:hover #OR,
+g svg:hover #PA,
+g svg:hover #RI,
+g svg:hover #SC,
+g svg:hover #SD,
+g svg:hover #TN,
+g svg:hover #TX,
+g svg:hover #UT,
+g svg:hover #VA,
+g svg:hover #VT,
+g svg:hover #WA,
+g svg:hover #WI,
+g svg:hover #WV,
+g svg:hover #WY,
+g svg:hover #DC1
+{
+  fill: #49c5b6;
+}
+
+svg #AK,
+svg #HI,
+svg #AL,
+svg #AR,
+svg #AZ,
+svg #CA,
+svg #CO,
+svg #CT,
+svg #DE,
+svg #FL,
+svg #GA,
+svg #IA,
+svg #ID,
+svg #IL,
+svg #IN,
+svg #KS,
+svg #KY,
+svg #LA,
+svg #MA,
+svg #MD,
+svg #ME,
+svg #MI,
+svg #MN,
+svg #MO,
+svg #MS,
+svg #MT,
+svg #NC,
+svg #ND,
+svg #NE,
+svg #NH,
+svg #NJ,
+svg #NM,
+svg #NV,
+svg #NY,
+svg #OH,
+svg #OK,
+svg #OR,
+svg #PA,
+svg #RI,
+svg #SC,
+svg #SD,
+svg #TN,
+svg #TX,
+svg #UT,
+svg #VA,
+svg #VT,
+svg #WA,
+svg #WI,
+svg #WV,
+svg #WY,
+svg #DC1
+{
+  transition: 180ms;
+  transition-timing-function: ease-in-out;
+  -webkit-transition: 180ms;
+  -webkit-transition-timing-function: ease-in-out;
+}
+
+
+#us-states {
+  margin: 0 auto;
+  margin-top: calc((50vh - 70px) - 296.5px);
+  display: block;
+  top: 50%;
+}
+
 #entry_text {
   text-align: left;
   margin-top: 10%;
-  margin-left: 30%;
+  margin-left: 20%;
 }
 
 #box {

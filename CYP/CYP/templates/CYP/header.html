@@ -2,19 +2,6 @@
 {% load staticfiles %}
 <html lang="en">
 
-<header id="header">
-	<div class="header-content">
-		<ul class="header">
-			<li><a href=" {% url 'index' %}">CYP</a></li>
-			<li><a href="{% url 'recent_news' %}">Recent News</a></li>
-			<li><a href="{% url 'house' %}">House</a></li>
-			<li><a href="{% url 'senate' %}">Senate</a></li>
-			<li><a href=" {% url 'About' %}">About</a></li>
-		</ul>
-	</div>
-        <!-- <img src="{% static 'images/founding.jpg' %}" align="middle" style='max-height:150px;' alt="Logo" /> -->
-</header>
-
 <head>
 	<link rel="stylesheet" href="{% static 'css/header.css' %}" type="text/css">
 
@@ -35,18 +22,166 @@
 
 </head>
 
-	<body>
-	<div class="container-fluid" style="padding:0px;">
+<body>
+	<div class="wrapper">
+		<nav class="nav-main" id="nav-main">
 
-			   {% block content %}
-			   {% endblock %}
+	    <div class="top">
+	        <div class="header">
+	            <div class="pull-left">
+	                <!-- <span class="link-1 js-nav-menu" data-menu-id="menu-lang">ENGLISH</span> -->
+	            </div>
+	            <div class="pull-right">
+	                <div class="bt-close js-close-menu" onclick="closeNav()">CLOSE</div>
+	            </div>
+	        </div>
+	        <!-- <ul class="menu active" data-menu-name="ENGLISH" data-menu-id="menu-lang" id="menu-main">
+	            <li><span class="item open_login">Register / Login</span></li><li class="active"><a href="/" class="item">Home</a></li>
+	            <li><a href="/websites/" class="item">Winners</a></li>
+	            <li><a href="/nominees/" class="item">Nominees</a></li>
+	            <li><a href="/collections/" class="item">Collections</a></li>
+	            <li class="directory"><a href="/directory/" class="item" data-count="7">Professional directory</a></li>
+	            <li class="jobs"><a href="/jobs/" class="item" data-count="7">Jobs</a></li>
+	            <li><a href="/blog/" class="item">Magazine</a></li>
+	            <li><a href="/books/" class="item">eBooks &amp; Publications</a></li>
+	            <li><a href="/about-us/" class="item">About Us</a></li>
+	           	<li>
+	            	<a href="/conferences" class="item-photo">
+	              	Conferences 2018
+									<i class="first-top">Berlin / 7-9 February</i>
+	                <i>San Francisco / 10-11 May</i>
+	            	</a>
+	            </li>
+	        </ul> -->
+
+					<!-- <ul class="menu" data-menu-name="BACK" data-menu-id="menu-main" id="menu-lang">
+
+                <li>
+                                        <a href="#">
+                        English
+
+                                                    <span class="bt-check active"><span class="bt-content"></span></span>
+                                            </a>
+                </li>
+
+
+                                                                                                                                                        <li><span class="item">Español - Spanish <span class="soon">Soon!</span></span></li>
+            <li><span class="item">Português - Portuguese <span class="soon">Soon!</span></span></li>
+            <li><span class="item">Français - French <span class="soon">Soon!</span></span></li>
+            <li><span class="item">日本の - Japanese <span class="soon">Soon!</span></span></li>
+            <li><span class="item">中國 - Chinese <span class="soon">Soon!</span></span></li>
+        	</ul> -->
+	    </div>
+
+	    <!-- <div class="box-bottom">
+	        <div class="box-version">
+	            <span class="box-version-text">Activate Political Knowledge</span>
+	            <div class="input-check-toggle check-small ">
+	                <input id="version-color" type="checkbox" class="js-dark">
+	                <label for="version-color">
+	                    <div class="ball"></div>
+	                </label>
+	            </div>
+	        </div>
+	    </div> -->
+		</nav>
+
+
+
+		<header id="header">
+			<div class="header-main">
+
+				<div class="box-left">
+					<div class="item bt-menu js-nav-main" data-menu-id="menu-main" onclick="openNav()">
+          	<div class="ico-menu">
+            	<div class="bar"></div>
+              <div class="bar"></div>
+              <div class="bar"></div>
+            </div>
+            <span>MENU</span>
+        	</div>
+				</div>
+
+				<div class="box-right">
+          <div class="item bt-search" id="js-search-container">
+          	<svg class="ico-svg" viewBox="0 0 14 14" xmlns="http://www.w3.org/2000/svg">
+  						<use xlink:href="{% static '/images/search.svg' %}" xmlns:xlink="http://www.w3.org/1999/xlink"></use>
+						</svg>
+          </div>
+          <div class="item login">
+      			<span>ARE YOU A MEMBER?</span>
+						<strong>
+							<a class="open_login" href="/">Register / log in</a>
+						</strong>
+  				</div>
+          <div class="item" id="bt-submit">
+          	<a href="/" class="button button-large">
+            	<span>FIND YOUR POLITICS!</span>
+            </a>
+            <div class="bt-gotop">
+            	<svg class="ico-svg" viewBox="0 0 14 14" xmlns="http://www.w3.org/2000/svg">
+  							<use xlink:href="{% static '/images/sprite-icons.svg#gotop' %}" xmlns:xlink="http://www.w3.org/1999/xlink"></use>
+							</svg>
+
+            </div>
+          </div>
+      	</div>
+
+				<div class="logo-header">
+					<div class="logo-header">
+            <a href="/">
+							<svg width="90px" height="22px" viewBox="0 0 90 22">
+								<text xml:space="preserve" text-anchor="start" font-family="Helvetica, Arial, sans-serif" font-size="24" id="svg_1" y="19.49908" x="0.99761" stroke-width="1.6" stroke="#000" fill="#000000" font-weight="normal">C  Y  P</text>
+								<path d="m84.07354,1.27644c1.853,0 3.328,1.497 3.328,3.383c0,1.896 -1.476,3.384 -3.328,3.384c-1.819,0 -3.287,-1.487 -3.287,-3.384c0,-1.884 1.468,-3.383 3.287,-3.383zm0,6.374c1.644,0 2.906,-1.299 2.906,-2.988c0,-1.683 -1.263,-2.989 -2.906,-2.989c-1.616,0 -2.87,1.31 -2.87,2.989c0,1.691 1.256,2.988 2.87,2.988zm-1.08,-4.857l1.24,0c0.632,0 1.085,0.432 1.085,1.085c0,0.551 -0.332,0.905 -0.72,0.999l0,0.018c0,0 0.033,0.049 0.124,0.207l0.738,1.43l-0.459,0l-0.794,-1.562l-0.805,0l0,1.562l-0.406,0l-0.003,-3.739l0,0zm1.194,1.82c0.43,0 0.71,-0.276 0.71,-0.736c0,-0.447 -0.28,-0.713 -0.71,-0.713l-0.785,0l0,1.449l0.785,0z" class="logo-fill" id="register"/>
+                    <!-- <path id="a1" class="logo-fill" d="M12.05,14.717H5.262l-1.635,4.962H0L6.815,0.328h3.681l6.814,19.351h-3.625L12.05,14.717z M8.643,3.679 c0,0-0.438,1.908-0.818,2.997l-1.717,5.178h5.07l-1.72-5.176C9.105,5.587,8.695,3.679,8.695,3.679S8.643,3.679,8.643,3.679z"></path>
+                    <g class="w w1 logo-fill">
+                        <path id="w1" d="M36.503,13.713c0.299,1.116,0.325,2.042,0.352,2.042h0.055c0,0,0.084-0.956,0.327-2.042l3.188-13.388 h3.626l-4.99,19.354h-4.06l-2.97-11.448c-0.326-1.254-0.493-2.534-0.493-2.534h-0.054c0,0-0.162,1.28-0.491,2.534l-2.972,11.447 H23.96l-4.85-19.35h3.625l3.054,13.387c0.246,1.09,0.327,2.042,0.327,2.042h0.055c0.029,0,0.052-0.926,0.355-2.042l3.489-13.387 h3.049L36.503,13.713z"></path>
+                    </g>
+                    <g class="w w2 logo-fill">
+                        <path id="w2" d="M62.264,0.328l-3.189,13.387c-0.244,1.09-0.325,2.042-0.325,2.042h-0.056 c-0.029,0-0.056-0.926-0.355-2.042L54.905,0.328h-3.053l-3.488,13.387c-0.301,1.114-0.327,2.042-0.355,2.042h-0.054 c0,0-0.086-0.954-0.326-2.042L45.345,3.691L43.628,11l2.173,8.679h4.062l2.971-11.447c0.326-1.254,0.492-2.534,0.492-2.534h0.052 c0,0,0.163,1.28,0.492,2.534l2.975,11.447h4.059l4.992-19.354L62.264,0.328L62.264,0.328z"></path>
+                    </g>
+                    <g class="w w3 logo-fill">
+                        <path id="w3" d="M84.101,0.328L80.91,13.715c-0.243,1.09-0.325,2.042-0.325,2.042h-0.057 c-0.025,0-0.052-0.926-0.351-2.042L76.74,0.328h-3.05L70.2,13.715c-0.302,1.114-0.326,2.042-0.354,2.042H69.79 c0,0-0.082-0.954-0.326-2.042L67.166,3.646l-1.717,7.309l2.189,8.726h4.06l2.97-11.447c0.326-1.255,0.493-2.535,0.493-2.535 h0.054c0,0,0.164,1.28,0.491,2.535l2.973,11.447h4.06l4.992-19.353H84.101L84.101,0.328z"></path>
+                    </g>
+                    <path id="a2" class="logo-fill" d="M101.934,14.717h-6.79l-1.632,4.962h-3.625l6.816-19.354h3.676l6.818,19.354h-3.63L101.934,14.717z M98.525,3.679c0,0-0.437,1.908-0.817,2.997l-1.716,5.178h5.067l-1.718-5.178c-0.355-1.093-0.762-2.997-0.762-2.997 S98.525,3.679,98.525,3.679z"></path>
+                    <path id="r" class="logo-fill" d="M112.402,0.328h6.241c2.099,0,3.053,0.163,3.895,0.548c1.937,0.869,3.164,2.726,3.164,5.287 c0,2.318-1.226,4.466-3.271,5.293v0.055c0,0,0.271,0.27,0.657,0.955l3.979,7.221h-3.924l-3.845-7.223h-3.382v7.221H112.4V0.328 H112.402z M119.078,9.404c1.88,0,3.053-1.117,3.053-3.053c0-1.853-0.789-2.997-3.543-2.997h-2.673v6.053L119.078,9.404 L119.078,9.404z"></path>
+                    <path id="d" class="logo-fill" d="M133.065,0.328h6.598c5.969,0,9.865,3.544,9.865,9.647c0,6.111-3.896,9.703-9.865,9.703h-6.598V0.328z M139.473,16.654c3.926,0,6.43-2.316,6.43-6.679c0-4.304-2.566-6.622-6.43-6.622h-2.891v13.301H139.473z"></path>
+                    <path id="s" class="logo-fill" d="M155.829,14.717c0,0,2.1,2.045,4.825,2.045c1.47,0,2.809-0.761,2.809-2.342 c0-3.465-9.134-2.866-9.134-8.805c0-3.218,2.78-5.615,6.487-5.615c3.818,0,5.779,2.071,5.779,2.071l-1.526,2.863 c0,0-1.86-1.688-4.284-1.688c-1.632,0-2.917,0.955-2.917,2.316c0,3.437,9.101,2.59,9.101,8.78c0,3.08-2.34,5.667-6.377,5.667 c-4.305,0-6.676-2.64-6.676-2.64L155.829,14.717z"></path>
+                    <path id="register" class="logo-fill" d="M174.572,0.276c1.853,0,3.328,1.497,3.328,3.383c0,1.896-1.476,3.384-3.328,3.384 c-1.819,0-3.287-1.487-3.287-3.384C171.285,1.775,172.753,0.276,174.572,0.276z M174.572,6.65c1.644,0,2.906-1.299,2.906-2.988 c0-1.683-1.263-2.989-2.906-2.989c-1.616,0-2.87,1.31-2.87,2.989C171.702,5.353,172.958,6.65,174.572,6.65z M173.492,1.793h1.24 c0.632,0,1.085,0.432,1.085,1.085c0,0.551-0.332,0.905-0.72,0.999v0.018c0,0,0.033,0.049,0.124,0.207l0.738,1.43H175.5 l-0.794-1.562h-0.805v1.562h-0.406L173.492,1.793L173.492,1.793z M174.686,3.613c0.43,0,0.71-0.276,0.71-0.736 c0-0.447-0.28-0.713-0.71-0.713h-0.785v1.449H174.686z"></path> -->
+                </svg>
+            </a>
+        	</div>
+				</div>
+
+				<div class="box-search" id="box-search"></div>
 			</div>
-		  </div>
+		</header>
+
+		<div id="content">
+			{% block content %}
+		 	{% endblock %}
 		</div>
+
+
+		<div id="overlay" onclick="closeNav()"></div>
 	</div>
 
-
+	<script type="text/javascript" src="{% static '/js/cyp.js' %}"></script>
 
 </body>
 
 </html>
+
+
+
+
+
+<!-- <div class="header-content">
+	<ul class="header">
+		<li><a href=" {% url 'index' %}">CYP</a></li>
+		<li><a href="{% url 'recent_news' %}">Recent News</a></li>
+		<li><a href="{% url 'house' %}">House</a></li>
+		<li><a href="{% url 'senate' %}">Senate</a></li>
+		<li><a href=" {% url 'About' %}">About</a></li>
+	</ul>
+</div> -->

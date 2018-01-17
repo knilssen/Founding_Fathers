@@ -1,7 +1,7 @@
 '''
 Python script that reads in text from an article, keywords, and the type of matching to be done.
 
-The objective is to match keywords with text and the type of marching to be done such as people,
+The objective is to match keywords with text and the type of matching to be done such as people,
 places, and orginizations. It does this by using Standfords Named Entity Reconization Tagger software
 to give text from the article a classification such as a person, place, orginization, or other. This uses
 those tags to search and compare the amount of times our keywords appear and how they compare with other

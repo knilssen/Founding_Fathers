@@ -141,14 +141,20 @@ def article_processor(stuff):
             if article.is_parsed:
                 # print "parsed"
                 article.nlp()
+            else:
+                print "\n"
+                print "Failed to parse article"
+                print "\n"
         else:
-            # print "failed download"
-            article = urllib.urlopen(Url).read()
-            article.download()
-            article.parse()
-            if article.is_parsed:
+            print "\n"
+            print "Failed to download article"
+            print "\n"
+            # article = urllib.urlopen(Url).read()
+            # article.download()
+            # article.parse()
+            # if article.is_parsed:
                 # print "parsed"
-                article.nlp()
+                # article.nlp()
 
 
 
@@ -346,10 +352,8 @@ def article_processor(stuff):
 
         # If the article has one or more people of interest, then add the article to our database
         if len(article_people) >= 1:
-            print "  ", found_article_number, (3-len(str(found_article_number))) * " " + "                  ", output_people
+            # print "  ", found_article_number, (3-len(str(found_article_number))) * " " + "        ", article_id, (3-len(str(article_id))) * " " + "                  ", output_people
             try:
-                # if Url == "https://www.wa-democrats.org/blog/122-week-review":
-                #     submitted_v_articleText = submitted_v_articleText.decode("utf-8")
                 article_id = mysql_article_entry.main(Url, Source, post_date, dateTime, article.title, ", ".join(article.authors), keywords_database, article.summary, submitted_v_articleText, article.top_image)
                 mysql_article_person_link.main(article_id, article_people, totoltypecount)
                 mysql_article_based_weights.main(article_id, len(articleText), "yes")
@@ -367,6 +371,11 @@ def article_processor(stuff):
                 print "Other Error?"
                 print "\n"
                 sema.release()
+
+
+            # If there are people of interest in the article, and the article was succefully entered into the database without error, print out the information along with the
+            # articles id number from News_articles
+            print "        ", found_article_number, (3-len(str(found_article_number))) * " " + "                  ", article_id, (3-len(str(article_id))) * " " + "                  ", output_people
 
         # If everything goes smoothly, or the article doesnt have anyone we are interested in mentioned, release the sema and return the Url, people found of interest,
         # return people found that are not of interest, and also return pre name possible posisitions like those of accepted such as governor and senator.
@@ -406,19 +415,26 @@ def main(Urls, Keywords, otherNames, total_article_count):
 
 
     print "\n"
-    print " Found Article Number                People Found"
-    print "______________________________________________________"
+    print " Found Article Number        Article_id                People Found"
+    print "_____________________________________________________________________"
 
     people_queue = Queue()
 
     for y, Url in enumerate(article_dict):
-        if mysql_check_duplicate.main(Url) == 0:
+        check_duplicate = mysql_check_duplicate.main(Url)
+        # Check if we have already seen the article
+        # NOTE: only works for articles that are of importance to us, IE. ones that are already entered into the database
+        # Create a way to check with the previous ran petext for articles that are already found but dont have importance so we can skip those as well,
+        # saving time and resiources.
+        if check_duplicate == 0:
             t = threading.Thread(target=lambda q, arg1: q.put(article_processor(arg1)),  args=(people_queue, [Url, article_dict[Url][0], article_dict[Url][1], article_dict[Url][2], Keywords, otherNames, y]))
             thread.append(t)
             t.start()
         else:
-            print "  ", y, (3-len(str(y))) * " " + "                  ", "ARTICLE ALREADY FOUND:", Url
-            print "  ", y, (3-len(str(y))) * " " + "                  ", "NOTHING ADDED TO DATABASE"
+            # If the article has already been found and is of use and in News_articles, dont run NLP and NER on it, instead save time and resources and just print out its ID and
+            # that we have already found it before.
+            print "        ", y, (3-len(str(y))) * " " + "                  ", check_duplicate, (3-len(str(check_duplicate))) * " " + "                  ", "ARTICLE ALREADY FOUND:", Url
+            print "        ", y, (3-len(str(y))) * " " + "                  ", check_duplicate, (3-len(str(check_duplicate))) * " " + "                  ", "NOTHING ADDED TO DATABASE"
             print "\n"
         # else:
         #     print "DUPLICATE FOUND:", Url
@@ -470,8 +486,7 @@ def main(Urls, Keywords, otherNames, total_article_count):
     #
     print "\n"
     print " Person                              Times Found"
-    print "______________________________________________________"
-
+    print "_____________________________________________________________________"
     for found_person in total_people:
         source_output = found_person
         for x in range(0, 45 - len(found_person)):
@@ -482,7 +497,7 @@ def main(Urls, Keywords, otherNames, total_article_count):
 
     print "\n"
     print " Position Title                      Times Found"
-    print "______________________________________________________"
+    print "_____________________________________________________________________"
 
     for found_title in sorted(found_possible_position_titles.items(), key=lambda x: x[1])[::-1]:
         source_output = found_title[0]
@@ -498,7 +513,7 @@ def main(Urls, Keywords, otherNames, total_article_count):
     #
     print "\n"
     print " Person Not Found                    Times Found"
-    print "______________________________________________________"
+    print "_____________________________________________________________________"
 
 
     # sorted(total_people_not_found.items(), key=lambda x: x[1])
