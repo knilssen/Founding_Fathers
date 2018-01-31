@@ -40,6 +40,12 @@ Run times on my machine:
                                 user	10m44.466s
                                 sys	    0m43.800s
 
+    Date: 1/25/2018
+    Info: 135 articles found
+                                real	4m11.020s
+                                user	11m24.280s
+                                sys	    0m53.232s
+
 
 '''
 
@@ -143,11 +149,11 @@ def article_processor(stuff):
                 article.nlp()
             else:
                 print "\n"
-                print "Failed to parse article"
+                print "Failed to parse article", Url
                 print "\n"
         else:
             print "\n"
-            print "Failed to download article"
+            print "Failed to download article", Url
             print "\n"
             # article = urllib.urlopen(Url).read()
             # article.download()

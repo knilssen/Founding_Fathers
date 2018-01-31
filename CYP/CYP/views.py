@@ -10,6 +10,9 @@ from django.db import connection
 
 # Create your views here.
 def index(request):
+    return render(request, 'News/splash_page.html')
+
+def article(request):
     if (request.GET.get('id')):
         id_num = request.GET.get('id')
         with connection.cursor() as cursor:
@@ -21,7 +24,8 @@ def index(request):
             ats = ats.strip("[u']")
         return render_to_response('News/Article.html', {'url': scrolls[0], 'source': scrolls[1], 'post_date': scrolls[2], 'title': scrolls[3], 'author': ats, 'texts': scrolls[5], 'top_image': scrolls[6]})
     else:
-        return render(request, 'News/splash_page.html')
+        return render(request, 'News/Article.html')
+
 
 def aboutUs(request):
     return render(request, 'News/about.html')

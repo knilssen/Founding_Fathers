@@ -35,7 +35,8 @@ urlpatterns = [
     url(r'^senate/$', views.senate, name = 'senate'),
     url(r'^splash_page/$', views.splash_page, name = 'splash_page'),
     url(r'^service.html$', views.service, name = 'serice'),
-    # url(r'^(?P<pk>\d+)$', views.article, name = 'Article'),
+    url(r'^article/$', views.article, name = 'Article'),
+    url(r'^article/(?P<pk>\d+)$', views.article, name = 'Article'),
     # url(r'^(?P<pk>\d+)$', DetailView.as_view(model=models.Articles, template_name='News/Article.html'))
     # url(r'^login/$', views.login, name = 'login'),
     #url(r'^accounts/login$', views.login, name = 'login'),
@@ -44,5 +45,8 @@ urlpatterns = [
     #url(r'^accounts/loggedin$', views.loggedin, name = 'loggedin'),
     #url(r'^accounts/invalid$', views.invalid, name = 'invalid'),
     #url(r'^accounts/register$', views.UserFormView, name ='register')
+
+
+    # url(r'^(?P<pk>\d+)$', views.article, name = 'Article'),
 
 ]

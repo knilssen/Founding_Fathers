@@ -29,48 +29,93 @@
 	    <div class="top">
 	        <div class="header">
 	            <div class="pull-left">
-	                <!-- <span class="link-1 js-nav-menu" data-menu-id="menu-lang">ENGLISH</span> -->
+	                <span class="link-1 bt-back js-nav-menu" data-menu-id="menu-lang" id="js-nav-menu"></span>
 	            </div>
 	            <div class="pull-right">
 	                <div class="bt-close js-close-menu" onclick="closeNav()">CLOSE</div>
 	            </div>
 	        </div>
-	        <!-- <ul class="menu active" data-menu-name="ENGLISH" data-menu-id="menu-lang" id="menu-main">
-	            <li><span class="item open_login">Register / Login</span></li><li class="active"><a href="/" class="item">Home</a></li>
-	            <li><a href="/websites/" class="item">Winners</a></li>
-	            <li><a href="/nominees/" class="item">Nominees</a></li>
-	            <li><a href="/collections/" class="item">Collections</a></li>
-	            <li class="directory"><a href="/directory/" class="item" data-count="7">Professional directory</a></li>
-	            <li class="jobs"><a href="/jobs/" class="item" data-count="7">Jobs</a></li>
-	            <li><a href="/blog/" class="item">Magazine</a></li>
-	            <li><a href="/books/" class="item">eBooks &amp; Publications</a></li>
-	            <li><a href="/about-us/" class="item">About Us</a></li>
-	           	<li>
+	        <ul class="menu" data-menu-name=" " data-menu-id="menu-lang" id="menu-main">
+	            <li id="register_login"><span class="item open_login" onclick="closeNav()">Register / Login</span></li>
+							<li id="home"><span onclick="delay('/')" class="item">Home</a></li>
+							<li id="map_view"><span onclick="delay('/')" class="item">Map View</a></li>
+							<li data-menu-id="menu-states" id="states_menu_selector"><span class="item">States</a></li>
+							<li id="recent_news"><span onclick="delay('/recent_news')" class="item">Recent News</a></li>
+	            <!-- <li><a href="/websites/" class="item">Winners</a></li> -->
+	            <!-- <li><a href="/nominees/" class="item">Nominees</a></li> -->
+	            <!-- <li><a href="/collections/" class="item">Collections</a></li> -->
+	            <!-- <li class="directory"><a href="/directory/" class="item" data-count="7">Professional directory</a></li> -->
+	            <!-- <li class="jobs"><a href="/jobs/" class="item" data-count="7">Jobs</a></li> -->
+	            <!-- <li><a href="/blog/" class="item">Magazine</a></li> -->
+	            <!-- <li><a href="/books/" class="item">eBooks &amp; Publications</a></li> -->
+	            <!-- <li><a href="/about-us/" class="item">About Us</a></li> -->
+	           	<!-- <li>
 	            	<a href="/conferences" class="item-photo">
 	              	Conferences 2018
 									<i class="first-top">Berlin / 7-9 February</i>
 	                <i>San Francisco / 10-11 May</i>
 	            	</a>
-	            </li>
-	        </ul> -->
+	            </li> -->
+	        </ul>
 
-					<!-- <ul class="menu" data-menu-name="BACK" data-menu-id="menu-main" id="menu-lang">
+					<ul class="menu" data-menu-name="BACK" data-menu-id="menu-main" id="menu-states">
+						<!-- How to do one normally if the link is working   -->
+						<!-- <li><a href="#">English<span class="bt-check active"><span class="bt-content"></span></span></a></li> -->
+						<li><span class="item">Alabama <span class="soon">Soon!</span></span></li>
+						<li><span class="item">Alaska <span class="soon">Soon!</span></span></li>
+						<li><span class="item">Arizona <span class="soon">Soon!</span></span></li>
+						<li><span class="item">Arkansas <span class="soon">Soon!</span></span></li>
+						<li><span class="item">California <span class="soon">Soon!</span></span></li>
+						<li><span class="item">Colorado <span class="soon">Soon!</span></span></li>
+						<li><span class="item">Connecticut <span class="soon">Soon!</span></span></li>
+						<li><span class="item">Delaware <span class="soon">Soon!</span></span></li>
+						<li><span class="item">Florida <span class="soon">Soon!</span></span></li>
+						<li><span class="item">Georgia <span class="soon">Soon!</span></span></li>
+						<li><span class="item">Hawaii <span class="soon">Soon!</span></span></li>
+						<li><span class="item">Idaho <span class="soon">Soon!</span></span></li>
+						<li><span class="item">Illinois <span class="soon">Soon!</span></span></li>
+						<li><span class="item">Indiana <span class="soon">Soon!</span></span></li>
+						<li><span class="item">Iowa <span class="soon">Soon!</span></span></li>
+						<li><span class="item">Kansas <span class="soon">Soon!</span></span></li>
+						<li><span class="item">Kentucky <span class="soon">Soon!</span></span></li>
+						<li><span class="item">Louisiana <span class="soon">Soon!</span></span></li>
+						<li><span class="item">Maine <span class="soon">Soon!</span></span></li>
+						<li><span class="item">Maryland <span class="soon">Soon!</span></span></li>
+						<li><span class="item">Massachusetts <span class="soon">Soon!</span></span></li>
+						<li><span class="item">Michigan <span class="soon">Soon!</span></span></li>
+						<li><span class="item">Minnesota <span class="soon">Soon!</span></span></li>
+						<li><span class="item">Mississippi <span class="soon">Soon!</span></span></li>
+						<li><span class="item">Missouri <span class="soon">Soon!</span></span></li>
+						<li><span class="item">Montana <span class="soon">Soon!</span></span></li>
+						<li><span class="item">Nebraska <span class="soon">Soon!</span></span></li>
+						<li><span class="item">Nevada <span class="soon">Soon!</span></span></li>
+						<li><span class="item">New Hampshire <span class="soon">Soon!</span></span></li>
+						<li><span class="item">New Jersey <span class="soon">Soon!</span></span></li>
+						<li><span class="item">New Mexico <span class="soon">Soon!</span></span></li>
+						<li><span class="item">New York <span class="soon">Soon!</span></span></li>
+						<li><span class="item">North Carolina <span class="soon">Soon!</span></span></li>
+						<li><span class="item">North Dakota <span class="soon">Soon!</span></span></li>
+						<li><span class="item">Ohio <span class="soon">Soon!</span></span></li>
+						<li><span class="item">Oklahoma <span class="soon">Soon!</span></span></li>
+						<li><span class="item">Oregon <span class="soon">Soon!</span></span></li>
+						<li><span class="item">Pennsylvania <span class="soon">Soon!</span></span></li>
+						<li><span class="item">Rhode Island <span class="soon">Soon!</span></span></li>
+						<li><span class="item">South Carolina <span class="soon">Soon!</span></span></li>
+						<li><span class="item">South Dakota <span class="soon">Soon!</span></span></li>
+						<li><span class="item">Tennessee <span class="soon">Soon!</span></span></li>
+						<li><span class="item">Texas <span class="soon">Soon!</span></span></li>
+						<li><span class="item">Utah <span class="soon">Soon!</span></span></li>
+						<li><span class="item">Vermont <span class="soon">Soon!</span></span></li>
+						<li><span class="item">Virginia <span class="soon">Soon!</span></span></li>
+						<li><span class="item">Washington <span class="soon">Soon!</span></span></li>
+						<li><span class="item">West Virginia <span class="soon">Soon!</span></span></li>
+						<li><span class="item">Wisconsin <span class="soon">Soon!</span></span></li>
+						<li><span class="item">Wyoming <span class="soon">Soon!</span></span></li>
 
-                <li>
-                                        <a href="#">
-                        English
 
-                                                    <span class="bt-check active"><span class="bt-content"></span></span>
-                                            </a>
-                </li>
+        </ul>
 
 
-                                                                                                                                                        <li><span class="item">Español - Spanish <span class="soon">Soon!</span></span></li>
-            <li><span class="item">Português - Portuguese <span class="soon">Soon!</span></span></li>
-            <li><span class="item">Français - French <span class="soon">Soon!</span></span></li>
-            <li><span class="item">日本の - Japanese <span class="soon">Soon!</span></span></li>
-            <li><span class="item">中國 - Chinese <span class="soon">Soon!</span></span></li>
-        	</ul> -->
 	    </div>
 
 	    <!-- <div class="box-bottom">
@@ -92,7 +137,8 @@
 			<div class="header-main">
 
 				<div class="box-left">
-					<div class="item bt-menu js-nav-main" data-menu-id="menu-main" onclick="openNav()">
+					<!-- <div class="item bt-menu js-nav-main" data-menu-id="menu-main" onclick="openNav()"> -->
+					<div class="item bt-menu js-nav-main" data-menu-id="menu-main" id="js-nav-main">
           	<div class="ico-menu">
             	<div class="bar"></div>
               <div class="bar"></div>
@@ -104,9 +150,7 @@
 
 				<div class="box-right">
           <div class="item bt-search" id="js-search-container">
-          	<svg class="ico-svg" viewBox="0 0 14 14" xmlns="http://www.w3.org/2000/svg">
-  						<use xlink:href="{% static '/images/search.svg' %}" xmlns:xlink="http://www.w3.org/1999/xlink"></use>
-						</svg>
+          	<span id="location-path"></span>
           </div>
           <div class="item login">
       			<span>ARE YOU A MEMBER?</span>
@@ -120,7 +164,9 @@
             </a>
             <div class="bt-gotop">
             	<svg class="ico-svg" viewBox="0 0 14 14" xmlns="http://www.w3.org/2000/svg">
-  							<use xlink:href="{% static '/images/sprite-icons.svg#gotop' %}" xmlns:xlink="http://www.w3.org/1999/xlink"></use>
+								<g id="gotop" data-size="14 14">
+									<path d="M11.3,0L8.7,3.5h1.8v8.8H1.7V1.7H7c0.5,0,0.8-0.4,0.8-0.8C7.8,0.4,7.4,0,7,0H0.8C0.4,0,0,0.4,0,0.8v12.3 C0,13.6,0.4,14,0.8,14h10.5c0.5,0,0.8-0.4,0.8-0.8V3.5H14L11.3,0z M3.8,5.3H8.4v1.2H3.8V5.3z M3.8,8H8.4v1.2H3.8V8zz"/>
+								</g>
 							</svg>
 
             </div>
@@ -157,15 +203,82 @@
 			</div>
 		</header>
 
-		<div id="content">
+		<section id="content">
 			{% block content %}
 		 	{% endblock %}
-		</div>
+		</section>
+
+		<footer id="footer">
+    	<div class="inner">
+        <div class="box-top">
+          <div class="box-left">
+          	<h2 class="headline slogan not-mobile">The place for knowledgeable, informed and educated Voters</h2>
+            	<ul class="menu-footer">
+
+	              <li class="directory not-mobile"><a data-count="16">Sources</a></li>
+	              <li class="jobs not-mobile"><a data-count="2">States</a></li>
+	              <li><a >Contact Us</a></li>
+	              <li><a >Mission Statement</a></li>
+	              <li><a >Ranking Algorithm</a></li>
+          		</ul>
+      					<!-- <p style="margin-top: 25px">Private Cloud by <strong><a href="http://www.stackscale.com/" target="_blank" rel="noopener nofollow">Stackscale</a></strong></p> -->
+                <ul class="list-social">
+                	<li>
+        						<!-- <a href="https://www.instagram.com/awwwards/"> -->
+										<a>
+                  		<svg class="ico-svg" viewBox="0 0 14 14" xmlns="http://www.w3.org/2000/svg">
+												<g id="instagram" data-size="14 14">
+													<path d="M12.3,12.2c-0.1,0.1-0.3,0.2-0.4,0.2H2.1c-0.2,0-0.3-0.1-0.4-0.2c-0.1-0.1-0.2-0.3-0.2-0.4V5.9h1.3 C2.7,6.3,2.7,6.7,2.7,7.1c0,1.2,0.4,2.1,1.3,3c0.9,0.8,1.9,1.2,3.1,1.2c0.8,0,1.5-0.2,2.2-0.6c0.7-0.4,1.2-0.9,1.6-1.5 c0.4-0.6,0.6-1.3,0.6-2.1c0-0.4-0.1-0.8-0.2-1.2h1.2v5.9C12.4,12,12.4,12.1,12.3,12.2z M9,8.9C8.4,9.4,7.8,9.7,7,9.7 c-0.8,0-1.4-0.3-2-0.8C4.5,8.4,4.2,7.7,4.2,7c0-0.7,0.3-1.4,0.8-1.9c0.5-0.5,1.2-0.8,2-0.8c0.8,0,1.4,0.3,2,0.8 C9.6,5.6,9.8,6.2,9.8,7C9.8,7.7,9.6,8.4,9,8.9z M12.2,4.1c-0.1,0.1-0.3,0.2-0.4,0.2h-1.6c-0.2,0-0.3-0.1-0.4-0.2S9.6,3.9,9.6,3.7 V2.2c0-0.2,0-0.3,0.2-0.4s0.3-0.2,0.4-0.2h1.6c0.2,0,0.3,0.1,0.4,0.2s0.2,0.3,0.2,0.4v1.5C12.4,3.9,12.4,4,12.2,4.1z M13.5,0.5 C13.1,0.2,12.7,0,12.2,0H1.8C1.3,0,0.9,0.2,0.5,0.5S0,1.3,0,1.8v10.4c0,0.5,0.2,0.9,0.5,1.3S1.3,14,1.8,14h10.4 c0.5,0,0.9-0.2,1.3-0.5s0.5-0.8,0.5-1.3V1.8C14,1.3,13.8,0.9,13.5,0.5z"/>
+												</g>
+											</svg>
+
+                    </a>
+                  </li>
+                  <li>
+                  	<!-- <a href="https://twitter.com/awwwards"> -->
+										<a >
+                    	<svg class="ico-svg" viewBox="0 0 17 14" xmlns="http://www.w3.org/2000/svg">
+												<g id="twitter" data-size="17 14">
+													<path d="M15,2.2c0.8-0.5,1.3-1.1,1.5-2c-0.7,0.4-1.4,0.7-2.2,0.8C13.6,0.4,12.8,0,11.8,0S10,0.3,9.3,1 c-0.7,0.7-1,1.5-1,2.5c0,0.3,0,0.5,0.1,0.8C7,4.3,5.6,3.9,4.3,3.3C3.1,2.6,2,1.7,1.2,0.6C0.9,1.2,0.7,1.8,0.7,2.4 c0,0.6,0.1,1.1,0.4,1.7C1.4,4.6,1.8,5,2.3,5.4c-0.6,0-1.1-0.2-1.6-0.4v0c0,0.8,0.3,1.6,0.8,2.3c0.5,0.6,1.2,1,2,1.2 C3.2,8.5,2.9,8.6,2.6,8.6c-0.2,0-0.4,0-0.7-0.1c0.2,0.7,0.6,1.3,1.2,1.8s1.3,0.7,2,0.7c-1.3,1-2.7,1.5-4.3,1.5c-0.3,0-0.6,0-0.8-0.1 C1.6,13.5,3.4,14,5.4,14c1.2,0,2.4-0.2,3.5-0.6c1.1-0.4,2-0.9,2.8-1.6c0.8-0.7,1.4-1.5,2-2.3c0.6-0.8,1-1.8,1.2-2.7 c0.3-0.9,0.4-1.9,0.4-2.8c0-0.2,0-0.3,0-0.5C15.9,3,16.5,2.4,17,1.7C16.3,1.9,15.7,2.1,15,2.2z"/>
+												</g>
+											</svg>
+
+                  	</a>
+            			</li>
+                	<li>
+                  	<!-- <a href="https://www.facebook.com/awwwards/"> -->
+										<a >
+                  		<svg class="ico-svg" viewBox="0 0 6.5 14" xmlns="http://www.w3.org/2000/svg">
+												<g id="facebook" data-size="6.5 14">
+													<path d="M4.3,3.4c0-0.2,0-0.3,0-0.4c0-0.1,0.1-0.2,0.1-0.3c0.1-0.1,0.1-0.1,0.3-0.2c0.1-0.1,0.3-0.1,0.5-0.1h1.2V0	H4.5C3.5,0,2.7,0.2,2.2,0.8C1.7,1.3,1.4,2.1,1.4,3.1v1.5H0V7h1.4v7h2.9V7h1.9l0.3-2.4H4.3V3.4z"/>
+												</g>
+											</svg>
+
+                		</a>
+                  </li>
+  						</ul>
+  				</div>
+  				<div class="box-right">
+          	<div class="headline">
+            	Next to be Supported
+							<svg class="ico-svg" viewBox="0 0 14 14" xmlns="http://www.w3.org/2000/svg">
+								<g id="calendar" data-size="14 14">
+		<path d="M12.857,1.413h-1.68V0h-1.4v1.413h-5.6V0h-1.4v1.413H1.12C0.501,1.413,0,1.915,0,2.533V12.88 C0,13.498,0.501,14,1.12,14h11.737c0.619,0,1.121-0.502,1.121-1.12V2.533C13.978,1.915,13.476,1.413,12.857,1.413z M12.578,12.6 h-11.2v-7h11.2V12.6z M12.578,4.2h-11.2V2.8h11.2V4.2z M6.417,7h1.4v1.4h-1.4V7z M9.216,7h1.4v1.4h-1.4V7z M6.417,9.8h1.4v1.4h-1.4 V9.8z M3.617,9.8h1.4v1.4h-1.4V9.8z"></path>
+	</g>
+							</svg>
+
+              Oregon and California
+      			</div>
+      		</div>
+				</div>
+    	</div>
+		</footer>
 
 
 		<div id="overlay" onclick="closeNav()"></div>
 	</div>
 
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 	<script type="text/javascript" src="{% static '/js/cyp.js' %}"></script>
 
 </body>

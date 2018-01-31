@@ -1,19 +1,655 @@
-.well {
+#content {
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-orient: vertical;
+    -webkit-box-direction: normal;
+    -ms-flex-direction: column;
+    flex-direction: column;
+    position: relative;
+    clear: both;
+    min-height: calc(100vh - 281px);
+    -webkit-transition: padding 0.6s ease-in-out;
+    transition: padding 0.6s ease-in-out;
+    z-index: 0;
+    top: 70px;
+    min-height: calc(100% - 70px);
+    /* weird problem with content and footer overlapping? Temp fix to the problem */
+    padding-bottom: 70px;
+}
+
+article, aside, details, figcaption, figure, footer, header, nav, section {
+    display: block;
+}
+
+.block {
+    position: relative;
+    padding: 50px 0;
+    background-color: #f4f7f6;
+    -webkit-transition: background 0.3s ease-in-out;
+    transition: background 0.3s ease-in-out;
+}
+
+.item {
+
+}
+
+.inner {
+    position: relative;
+    max-width: 1773px;
+    margin: 0 auto;
+    clear: both;
+}
+
+.grid {
+    clear: both;
+    margin-left: -35px;
+}
+
+.list-items {
+    width: 100%;
+}
+
+.list-flex {
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -ms-flex-wrap: wrap;
+    flex-wrap: wrap;
+}
+
+.grid .list-items [class*=col-] {
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+}
+
+.list-flex [class*=col-], .list-flex [class*=cols-] {
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+}
+
+.grid .col-3 {
+    width: 25%;
+}
+
+.grid [class*=col-], .grid [class*=cols-] {
+    position: relative;
+    float: left;
+    padding-left: 35px;
+    padding-bottom: 35px;
+    -webkit-box-sizing: border-box;
+    box-sizing: border-box;
+}
+
+li {
+    list-style: none;
+}
+
+.list-items .box-item {
+    position: relative;
+    width: 100%;
+    -webkit-transition: background 0.3s ease-in-out;
+    transition: background 0.3s ease-in-out;
+}
+
+.list-flex .box-item, .list-flex .box-info {
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-orient: vertical;
+    -webkit-box-direction: normal;
+    -ms-flex-direction: column;
+    flex-direction: column;
+    -webkit-box-pack: start;
+    -ms-flex-pack: start;
+    justify-content: flex-start;
+    -webkit-box-align: stretch;
+    -ms-flex-align: stretch;
+    align-items: stretch;
+    -ms-flex-line-pack: stretch;
+    align-content: stretch;
+}
+
+/* .list-items figure img {
+    top: -9999px;
+    bottom: -9999px;
+    left: -9999px;
+    right: -9999px;
+    margin: auto;
+} */
+
+.list-items figure, .list-items figure img {
+    /* width: 100%; */
+    /* height: calc(width * 0.714); */
+    float: left;
+    overflow: hidden;
+    /* width: 417px; */
+    /* height: 298px; */
+    /* width: 358.75px;
+    height: 256.359px; */
+}
+
+.rollover {
+    display: block;
+    background: #E6EAEA;
+    -webkit-transition: all 0.3s ease-in-out;
+    transition: all 0.3s ease-in-out;
+}
+
+figure {
+    position: relative;
+    display: inline-block;
+}
+
+article, aside, details, figcaption, figure, footer, header, nav, section {
+    display: block;
+}
+
+a {
+    color: #49c5b6;
+    text-decoration: none;
+    -webkit-transition: color 0.3s ease-in-out;
+    transition: color 0.3s ease-in-out;
+}
+
+.rollover .box-photo {
+    position: relative;
+    overflow: hidden;
+    z-index: 1;
+}
+
+.rollover img {
+    position: relative;
+    /* width: 100%; */
+    height: auto;
+    z-index: 1;
+    -webkit-transition: all 0.3s ease-in-out;
+    transition: all 0.3s ease-in-out;
+    -webkit-transform: translateZ(0);
+    transform: translateZ(0);
+}
+
+.lazy-loaded {
+    opacity: 1;
+}
+
+figure img {
+    display: block;
+    /* max-width: 100%; */
+    height: auto;
+}
+
+img {
+    /* max-width: 100%; */
+    height: auto;
+}
+
+img {
+    border: none;
+}
+
+.rollover .hover-item.bottom {
+    bottom: 20px;
+}
+
+.rollover .hover-item {
+    visibility: hidden;
+    opacity: 0;
+    position: absolute;
+    right: 20px;
+    z-index: 3;
+    -webkit-transition: opacity 0.3s ease-in-out;
+    transition: opacity 0.3s ease-in-out;
+}
+
+.rollover .bt-item.bt-link {
+    width: 35px;
+    height: 35px;
+    border: 1px solid rgba(255,255,255,0.5);
+    border-radius: 50%;
+}
+
+.rollover .bt-item {
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-align: center;
+    -ms-flex-align: center;
+    align-items: center;
+    -webkit-box-pack: center;
+    -ms-flex-pack: center;
+    justify-content: center;
+    min-width: 35px;
+    height: 27px;
+    cursor: pointer;
+    -webkit-transition: all 0.3s ease-in-out;
+    transition: all 0.3s ease-in-out;
+}
+
+.list-items .box-style4:hover .rollover:after {
+  opacity: 1
+}
+
+.rollover:after {
+    content: '';
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+    background: #202121;
+    opacity: 0;
+    z-index: 0;
+    -webkit-transition: all 0.3s ease-in-out;
+    transition: all 0.3s ease-in-out;
+}
+
+.rollover:hover:not(.no-scale) .box-photo img {
+  -webkit-transform: scale(1.03);
+  transform: scale(1.03)
+}
+
+.rollover:hover .hover-item {
+  visibility: visible;
+  opacity: 1
+}
+
+.rollover:not(.no-hover):hover:after {
+  opacity: 1
+}
+
+.box-style5 .rollover:not(.no-hover):hover:after {
+  opacity: 0.3
+}
+
+.rollover:not(.no-hover):hover .box-photo img {
+  opacity: 0.5
+}
+
+.rollover:not(.no-hover):hover .box-photo video {
+  opacity: 0.5
+}
+
+
+.rollover .bt-item.bt-link .ico-svg {
+    height: 11px;
+}
+
+.rollover .bt-item .ico-svg {
+    fill: #fff;
+    height: 13px;
+}
+
+.ico-svg {
+    position: relative;
+    display: inline-block;
+    width: auto;
+    height: 14px;
+    fill: #202121;
+    -webkit-transform: translate(0, 0);
+    transform: translate(0, 0);
+    -webkit-transition: all 0.3s ease-in-out;
+    transition: all 0.3s ease-in-out;
+}
+
+.list-items .box-info {
+    position: relative;
+    clear: both;
+    background-color: #fcfcfc;
+}
+
+.list-flex .box-info, .list-flex .box-info .content {
+    -webkit-box-flex: 1;
+    -ms-flex: 1;
+    flex: 1;
+}
+
+.list-flex .box-item, .list-flex .box-info {
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-orient: vertical;
+    -webkit-box-direction: normal;
+    -ms-flex-direction: column;
+    flex-direction: column;
+    -webkit-box-pack: start;
+    -ms-flex-pack: start;
+    justify-content: flex-start;
+    -webkit-box-align: stretch;
+    -ms-flex-align: stretch;
+    align-items: stretch;
+    -ms-flex-line-pack: stretch;
+    align-content: stretch;
+}
+
+.list-items .box-item div.content {
+    padding: 20px;
+}
+
+.list-items .box-info .row:first-of-type {
+    height: auto;
+    white-space: inherit;
+}
+
+.list-items .box-info .row {
+    height: 20px;
+    margin-bottom: 12px;
+    line-height: 20px;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    overflow: hidden;
+}
+
+.list-items h3 {
+    margin: 0;
+    font-size: 14px;
+    font-weight: 500;
+    line-height: 25px;
+}
+
+h3, .h3 {
+    font-size: 19px;
+}
+
+h1, h2, h3, h4, h5, h6 {
+    margin-bottom: 25px;
+    font-weight: normal;
+    line-height: 170%;
+}
+
+.list-items h3 a {
+    color: #202121;
+}
+
+strong {
+    font-weight: 500;
+}
+
+.list-items .box-info .row:last-of-type {
+    margin-bottom: 0;
+}
+
+.list-items .box-info .footer {
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-pack: justify;
+    -ms-flex-pack: justify;
+    justify-content: space-between;
+    padding: 0 20px 20px 20px;
+    font-size: 12px;
+    color: #BDC1C0;
+}
+
+.list-items .box-info .footer .box-left {
+    -webkit-box-flex: 1;
+    -ms-flex: 1;
+    flex: 1;
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-align: center;
+    -ms-flex-align: center;
+    align-items: center;
+}
+
+.list-items .box-info .box-users-likes {
+    margin-right: 6px;
+}
+
+.box-users-likes {
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    position: relative;
+}
+
+.box-users-likes .list-users>li {
+    position: relative;
+    float: left;
+    margin-right: 6px;
+}
+
+.box-users-likes .item {
+    position: relative;
+}
+
+.box-users-likes img {
+    float: left;
+    border-radius: 50%;
+    cursor: pointer;
+    -webkit-transition: all 0.3s ease-in-out;
+    transition: all 0.3s ease-in-out;
+}
+
+.box-users-likes .item:after {
+    content: '';
+    display: block;
+    clear: both;
+}
+
+.container-bt-circle {
+    position: relative;
+    cursor: pointer;
+}
+
+.tooltip {
+    position: relative;
+    display: inline-block;
+    z-index: 1;
+}
+
+.bt-like {
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-align: center;
+    -ms-flex-align: center;
+    align-items: center;
+    -webkit-box-pack: center;
+    -ms-flex-pack: center;
+    justify-content: center;
+    position: relative;
+    width: 27px;
+    height: 27px;
+    text-align: center;
+    border-radius: 50%;
+    cursor: pointer;
+}
+
+.bt-like .circle {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    fill: none;
+    stroke-width: 1;
+    -webkit-transition: all 0.3s ease-in-out;
+    transition: all 0.3s ease-in-out;
+}
+
+.bt-like .circle {
+    stroke: #BDC1C0;
+}
+
+.bt-like .ico-svg {
+    height: 11px;
+    z-index: 1;
+    -webkit-transform: translateZ(0);
+    transform: translateZ(0);
+}
+
+.bt-like .ico-svg {
+    fill: #BDC1C0;
+}
+
+.bt-like .number {
+    position: absolute;
+    bottom: -8px;
+    right: -10px;
+    width: 20px;
+    height: 20px;
+    line-height: 20px;
+    font-size: 11px;
+    -webkit-transition: all 0.3s ease-in-out;
+    transition: all 0.3s ease-in-out;
+}
+
+.list-items .box-item .box-tooltip {
+    text-align: center;
+}
+
+.tooltip .box-tooltip {
+    visibility: hidden;
+    opacity: 0;
+    position: absolute;
+    bottom: 100%;
+    left: 50%;
+    margin-bottom: 8px;
+    -webkit-transform: translateY(-10px);
+    transform: translateY(-10px);
+    -webkit-transition: all 0.3s ease-in-out;
+    transition: all 0.3s ease-in-out;
+}
+
+.tooltip .tooltip-text {
+    position: relative;
+    top: 0;
+    left: -50%;
+    width: auto;
+    padding: 10px;
+    background-color: #49c5b6;
+    white-space: nowrap;
+    color: #fff;
+    font-size: 14px;
+    line-height: normal;
+    text-align: center;
+    z-index: 970;
+}
+
+.tooltip .tooltip-text:after {
+    content: '';
+    position: absolute;
+    top: 100%;
+    left: 50%;
+    height: 0;
+    width: 0;
+    margin-left: -6px;
+    border: solid transparent;
+    border-top-color: #49c5b6;
+    border-width: 8px 6px;
+}
+
+.list-items .box-info .footer .box-right {
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-align: center;
+    -ms-flex-align: center;
+    align-items: center;
+}
+
+.list-items .box-info .footer:after {
+    content: '';
+    display: block;
+    clear: both;
+}
+
+.list-items .box-info:after {
+    content: '';
+    display: block;
+    clear: both;
+}
+
+.list-items .box-item:after {
+    content: '';
+    display: block;
+    clear: both;
+}
+
+.list-items:after {
+    content: '';
+    display: block;
+    clear: both;
+}
+
+.paginate {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: justify;
+  -ms-flex-pack: justify;
+  justify-content: space-between;
+  height: 60px;
+  clear: both;
+  margin: 35px 0;
+  font-size: 16px;
+  overflow: hidden
+}
+
+.paginate .item {
+  float: left;
+  display: block;
+  width: 60px;
+  height: 60px;
+  margin-right: 1px;
+  line-height: 60px;
   text-align: center;
-  float: left;
-  height: 100%;
+  background-color: #fff;
+  color: #202121;
+  -webkit-transition: all 0.3s ease-in-out;
+  transition: all 0.3s ease-in-out
+}
+
+.paginate .item:hover {
+  background-color: #E6EAEA
+}
+
+.paginate .item.current {
+  background-color: #000;
+  color: #fff
+}
+
+.paginate .item.more {
   width: 100%;
-  border: none;
-  color: inherit;
+  background-color: #000;
+  color: #fff
 }
 
-.div {
-  float: left;
+.paginate .item.more:hover {
+  opacity: 0.75
 }
 
-iframe {
-  display: inline-block;
-  height: 100%;
-  width: 40%;
-  border: none;
+.paginate .item.white {
+  background-color: #fcfcfc;
+  color: #202121;
+  font-weight: 400
+}
+
+.grid .cols-4 {
+    width: 25%;
+}
+
+.grid [class*=col-], .grid [class*=cols-] {
+    position: relative;
+    float: left;
+    padding-left: 35px;
+    padding-bottom: 35px;
+    -webkit-box-sizing: border-box;
+    box-sizing: border-box;
+}
+
+.grid:after {
+    content: '';
+    display: block;
+    clear: both;
+}
+
+#content:after {
+    content: '';
+    display: block;
+    clear: both;
 }
