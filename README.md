@@ -12,7 +12,7 @@ To find out more about what this project is, how it works, or why it was created
 https://knilssen.github.io/Founding_Fathers/
 
 
-# Example Website Images:
+# Website Mock-up Concepts:
 
 *Article page mockup*
 ![Article Page](/docs/2018-01-31-14-57-127.0.0.1_8000.png)
