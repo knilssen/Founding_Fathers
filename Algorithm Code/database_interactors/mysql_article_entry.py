@@ -50,6 +50,8 @@ def main(url, source, post_date, found_date, title, author, keywords, summary, t
 
         article_id = cursor.lastrowid
 
+
+
         # add_social = ("INSERT INTO News_social_media "
         #        "() "
         #        "VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s)")
@@ -59,8 +61,17 @@ def main(url, source, post_date, found_date, title, author, keywords, summary, t
 
         cursor.close()
 
-        
+
     cnx.close()
+
+    try:
+        urllib.urlretrieve(top_image, "/Users/kristiannilssen/Documents/GitHub/Founding_Fathers/CYP/CYP/static/images/article_images/" + str(article_id) + ".jpg")
+    except:
+        print "Error downloading image on url:", top_image
+        return int(article_id)
+    # print image[1]
+    # print "/Users/kristiannilssen/Documents/GitHub/Founding_Fathers/CYP/CYP/static/images/article_images/" + str(image[0]) + ".jpg"
+    # print "\n"
 
     return int(article_id)
 

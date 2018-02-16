@@ -1,7 +1,3 @@
-$('.list-items figure').each(function(){
-        $('.list-items figure').height($('.box-photo').width() * 0.714);
-});
-
 var sides = $('.box-photo').width();
 var tops = $('.box-photo').width() * 0.714;
 
@@ -11,6 +7,7 @@ $('.box-photo img').each(function(){
 
         if (height > width) {
           $( this ).width('100%');
+          // $('.list-items figure').height($( this ).width() * 0.714);
         }
 
         if (height < width) {
@@ -21,15 +18,22 @@ $('.box-photo img').each(function(){
           console.log("correcting for small width", $( this ).width(), sides);
           $( this ).height("auto");
           $( this ).width(sides);
+          // $('.list-items figure').height($( this ).width() * 0.714);
         }
 
         if (Math.round($( this ).height(), -1) < Math.round(tops, -1)) {
           console.log("correcting for small height", $( this ).height(), tops);
           $( this ).width("auto");
+          // $('.list-items figure').height($( this ).width() * 0.714);
           $( this ).height(tops);
         }
 
 });
+
+$('.list-items figure').height($('.box-photo').width() * 0.714);
+
+// $('.list-items figure').height( * 0.714);
+// $('.list-items figure').height($('.box-photo').width() * 0.714);
 
 $("#outlines .land").hover(function(){
     $(this).css("fill", "#49c5b6");

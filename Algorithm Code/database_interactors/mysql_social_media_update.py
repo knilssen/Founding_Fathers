@@ -33,7 +33,7 @@ def main():
 
         cursor = cnx.cursor()
 
-        cursor.execute("SELECT COUNT(*) FROM News_articles")
+        cursor.execute("SELECT COUNT(*) FROM News_articles where News_articles.id = 449")
         data = cursor.fetchall()
         article_count = data[0]
 
@@ -48,7 +48,7 @@ def main():
         print "________________________________________________________________________________________"
 
 
-        for social_media_entry in range(0,article_count[0]-1):
+        for social_media_entry in range(0,article_count[0]):
 
             cursor.execute(("SELECT url, source FROM News_articles WHERE id=%s") % (article_count[0] - social_media_entry))
             data = cursor.fetchall()

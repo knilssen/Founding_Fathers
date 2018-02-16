@@ -2,6 +2,12 @@ from __future__ import unicode_literals
 from django.db import models
 # Create your models here.
 
+class Found_Url(models.Model):
+    id = models.AutoField(primary_key=True)
+    url = models.URLField(max_length = 255)
+    title = models.CharField(max_length=255)
+    used = models.BooleanField(default=False)
+
 class Articles(models.Model):
     id = models.AutoField(primary_key=True)
     url = models.URLField(max_length = 255)

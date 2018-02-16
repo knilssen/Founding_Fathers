@@ -18,6 +18,10 @@
     padding-bottom: 70px;
 }
 
+#box-filters-fixed {
+  display: none;
+}
+
 article, aside, details, figcaption, figure, footer, header, nav, section {
     display: block;
 }
@@ -183,7 +187,7 @@ figure img {
 
 img {
     /* max-width: 100%; */
-    height: auto;
+    /* height: auto; */
 }
 
 img {
@@ -433,6 +437,7 @@ strong {
 .container-bt-circle {
     position: relative;
     cursor: pointer;
+    float: left;
 }
 
 .tooltip {

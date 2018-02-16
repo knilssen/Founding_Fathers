@@ -8,13 +8,18 @@
     flex-direction: column;
     position: relative;
     clear: both;
-    min-height: calc(100vh - 281px);
+    /* min-height: calc(100vh - 281px); */
     -webkit-transition: padding 0.6s ease-in-out;
     transition: padding 0.6s ease-in-out;
     z-index: 0;
-    top: 70px;
-    min-height: calc(100% - 70px);
-    padding-bottom: 70px;
+    /* top: 70px; */
+    /* height: calc(100vh - 140px); */
+    min-height: calc(100% - 140px);
+    /* padding-bottom: 70px; */
+}
+
+#box-filters-fixed {
+  display: none;
 }
 
 .box-site-head {
@@ -26,6 +31,11 @@
     position: relative;
     overflow: hidden;
     height: calc((100vh - 70px) * 0.702);
+    filter: brightness(60%);
+    background-attachment: fixed;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
 }
 
 .box-site-head .box-bg:before {
@@ -38,18 +48,13 @@
     height: 100%;
     /* background-color: #000; */
     z-index: 0;
-    filter: brightness(60%);
+    /* filter: brightness(60%); */
 
-    background-image: url('https://static.seattletimes.com/wp-content/uploads/2018/01/a65a1cee-fe20-11e7-86d4-df361ab934c3-1560x1040.jpg');
 
     /* Full height */
     height: 100%;
 
     /* Create the parallax scrolling effect */
-    background-attachment: fixed;
-    background-position: center;
-    background-repeat: no-repeat;
-    background-size: cover;
 }
 
 .box-site-head .box-bg a {
@@ -878,7 +883,8 @@ h3, .h3 {
 }
 
 .nav-sections.style1 {
-    padding: 50px 0;
+  padding-top: 25px;
+    padding-bottom: 65px;
     text-align: center;
 }
 
@@ -891,12 +897,27 @@ h3, .h3 {
     background-color: #f4f7f6;
 }
 
+.nav-sections .slider {
+  position: absolute;
+  bottom: 0;
+  width: 25%; height: 3px;
+  box-shadow: 0 3px $color;
+  transition: all .3s ease-in-out;
+  background-color: black;
+}
+
+.nav-sections ul {
+  border-bottom: 3px solid #eee;
+  width: fit-content;
+}
+
+
 article, aside, details, figcaption, figure, footer, header, nav, section {
     display: block;
 }
 
 .nav-sections li.active {
-    font-weight: bold;
+    /* font-weight: bold; */
 }
 
 .nav-sections li {
@@ -906,13 +927,14 @@ article, aside, details, figcaption, figure, footer, header, nav, section {
 }
 
 .nav-sections li.active span, .nav-sections li.active a {
-    border-color: #202121;
+    /* border-color: #202121; */
 }
 
 .nav-sections li span, .nav-sections li a {
     display: inline-block;
     padding-bottom: 8px;
-    border-bottom: 4px solid transparent;
+    font-size: large;
+    /* border-bottom: 4px solid transparent; */
     color: #202121;
 }
 
@@ -920,9 +942,10 @@ article, aside, details, figcaption, figure, footer, header, nav, section {
     cursor: pointer;
 }
 
-.nav-sections li:after {
-    content: '.';
-    padding: 0 12px;
+.nav-sections li:nth-child(1):after, .nav-sections li:nth-child(2):after {
+    content: '|';
+    padding-right: 6px;
+    padding-left: 6px;
     font-weight: normal;
 }
 
@@ -1670,4 +1693,23 @@ p, blockquote, .p {
 
 .list-share-circles.light .bt-circle:hover .ico-svg {
     fill: #49c5b6;
+}
+
+.bt-default.green-fill:hover {
+    background-color: transparent;
+}
+
+.bt-default:hover {
+    color: #49c5b6;
+    border-color: #49c5b6;
+}
+
+.list-tags li .item:hover {
+    border-color: #49c5b6;
+    color: #49c5b6;
+    background-color: transparent;
+}
+
+.box-page-info .h4, .box-page-info .h5, .box-page-info .h6, .box-page-info h4, .box-page-info h5, .box-page-info h6 {
+    margin-bottom: 25px !important;
 }

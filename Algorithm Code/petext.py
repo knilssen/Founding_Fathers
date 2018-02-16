@@ -78,6 +78,8 @@ from database_interactors import mysql_article_person_link
 from database_interactors import mysql_article_based_weights
 from database_interactors import mysql_social_media_entry
 from database_interactors import mysql_check_duplicate
+from database_interactors import mysql_found_url_entry
+from database_interactors import mysql_check_found_url
 from nltk.tag import StanfordNERTagger
 
 maxthreads = multiprocessing.cpu_count()
@@ -194,8 +196,8 @@ def article_processor(stuff):
         found_people_by_last_name = {}
         people_by_last_name = {}
         otherPositionTitles = []
-        positionTitles = ['governor', 'senator', 'represenative', 'rep.']
-        alt_position_titles = {'rep.':'represenative'}
+        positionTitles = ['governor', 'senator', 'represenative', 'rep.', 'sen.']
+        alt_position_titles = {'rep.':'represenative', 'sen.': 'senator'}
         categories = defaultdict(list)
         keywords_database = 'null'
         totalcount = 0
@@ -254,6 +256,7 @@ def article_processor(stuff):
                                 itemPosition += 1
 
                             temp_realtypefind = " ".join(temp_realtypefind)
+                            print 'temp_realtypefind: ', temp_realtypefind
 
                             # If our found title is a nickname such as rep. for represenative, then change the nickname to its respected title.
                             # If not, continue
@@ -356,10 +359,12 @@ def article_processor(stuff):
         for people in article_people:
             output_people.append(people)
 
+
         # If the article has one or more people of interest, then add the article to our database
         if len(article_people) >= 1:
             # print "  ", found_article_number, (3-len(str(found_article_number))) * " " + "        ", article_id, (3-len(str(article_id))) * " " + "                  ", output_people
             try:
+                mysql_found_url_entry.main(Url, article.title, 1)
                 article_id = mysql_article_entry.main(Url, Source, post_date, dateTime, article.title, ", ".join(article.authors), keywords_database, article.summary, submitted_v_articleText, article.top_image)
                 mysql_article_person_link.main(article_id, article_people, totoltypecount)
                 mysql_article_based_weights.main(article_id, len(articleText), "yes")
@@ -382,6 +387,14 @@ def article_processor(stuff):
             # If there are people of interest in the article, and the article was succefully entered into the database without error, print out the information along with the
             # articles id number from News_articles
             print "        ", found_article_number, (3-len(str(found_article_number))) * " " + "                  ", article_id, (3-len(str(article_id))) * " " + "                  ", output_people
+
+        else:
+            # Add url to database so we dont run comprehend on it more than we need to
+            try:
+                mysql_found_url_entry.main(Url, article.title, 0)
+            except:
+                print "entering url and title to found_url had a problem:   Did not add to database"
+
 
         # If everything goes smoothly, or the article doesnt have anyone we are interested in mentioned, release the sema and return the Url, people found of interest,
         # return people found that are not of interest, and also return pre name possible posisitions like those of accepted such as governor and senator.
@@ -428,22 +441,30 @@ def main(Urls, Keywords, otherNames, total_article_count):
 
     for y, Url in enumerate(article_dict):
         check_duplicate = mysql_check_duplicate.main(Url)
+        check_found_url = mysql_check_found_url.main(Url)
         # Check if we have already seen the article
         # NOTE: only works for articles that are of importance to us, IE. ones that are already entered into the database
         # Create a way to check with the previous ran petext for articles that are already found but dont have importance so we can skip those as well,
         # saving time and resiources.
-        if check_duplicate == 0:
+        if check_duplicate == 0 and check_found_url == 0:
             t = threading.Thread(target=lambda q, arg1: q.put(article_processor(arg1)),  args=(people_queue, [Url, article_dict[Url][0], article_dict[Url][1], article_dict[Url][2], Keywords, otherNames, y]))
             thread.append(t)
             t.start()
         else:
             # If the article has already been found and is of use and in News_articles, dont run NLP and NER on it, instead save time and resources and just print out its ID and
             # that we have already found it before.
-            print "        ", y, (3-len(str(y))) * " " + "                  ", check_duplicate, (3-len(str(check_duplicate))) * " " + "                  ", "ARTICLE ALREADY FOUND:", Url
-            print "        ", y, (3-len(str(y))) * " " + "                  ", check_duplicate, (3-len(str(check_duplicate))) * " " + "                  ", "NOTHING ADDED TO DATABASE"
-            print "\n"
+            if check_duplicate != 0:
+                print "        ", y, (3-len(str(y))) * " " + "                  ", check_duplicate, (3-len(str(check_duplicate))) * " " + "                  ", "ARTICLE ALREADY FOUND:", Url
+                print "        ", y, (3-len(str(y))) * " " + "                  ", check_duplicate, (3-len(str(check_duplicate))) * " " + "                  ", "NOTHING ADDED TO DATABASE"
+                print "\n"
+            else:
+                if check_found_url != 0:
+                    print "        ", y, (3-len(str(y))) * " " + "                  ", check_duplicate, (3-len(str(check_duplicate))) * " " + "                  ", "URL ALREADY FOUND:", Url
+                    print "        ", y, (3-len(str(y))) * " " + "                  ", check_duplicate, (3-len(str(check_duplicate))) * " " + "                  ", "NOT RAN THROUGH COMPREHEND"
+                    print "\n"
         # else:
         #     print "DUPLICATE FOUND:", Url
+    print "length of threads:", len(thread)
 
     for t in thread:
         print "joining thread", t

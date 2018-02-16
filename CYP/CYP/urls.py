@@ -28,7 +28,7 @@ urlpatterns = [
     url(r'^News/news_scroll_two.html$', views.news_scroll_two, name = 'news_scroll_two'),
     url(r'^News/news_scroll_three.html$', views.news_scroll_three, name = 'news_scroll_three'),
     url(r'^recent_news/News/news_scroll.html$', views.news_scroll, name = 'news_scroll'),
-    url(r'^house/News/republican_scroll.html$', views.republican_scroll, name = 'republican_scroll'),
+    url(r'^state$', views.state, name = 'state'),
     url(r'^senate/News/democrat_scroll.html$', views.democrat_scroll, name = 'democrat_scroll'),
     url(r'^recent_news/$', views.recent_news, name = 'recent_news'),
     url(r'^house/$', views.house, name = 'house'),
@@ -37,6 +37,8 @@ urlpatterns = [
     url(r'^service.html$', views.service, name = 'serice'),
     url(r'^article/$', views.article, name = 'Article'),
     url(r'^article/(?P<pk>\d+)$', views.article, name = 'Article'),
+    url(r'^person/$', views.person, name = 'Person'),
+    url(r'^person/(?P<pk>\d+)$', views.person, name = 'Person'),
     # url(r'^(?P<pk>\d+)$', DetailView.as_view(model=models.Articles, template_name='News/Article.html'))
     # url(r'^login/$', views.login, name = 'login'),
     #url(r'^accounts/login$', views.login, name = 'login'),

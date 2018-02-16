@@ -1,0 +1,29 @@
+{% extends "CYP/header.html" %}
+{% load staticfiles %}
+
+{% block content %}
+
+<link rel="stylesheet" href="{% static 'css/recent_news.css' %}" type="text/css">
+<link rel="stylesheet" href="{% static 'css/state.css' %}" type="text/css">
+
+<head>
+
+  <!-- <center><h1 style="color:black;">Let your news come to you.</h1><center> -->
+  <title>CYP</title>
+
+</head>
+<body>
+
+  <div id="page_location" data-page="map_view" data-page_path="United States | Map View"></div>
+  <div class="content-view" style="min-height:calc(100vh - 70px);">
+
+          <img src="http://app.leg.wa.gov/assets/Images/MemberThumbnails/Senate/angel.jpg" height="200" alt="Immersive Garden" class="js-toggle cursor-pointer" data-id="more-info" style="padding-top:42px;padding-bottom:42px;">
+
+  </div>
+
+</body>
+
+<script type="text/javascript" src="{% static '/js/state.js' %}"></script>
+
+{% include "CYP/includes/htmlsnippet.html" %}
+{% endblock %}

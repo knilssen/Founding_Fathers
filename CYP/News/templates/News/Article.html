@@ -12,26 +12,31 @@
 
 </head>
 <body>
-  <div id="page_location" data-page="recent_news" data-page_path="Washington State | Recent News"></div>
+<section id="content">
+  {% with 'images/article_images/'|add:article_data.top_image as top_image %}
+  <div id="page_location" data-page="recent_news" data-page_path="Washington State | Recent News" data-page_picture='{% static top_image %}'></div>
+  {% endwith %}
   <div class="content-view">
 
     <div class="box-site-head">
-      <div class="box-bg has-tablet top-image">
+      <div class="box-bg has-tablet top-image" id="back_image">
         <!-- <a href="https://www.seattletimes.com/seattle-news/politics/renewal-and-resistance-in-seattle-thousands-take-to-streets-for-womens-march/" target="_blank"> -->
           <!-- <img style="fixed" src="https://static.seattletimes.com/wp-content/uploads/2018/01/a65a1cee-fe20-11e7-86d4-df361ab934c3-1560x1040.jpg" alt="You are the stylist"> -->
         <!-- </a> -->
       </div>
       <div class="box-photo has-mobile">
-        <a href="https://www.seattletimes.com/seattle-news/politics/renewal-and-resistance-in-seattle-thousands-take-to-streets-for-womens-march/" target="_blank">
-              <img src="https://assets.awwwards.com/bundles/tvweb/images/nophoto.png" data-src="https://assets.awwwards.com/awards/submissions/2018/01/5a620fadc2143.jpg" data-src-2x="https://assets.awwwards.com/awards/submissions/2018/01/5a620fadc2143.jpg" alt="You are the stylist" class="lazy">
+        <a href='{{article_data.url}}' target="_blank">
+              {% with 'images/article_images/'|add:article_data.top_image as top_image %}
+              <img src="https://assets.awwwards.com/bundles/tvweb/images/nophoto.png" data-src='{% static top_image %}' data-src-2x='{% static top_image %}' alt='{{article_data.title}}' class="lazy">
+              {% endwith %}
             </a>
       </div>
       <div class="box-content" itemscope="" itemtype="http://schema.org/Article">
 
         <meta itemprop="datePublished" content="2018-01-21">
-        <meta itemprop="headline" content="Renewal and resistance in Seattle — thousands take to streets for Women’s March">
-        <meta itemprop="source" content="Seattle Times">
-        <meta itemprop="author" content="Seattle Times staff">
+        <meta itemprop="headline" content='{{article_data.title}}'>
+        <meta itemprop="source" content='{{article_data.source}}'>
+        <meta itemprop="author" content='{{article_data.author}}'>
 
         <div class="hidden" itemprop="image" itemscope="" itemtype="https://schema.org/ImageObject">
           <meta itemprop="url" content="https://assets.awwwards.com/awards/submissions/2018/01/5a620fadc2143.jpg">
@@ -44,17 +49,17 @@
           </div>
         </div>
 
-        <a href="https://www.seattletimes.com/seattle-news/politics/renewal-and-resistance-in-seattle-thousands-take-to-streets-for-womens-march/" class="site-link" target="_blank"></a>
+        <a href='{{article_data.url}}' class="site-link" target="_blank"></a>
         <div class="inner vertical-center">
           <div class="box-info">
             <div class="row">
-              <h1 class="heading-large"><a href="https://www.seattletimes.com/seattle-news/politics/renewal-and-resistance-in-seattle-thousands-take-to-streets-for-womens-march/" itemprop="name">Renewal and resistance in Seattle — thousands take to streets for Women’s March</a></h1>
+              <h1 class="heading-large"><a href='{{article_data.url}}' itemprop="name">{{article_data.title}}</a></h1>
             </div>
             <div class="row">
               <div class="by" itemprop="aggregateRating" itemscope="" itemtype="http://schema.org/AggregateRating">
                 by
                 <strong>
-                    <a href="/immersivegarden/">Seattle Times</a>
+                    <a href="#"> {{article_data.source}} </a>
                   </strong>
                 <i>
                     <!-- from -->
@@ -76,11 +81,11 @@
             <div class="box-left">
               <strong class="parent">
                   <a href="/awards-of-the-day/">
-                    Seattle Times staff
+                    {{article_data.author}}
                   </a>
                 </strong>
               <span class="text-x-thin">
-                  January 21, 2018
+                  {{article_data.post_date}}
                 </span>
             </div>
             <div class="box-right">
@@ -140,7 +145,7 @@ C1.857,11.244,7.368,14,7.368,14s5.503-2.754,7.025-7.445C15.726,1.758,12.793,0,10
           </div>
           <div class="box-bl">
 
-            <a href="https://www.seattletimes.com/seattle-news/politics/renewal-and-resistance-in-seattle-thousands-take-to-streets-for-womens-march/" class="bt-default green-fill" target="_blank">
+            <a href="{{article_data.url}}" class="bt-default green-fill" target="_blank">
               Visit Article
             </a>
             <!-- <a href="/sites/you-are-the-stylist/mobile-excellence" class="bt-default white">
@@ -217,7 +222,7 @@ C1.857,11.244,7.368,14,7.368,14s5.503-2.754,7.025-7.445C15.726,1.758,12.793,0,10
           <div class="box-br">
             <div class="box-bt-page right">
               <div class="tooltip">
-                <a href="/sites/possibles" class="bt-page bt-prev"></a>
+                <a href="/article/?id={{article_data.id_prev}}" class="bt-page bt-prev"></a>
                 <div class="box-tooltip">
                   <div class="tooltip-text">
                     Previous
@@ -227,7 +232,7 @@ C1.857,11.244,7.368,14,7.368,14s5.503-2.754,7.025-7.445C15.726,1.758,12.793,0,10
             </div>
             <div class="box-bt-page left">
               <div class="tooltip">
-                <a href="/sites/bullying-and-behavior" class="bt-page bt-next"></a>
+                <a href="/article/?id={{article_data.id_next}}" class="bt-page bt-next"></a>
                 <div class="box-tooltip">
                   <div class="tooltip-text">
                     Next
@@ -250,7 +255,7 @@ C1.857,11.244,7.368,14,7.368,14s5.503-2.754,7.025-7.445C15.726,1.758,12.793,0,10
   <div class="block has-tablet">
     <div class="inner width-3">
       <div class="box-page-info">
-        <h3 class="h4">Renewal and resistance in Seattle — thousands take to streets for Women’s March</h3>
+        <h3 class="h4">{{article_data.title}}</h3>
         <div class="list-tags list-center">
           <ul>
             <li><a href="/article" class="item">Pramila Jayapal</a></li>
@@ -284,7 +289,8 @@ C1.857,11.244,7.368,14,7.368,14s5.503-2.754,7.025-7.445C15.726,1.758,12.793,0,10
   <!-- Start Nav section -->
 
   <nav class="nav-sections style1 has-tablet">
-    <ul>
+    <div class="slider"></div>
+    <ul id="nav-section-menu">
       <li class="active">
         <span class="navscroll" data-idpage="article-text" data-diffscroll="70">Article Text</span>
       </li>
@@ -303,7 +309,8 @@ C1.857,11.244,7.368,14,7.368,14s5.503-2.754,7.025-7.445C15.726,1.758,12.793,0,10
   <!-- <div class="inner width-1"> -->
     <div class="block pt-0 article-text" id="article-text">
       <!-- <div class="box-block style2"> -->
-        <p>Fed-up protesters mark the first year of the Trump administration in the streets of Seattle. “I never felt that it was such an emergency before,” said one. “I never felt as threatened.”</p>
+      {{ article_data.texts|linebreaks }}
+        <!-- <p>Fed-up protesters mark the first year of the Trump administration in the streets of Seattle. “I never felt that it was such an emergency before,” said one. “I never felt as threatened.”</p>
         <p>A year to the day after Donald Trump’s election ignited a culture of protest in Seattle, tens of thousands of people took to the streets Saturday to renew their commitment to resist Trump’s presidency and to work toward what they see as a more just and inclusive society.</p>
         <p>Led by indigenous peoples and members of local Muslim communities, protesters packed the pavement for the Seattle Women’s March 2.0, carrying signs that telegraphed their reasons for being there:</p>
         <p>“Grab ’em by the midterms.”</p>
@@ -346,7 +353,7 @@ C1.857,11.244,7.368,14,7.368,14s5.503-2.754,7.025-7.445C15.726,1.758,12.793,0,10
         <p>Jada Brazil, 37, said she was heartened to notice there were more people of color and more men than at last year’s march.</p>
         <p>“It’s definitely more inclusive (this year) and that makes me extraordinarily happy,” she said. “Everyone in Seattle is coming out, it’s not just one flavor of it.”</p>
         <p>One organizer, Janinne Brunyee, said the goal of the march was to create a safe space for anyone to voice whatever issue is important to them, and organizers were pleased with the results.</p>
-        <p>“Get involved — that’s really what we want people to take away from today,” Brunyee said.</p>
+        <p>“Get involved — that’s really what we want people to take away from today,” Brunyee said.</p> -->
       <!-- </div> -->
     </div>
   <!-- </div> -->
@@ -365,7 +372,7 @@ C1.857,11.244,7.368,14,7.368,14s5.503-2.754,7.025-7.445C15.726,1.758,12.793,0,10
               <span class="title">D A T A</span>
               <ul class="menu-tabs">
                 <li class="active">
-                  <div class="menu-item jury_votes">4 PEOPLE</div>
+                  <div class="menu-item jury_votes">{{article_data.total_people}}</div>
                 </li>
                 <li>
                   <div class="menu-item user_votes">SOCIAL MEDIA</div>
@@ -381,17 +388,21 @@ C1.857,11.244,7.368,14,7.368,14s5.503-2.754,7.025-7.445C15.726,1.758,12.793,0,10
               </div>
             </div>
           </div>
+
+          <!--  start people section -->
+
           <ul class="list-users-votes" id="jury_votes">
+            {% for person in people %}
             <li>
               <div class="box-left">
                 <div class="avatar">
                   <div class"avatar-square">
-                    <a href="/motin/"><img src="https://www.boldprogressives.org/wp-content/uploads/2016/04/WEBSITE_325x325_JAYAPAL.png" width="50" height="50" alt="Aleksandr Motin"></a>
+                    <a href="#"><img src='{{person.image}}' width="50" height="50" alt={{person.name}}></a>
                   </div>
                 </div>
                 <div class="info">
-                  <div class="row"><strong><a href="/motin/">Pramilia Jayapal</a></strong> <i>from</i> <strong>Washington State</strong></div>
-                  <div class="row">House of Representatives | District 7</div>
+                  <div class="row"><strong><a href="#">{{person.name}}</a></strong> <i>from</i> <strong>{{person.state}}</strong></div>
+                  <div class="row">{{person.role}} | District 7</div>
                 </div>
               </div>
               <div class="box-right">
@@ -441,7 +452,7 @@ C1.857,11.244,7.368,14,7.368,14s5.503-2.754,7.025-7.445C15.726,1.758,12.793,0,10
                   <li>
 
 
-                    <div class="tooltip">
+                    <!-- <div class="tooltip">
                       <div class="box-item box-usertype js-usertype style-dark" data-type="user_type_jury">
                         <span class="text-uppercase">jury</span>
                         <svg class="ico-svg" viewBox="0 0 11 14" xmlns="http://www.w3.org/2000/svg">
@@ -454,267 +465,22 @@ C1.857,11.244,7.368,14,7.368,14s5.503-2.754,7.025-7.445C15.726,1.758,12.793,0,10
                       <div class="box-tooltip">
                         <div class="tooltip-text">Jury User</div>
                       </div>
-                    </div>
+                    </div> -->
 
                   </li>
                 </ul>
                 <div class="item">
-                  <span class="note">1</span>
+                  <span class="note">{{person.name_mentions}}</span>
                 </div>
               </div>
             </li>
 
-            <li>
-              <div class="box-left">
-                <div class="avatar">
-                  <div class"avatar-square">
-                    <a href="/motin/"><img src="https://scontent-sea1-1.xx.fbcdn.net/v/t1.0-1/p200x200/26195820_1513975185318835_5538769180341005168_n.jpg?oh=a64329d3d002d61e01e9358812da48b8&oe=5AE0B152" width="50" height="50" alt="Aleksandr Motin"></a>
-                  </div>
-                </div>
-                <div class="info">
-                  <div class="row"><strong><a href="/motin/">Emily Randall</a></strong> <i>from</i> <strong>Washington State</strong></div>
-                  <div class="row">Running for State Senate | 26th District</div>
-                </div>
-              </div>
-              <div class="box-right">
-                <!-- <ul class="list-circle-notes js-circle-notes">
-                  <li data-note="8" data-size="40" class="design">
-                    <div class="tooltip">
-                      <svg style="width: 40px; height: 40px;">
-                                                      <circle r="19" cy="20" cx="20" style="stroke-dasharray: 119.381; stroke-dashoffset: 23.8761;"></circle>
-                                                  </svg>
-                      <div class="box-tooltip">
-                        <div class="tooltip-text">Design</div>
-                      </div>
-                    </div>
-                  </li>
-                  <li data-note="8" data-size="40" class="usability">
-                    <div class="tooltip">
-                      <svg style="width: 40px; height: 40px;">
-                                                      <circle r="19" cy="20" cx="20" style="stroke-dasharray: 119.381; stroke-dashoffset: 23.8761;"></circle>
-                                                  </svg>
-                      <div class="box-tooltip">
-                        <div class="tooltip-text">Usability</div>
-                      </div>
-                    </div>
-                  </li>
-                  <li data-note="9" data-size="40" class="creativity">
-                    <div class="tooltip">
-                      <svg style="width: 40px; height: 40px;">
-                                                      <circle r="19" cy="20" cx="20" style="stroke-dasharray: 119.381; stroke-dashoffset: 11.9381;"></circle>
-                                                  </svg>
-                      <div class="box-tooltip">
-                        <div class="tooltip-text">Creativity</div>
-                      </div>
-                    </div>
-                  </li>
-                  <li data-note="9" data-size="40" class="content">
-                    <div class="tooltip">
-                      <svg style="width: 40px; height: 40px;">
-                                                      <circle r="19" cy="20" cx="20" style="stroke-dasharray: 119.381; stroke-dashoffset: 11.9381;"></circle>
-                                                  </svg>
-                      <div class="box-tooltip">
-                        <div class="tooltip-text">Content</div>
-                      </div>
-                    </div>
-                  </li>
-                </ul> -->
-                <ul class="list-number-awards">
-                  <li>
-
-
-                    <div class="tooltip">
-                      <div class="box-item box-usertype js-usertype style-dark" data-type="user_type_jury">
-                        <span class="text-uppercase">jury</span>
-                        <svg class="ico-svg" viewBox="0 0 11 14" xmlns="http://www.w3.org/2000/svg">
-      <g id="user-jury" data-size="11 14">
-  <path d="M3.474,7.824c0.247,0.123,0.577,0.041,0.7-0.248C4.298,7.33,4.215,7,3.927,6.877c-1.029-0.535-1.688-1.606-1.688-2.76 c0-1.729,1.4-3.088,3.088-3.088c1.688,0,3.089,1.4,3.089,3.088c0,0.988-0.578,1.895-1.772,2.801 C6.315,7.164,5.286,7.906,5.161,9.225C5.12,9.512,5.327,9.759,5.614,9.8h0.043c0.246,0,0.494-0.206,0.535-0.452 c0.082-0.865,0.782-1.359,1.111-1.605c1.44-1.072,2.142-2.265,2.142-3.625C9.486,1.853,7.633,0,5.368,0 c-2.266,0-4.16,1.853-4.16,4.158C1.208,5.724,2.074,7.123,3.474,7.824z M7.015,4.158c0-0.905-0.74-1.646-1.646-1.646 S3.721,3.253,3.721,4.158c0,0.906,0.741,1.647,1.647,1.647C6.274,5.806,7.015,5.064,7.015,4.158z M4.585,4.158 c0-0.411,0.33-0.74,0.742-0.74c0.41,0,0.74,0.329,0.74,0.74c0,0.412-0.33,0.742-0.74,0.742C4.916,4.9,4.585,4.57,4.585,4.158z  M8.004,9.225C7.715,9.141,7.428,9.266,7.345,9.553C7.304,9.676,7.262,9.759,7.18,9.883c-0.329,0.535-0.946,0.864-1.604,0.864 c-0.659,0-1.318-0.329-1.647-0.864C3.886,9.8,3.804,9.676,3.762,9.553C3.68,9.266,3.392,9.141,3.103,9.225 C2.815,9.307,2.691,9.594,2.774,9.883c0.041,0.164,0.124,0.37,0.247,0.535c0.535,0.823,1.482,1.357,2.512,1.357 c1.029,0,1.978-0.534,2.513-1.357c0.123-0.165,0.205-0.371,0.246-0.535C8.457,9.594,8.291,9.307,8.004,9.225z M10.35,6.383 c-0.287,0-0.535,0.246-0.535,0.535V9.1c0,2.143-1.893,3.871-4.282,3.871c-2.388,0-4.283-1.729-4.283-3.871V8.854 c0-0.289-0.247-0.535-0.535-0.535c-0.288,0-0.535,0.246-0.535,0.535V9.1c0,2.719,2.388,4.9,5.312,4.9 c2.925,0,5.313-2.225,5.313-4.9V6.918C10.887,6.588,10.639,6.383,10.35,6.383z"/>
-</g>
-  </svg>
-
-                      </div>
-                      <div class="box-tooltip">
-                        <div class="tooltip-text">Jury User</div>
-                      </div>
-                    </div>
-
-                  </li>
-                </ul>
-                <div class="item">
-                  <span class="note">1</span>
-                </div>
-              </div>
-            </li>
-
-            <li>
-              <div class="box-left">
-                <div class="avatar">
-                  <div class"avatar-square">
-                    <a href="/motin/"><img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR13mRKUns8I5r0C-4v8anzRd1kkaY590L3eVXyPJU8sUOyGPrp" width="50" height="50" alt="Aleksandr Motin"></a>
-                  </div>
-                </div>
-                <div class="info">
-                  <div class="row"><strong><a href="/motin/">Jenny Durkan</a></strong> <i>from</i> <strong>Washington State</strong></div>
-                  <div class="row">Mayor | City of Seattle</div>
-                </div>
-              </div>
-              <div class="box-right">
-                <!-- <ul class="list-circle-notes js-circle-notes">
-                  <li data-note="8" data-size="40" class="design">
-                    <div class="tooltip">
-                      <svg style="width: 40px; height: 40px;">
-                                                      <circle r="19" cy="20" cx="20" style="stroke-dasharray: 119.381; stroke-dashoffset: 23.8761;"></circle>
-                                                  </svg>
-                      <div class="box-tooltip">
-                        <div class="tooltip-text">Design</div>
-                      </div>
-                    </div>
-                  </li>
-                  <li data-note="8" data-size="40" class="usability">
-                    <div class="tooltip">
-                      <svg style="width: 40px; height: 40px;">
-                                                      <circle r="19" cy="20" cx="20" style="stroke-dasharray: 119.381; stroke-dashoffset: 23.8761;"></circle>
-                                                  </svg>
-                      <div class="box-tooltip">
-                        <div class="tooltip-text">Usability</div>
-                      </div>
-                    </div>
-                  </li>
-                  <li data-note="9" data-size="40" class="creativity">
-                    <div class="tooltip">
-                      <svg style="width: 40px; height: 40px;">
-                                                      <circle r="19" cy="20" cx="20" style="stroke-dasharray: 119.381; stroke-dashoffset: 11.9381;"></circle>
-                                                  </svg>
-                      <div class="box-tooltip">
-                        <div class="tooltip-text">Creativity</div>
-                      </div>
-                    </div>
-                  </li>
-                  <li data-note="9" data-size="40" class="content">
-                    <div class="tooltip">
-                      <svg style="width: 40px; height: 40px;">
-                                                      <circle r="19" cy="20" cx="20" style="stroke-dasharray: 119.381; stroke-dashoffset: 11.9381;"></circle>
-                                                  </svg>
-                      <div class="box-tooltip">
-                        <div class="tooltip-text">Content</div>
-                      </div>
-                    </div>
-                  </li>
-                </ul> -->
-                <ul class="list-number-awards">
-                  <li>
-
-
-                    <div class="tooltip">
-                      <div class="box-item box-usertype js-usertype style-dark" data-type="user_type_jury">
-                        <span class="text-uppercase">jury</span>
-                        <svg class="ico-svg" viewBox="0 0 11 14" xmlns="http://www.w3.org/2000/svg">
-      <g id="user-jury" data-size="11 14">
-  <path d="M3.474,7.824c0.247,0.123,0.577,0.041,0.7-0.248C4.298,7.33,4.215,7,3.927,6.877c-1.029-0.535-1.688-1.606-1.688-2.76 c0-1.729,1.4-3.088,3.088-3.088c1.688,0,3.089,1.4,3.089,3.088c0,0.988-0.578,1.895-1.772,2.801 C6.315,7.164,5.286,7.906,5.161,9.225C5.12,9.512,5.327,9.759,5.614,9.8h0.043c0.246,0,0.494-0.206,0.535-0.452 c0.082-0.865,0.782-1.359,1.111-1.605c1.44-1.072,2.142-2.265,2.142-3.625C9.486,1.853,7.633,0,5.368,0 c-2.266,0-4.16,1.853-4.16,4.158C1.208,5.724,2.074,7.123,3.474,7.824z M7.015,4.158c0-0.905-0.74-1.646-1.646-1.646 S3.721,3.253,3.721,4.158c0,0.906,0.741,1.647,1.647,1.647C6.274,5.806,7.015,5.064,7.015,4.158z M4.585,4.158 c0-0.411,0.33-0.74,0.742-0.74c0.41,0,0.74,0.329,0.74,0.74c0,0.412-0.33,0.742-0.74,0.742C4.916,4.9,4.585,4.57,4.585,4.158z  M8.004,9.225C7.715,9.141,7.428,9.266,7.345,9.553C7.304,9.676,7.262,9.759,7.18,9.883c-0.329,0.535-0.946,0.864-1.604,0.864 c-0.659,0-1.318-0.329-1.647-0.864C3.886,9.8,3.804,9.676,3.762,9.553C3.68,9.266,3.392,9.141,3.103,9.225 C2.815,9.307,2.691,9.594,2.774,9.883c0.041,0.164,0.124,0.37,0.247,0.535c0.535,0.823,1.482,1.357,2.512,1.357 c1.029,0,1.978-0.534,2.513-1.357c0.123-0.165,0.205-0.371,0.246-0.535C8.457,9.594,8.291,9.307,8.004,9.225z M10.35,6.383 c-0.287,0-0.535,0.246-0.535,0.535V9.1c0,2.143-1.893,3.871-4.282,3.871c-2.388,0-4.283-1.729-4.283-3.871V8.854 c0-0.289-0.247-0.535-0.535-0.535c-0.288,0-0.535,0.246-0.535,0.535V9.1c0,2.719,2.388,4.9,5.312,4.9 c2.925,0,5.313-2.225,5.313-4.9V6.918C10.887,6.588,10.639,6.383,10.35,6.383z"/>
-</g>
-  </svg>
-
-                      </div>
-                      <div class="box-tooltip">
-                        <div class="tooltip-text">Jury User</div>
-                      </div>
-                    </div>
-
-                  </li>
-                </ul>
-                <div class="item">
-                  <span class="note">2</span>
-                </div>
-              </div>
-            </li>
-
-
-            <li>
-              <div class="box-left">
-                <div class="avatar">
-                  <div class"avatar-square">
-                    <a href="/motin/"><img src="data:image/jpeg;base64,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" width="50" height="50" alt="Aleksandr Motin"></a>
-                  </div>
-                </div>
-                <div class="info">
-                  <div class="row"><strong><a href="/motin/">Donald Trump</a></strong> <i>from</i> <strong>New York State</strong></div>
-                  <div class="row">President | United States of America</div>
-                </div>
-              </div>
-              <div class="box-right">
-                <!-- <ul class="list-circle-notes js-circle-notes">
-                  <li data-note="8" data-size="40" class="design">
-                    <div class="tooltip">
-                      <svg style="width: 40px; height: 40px;">
-                                                      <circle r="19" cy="20" cx="20" style="stroke-dasharray: 119.381; stroke-dashoffset: 23.8761;"></circle>
-                                                  </svg>
-                      <div class="box-tooltip">
-                        <div class="tooltip-text">Design</div>
-                      </div>
-                    </div>
-                  </li>
-                  <li data-note="8" data-size="40" class="usability">
-                    <div class="tooltip">
-                      <svg style="width: 40px; height: 40px;">
-                                                      <circle r="19" cy="20" cx="20" style="stroke-dasharray: 119.381; stroke-dashoffset: 23.8761;"></circle>
-                                                  </svg>
-                      <div class="box-tooltip">
-                        <div class="tooltip-text">Usability</div>
-                      </div>
-                    </div>
-                  </li>
-                  <li data-note="9" data-size="40" class="creativity">
-                    <div class="tooltip">
-                      <svg style="width: 40px; height: 40px;">
-                                                      <circle r="19" cy="20" cx="20" style="stroke-dasharray: 119.381; stroke-dashoffset: 11.9381;"></circle>
-                                                  </svg>
-                      <div class="box-tooltip">
-                        <div class="tooltip-text">Creativity</div>
-                      </div>
-                    </div>
-                  </li>
-                  <li data-note="9" data-size="40" class="content">
-                    <div class="tooltip">
-                      <svg style="width: 40px; height: 40px;">
-                                                      <circle r="19" cy="20" cx="20" style="stroke-dasharray: 119.381; stroke-dashoffset: 11.9381;"></circle>
-                                                  </svg>
-                      <div class="box-tooltip">
-                        <div class="tooltip-text">Content</div>
-                      </div>
-                    </div>
-                  </li>
-                </ul> -->
-                <ul class="list-number-awards">
-                  <li>
-
-
-                    <div class="tooltip">
-                      <div class="box-item box-usertype js-usertype style-dark" data-type="user_type_jury">
-                        <span class="text-uppercase">jury</span>
-                        <svg class="ico-svg" viewBox="0 0 11 14" xmlns="http://www.w3.org/2000/svg">
-      <g id="user-jury" data-size="11 14">
-  <path d="M3.474,7.824c0.247,0.123,0.577,0.041,0.7-0.248C4.298,7.33,4.215,7,3.927,6.877c-1.029-0.535-1.688-1.606-1.688-2.76 c0-1.729,1.4-3.088,3.088-3.088c1.688,0,3.089,1.4,3.089,3.088c0,0.988-0.578,1.895-1.772,2.801 C6.315,7.164,5.286,7.906,5.161,9.225C5.12,9.512,5.327,9.759,5.614,9.8h0.043c0.246,0,0.494-0.206,0.535-0.452 c0.082-0.865,0.782-1.359,1.111-1.605c1.44-1.072,2.142-2.265,2.142-3.625C9.486,1.853,7.633,0,5.368,0 c-2.266,0-4.16,1.853-4.16,4.158C1.208,5.724,2.074,7.123,3.474,7.824z M7.015,4.158c0-0.905-0.74-1.646-1.646-1.646 S3.721,3.253,3.721,4.158c0,0.906,0.741,1.647,1.647,1.647C6.274,5.806,7.015,5.064,7.015,4.158z M4.585,4.158 c0-0.411,0.33-0.74,0.742-0.74c0.41,0,0.74,0.329,0.74,0.74c0,0.412-0.33,0.742-0.74,0.742C4.916,4.9,4.585,4.57,4.585,4.158z  M8.004,9.225C7.715,9.141,7.428,9.266,7.345,9.553C7.304,9.676,7.262,9.759,7.18,9.883c-0.329,0.535-0.946,0.864-1.604,0.864 c-0.659,0-1.318-0.329-1.647-0.864C3.886,9.8,3.804,9.676,3.762,9.553C3.68,9.266,3.392,9.141,3.103,9.225 C2.815,9.307,2.691,9.594,2.774,9.883c0.041,0.164,0.124,0.37,0.247,0.535c0.535,0.823,1.482,1.357,2.512,1.357 c1.029,0,1.978-0.534,2.513-1.357c0.123-0.165,0.205-0.371,0.246-0.535C8.457,9.594,8.291,9.307,8.004,9.225z M10.35,6.383 c-0.287,0-0.535,0.246-0.535,0.535V9.1c0,2.143-1.893,3.871-4.282,3.871c-2.388,0-4.283-1.729-4.283-3.871V8.854 c0-0.289-0.247-0.535-0.535-0.535c-0.288,0-0.535,0.246-0.535,0.535V9.1c0,2.719,2.388,4.9,5.312,4.9 c2.925,0,5.313-2.225,5.313-4.9V6.918C10.887,6.588,10.639,6.383,10.35,6.383z"/>
-</g>
-  </svg>
-
-                      </div>
-                      <div class="box-tooltip">
-                        <div class="tooltip-text">Jury User</div>
-                      </div>
-                    </div>
-
-                  </li>
-                </ul>
-                <div class="item">
-                  <span class="note">13</span>
-                </div>
-              </div>
-            </li>
-
-            <!-- End People Data -->
-            <!-- Start Social Data -->
-
+            {% endfor %}
           </ul>
+
+          <!-- End People Data -->
+          <!-- Start Social Data -->
+
           <ul class="list-users-votes" id="user_votes" style="display:none">
             <li>
               <div class="box-left">
@@ -737,71 +503,13 @@ C1.857,11.244,7.368,14,7.368,14s5.503-2.754,7.025-7.445C15.726,1.758,12.793,0,10
                 </div>
               </div>
               <div class="box-right">
-                <!-- <ul class="list-circle-notes js-circle-notes">
-                  <li data-note="8" data-size="40" class="design">
-                    <div class="tooltip">
-                      <svg style="width: 40px; height: 40px;">
-                                                      <circle r="19" cy="20" cx="20" style="stroke-dasharray: 119.381; stroke-dashoffset: 23.8761;"></circle>
-                                                  </svg>
-                      <div class="box-tooltip">
-                        <div class="tooltip-text">Design</div>
-                      </div>
-                    </div>
-                  </li>
-                  <li data-note="8" data-size="40" class="usability">
-                    <div class="tooltip">
-                      <svg style="width: 40px; height: 40px;">
-                                                      <circle r="19" cy="20" cx="20" style="stroke-dasharray: 119.381; stroke-dashoffset: 23.8761;"></circle>
-                                                  </svg>
-                      <div class="box-tooltip">
-                        <div class="tooltip-text">Usability</div>
-                      </div>
-                    </div>
-                  </li>
-                  <li data-note="9" data-size="40" class="creativity">
-                    <div class="tooltip">
-                      <svg style="width: 40px; height: 40px;">
-                                                      <circle r="19" cy="20" cx="20" style="stroke-dasharray: 119.381; stroke-dashoffset: 11.9381;"></circle>
-                                                  </svg>
-                      <div class="box-tooltip">
-                        <div class="tooltip-text">Creativity</div>
-                      </div>
-                    </div>
-                  </li>
-                  <li data-note="9" data-size="40" class="content">
-                    <div class="tooltip">
-                      <svg style="width: 40px; height: 40px;">
-                                                      <circle r="19" cy="20" cx="20" style="stroke-dasharray: 119.381; stroke-dashoffset: 11.9381;"></circle>
-                                                  </svg>
-                      <div class="box-tooltip">
-                        <div class="tooltip-text">Content</div>
-                      </div>
-                    </div>
-                  </li>
-                </ul> -->
                 <ul class="list-number-awards">
                   <li>
-
-
-                    <div class="tooltip">
-                      <div class="box-item box-usertype js-usertype style-dark" data-type="user_type_jury">
-                        <span class="text-uppercase">jury</span>
-                        <svg class="ico-svg" viewBox="0 0 11 14" xmlns="http://www.w3.org/2000/svg">
-      <g id="user-jury" data-size="11 14">
-  <path d="M3.474,7.824c0.247,0.123,0.577,0.041,0.7-0.248C4.298,7.33,4.215,7,3.927,6.877c-1.029-0.535-1.688-1.606-1.688-2.76 c0-1.729,1.4-3.088,3.088-3.088c1.688,0,3.089,1.4,3.089,3.088c0,0.988-0.578,1.895-1.772,2.801 C6.315,7.164,5.286,7.906,5.161,9.225C5.12,9.512,5.327,9.759,5.614,9.8h0.043c0.246,0,0.494-0.206,0.535-0.452 c0.082-0.865,0.782-1.359,1.111-1.605c1.44-1.072,2.142-2.265,2.142-3.625C9.486,1.853,7.633,0,5.368,0 c-2.266,0-4.16,1.853-4.16,4.158C1.208,5.724,2.074,7.123,3.474,7.824z M7.015,4.158c0-0.905-0.74-1.646-1.646-1.646 S3.721,3.253,3.721,4.158c0,0.906,0.741,1.647,1.647,1.647C6.274,5.806,7.015,5.064,7.015,4.158z M4.585,4.158 c0-0.411,0.33-0.74,0.742-0.74c0.41,0,0.74,0.329,0.74,0.74c0,0.412-0.33,0.742-0.74,0.742C4.916,4.9,4.585,4.57,4.585,4.158z  M8.004,9.225C7.715,9.141,7.428,9.266,7.345,9.553C7.304,9.676,7.262,9.759,7.18,9.883c-0.329,0.535-0.946,0.864-1.604,0.864 c-0.659,0-1.318-0.329-1.647-0.864C3.886,9.8,3.804,9.676,3.762,9.553C3.68,9.266,3.392,9.141,3.103,9.225 C2.815,9.307,2.691,9.594,2.774,9.883c0.041,0.164,0.124,0.37,0.247,0.535c0.535,0.823,1.482,1.357,2.512,1.357 c1.029,0,1.978-0.534,2.513-1.357c0.123-0.165,0.205-0.371,0.246-0.535C8.457,9.594,8.291,9.307,8.004,9.225z M10.35,6.383 c-0.287,0-0.535,0.246-0.535,0.535V9.1c0,2.143-1.893,3.871-4.282,3.871c-2.388,0-4.283-1.729-4.283-3.871V8.854 c0-0.289-0.247-0.535-0.535-0.535c-0.288,0-0.535,0.246-0.535,0.535V9.1c0,2.719,2.388,4.9,5.312,4.9 c2.925,0,5.313-2.225,5.313-4.9V6.918C10.887,6.588,10.639,6.383,10.35,6.383z"/>
-</g>
-  </svg>
-
-                      </div>
-                      <div class="box-tooltip">
-                        <div class="tooltip-text">Jury User</div>
-                      </div>
-                    </div>
 
                   </li>
                 </ul>
                 <div class="item">
-                  <span class="note">3,463</span>
+                  <span class="note">{{ social_media.facebook }}</span>
                 </div>
               </div>
             </li>
@@ -823,76 +531,20 @@ C1.857,11.244,7.368,14,7.368,14s5.503-2.754,7.025-7.445C15.726,1.758,12.793,0,10
                   </div>
                 </div>
                 <div class="info">
-                  <div class="row"><strong><a href="/motin/">Twitter</a></strong></div>
+                  <div class="row"><strong><a href="/motin/">Reddit</a></strong></div>
                   <div class="row">Share Count</div>
                 </div>
               </div>
               <div class="box-right">
-                <!-- <ul class="list-circle-notes js-circle-notes">
-                  <li data-note="8" data-size="40" class="design">
-                    <div class="tooltip">
-                      <svg style="width: 40px; height: 40px;">
-                                                      <circle r="19" cy="20" cx="20" style="stroke-dasharray: 119.381; stroke-dashoffset: 23.8761;"></circle>
-                                                  </svg>
-                      <div class="box-tooltip">
-                        <div class="tooltip-text">Design</div>
-                      </div>
-                    </div>
-                  </li>
-                  <li data-note="8" data-size="40" class="usability">
-                    <div class="tooltip">
-                      <svg style="width: 40px; height: 40px;">
-                                                      <circle r="19" cy="20" cx="20" style="stroke-dasharray: 119.381; stroke-dashoffset: 23.8761;"></circle>
-                                                  </svg>
-                      <div class="box-tooltip">
-                        <div class="tooltip-text">Usability</div>
-                      </div>
-                    </div>
-                  </li>
-                  <li data-note="9" data-size="40" class="creativity">
-                    <div class="tooltip">
-                      <svg style="width: 40px; height: 40px;">
-                                                      <circle r="19" cy="20" cx="20" style="stroke-dasharray: 119.381; stroke-dashoffset: 11.9381;"></circle>
-                                                  </svg>
-                      <div class="box-tooltip">
-                        <div class="tooltip-text">Creativity</div>
-                      </div>
-                    </div>
-                  </li>
-                  <li data-note="9" data-size="40" class="content">
-                    <div class="tooltip">
-                      <svg style="width: 40px; height: 40px;">
-                                                      <circle r="19" cy="20" cx="20" style="stroke-dasharray: 119.381; stroke-dashoffset: 11.9381;"></circle>
-                                                  </svg>
-                      <div class="box-tooltip">
-                        <div class="tooltip-text">Content</div>
-                      </div>
-                    </div>
-                  </li>
-                </ul> -->
                 <ul class="list-number-awards">
                   <li>
 
 
-                    <div class="tooltip">
-                      <div class="box-item box-usertype js-usertype style-dark" data-type="user_type_jury">
-                        <span class="text-uppercase">jury</span>
-                        <svg class="ico-svg" viewBox="0 0 11 14" xmlns="http://www.w3.org/2000/svg">
-      <g id="user-jury" data-size="11 14">
-  <path d="M3.474,7.824c0.247,0.123,0.577,0.041,0.7-0.248C4.298,7.33,4.215,7,3.927,6.877c-1.029-0.535-1.688-1.606-1.688-2.76 c0-1.729,1.4-3.088,3.088-3.088c1.688,0,3.089,1.4,3.089,3.088c0,0.988-0.578,1.895-1.772,2.801 C6.315,7.164,5.286,7.906,5.161,9.225C5.12,9.512,5.327,9.759,5.614,9.8h0.043c0.246,0,0.494-0.206,0.535-0.452 c0.082-0.865,0.782-1.359,1.111-1.605c1.44-1.072,2.142-2.265,2.142-3.625C9.486,1.853,7.633,0,5.368,0 c-2.266,0-4.16,1.853-4.16,4.158C1.208,5.724,2.074,7.123,3.474,7.824z M7.015,4.158c0-0.905-0.74-1.646-1.646-1.646 S3.721,3.253,3.721,4.158c0,0.906,0.741,1.647,1.647,1.647C6.274,5.806,7.015,5.064,7.015,4.158z M4.585,4.158 c0-0.411,0.33-0.74,0.742-0.74c0.41,0,0.74,0.329,0.74,0.74c0,0.412-0.33,0.742-0.74,0.742C4.916,4.9,4.585,4.57,4.585,4.158z  M8.004,9.225C7.715,9.141,7.428,9.266,7.345,9.553C7.304,9.676,7.262,9.759,7.18,9.883c-0.329,0.535-0.946,0.864-1.604,0.864 c-0.659,0-1.318-0.329-1.647-0.864C3.886,9.8,3.804,9.676,3.762,9.553C3.68,9.266,3.392,9.141,3.103,9.225 C2.815,9.307,2.691,9.594,2.774,9.883c0.041,0.164,0.124,0.37,0.247,0.535c0.535,0.823,1.482,1.357,2.512,1.357 c1.029,0,1.978-0.534,2.513-1.357c0.123-0.165,0.205-0.371,0.246-0.535C8.457,9.594,8.291,9.307,8.004,9.225z M10.35,6.383 c-0.287,0-0.535,0.246-0.535,0.535V9.1c0,2.143-1.893,3.871-4.282,3.871c-2.388,0-4.283-1.729-4.283-3.871V8.854 c0-0.289-0.247-0.535-0.535-0.535c-0.288,0-0.535,0.246-0.535,0.535V9.1c0,2.719,2.388,4.9,5.312,4.9 c2.925,0,5.313-2.225,5.313-4.9V6.918C10.887,6.588,10.639,6.383,10.35,6.383z"/>
-</g>
-  </svg>
-
-                      </div>
-                      <div class="box-tooltip">
-                        <div class="tooltip-text">Jury User</div>
-                      </div>
-                    </div>
 
                   </li>
                 </ul>
                 <div class="item">
-                  <span class="note">44</span>
+                  <span class="note">{{ social_media.reddit }}</span>
                 </div>
               </div>
             </li>
@@ -905,85 +557,98 @@ C1.857,11.244,7.368,14,7.368,14s5.503-2.754,7.025-7.445C15.726,1.758,12.793,0,10
                     <!-- <a href="/motin/"><img src="https://www.boldprogressives.org/wp-content/uploads/2016/04/WEBSITE_325x325_JAYAPAL.png" width="50" height="50" alt="Aleksandr Motin"></a> -->
                     <a href="/article">
                   		<svg class="ico-svg" viewBox="0 0 14 14" xmlns="http://www.w3.org/2000/svg" width="50px">
-												<g id="instagram" data-size="14 14">
-													<path d="M12.3,12.2c-0.1,0.1-0.3,0.2-0.4,0.2H2.1c-0.2,0-0.3-0.1-0.4-0.2c-0.1-0.1-0.2-0.3-0.2-0.4V5.9h1.3 C2.7,6.3,2.7,6.7,2.7,7.1c0,1.2,0.4,2.1,1.3,3c0.9,0.8,1.9,1.2,3.1,1.2c0.8,0,1.5-0.2,2.2-0.6c0.7-0.4,1.2-0.9,1.6-1.5 c0.4-0.6,0.6-1.3,0.6-2.1c0-0.4-0.1-0.8-0.2-1.2h1.2v5.9C12.4,12,12.4,12.1,12.3,12.2z M9,8.9C8.4,9.4,7.8,9.7,7,9.7 c-0.8,0-1.4-0.3-2-0.8C4.5,8.4,4.2,7.7,4.2,7c0-0.7,0.3-1.4,0.8-1.9c0.5-0.5,1.2-0.8,2-0.8c0.8,0,1.4,0.3,2,0.8 C9.6,5.6,9.8,6.2,9.8,7C9.8,7.7,9.6,8.4,9,8.9z M12.2,4.1c-0.1,0.1-0.3,0.2-0.4,0.2h-1.6c-0.2,0-0.3-0.1-0.4-0.2S9.6,3.9,9.6,3.7 V2.2c0-0.2,0-0.3,0.2-0.4s0.3-0.2,0.4-0.2h1.6c0.2,0,0.3,0.1,0.4,0.2s0.2,0.3,0.2,0.4v1.5C12.4,3.9,12.4,4,12.2,4.1z M13.5,0.5 C13.1,0.2,12.7,0,12.2,0H1.8C1.3,0,0.9,0.2,0.5,0.5S0,1.3,0,1.8v10.4c0,0.5,0.2,0.9,0.5,1.3S1.3,14,1.8,14h10.4 c0.5,0,0.9-0.2,1.3-0.5s0.5-0.8,0.5-1.3V1.8C14,1.3,13.8,0.9,13.5,0.5z"/>
-												</g>
+                        <g id="pinterest" data-size="11 14.075">
+                      		<path d="M5.8,0C2,0,0,2.7,0,5c0,1.4,0.5,2.6,1.7,3.1c0.2,0.1,0.4,0,0.4-0.2c0-0.1,0.1-0.5,0.2-0.6 C2.3,7,2.3,7,2.1,6.8C1.8,6.4,1.6,5.9,1.6,5.2c0-2,1.5-3.9,4-3.9C7.8,1.4,9,2.7,9,4.5c0,2.3-1,4.3-2.6,4.3C5.6,8.7,4.9,8,5.1,7.2 c0.2-1,0.7-2.1,0.7-2.9c0-0.7-0.4-1.2-1.1-1.2C3.9,3.1,3.2,4,3.2,5.2c0,0.8,0.3,1.3,0.3,1.3s-0.9,3.7-1,4.4c-0.3,1.3,0,2.9,0,3.1 c0,0.1,0.1,0.1,0.2,0c0.1-0.1,1.1-1.4,1.5-2.6C4.1,11,4.6,9.1,4.6,9.1c0.3,0.5,1.1,1,2,1c2.6,0,4.4-2.4,4.4-5.5C11,2.2,9,0,5.8,0z"/>
+                      	</g>
 											</svg>
 
                     </a>
                   </div>
                 </div>
                 <div class="info">
-                  <div class="row"><strong><a href="/motin/">Instagram</a></strong></div>
+                  <div class="row"><strong><a href="/motin/">Pinterest</a></strong></div>
                   <div class="row">Share Count</div>
                 </div>
               </div>
               <div class="box-right">
-                <!-- <ul class="list-circle-notes js-circle-notes">
-                  <li data-note="8" data-size="40" class="design">
-                    <div class="tooltip">
-                      <svg style="width: 40px; height: 40px;">
-                                                      <circle r="19" cy="20" cx="20" style="stroke-dasharray: 119.381; stroke-dashoffset: 23.8761;"></circle>
-                                                  </svg>
-                      <div class="box-tooltip">
-                        <div class="tooltip-text">Design</div>
-                      </div>
-                    </div>
-                  </li>
-                  <li data-note="8" data-size="40" class="usability">
-                    <div class="tooltip">
-                      <svg style="width: 40px; height: 40px;">
-                                                      <circle r="19" cy="20" cx="20" style="stroke-dasharray: 119.381; stroke-dashoffset: 23.8761;"></circle>
-                                                  </svg>
-                      <div class="box-tooltip">
-                        <div class="tooltip-text">Usability</div>
-                      </div>
-                    </div>
-                  </li>
-                  <li data-note="9" data-size="40" class="creativity">
-                    <div class="tooltip">
-                      <svg style="width: 40px; height: 40px;">
-                                                      <circle r="19" cy="20" cx="20" style="stroke-dasharray: 119.381; stroke-dashoffset: 11.9381;"></circle>
-                                                  </svg>
-                      <div class="box-tooltip">
-                        <div class="tooltip-text">Creativity</div>
-                      </div>
-                    </div>
-                  </li>
-                  <li data-note="9" data-size="40" class="content">
-                    <div class="tooltip">
-                      <svg style="width: 40px; height: 40px;">
-                                                      <circle r="19" cy="20" cx="20" style="stroke-dasharray: 119.381; stroke-dashoffset: 11.9381;"></circle>
-                                                  </svg>
-                      <div class="box-tooltip">
-                        <div class="tooltip-text">Content</div>
-                      </div>
-                    </div>
-                  </li>
-                </ul> -->
                 <ul class="list-number-awards">
                   <li>
 
 
-                    <div class="tooltip">
-                      <div class="box-item box-usertype js-usertype style-dark" data-type="user_type_jury">
-                        <span class="text-uppercase">jury</span>
-                        <svg class="ico-svg" viewBox="0 0 11 14" xmlns="http://www.w3.org/2000/svg">
-      <g id="user-jury" data-size="11 14">
-  <path d="M3.474,7.824c0.247,0.123,0.577,0.041,0.7-0.248C4.298,7.33,4.215,7,3.927,6.877c-1.029-0.535-1.688-1.606-1.688-2.76 c0-1.729,1.4-3.088,3.088-3.088c1.688,0,3.089,1.4,3.089,3.088c0,0.988-0.578,1.895-1.772,2.801 C6.315,7.164,5.286,7.906,5.161,9.225C5.12,9.512,5.327,9.759,5.614,9.8h0.043c0.246,0,0.494-0.206,0.535-0.452 c0.082-0.865,0.782-1.359,1.111-1.605c1.44-1.072,2.142-2.265,2.142-3.625C9.486,1.853,7.633,0,5.368,0 c-2.266,0-4.16,1.853-4.16,4.158C1.208,5.724,2.074,7.123,3.474,7.824z M7.015,4.158c0-0.905-0.74-1.646-1.646-1.646 S3.721,3.253,3.721,4.158c0,0.906,0.741,1.647,1.647,1.647C6.274,5.806,7.015,5.064,7.015,4.158z M4.585,4.158 c0-0.411,0.33-0.74,0.742-0.74c0.41,0,0.74,0.329,0.74,0.74c0,0.412-0.33,0.742-0.74,0.742C4.916,4.9,4.585,4.57,4.585,4.158z  M8.004,9.225C7.715,9.141,7.428,9.266,7.345,9.553C7.304,9.676,7.262,9.759,7.18,9.883c-0.329,0.535-0.946,0.864-1.604,0.864 c-0.659,0-1.318-0.329-1.647-0.864C3.886,9.8,3.804,9.676,3.762,9.553C3.68,9.266,3.392,9.141,3.103,9.225 C2.815,9.307,2.691,9.594,2.774,9.883c0.041,0.164,0.124,0.37,0.247,0.535c0.535,0.823,1.482,1.357,2.512,1.357 c1.029,0,1.978-0.534,2.513-1.357c0.123-0.165,0.205-0.371,0.246-0.535C8.457,9.594,8.291,9.307,8.004,9.225z M10.35,6.383 c-0.287,0-0.535,0.246-0.535,0.535V9.1c0,2.143-1.893,3.871-4.282,3.871c-2.388,0-4.283-1.729-4.283-3.871V8.854 c0-0.289-0.247-0.535-0.535-0.535c-0.288,0-0.535,0.246-0.535,0.535V9.1c0,2.719,2.388,4.9,5.312,4.9 c2.925,0,5.313-2.225,5.313-4.9V6.918C10.887,6.588,10.639,6.383,10.35,6.383z"/>
-</g>
-  </svg>
+                  </li>
+                </ul>
+                <div class="item">
+                  <span class="note">{{ social_media.pinterest }}</span>
+                </div>
+              </div>
+            </li>
 
-                      </div>
-                      <div class="box-tooltip">
-                        <div class="tooltip-text">Jury User</div>
-                      </div>
-                    </div>
+            <li>
+              <div class="box-left">
+                <div class="avatar">
+                  <div class"avatar-square">
+                    <!-- <a href="/motin/"><img src="https://www.boldprogressives.org/wp-content/uploads/2016/04/WEBSITE_325x325_JAYAPAL.png" width="50" height="50" alt="Aleksandr Motin"></a> -->
+                    <a href="/article">
+                  		<svg class="ico-svg" viewBox="0 0 14 14" xmlns="http://www.w3.org/2000/svg" width="50px">
+                        <g id="linkedin" data-size="14 14">
+                      		<path d="M0.227,4.648h2.908V14H0.227V4.648z M1.687,0c0.929,0,1.686,0.757,1.686,1.687c0,0.929-0.757,1.686-1.686,1.686 C0.751,3.373,0,2.616,0,1.687C0,0.757,0.751,0,1.687,0 M4.941,4.648h2.784v1.282h0.037c0.388-0.735,1.335-1.51,2.751-1.51 C13.455,4.421,14,6.357,14,8.876V14h-2.902V9.454c0-1.087-0.016-2.481-1.508-2.481c-1.514,0-1.742,1.184-1.742,2.4V14H4.946 L4.941,4.648L4.941,4.648z"></path>
+                      	</g>
+											</svg>
+
+                    </a>
+                  </div>
+                </div>
+                <div class="info">
+                  <div class="row"><strong><a href="/motin/">LinkedIn</a></strong></div>
+                  <div class="row">Share Count</div>
+                </div>
+              </div>
+              <div class="box-right">
+                <ul class="list-number-awards">
+                  <li>
+
+
 
                   </li>
                 </ul>
                 <div class="item">
-                  <span class="note">5</span>
+                  <span class="note">{{ social_media.linkedin }}</span>
+                </div>
+              </div>
+            </li>
+
+
+            <li>
+              <div class="box-left">
+                <div class="avatar">
+                  <div class"avatar-square">
+                    <!-- <a href="/motin/"><img src="https://www.boldprogressives.org/wp-content/uploads/2016/04/WEBSITE_325x325_JAYAPAL.png" width="50" height="50" alt="Aleksandr Motin"></a> -->
+                    <a href="/article">
+                  		<svg class="ico-svg" viewBox="0 0 14 14" xmlns="http://www.w3.org/2000/svg" width="50px">
+												<!-- <g id="instagram" data-size="14 14">
+													<path d="M12.3,12.2c-0.1,0.1-0.3,0.2-0.4,0.2H2.1c-0.2,0-0.3-0.1-0.4-0.2c-0.1-0.1-0.2-0.3-0.2-0.4V5.9h1.3 C2.7,6.3,2.7,6.7,2.7,7.1c0,1.2,0.4,2.1,1.3,3c0.9,0.8,1.9,1.2,3.1,1.2c0.8,0,1.5-0.2,2.2-0.6c0.7-0.4,1.2-0.9,1.6-1.5 c0.4-0.6,0.6-1.3,0.6-2.1c0-0.4-0.1-0.8-0.2-1.2h1.2v5.9C12.4,12,12.4,12.1,12.3,12.2z M9,8.9C8.4,9.4,7.8,9.7,7,9.7 c-0.8,0-1.4-0.3-2-0.8C4.5,8.4,4.2,7.7,4.2,7c0-0.7,0.3-1.4,0.8-1.9c0.5-0.5,1.2-0.8,2-0.8c0.8,0,1.4,0.3,2,0.8 C9.6,5.6,9.8,6.2,9.8,7C9.8,7.7,9.6,8.4,9,8.9z M12.2,4.1c-0.1,0.1-0.3,0.2-0.4,0.2h-1.6c-0.2,0-0.3-0.1-0.4-0.2S9.6,3.9,9.6,3.7 V2.2c0-0.2,0-0.3,0.2-0.4s0.3-0.2,0.4-0.2h1.6c0.2,0,0.3,0.1,0.4,0.2s0.2,0.3,0.2,0.4v1.5C12.4,3.9,12.4,4,12.2,4.1z M13.5,0.5 C13.1,0.2,12.7,0,12.2,0H1.8C1.3,0,0.9,0.2,0.5,0.5S0,1.3,0,1.8v10.4c0,0.5,0.2,0.9,0.5,1.3S1.3,14,1.8,14h10.4 c0.5,0,0.9-0.2,1.3-0.5s0.5-0.8,0.5-1.3V1.8C14,1.3,13.8,0.9,13.5,0.5z"/>
+												</g> -->
+											</svg>
+
+                    </a>
+                  </div>
+                </div>
+                <div class="info">
+                  <div class="row"><strong><a href="/motin/">Total</a></strong></div>
+                  <div class="row">Share Count</div>
+                </div>
+              </div>
+              <div class="box-right">
+                <ul class="list-number-awards">
+                  <li>
+
+
+
+
+                  </li>
+                </ul>
+                <div class="item">
+                  <span class="note">{{ social_media.total }}</span>
                 </div>
               </div>
             </li>
@@ -1011,7 +676,7 @@ C1.857,11.244,7.368,14,7.368,14s5.503-2.754,7.025-7.445C15.726,1.758,12.793,0,10
       <div class="box-heading pt-0">
         <div class="box-left">
           <h2 class="title"><a href="/awards-of-the-day/">Related Articles</a></h2>
-          <span>Renewal and resistance in Seattle — thousands take to streets for Women’s March</span>
+          <span>{{article_data.title}}</span>
         </div>
       </div>
       <div class="grid">
@@ -1057,70 +722,6 @@ C1.857,11.244,7.368,14,7.368,14s5.503-2.754,7.025-7.445C15.726,1.758,12.793,0,10
                     </strong>
                   </div>
                 </div>
-                <!-- <div class="footer">
-                  <div class="box-left">
-                    <div class="box-users-likes">
-                      <ul class="list-users">
-
-                        <li>
-                          <div class="item js-user" data-username="sydneytong">
-                            <a href="/sydneytong/">
-                  <img src="https://assets.awwwards.com/awards/media/cache/thumb_user_70/default/user7.jpg" data-src="https://assets.awwwards.com/awards/media/cache/thumb_user_70/default/user7.jpg" width="27" height="27" alt="sydneytong" class="lazy lazy-loaded"></a>
-                          </div>
-                        </li>
-
-
-                        <li>
-                          <div class="item js-user" data-username="sunny.choe">
-                            <a href="/sunny.choe/">
-                  <img src="https://assets.awwwards.com/awards/media/cache/thumb_user_70/default/user2.jpg" data-src="https://assets.awwwards.com/awards/media/cache/thumb_user_70/default/user2.jpg" width="27" height="27" alt="Sunny Choe" class="lazy lazy-loaded"></a>
-                          </div>
-                        </li>
-
-
-                        <li>
-                          <div class="item js-user" data-username="jupaoss">
-                            <a href="/jupaoss/">
-                  <img src="https://assets.awwwards.com/awards/media/cache/thumb_user_70/avatar/65495/55a12c99e300d.jpeg" data-src="https://assets.awwwards.com/awards/media/cache/thumb_user_70/avatar/65495/55a12c99e300d.jpeg" width="27" height="27" alt="Julián Patiño Ossa" class="lazy lazy-loaded"></a>
-                          </div>
-                        </li>
-
-
-                        <li>
-                          <div class="item js-user" data-username="gabedeko">
-                            <a href="/gabedeko/">
-                  <img src="https://assets.awwwards.com/awards/media/cache/thumb_user_70/default/user1.jpg" data-src="https://assets.awwwards.com/awards/media/cache/thumb_user_70/default/user1.jpg" width="27" height="27" alt="gabedeko" class="lazy lazy-loaded"></a>
-                          </div>
-                        </li>
-
-                      </ul>
-
-
-                      <div class="container-bt-circle">
-                        <div class="tooltip">
-                          <div class="bt-like js-collect">
-                            <svg viewBox="0 0 27 27" class="circle">
-                      <path d="M13.513 26.5C6.326 26.5.5 20.68.5 13.5S6.326.5 13.513.5c7.023 0 12.73 5.564 12.987 12.52"></path>
-                  </svg>
-                            <svg class="ico-svg" viewBox="0 0 15.646 14" xmlns="http://www.w3.org/2000/svg">
-      <use xlink:href="/bundles/tvweb/images/sprite-icons.svg#heart-2" xmlns:xlink="http://www.w3.org/1999/xlink"></use>
-  </svg>
-
-                            <div class="number">55</div>
-                          </div>
-                          <div class="box-tooltip">
-                            <div class="tooltip-text">Add to collections!</div>
-                          </div>
-                        </div>
-                      </div>
-
-
-                    </div>
-
-                  </div>
-                  <div class="box-right">
-                  </div>
-                </div> -->
               </div>
             </div>
           </li>
@@ -1166,70 +767,6 @@ C1.857,11.244,7.368,14,7.368,14s5.503-2.754,7.025-7.445C15.726,1.758,12.793,0,10
                     </strong>
                   </div>
                 </div>
-                <!-- <div class="footer">
-                  <div class="box-left">
-                    <div class="box-users-likes">
-                      <ul class="list-users">
-
-                        <li>
-                          <div class="item js-user" data-username="pamela-landers">
-                            <a href="/pamela-landers/">
-                  <img src="https://assets.awwwards.com/awards/media/cache/thumb_user_70/default/user5.jpg" data-src="https://assets.awwwards.com/awards/media/cache/thumb_user_70/default/user5.jpg" width="27" height="27" alt="pamela-landers" class="lazy lazy-loaded"></a>
-                          </div>
-                        </li>
-
-
-                        <li>
-                          <div class="item js-user" data-username="lea-bautista">
-                            <a href="/lea-bautista/">
-                  <img src="https://assets.awwwards.com/awards/media/cache/thumb_user_70/default/user6.jpg" data-src="https://assets.awwwards.com/awards/media/cache/thumb_user_70/default/user6.jpg" width="27" height="27" alt="lea-bautista" class="lazy lazy-loaded"></a>
-                          </div>
-                        </li>
-
-
-                        <li>
-                          <div class="item js-user" data-username="evgeny-ordynsky">
-                            <a href="/evgeny-ordynsky/">
-                  <img src="https://assets.awwwards.com/awards/media/cache/thumb_user_70/avatar/322982/5a53cc1481df1.jpg" data-src="https://assets.awwwards.com/awards/media/cache/thumb_user_70/avatar/322982/5a53cc1481df1.jpg" width="27" height="27" alt="Evgeny Ordynsky" class="lazy lazy-loaded"></a>
-                          </div>
-                        </li>
-
-
-                        <li>
-                          <div class="item js-user" data-username="lnguyen">
-                            <a href="/lnguyen/">
-                  <img src="https://assets.awwwards.com/awards/media/cache/thumb_user_70/default/user4.jpg" data-src="https://assets.awwwards.com/awards/media/cache/thumb_user_70/default/user4.jpg" width="27" height="27" alt="lnguyen" class="lazy lazy-loaded"></a>
-                          </div>
-                        </li>
-
-                      </ul>
-
-
-                      <div class="container-bt-circle">
-                        <div class="tooltip">
-                          <div class="bt-like js-collect">
-                            <svg viewBox="0 0 27 27" class="circle">
-                      <path d="M13.513 26.5C6.326 26.5.5 20.68.5 13.5S6.326.5 13.513.5c7.023 0 12.73 5.564 12.987 12.52"></path>
-                  </svg>
-                            <svg class="ico-svg" viewBox="0 0 15.646 14" xmlns="http://www.w3.org/2000/svg">
-      <use xlink:href="/bundles/tvweb/images/sprite-icons.svg#heart-2" xmlns:xlink="http://www.w3.org/1999/xlink"></use>
-  </svg>
-
-                            <div class="number">71</div>
-                          </div>
-                          <div class="box-tooltip">
-                            <div class="tooltip-text">Add to collections!</div>
-                          </div>
-                        </div>
-                      </div>
-
-
-                    </div>
-
-                  </div>
-                  <div class="box-right">
-                  </div>
-                </div> -->
               </div>
             </div>
           </li>
@@ -1274,70 +811,6 @@ C1.857,11.244,7.368,14,7.368,14s5.503-2.754,7.025-7.445C15.726,1.758,12.793,0,10
                     </strong>
                   </div>
                 </div>
-                <!-- <div class="footer">
-                  <div class="box-left">
-                    <div class="box-users-likes">
-                      <ul class="list-users">
-
-                        <li>
-                          <div class="item js-user" data-username="shogotabuchi">
-                            <a href="/shogotabuchi/">
-                  <img src="https://assets.awwwards.com/awards/media/cache/thumb_user_70/avatar/1892/570e83dd9c207.jpeg" data-src="https://assets.awwwards.com/awards/media/cache/thumb_user_70/avatar/1892/570e83dd9c207.jpeg" width="27" height="27" alt="Shogo Tabuchi" class="lazy lazy-loaded"></a>
-                          </div>
-                        </li>
-
-
-                        <li>
-                          <div class="item js-user" data-username="liliana-hegmann">
-                            <a href="/liliana-hegmann/">
-                  <img src="https://assets.awwwards.com/awards/media/cache/thumb_user_70/default/user7.jpg" data-src="https://assets.awwwards.com/awards/media/cache/thumb_user_70/default/user7.jpg" width="27" height="27" alt="liliana-hegmann" class="lazy lazy-loaded"></a>
-                          </div>
-                        </li>
-
-
-                        <li>
-                          <div class="item js-user" data-username="piraco">
-                            <a href="/piraco/">
-                  <img src="https://assets.awwwards.com/awards/media/cache/thumb_user_70/default/user5.jpg" data-src="https://assets.awwwards.com/awards/media/cache/thumb_user_70/default/user5.jpg" width="27" height="27" alt="piraco" class="lazy lazy-loaded"></a>
-                          </div>
-                        </li>
-
-
-                        <li>
-                          <div class="item js-user" data-username="davidnavarro">
-                            <a href="/davidnavarro/">
-                  <img src="https://assets.awwwards.com/awards/media/cache/thumb_user_70/avatar/17420/56634e8c7a037.jpeg" data-src="https://assets.awwwards.com/awards/media/cache/thumb_user_70/avatar/17420/56634e8c7a037.jpeg" width="27" height="27" alt="David Navarro" class="lazy lazy-loaded"></a>
-                          </div>
-                        </li>
-
-                      </ul>
-
-
-                      <div class="container-bt-circle">
-                        <div class="tooltip">
-                          <div class="bt-like js-collect">
-                            <svg viewBox="0 0 27 27" class="circle">
-                      <path d="M13.513 26.5C6.326 26.5.5 20.68.5 13.5S6.326.5 13.513.5c7.023 0 12.73 5.564 12.987 12.52"></path>
-                  </svg>
-                            <svg class="ico-svg" viewBox="0 0 15.646 14" xmlns="http://www.w3.org/2000/svg">
-      <use xlink:href="/bundles/tvweb/images/sprite-icons.svg#heart-2" xmlns:xlink="http://www.w3.org/1999/xlink"></use>
-  </svg>
-
-                            <div class="number">37</div>
-                          </div>
-                          <div class="box-tooltip">
-                            <div class="tooltip-text">Add to collections!</div>
-                          </div>
-                        </div>
-                      </div>
-
-
-                    </div>
-
-                  </div>
-                  <div class="box-right">
-                  </div>
-                </div> -->
               </div>
             </div>
           </li>
@@ -1471,6 +944,7 @@ C1.857,11.244,7.368,14,7.368,14s5.503-2.754,7.025-7.445C15.726,1.758,12.793,0,10
     </div>
   </div>
 
+</section>
 </body>
 
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
