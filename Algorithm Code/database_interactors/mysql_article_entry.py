@@ -10,7 +10,8 @@ Usage:
 
     python mysql_article_entry.py
 '''
-
+import urllib2
+import requests
 import sys
 import mysql.connector
 from mysql.connector import errorcode
@@ -43,6 +44,8 @@ def main(url, source, post_date, found_date, title, author, keywords, summary, t
                "(url, source, post_date, found_date, title, author, keywords, summary, text, top_image) "
                "VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s)")
 
+        # print "Post_date from mysql_article_entry:", post_date
+
         data_article = (url, source, post_date, found_date, title, author, keywords, summary, text, top_image)
 
         # Insert new employee
@@ -64,10 +67,18 @@ def main(url, source, post_date, found_date, title, author, keywords, summary, t
 
     cnx.close()
 
+    opener = urllib2.build_opener()
+    opener.addheaders = [('User-Agent', 'Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/34.0.1847.137 Safari/537.36')]
+
     try:
-        urllib.urlretrieve(top_image, "/Users/kristiannilssen/Documents/GitHub/Founding_Fathers/CYP/CYP/static/images/article_images/" + str(article_id) + ".jpg")
+        response = opener.open(top_image)
+        htmlData = response.read()
+        f = open("/Users/kristiannilssen/Documents/GitHub/Founding_Fathers/CYP/CYP/static/images/article_images/" + str(article_id) + ".jpg",'wb')
+        f.write(htmlData)
+        f.close()
+        # urllib.urlretrieve(top_image, "/Users/kristiannilssen/Documents/GitHub/Founding_Fathers/CYP/CYP/static/images/article_images/" + str(article_id) + ".jpg")
     except:
-        print "Error downloading image on url:", top_image
+        print "Error downloading image on url:", url, "     Image Url:", top_image
         return int(article_id)
     # print image[1]
     # print "/Users/kristiannilssen/Documents/GitHub/Founding_Fathers/CYP/CYP/static/images/article_images/" + str(image[0]) + ".jpg"

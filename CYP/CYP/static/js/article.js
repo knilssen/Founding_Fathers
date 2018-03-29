@@ -12,13 +12,10 @@ $('.menu-tabs li .menu-item').click(function() {
   document.getElementById(display_id).style.display = "block";
 });
 
-// alert(document.getElementById('page_location').dataset.page_picture);
-// alert(document.getElementById('back_image').style.height);
 document.getElementById('back_image').style.backgroundImage = 'url(' + document.getElementById('page_location').dataset.page_picture + ')';
 
 $('.box-site-head .box-bg:before').css({ 'background-image': 'url(' + document.getElementById('page_location').dataset.page_picture + ')' });
 
-// alert($(window).width() - $('.nav-sections ul').width());
 
 $('.nav-sections ul#nav-section-menu').css( { "margin-left" : ($(window).width()/2) - ($('.nav-sections ul#nav-section-menu').width()/2) } );
 
@@ -27,38 +24,11 @@ var data_width = $('.box-information').width();
 var sides = $('.box-photo').width();
 var tops = $('.box-photo').width() * 0.714;
 
-// $('.box-photo img').each(function(){
-//         var height = $(this).prop('naturalHeight');
-//         var width = $(this).prop('naturalWidth');
-//
-//         if (height > width) {
-//           $( this ).width('100%');
-//         }
-//
-//         if (height < width) {
-//           $( this ).height(tops);
-//         }
-//
-//         if (Math.round($( this ).width(), -1) < Math.round(sides, -1)) {
-//           console.log("correcting for small width", $( this ).width(), sides);
-//           $( this ).height("auto");
-//           $( this ).width(sides);
-//         }
-//
-//         if (Math.round($( this ).height(), -1) < Math.round(tops, -1)) {
-//           console.log("correcting for small height", $( this ).height(), tops);
-//           $( this ).width("auto");
-//           $( this ).height(tops);
-//         }
-//
-// });
-
 
 $('.js-social').click(function() {
 
   document.querySelector('.list-share-circles').classList.toggle('style2');
 
-  // $('list-share-circles').classList.toggle('style2');
 
 });
 
@@ -103,45 +73,53 @@ $(window).resize(function(){
   });
 }).resize();
 
+// Lazy loads all images on the page
+$( document ).ready(function() {
 
+  var bLazy = new Blazy({
+    selector: 'img' // all images
 
+    , breakpoints: [{
+              width: 420 // max-width
+		        , src: 'data-src-small'
+       }
+     , {
+              width: 768 // max-width
+            , src: 'data-src-medium'
+    }]
 
-// $('#user-votes').css('transform', "translateX(" + data_width + "px" + ")");
+    , success: function(ele){
+        if ($(ele).hasClass("article_top_image")){
 
-// .css({
-//   '-webkit-transform' : 'translateX(" + data_width + ")"',
-//   'transform'         : 'translateX(" + data_width + ")"'
-// });
+          var height = $(ele).prop('naturalHeight');
+          var width = $(ele).prop('naturalWidth');
 
-// document.getElementById('user-votes').style.webkitTransform = "translateX(" + data_width + "px" + ")";
-// document.getElementById('user-votes').style.transform = "translateX(" + data_width + "px" + ")";
+          if (height > width) {
+            $(ele).width('100%');
+            // $('.list-items figure').height($(ele).width() * 0.714);
+          }
 
-// .style.transform = "translateX(" + data_width + ")";
+          if (height < width) {
+            $(ele).height(tops);
+          }
 
-// $('#user-votes').css({
-//   '-webkit-transform' : 'translateX(" + data_width + ")"',
-//   'transform'         : 'translateX(" + data_width + ")"'
-// });
+          if (Math.round($(ele).width(), -1) < Math.round(sides, -1)) {
+            console.log("correcting for small width", $(ele).width(), sides);
+            $(ele).height("auto");
+            $(ele).width(sides);
+            // $('.list-items figure').height($(ele).width() * 0.714);
+          }
 
-// alert(data_width);
+          if (Math.round($(ele).height(), -1) < Math.round(tops, -1)) {
+            console.log("correcting for small height", $(ele).height(), tops);
+            $(ele).width("auto");
+            // $('.list-items figure').height($(ele).width() * 0.714);
+            $(ele).height(tops);
+          }
 
-// $('.active_data').css('-webkit-transform', "translateX(" + data_width + ")");
-// $('.active_data').css('transform', "translateX(" + data_width + ")");
+        }
 
+    }
+  });
 
-// document.getElementById('jury_votes').style.webkitTransform = "translateX(" + data_width + "px" + ")";
-//
-// document.getElementById('user_votes').style.transform = "translateX(" + data_width + "px" + ")";
-
-
-
-// function select_people() {
-//   $('#jury_votes').transition({x:data_width});
-// }
-//
-// function select_social() {
-//   $('#user_votes').transition({x:( -1 * data_width)});
-// }
-
-
-// $('.list-users-votes.active_data').transition({ scale: 0, delay: 500 });
+});

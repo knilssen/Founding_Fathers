@@ -1,10 +1,12 @@
-import urllib
+import urllib2
 import sys
 import mysql.connector
 from mysql.connector import errorcode
 
 
 def main():
+
+
 
     config = {
         'user': 'root',
@@ -28,13 +30,26 @@ def main():
 
         cursor = cnx.cursor()
 
-        cursor.execute("SELECT image, person_id FROM cyp.News_people WHERE cyp.News_people.role = 'house'")
-        image_url = cursor.fetchall()
-
-        for image in image_url:
-            urllib.urlretrieve(image[0], "/Users/kristiannilssen/Documents/Westminster College/Spring 2017/CMPT 322 Software Engineering/Founding_Fathers_K/CYP/CYP/static/images/house_pictures/" + str(image[1]) + ".jpg")
-            print image[0]
+        cursor.execute("SELECT image, id, state, first_name, last_name FROM cyp.News_people")
+        data = cursor.fetchall()
         cursor.close()
+
+        opener = urllib2.build_opener()
+        opener.addheaders = [('User-Agent', 'Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/34.0.1847.137 Safari/537.36')]
+
+
+        for person in data:
+            if person[1] != 149:
+                response = opener.open(person[0])
+                htmlData = response.read()
+                f = open("/Users/kristiannilssen/Documents/GitHub/Founding_Fathers/CYP/CYP/static/images/" + str(person[2]) + "/" + str(person[1]) + ".jpg",'wb')
+                f.write(htmlData)
+                f.close()
+
+                print "Downloaded   |   ", person[3] + " " + person[4]
+            else:
+                print "Skipped id:", person[1]
+
     cnx.close()
 
 if __name__ == "__main__":

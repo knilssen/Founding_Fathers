@@ -7,6 +7,14 @@ class Found_Url(models.Model):
     url = models.URLField(max_length = 255)
     title = models.CharField(max_length=255)
     used = models.BooleanField(default=False)
+    source = models.CharField(null=True, max_length=255)
+    post_date = models.DateTimeField(null=True)
+    found_date = models.DateTimeField(null=True)
+    author = models.TextField(null=True)
+    keywords = models.CharField(max_length=255, blank=True)
+    summary = models.TextField(null=True)
+    text = models.TextField(null=True)
+    top_image = models.URLField(null=True, max_length = 500)
 
 class Articles(models.Model):
     id = models.AutoField(primary_key=True)

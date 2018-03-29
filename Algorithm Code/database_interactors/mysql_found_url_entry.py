@@ -15,7 +15,7 @@ import sys
 import mysql.connector
 from mysql.connector import errorcode
 
-def main(url, title, used):
+def main(url, title, used, source, post_date, found_date, author, keywords, summary, text, top_image):
 
     config = {
         'user': 'root',
@@ -40,10 +40,10 @@ def main(url, title, used):
         cursor = cnx.cursor()
 
         add_url = ("INSERT INTO News_Found_Url"
-               "(url, title, used) "
-               "VALUES (%s, %s, %s)")
+               "(url, title, used, source, post_date, found_date, author, keywords, summary, text, top_image) "
+               "VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s)")
 
-        data_url = (url, title, used)
+        data_url = (url, title, used, source, post_date, found_date, author, keywords, summary, text, top_image)
 
         cursor.execute(add_url, data_url)
 

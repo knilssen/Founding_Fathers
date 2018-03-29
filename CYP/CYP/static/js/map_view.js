@@ -108,6 +108,11 @@ var counties_dict = {
 
 
 
+$(window).on('load', function() {
+  $(".se-pre-con").fadeOut("slow");
+});
+
+
 var window_width = window.outerWidth,
   window_height = window.innerHeight - 140,
   centered;
@@ -126,18 +131,28 @@ var projection = d3.geo.albersUsa()
 var path = d3.geo.path()
   .projection(projection);
 
+var zoom = d3.behavior.zoom()
+    .scaleExtent([1, 10])
+    .on("zoom", zoomed)
+
+var drag = d3.behavior.drag()
+    .origin(function(d) { return d; })
+    .on("dragstart", dragstarted)
+    .on("drag", dragged)
+    .on("dragend", dragended);
+
 var svg = d3.select(document.getElementById('united-states')).append("svg")
-  .attr("width", window_width)
-  .attr("height", window_height);
+    .attr("width", window_width)
+    .attr("height", window_height)
+  .append("g")
+    .attr("transform", "translate(" + -5 + "," + -5 + ")")
+    .call(zoom);
 
 var g = svg.append("g");
-
-
 
 queue()
     .defer(d3.json, "/static/js/us.json")
     .defer(d3.json, "/static/js/us-congress-113.json")
-    // .defer(d3.json, "/static/js/us-10m.v1.json")
     .await(ready);
 
 
@@ -161,13 +176,11 @@ function ready(error, us, congress) {
     .enter().append("path")
       .attr("d", path)
       .attr("class", "state")
-      .on("click", clicked)
       .on("mouseenter", state_enter)
       .on("mouseleave", state_leave);
 
   g.append("g")
       .attr("id", "districts")
-      // .attr("class", "map_mode_not_active")
       .attr("clip-path", "url(#clip-land)")
     .selectAll("path")
       .data(topojson.feature(congress, congress.objects.districts).features)
@@ -181,19 +194,15 @@ function ready(error, us, congress) {
         var congressional_district_id = d.id.toString();
         if (congressional_district_id.length === 4) {
           if (d.id.toString().substr(2,1) === "0"){
-            // console.log(d.id.toString(), d.id.toString().substr(3,4));
             var congressional_district_number = (state_dict[congressional_district_id.substr(0, 2)] + " Congressional District #" + d.id.toString().substr(3,4));
           } else {
-            // console.log(d.id.toString(), d.id.toString().substr(2,4));
             var congressional_district_number = (state_dict[congressional_district_id.substr(0, 2)] + " Congressional District #" + d.id.toString().substr(2,4));
           }
         }
         if (congressional_district_id.length === 3) {
           if (d.id.toString().substr(1,1) === "0"){
-            // console.log(d.id.toString(), d.id.toString().substr(2, 3));
             var congressional_district_number = (state_dict[congressional_district_id.substr(0, 1)] + " Congressional District #" + d.id.toString().substr(2, 3));
           } else {
-            // console.log(d.id.toString(), d.id.toString().substr(1, 3));
             var congressional_district_number = (state_dict[congressional_district_id.substr(0, 1)] + " Congressional District #" + d.id.toString().substr(1, 3));
           }
         }
@@ -203,7 +212,6 @@ function ready(error, us, congress) {
 
   g.append("g")
       .attr("id", "counties")
-      // .attr("class", "map_mode_not_active")
     .selectAll("path")
       .data(topojson.feature(us, us.objects.counties).features)
     .enter().append("path")
@@ -214,49 +222,12 @@ function ready(error, us, congress) {
     .append("title")
       .text(function(d) {
         var county_id = d.id.toString();
-        // console.log(d.id.toString());
         if (county_id.length === 5) {
-          // console.log(d.id.toString(), counties_dict[county_id.substr(0, 2)][county_id.substr(2, 3)], county_id.substr(0, 2), county_id.substr(2, 3));
           var county_number = (counties_dict[county_id.substr(0, 2)][county_id.substr(2, 3)] );
-
-          // if (d.id.toString().substr(2,1) === "0"){
-          //   // single digit county id
-          //   if (d.id.toString().substr(3,1) === "0"){
-          //     console.log(d.id.toString(), counties_dict[county_id.substr(0, 2)][county_id.substr(4, 1)], county_id.substr(0, 2), county_id.substr(4, 1));
-          //     var county_number = (counties_dict[county_id.substr(0, 2)][county_id.substr(4, 1)] );
-          //   } else {
-          //     // double digit county id
-          //     console.log(d.id.toString(), counties_dict[county_id.substr(0, 2)][county_id.substr(3, 2)], county_id.substr(0, 2), county_id.substr(3, 2));
-          //     var county_number = (counties_dict[county_id.substr(0, 2)][county_id.substr(3, 2)] );
-          //   }
-          // } else {
-          //   // triple digit county id
-          //   console.log(d.id.toString(), counties_dict[county_id.substr(0, 2)][county_id.substr(2, 3)], county_id.substr(0, 2), county_id.substr(2, 3));
-          //   var county_number = (counties_dict[county_id.substr(0, 2)][county_id.substr(2, 3)] );
-          // }
         }
-
         if (county_id.length === 4) {
-          // console.log(d.id.toString(), counties_dict[county_id.substr(0, 1)][county_id.substr(1, 3)], county_id.substr(0, 1), county_id.substr(1, 3));
           var county_number = (counties_dict[county_id.substr(0, 1)][county_id.substr(1, 3)] );
-
-          // if (d.id.toString().substr(1,1) === "0") {
-          //   // single digit county id
-          //   if (d.id.toString().substr(2,1) === "0") {
-          //     console.log(d.id.toString(), counties_dict[county_id.substr(0, 1)][county_id.substr(3,1)], county_id.substr(0, 1), county_id.substr(3,1));
-          //     var county_number = (counties_dict[county_id.substr(0, 1)][county_id.substr(3, 1)] );
-          //   } else {
-          //     // double digit county id
-          //     console.log(d.id.toString(), counties_dict[county_id.substr(0, 1)][county_id.substr(2,2)], county_id.substr(0, 1), county_id.substr(2,2));
-          //     var county_number = (counties_dict[county_id.substr(0, 1)][county_id.substr(2, 2)] );
-          //   }
-          // } else {
-          //   // triple digit county id
-          //   console.log(d.id.toString(), counties_dict[county_id.substr(0, 1)][county_id.substr(1,3)], county_id.substr(0, 1), county_id.substr(1,3));
-          //   var county_number = (counties_dict[county_id.substr(0, 1)][county_id.substr(1, 3)] );
-          // }
         }
-
         return county_number;
       });
 
@@ -270,7 +241,6 @@ function ready(error, us, congress) {
 
   g.append("path")
       .attr("id", "district-boundaries")
-      // .attr("class", "map_mode_not_active")
       .datum(topojson.mesh(congress, congress.objects.districts, function(a, b) { return a !== b && (a.id / 1000 | 0) === (b.id / 1000 | 0); }))
       .attr("d", path);
 
@@ -285,6 +255,24 @@ function ready(error, us, congress) {
   document.getElementById('district-boundaries').classList.toggle("map_mode_not_active");
   document.getElementById('county-borders').classList.toggle("map_mode_not_active");
   document.getElementById('exit_district_view').classList.toggle("exit_view_not_active");
+}
+
+
+function zoomed() {
+  g.attr("transform", "translate(" + d3.event.translate + ")scale(" + d3.event.scale + ")");
+}
+
+function dragstarted(d) {
+  d3.event.sourceEvent.stopPropagation();
+  d3.select(this).classed("dragging", true);
+}
+
+function dragged(d) {
+  d3.select(this).attr("cx", d.x = d3.event.x).attr("cy", d.y = d3.event.y);
+}
+
+function dragended(d) {
+  d3.select(this).classed("dragging", false);
 }
 
 
@@ -323,9 +311,6 @@ function clicked(d) {
     var centroid = path.centroid(d);
     x = centroid[0];
     y = centroid[1];
-
-    // alert(Math.min((window_width / this.getBoundingClientRect().window_width), ((window_height) / this.getBoundingClientRect().window_height)));
-
     k = (Math.min((window_width / this.getBoundingClientRect().width), ((window_height) / this.getBoundingClientRect().height))-1);
     centered = d;
   } else {
@@ -345,34 +330,6 @@ function clicked(d) {
     .attr("transform", "translate(" + window_width / 2 + "," + window_height / 2 + ")scale(" + k + ")translate(" + -x + "," + -y + ")")
     .style("stroke-window_width", 1.5 / k + "px");
 
-
-  // if (document.getElementById('districts').classList.contains('map_mode_not_active')){
-  //
-  // } else {
-  //   toggledisplay('districts');
-  //   toggledisplay('district-boundaries');
-  // }
-  //
-  // if (document.getElementById('states').classList.contains('map_mode_not_active')){
-  //   toggledisplay('states');
-  // } else {
-  //   toggledisplay('districts');
-  //   toggledisplay('district-boundaries');
-  // }
-  //
-  // if (document.getElementById('counties').classList.contains('map_mode_not_active')){
-  //
-  // } else {
-  //   toggledisplay('counties')
-  //   toggledisplay('county-borders');
-  // }
-
-
-  // document.getElementById('districts').style.display.toggle('none');
-  // toggledisplay('districts');
-  // toggledisplay('states')
-  // // document.getElementById('district-boundaries').style.display.toggle('none');
-  // toggledisplay('district-boundaries');
   exit_view_toggle('exit_district_view');
 }
 
@@ -471,15 +428,15 @@ function toggledisplay(elementID){
 
 
 
-
 $('.menu-filters .item.dropdown').click(function(e) {
   this.classList.toggle("open");
   document.getElementById('box-filters-fixed').classList.toggle("active");
-  document.getElementById('open-filter-scroll').style.display = "block";
-  document.getElementById('open-filter-scroll').classList.add('box-loading');
-  document.getElementById('open-filter-scroll').classList.add('style2');
-  document.getElementById('open-filter-scroll').classList.add('show');
-  document.getElementById('open-filter-scroll').classList.add('open');
+  var re_use = document.getElementById('open-filter-scroll');
+    re_use.style.display = "block";
+    re_use.classList.add('box-loading');
+    re_use.classList.add('style2');
+    re_use.classList.add('show');
+    re_use.classList.add('open');
   document.getElementById('box-filters-fixed').style.position = "fixed";
   document.getElementById('header').style.position = "fixed";
 });

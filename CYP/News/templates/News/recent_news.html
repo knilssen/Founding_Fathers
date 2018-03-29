@@ -3,6 +3,8 @@
 {% block content %}
 
 <link rel="stylesheet" href="{% static 'css/recent_news.css' %}" type="text/css">
+<script src="/static/js/blazy.js"></script>
+<script src="https://d3js.org/d3.v3.min.js"></script>
 
 <head>
 
@@ -12,13 +14,12 @@
 </head>
 <body>
 <section id="content">
-  <div id="page_location" data-page="recent_news" data-page_path="Washington State | Recent News"></div>
+  <div id="page_location" data-page="recent_news" data-page_path="Washington State | Recent News" data-page_number={{page_data.page_number}} data-page_number_start={{page_data.page_start}} data-page_number_end={{page_data.page_end}}></div>
   <div class="content-view">
     <div class="block">
       <div class="inner search-container">
         <div class="grid" id="body" style="visibility: hidden;">
           <ul class="list-items list-flex">
-
 
             <!--  Starts articles  -->
             {% for article in scrolls %}
@@ -29,7 +30,8 @@
                     <div class="box-photo">
                       {% with 'images/article_images/'|add:article.top_image as top_image %}
                       <!-- {% static top_image %} -->
-                      <img src='{% static top_image %}' data-srcset='{% static top_image %}' 1x, '{% static top_image %}' 2x" alt="{{article.source}}" class="lazy lazy-loaded" srcset='{% static top_image %}' 1x, '{% static top_image %}' 2x">
+                      <img class="b-lazy article_top_image" src="/static/images/kristian2.jpeg" data-src="{% static top_image %}" data-src-small="{% static top_image %}" data-src-medium="{% static top_image %}" alt="{{article.title}}" />
+                      <!-- <img src='{% static top_image %}' data-srcset='{% static top_image %}' 1x, '{% static top_image %}' 2x" alt="{{article.source}}" class="lazy lazy-loaded" srcset='{% static top_image %}' 1x, '{% static top_image %}' 2x"> -->
                       {% endwith %}
                     </div>
                   </a>
@@ -63,26 +65,40 @@
                       {{article.post_date}}
                         in
                       <strong>
-                        <a href="/recent_news" class="text-black">Washington State</a>
+                        <a href="/state/washington" class="text-black">Washington State</a>
                       </strong>
                     </div>
                   </div>
                   <div class="footer">
                     <div class="box-left">
                       <div class="box-users-likes">
-                        <ul class="list-users">
+                        <ul class="list-users" data-number_people_linked='{{article.people_amount}}'>
 
                           {% for people in article.people %}
 
 
-                          <li>
+                          <li class="people">
                             <div class="item js-user" data-username="{{people.name}}">
-                              <a href="#">
-                                <img src='{{people.image}}' data-src='{{person.image}}' width="27" height="27" alt="bruno-bispo" class="lazy lazy-loaded"></a>
+                              <a title = "{{people.name}}" href="#">
+                                {% with 'images/'|add:people.state|add:'/'|add:people.id|add:'.jpg' as person_image %}
+                                <img class="b-lazy" src="/static/images/kristian2.jpeg" data-src="{% static person_image %}" data-src-small="{% static person_image %}" data-src-medium="{% static person_image %}" alt="{{people.name}}" width="27" height="27"/>
+                                <!-- <img src='{% static person_image %}' data-src='{% static person_image %}' width="27" height="27" alt="{{people.name}}" class="lazy lazy-loaded"> -->
+                                {% endwith %}
+                              </a>
                             </div>
                           </li>
 
                           {% endfor %}
+
+
+                          <li class="more_people" style="display:none;">
+                            <div class="item js-user">
+                              <a title = "More Avatars" href="#">
+                                <img class="b-lazy" src="/static/images/more_dots.png" data-src="/static/images/more_dots.png" data-src-small="/static/images/more_dots.png" data-src-medium="/static/images/more_dots.png" width="27" height="27"/>
+
+                              </a>
+                            </div>
+                          </li>
 
 
                           <!-- <li>
@@ -146,16 +162,16 @@ C1.857,11.244,7.368,14,7.368,14s5.503-2.754,7.025-7.445C15.726,1.758,12.793,0,10
 
 
           <div class="paginate">
-            <div class="cols-4">
-            <span class="item current">1</span>
-            <a class="item" href="/recent_news/?page=2">2</a>
+            <div id="paginate_pages" class="cols-4">
+            <!-- <span class="item current">1</span>
+            <a class="item" href="">2</a>
             <a class="item" href="/recent_news/?page=3">3</a>
             <a class="item" href="/recent_news/?page=4">4</a>
-            <a class="item" href="/recent_news/?page=5">5</a>
+            <a class="item" href="/recent_news/?page=5">5</a> -->
             </div>
 
-            <div class="cols-4">
-              <a class="item more" href="/recent_news/?page=2">SHOW ME MORE</a>
+            <div id="paginate_more" class="cols-4">
+              <!-- <a class="item more" href="/recent_news/?page=2">SHOW ME MORE</a> -->
             </div>
 
           </div>

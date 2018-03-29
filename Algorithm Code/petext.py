@@ -47,6 +47,13 @@ Run times on my machine:
                                 sys	    0m53.232s
 
 
+    Date: 2/16/2018
+    Info: 116 articles found
+          20  new articles
+
+                                real	1m15.023s
+                                user	2m32.510s
+                                sys 	0m14.244s
 '''
 
 import os
@@ -80,6 +87,7 @@ from database_interactors import mysql_social_media_entry
 from database_interactors import mysql_check_duplicate
 from database_interactors import mysql_found_url_entry
 from database_interactors import mysql_check_found_url
+from Washington.article_downloaders import downloader_olympian
 from nltk.tag import StanfordNERTagger
 
 maxthreads = multiprocessing.cpu_count()
@@ -99,8 +107,13 @@ class article_worker(Thread):
            # Get the work from the queue and expand the tuple
            Url, Source, date = self.queue.get()
            try:
-               article = Article(Url)
-               article.download()
+               if Source == "The Olympian":
+                   # print "Olympian"
+                   # print "Olympian Article, url:", Url
+                   article = downloader_olympian.main(Url)
+               else:
+                   article = Article(Url)
+                   article.download()
 
                # if article.is_downloaded:
                #     article.parse()
@@ -144,25 +157,26 @@ def article_processor(stuff):
 
         # Make sure that the article is downloaded, if not, re-download correctly before processing and runing nlp
         # Then parse and run NLP on the article once correctly downloaded
-        if article.is_downloaded:
-            article.parse()
-            if article.is_parsed:
-                # print "parsed"
-                article.nlp()
+        if Source != "The Olympian":
+            if article.is_downloaded:
+                article.parse()
+                if article.is_parsed:
+                    # print "parsed"
+                    article.nlp()
+                else:
+                    print "\n"
+                    print "Failed to parse article", Url
+                    print "\n"
             else:
                 print "\n"
-                print "Failed to parse article", Url
+                print "Failed to download article", Url
                 print "\n"
-        else:
-            print "\n"
-            print "Failed to download article", Url
-            print "\n"
-            # article = urllib.urlopen(Url).read()
-            # article.download()
-            # article.parse()
-            # if article.is_parsed:
-                # print "parsed"
-                # article.nlp()
+                # article = urllib.urlopen(Url).read()
+                # article.download()
+                # article.parse()
+                # if article.is_parsed:
+                    # print "parsed"
+                    # article.nlp()
 
 
 
@@ -179,11 +193,19 @@ def article_processor(stuff):
         if len(str(pub_time[0][2])) < 3:
             pub_time[0][2] = int("20" + str(pub_time[0][2]))
         if len(str(pub_time[0][0])) < 2:
+            # print "******** the date thing fucked up lol ******", pub_time[0][0]
             pub_time[0][0] = int("0" + str(pub_time[0][0]))
+            # print "******** did it fix it?????? ******", pub_time[0][0]
         if len(str(pub_time[0][1])) < 2:
             pub_time[0][1] = int("0" + str(pub_time[0][1]))
         post_date = (str(pub_time[0][2]) + "-" + str(pub_time[0][0]) + "-" + str(pub_time[0][1]) + " " +
                     str(pub_time[1][0]) + ":" + str(pub_time[1][1]) + ":" + str(pub_time[1][2]))
+
+
+        # Check if post_date is correct, i have been having problems here
+        # print Url
+        # print "pub_time", pub_time, "post_date:", post_date
+
 
         Type = "PERSON"
         classifier = '../stanford-ner/classifiers/english.all.3class.distsim.crf.ser.gz'
@@ -364,7 +386,7 @@ def article_processor(stuff):
         if len(article_people) >= 1:
             # print "  ", found_article_number, (3-len(str(found_article_number))) * " " + "        ", article_id, (3-len(str(article_id))) * " " + "                  ", output_people
             try:
-                mysql_found_url_entry.main(Url, article.title, 1)
+                mysql_found_url_entry.main(Url, article.title, 1, Source, post_date, dateTime, ", ".join(article.authors), keywords_database, article.summary, submitted_v_articleText, article.top_image)
                 article_id = mysql_article_entry.main(Url, Source, post_date, dateTime, article.title, ", ".join(article.authors), keywords_database, article.summary, submitted_v_articleText, article.top_image)
                 mysql_article_person_link.main(article_id, article_people, totoltypecount)
                 mysql_article_based_weights.main(article_id, len(articleText), "yes")
@@ -391,7 +413,7 @@ def article_processor(stuff):
         else:
             # Add url to database so we dont run comprehend on it more than we need to
             try:
-                mysql_found_url_entry.main(Url, article.title, 0)
+                mysql_found_url_entry.main(Url, article.title, 0, Source, post_date, dateTime, ", ".join(article.authors), keywords_database, article.summary, submitted_v_articleText, article.top_image)
             except:
                 print "entering url and title to found_url had a problem:   Did not add to database"
 

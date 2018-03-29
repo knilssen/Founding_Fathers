@@ -4,10 +4,10 @@
 {% block content %}
 
 <link rel="stylesheet" href="{% static 'css/article.css' %}" type="text/css">
+<script src="/static/js/blazy.js"></script>
 
 <head>
 
-  <!-- <center><h1 style="color:black;">Let your news come to you.</h1><center> -->
   <title>CYP</title>
 
 </head>
@@ -20,14 +20,11 @@
 
     <div class="box-site-head">
       <div class="box-bg has-tablet top-image" id="back_image">
-        <!-- <a href="https://www.seattletimes.com/seattle-news/politics/renewal-and-resistance-in-seattle-thousands-take-to-streets-for-womens-march/" target="_blank"> -->
-          <!-- <img style="fixed" src="https://static.seattletimes.com/wp-content/uploads/2018/01/a65a1cee-fe20-11e7-86d4-df361ab934c3-1560x1040.jpg" alt="You are the stylist"> -->
-        <!-- </a> -->
       </div>
       <div class="box-photo has-mobile">
         <a href='{{article_data.url}}' target="_blank">
               {% with 'images/article_images/'|add:article_data.top_image as top_image %}
-              <img src="https://assets.awwwards.com/bundles/tvweb/images/nophoto.png" data-src='{% static top_image %}' data-src-2x='{% static top_image %}' alt='{{article_data.title}}' class="lazy">
+              <img class="b-lazy" src="/static/images/kristian2.jpeg" data-src="{% static top_image %}" data-src-small="{% static top_image %}" data-src-medium="{% static top_image %}" alt="{{article_data.title}}" />
               {% endwith %}
             </a>
       </div>
@@ -62,14 +59,10 @@
                     <a href="#"> {{article_data.source}} </a>
                   </strong>
                 <i>
-                    <!-- from -->
                   </i>
                 <strong>
-                    <!-- France -->
                   </strong>
-                  <!-- with -->
                 <strong itemprop="ratingValue">
-                    <!-- 7.64 -->
                   </strong>
                 <span class="hidden" itemprop="ratingCount">78</span>
                 <span class="hidden" itemprop="bestRating">10</span>
@@ -89,57 +82,6 @@
                 </span>
             </div>
             <div class="box-right">
-              <!-- <div class="box-users-likes">
-                <ul class="list-users">
-                  <li>
-                    <div class="item js-user" data-username="nolanthebun">
-                      <a href="/nolanthebun/">
-                        <img src="https://assets.awwwards.com/awards/media/cache/thumb_user_70/default/user2.jpg" data-src="https://assets.awwwards.com/awards/media/cache/thumb_user_70/default/user2.jpg" width="34" height="34" alt="nolanthebun" class="lazy lazy-loaded">
-                      </a>
-                    </div>
-                  </li>
-
-
-                  <li>
-                    <div class="item js-user" data-username="heyitsgiuliaa">
-                      <a href="/heyitsgiuliaa/">
-                        <img src="https://assets.awwwards.com/awards/media/cache/thumb_user_70/default/user1.jpg" data-src="https://assets.awwwards.com/awards/media/cache/thumb_user_70/default/user1.jpg" width="34" height="34" alt="heyitsgiuliaa" class="lazy lazy-loaded">
-                      </a>
-                    </div>
-                  </li>
-
-
-                  <li>
-                    <div class="item js-user" data-username="Frederic-Marchand">
-                      <a href="/Frederic-Marchand/">
-                        <img src="https://assets.awwwards.com/awards/media/cache/thumb_user_70/avatar/390895/56c647d18c1ca.jpeg" data-src="https://assets.awwwards.com/awards/media/cache/thumb_user_70/avatar/390895/56c647d18c1ca.jpeg" width="34" height="34" alt="Frédéric Marchand" class="lazy lazy-loaded">
-                      </a>
-                    </div>
-                  </li>
-
-
-                  <li>
-                    <div class="item js-user" data-username="jorgecapillo">
-                      <a href="/jorgecapillo/">
-                        <img src="https://assets.awwwards.com/awards/media/cache/thumb_user_70/avatar/300329/5a42cf6623757.png" data-src="https://assets.awwwards.com/awards/media/cache/thumb_user_70/avatar/300329/5a42cf6623757.png" width="34" height="34" alt="JorgeCapillo" class="lazy lazy-loaded">
-                      </a>
-                    </div>
-                  </li>
-
-                </ul>
-                <div class="bt-default js-collect">
-                  <svg class="ico-svg" viewBox="0 0 14.727 14" xmlns="http://www.w3.org/2000/svg">
-                    <g id="heart-2" data-size="14.727 14">
-  <path d="M10.612,0C9.217,0,7.956,0.731,7.369,1.871C6.782,0.731,5.505,0,4.109,0C1.928,0-0.997,1.758,0.335,6.555
-C1.857,11.244,7.368,14,7.368,14s5.503-2.754,7.025-7.445C15.726,1.758,12.793,0,10.612,0z"/>
-</g>
-                  </svg>
-
-                  <span class="number">
-                    49
-                  </span> Collect me
-                </div>
-              </div> -->
 
             </div>
           </div>
@@ -222,7 +164,7 @@ C1.857,11.244,7.368,14,7.368,14s5.503-2.754,7.025-7.445C15.726,1.758,12.793,0,10
           <div class="box-br">
             <div class="box-bt-page right">
               <div class="tooltip">
-                <a href="/article/?id={{article_data.id_prev}}" class="bt-page bt-prev"></a>
+                <a href="/article/?id={{article_data.id_next}}" class="bt-page bt-prev"></a>
                 <div class="box-tooltip">
                   <div class="tooltip-text">
                     Previous
@@ -232,7 +174,7 @@ C1.857,11.244,7.368,14,7.368,14s5.503-2.754,7.025-7.445C15.726,1.758,12.793,0,10
             </div>
             <div class="box-bt-page left">
               <div class="tooltip">
-                <a href="/article/?id={{article_data.id_next}}" class="bt-page bt-next"></a>
+                <a href="/article/?id={{article_data.id_prev}}" class="bt-page bt-next"></a>
                 <div class="box-tooltip">
                   <div class="tooltip-text">
                     Next
@@ -256,29 +198,21 @@ C1.857,11.244,7.368,14,7.368,14s5.503-2.754,7.025-7.445C15.726,1.758,12.793,0,10
     <div class="inner width-3">
       <div class="box-page-info">
         <h3 class="h4">{{article_data.title}}</h3>
+        <h3 class="h4">{{article_data.post_date}}</h3>
         <div class="list-tags list-center">
           <ul>
-            <li><a href="/article" class="item">Pramila Jayapal</a></li>
-            <li><a href="/article" class="item">Emily Randall</a></li>
-            <li><a href="/article" class="item">Jenny Durkan</a></li>
-            <li><a href="/article" class="item">Seattle, Washington</a></li>
-            <li><a href="/article" class="item">Washington State</a></li>
-            <li><a href="/article" class="item">Protest</a></li>
-            <li><a href="/article" class="item">Donald Trump</a></li>
-            <li><a href="/article" class="item">Seattle Women’s March</a></li>
-            <li><a href="/article" class="item">Women’s March</a></li>
-            <li><a href="/article" class="item">Olympia, Washington</a></li>
-            <li><a href="/article" class="item">Rally</a></li>
-            <li><a href="/article" class="item">Political Awareness & Activism</a></li>
-            <!-- <li>
-              <a href="/websites/black/" class="item item-color black">Black sites</a>
-            </li>
-            <li>
-              <a href="/websites/blue/" class="item item-color blue">Blue sites</a>
-            </li>
-            <li>
-              <a href="/websites/white/" class="item item-color white">White sites</a>
-            </li> -->
+            <li><a href="#" class="item">Pramila Jayapal</a></li>
+            <li><a href="#" class="item">Emily Randall</a></li>
+            <li><a href="#" class="item">Jenny Durkan</a></li>
+            <li><a href="#" class="item">Seattle, Washington</a></li>
+            <li><a href="#" class="item">Washington State</a></li>
+            <li><a href="#" class="item">Protest</a></li>
+            <li><a href="#" class="item">Donald Trump</a></li>
+            <li><a href="#" class="item">Seattle Women’s March</a></li>
+            <li><a href="#" class="item">Women’s March</a></li>
+            <li><a href="#" class="item">Olympia, Washington</a></li>
+            <li><a href="#" class="item">Rally</a></li>
+            <li><a href="#" class="item">Political Awareness & Activism</a></li>
           </ul>
         </div>
       </div>
@@ -306,57 +240,9 @@ C1.857,11.244,7.368,14,7.368,14s5.503-2.754,7.025-7.445C15.726,1.758,12.793,0,10
 
   <!-- End Nav -->
   <!-- Start Text Section -->
-  <!-- <div class="inner width-1"> -->
     <div class="block pt-0 article-text" id="article-text">
-      <!-- <div class="box-block style2"> -->
       {{ article_data.texts|linebreaks }}
-        <!-- <p>Fed-up protesters mark the first year of the Trump administration in the streets of Seattle. “I never felt that it was such an emergency before,” said one. “I never felt as threatened.”</p>
-        <p>A year to the day after Donald Trump’s election ignited a culture of protest in Seattle, tens of thousands of people took to the streets Saturday to renew their commitment to resist Trump’s presidency and to work toward what they see as a more just and inclusive society.</p>
-        <p>Led by indigenous peoples and members of local Muslim communities, protesters packed the pavement for the Seattle Women’s March 2.0, carrying signs that telegraphed their reasons for being there:</p>
-        <p>“Grab ’em by the midterms.”</p>
-        <p>“No One Is Free When Others are Oppressed”</p>
-        <p>“Destroy the Patriarchy, Not the Planet”</p>
-        <p>One sign summed it up: “There are too many issues for one poster.”</p>
-        <p>Sunshine Pegues of Seattle, who gave her age as “over 60,” marched in a pink pussyhat and a neon pink Women’s March hoodie to declare that she would not abide a rollback of civil rights in America under the Trump administration.</p>
-        <p>“We have to make a stand,” said Pegues, who carried a sign that said, “I survived the 60s. I will survive Trump!”</p>
-        <p>“Being black in Seattle, I’ve lived this and I’m definitely not into going back,” she said. “I did civil rights in the ’60s, women’s rights in the ’70s, and it’s time to do the anti-Trump rights.”</p>
-        <p>Others declared their support for environmental protection, LGBTQ and immigrant rights, criminal justice and police reform, protection of women from violence, and other social-justice causes. As in other cities, the president’s tweet — calling Saturday a perfect day for women to “celebrate the historic milestones and unprecedented economic success and wealth creation that has taken place over the last 12 months” — amounted to a complete disconnect.</p>
-        <p>No official crowd estimate in Seattle was made, but police put the number of marchers in the tens of thousands. Largely white, female and middle-aged, they formed a continuous exuberant stream along the 2-mile route that stretched from Cal Anderson Park on Capitol Hill to Seattle Center.</p>
-        <p>In Olympia, about 8,000 people gathered at the steps of the Capitol for a rally version of the women’s march.</p>
-        <p>Last year’s Womxn’s March on Seattle, held the day after Trump was inaugurated, drew more than 100,000 protesters, the largest number in the city’s history. Across the nation and the world, millions marched.</p>
-        <p>‘Such an emergency’</p>
-        <p>Saturday’s event — one of hundreds across the country — began with a rally, where missing and murdered indigenous women were named and honored, along with their families, and where local politicians spoke to a new activism that has taken root in the year since Trump took office.</p>
-        <p>Teresa Mosqueda, a former labor leader who was elected to the Seattle City Council in November, credited those in the crowd for helping to change the makeup of local government.</p>
-        <p>“We now have a majority people of color and a supermajority women council, and that is because of our movement,” she said as a light rain fell.</p>
-        <p>Mayor Jenny Durkan, wearing a black T-shirt printed with the words “Fight like a girl” printed in pink slammed the Trump administration’s threat to arrest leaders of sanctuary cities, including Seattle, that limit local government involvement in immigration enforcement.</p>
-        <p>Durkan, a former U.S. Attorney appointed by President Barack Obama, pointed to the crowd for her response: “I said ‘if you want to arrest me you had better bring a truck for 10,000 people. We’re not going to back down. We’re going to continue standing up for what is right.”</p>
-        <p>U.S. Rep. Pramila Jayapal, D-Seattle, had been scheduled to speak but remained in Washington, D.C., because of the government shutdown. One of her staff members read a statement on her behalf, where she said “the future is female, young and multicolored.”</p>
-        <p>For indigenous women, for city workers to be free of harassment, for opportunities for fellow refugees and immigrants — three women share their stories and reasons for marching. (Corinne Chin, Lauren Frohne, Bettina Hansen / The Seattle Times)</p>
-        <p>This year, organizers put as much emphasis on activism as marching. A day of events on Sunday, titled Womxn Act on Seattle, will round out the weekend with training, workshops and lectures offered by about 90 organizations around the city.</p>
-        <p>In interviews, marchers talked Saturday about how difficult the last year has been for them, and about their rising political awareness and activism in the face of a president who has demonstrated a pattern of racist behavior, withdrawn from an international climate accord, and staffed federal agencies with people antagonistic to science and women’s rights, among other things.</p>
-        <p>“It’s been really hard, heavy; heavy is the right word,” Millie Lasky, 18, a student at the University of Puget Sound, said of the last year. She’d come to the march with about a dozen classmates, all of whom swore they’d be voting in November, many for the first time.</p>
-        <p>Claire Jorgensen, 16, is still too young to vote, but that hasn’t stopped her from writing letters to her representatives. She came to Seattle from Port Townsend with a hand-lettered sign reading “Tweet others how u want 2 be tweeted.”</p>
-        <p>She’s most concerned about attacks on birth-control access and abortion rights.</p>
-        <p>“It’s angering that they think they can take them from us,” Jorgensen said.</p>
-        <p>Lynne Giffin, 64, drove to the march from her home in Bonney Lake, east of Tacoma. A CT-scan technologist, Giffin said she voted regularly but wasn’t politically active until Trump’s election. She’s since canvassed for a local Democratic candidate, donated to Democratic candidates in three other states, and is now focused on helping Democrats capture the congressional seat being vacated by U.S. Rep. Dave Reichert, R-Auburn.</p>
-        <p>“We have to get out the vote,” Giffin said.</p>
-        <p>Antoinette Smith, 45, of Redmond, voted for the first time in 2016. Frustration with what she described as “a lot of backward movement,” prompted her to vote in local elections this fall, and attend five political rallies.</p>
-        <p>“I never felt that it was such an emergency before,” she said. “I never felt as threatened.”</p>
-        <p>Laurie Schuster, 53, of West Seattle, “was not a marcher” before last year. But rollbacks in environmental regulations spurred her to up her donations to Washington Trails and similar groups, she said. She follows the news more closely now, and her conversations have become more political as she tries to understand “how we got here.”</p>
-        <p>Not all about Trump</p>
-        <p>While the march was overwhelmingly anti-Trump, not everybody marched for that reason.</p>
-        <p>Dave Hoyopatubbi, 61, of Seattle, said he was marching to honor missing and murdered indigenous women. For Hoyopatubbi, a member of the Choctaw Nation of Oklahoma, the march wasn’t about Trump.</p>
-        <p>“God put him in place for a reason, maybe we don’t know what that reason is yet,” he said.</p>
-        <p>Blake Shelafoe, the grandson of Duwamish tribal chairwoman Cecile Hansen, speaks to the Missing and Murdered Indigenous Women’s group before they lead the Seattle Women’s March, Saturday January 20, 2018.</p>
-        <p>Emily Randall, a health-care advocate from Bremerton who is running for the 26th District state Senate seat, credited last year’s Womxn’s March with motivating women to run for office. She’s been active in the Women’s March Kitsap Huddle, a group formed for political organizing after last year’s march.</p>
-        <p>“It’s super-powerful to be a part of a community of women who have decided the time is now,” she said. “We are standing up and we are going to make change together.”</p>
-        <p>Jada Brazil, 37, said she was heartened to notice there were more people of color and more men than at last year’s march.</p>
-        <p>“It’s definitely more inclusive (this year) and that makes me extraordinarily happy,” she said. “Everyone in Seattle is coming out, it’s not just one flavor of it.”</p>
-        <p>One organizer, Janinne Brunyee, said the goal of the march was to create a safe space for anyone to voice whatever issue is important to them, and organizers were pleased with the results.</p>
-        <p>“Get involved — that’s really what we want people to take away from today,” Brunyee said.</p> -->
-      <!-- </div> -->
     </div>
-  <!-- </div> -->
 
   <!-- End Text Section -->
 
@@ -397,7 +283,11 @@ C1.857,11.244,7.368,14,7.368,14s5.503-2.754,7.025-7.445C15.726,1.758,12.793,0,10
               <div class="box-left">
                 <div class="avatar">
                   <div class"avatar-square">
-                    <a href="#"><img src='{{person.image}}' width="50" height="50" alt={{person.name}}></a>
+                    {% with 'images/'|add:person.state|add:'/'|add:person.person_id|add:'.jpg' as person_image %}
+                    <a href="#">
+                      <img class="b-lazy" src="/static/images/kristian2.jpeg" data-src="{% static person_image %}" data-src-small="{% static person_image %}" data-src-medium="{% static person_image %}" alt="{{person.name}}" width="50" height="50"/>
+                    </a>
+                    {% endwith %}
                   </div>
                 </div>
                 <div class="info">
@@ -406,66 +296,8 @@ C1.857,11.244,7.368,14,7.368,14s5.503-2.754,7.025-7.445C15.726,1.758,12.793,0,10
                 </div>
               </div>
               <div class="box-right">
-                <!-- <ul class="list-circle-notes js-circle-notes">
-                  <li data-note="8" data-size="40" class="design">
-                    <div class="tooltip">
-                      <svg style="width: 40px; height: 40px;">
-                                                      <circle r="19" cy="20" cx="20" style="stroke-dasharray: 119.381; stroke-dashoffset: 23.8761;"></circle>
-                                                  </svg>
-                      <div class="box-tooltip">
-                        <div class="tooltip-text">Design</div>
-                      </div>
-                    </div>
-                  </li>
-                  <li data-note="8" data-size="40" class="usability">
-                    <div class="tooltip">
-                      <svg style="width: 40px; height: 40px;">
-                                                      <circle r="19" cy="20" cx="20" style="stroke-dasharray: 119.381; stroke-dashoffset: 23.8761;"></circle>
-                                                  </svg>
-                      <div class="box-tooltip">
-                        <div class="tooltip-text">Usability</div>
-                      </div>
-                    </div>
-                  </li>
-                  <li data-note="9" data-size="40" class="creativity">
-                    <div class="tooltip">
-                      <svg style="width: 40px; height: 40px;">
-                                                      <circle r="19" cy="20" cx="20" style="stroke-dasharray: 119.381; stroke-dashoffset: 11.9381;"></circle>
-                                                  </svg>
-                      <div class="box-tooltip">
-                        <div class="tooltip-text">Creativity</div>
-                      </div>
-                    </div>
-                  </li>
-                  <li data-note="9" data-size="40" class="content">
-                    <div class="tooltip">
-                      <svg style="width: 40px; height: 40px;">
-                                                      <circle r="19" cy="20" cx="20" style="stroke-dasharray: 119.381; stroke-dashoffset: 11.9381;"></circle>
-                                                  </svg>
-                      <div class="box-tooltip">
-                        <div class="tooltip-text">Content</div>
-                      </div>
-                    </div>
-                  </li>
-                </ul> -->
                 <ul class="list-number-awards">
                   <li>
-
-
-                    <!-- <div class="tooltip">
-                      <div class="box-item box-usertype js-usertype style-dark" data-type="user_type_jury">
-                        <span class="text-uppercase">jury</span>
-                        <svg class="ico-svg" viewBox="0 0 11 14" xmlns="http://www.w3.org/2000/svg">
-      <g id="user-jury" data-size="11 14">
-  <path d="M3.474,7.824c0.247,0.123,0.577,0.041,0.7-0.248C4.298,7.33,4.215,7,3.927,6.877c-1.029-0.535-1.688-1.606-1.688-2.76 c0-1.729,1.4-3.088,3.088-3.088c1.688,0,3.089,1.4,3.089,3.088c0,0.988-0.578,1.895-1.772,2.801 C6.315,7.164,5.286,7.906,5.161,9.225C5.12,9.512,5.327,9.759,5.614,9.8h0.043c0.246,0,0.494-0.206,0.535-0.452 c0.082-0.865,0.782-1.359,1.111-1.605c1.44-1.072,2.142-2.265,2.142-3.625C9.486,1.853,7.633,0,5.368,0 c-2.266,0-4.16,1.853-4.16,4.158C1.208,5.724,2.074,7.123,3.474,7.824z M7.015,4.158c0-0.905-0.74-1.646-1.646-1.646 S3.721,3.253,3.721,4.158c0,0.906,0.741,1.647,1.647,1.647C6.274,5.806,7.015,5.064,7.015,4.158z M4.585,4.158 c0-0.411,0.33-0.74,0.742-0.74c0.41,0,0.74,0.329,0.74,0.74c0,0.412-0.33,0.742-0.74,0.742C4.916,4.9,4.585,4.57,4.585,4.158z  M8.004,9.225C7.715,9.141,7.428,9.266,7.345,9.553C7.304,9.676,7.262,9.759,7.18,9.883c-0.329,0.535-0.946,0.864-1.604,0.864 c-0.659,0-1.318-0.329-1.647-0.864C3.886,9.8,3.804,9.676,3.762,9.553C3.68,9.266,3.392,9.141,3.103,9.225 C2.815,9.307,2.691,9.594,2.774,9.883c0.041,0.164,0.124,0.37,0.247,0.535c0.535,0.823,1.482,1.357,2.512,1.357 c1.029,0,1.978-0.534,2.513-1.357c0.123-0.165,0.205-0.371,0.246-0.535C8.457,9.594,8.291,9.307,8.004,9.225z M10.35,6.383 c-0.287,0-0.535,0.246-0.535,0.535V9.1c0,2.143-1.893,3.871-4.282,3.871c-2.388,0-4.283-1.729-4.283-3.871V8.854 c0-0.289-0.247-0.535-0.535-0.535c-0.288,0-0.535,0.246-0.535,0.535V9.1c0,2.719,2.388,4.9,5.312,4.9 c2.925,0,5.313-2.225,5.313-4.9V6.918C10.887,6.588,10.639,6.383,10.35,6.383z"/>
-</g>
-  </svg>
-
-                      </div>
-                      <div class="box-tooltip">
-                        <div class="tooltip-text">Jury User</div>
-                      </div>
-                    </div> -->
 
                   </li>
                 </ul>
@@ -486,7 +318,6 @@ C1.857,11.244,7.368,14,7.368,14s5.503-2.754,7.025-7.445C15.726,1.758,12.793,0,10
               <div class="box-left">
                 <div class="avatar">
                   <div class"avatar-square">
-                    <!-- <a href="/motin/"><img src="https://www.boldprogressives.org/wp-content/uploads/2016/04/WEBSITE_325x325_JAYAPAL.png" width="50" height="50" alt="Aleksandr Motin"></a> -->
                     <a href="/article">
                   		<svg class="ico-svg" viewBox="0 0 6.5 14" xmlns="http://www.w3.org/2000/svg">
 												<g id="facebook" data-size="6.5 14">
@@ -519,7 +350,6 @@ C1.857,11.244,7.368,14,7.368,14s5.503-2.754,7.025-7.445C15.726,1.758,12.793,0,10
               <div class="box-left">
                 <div class="avatar">
                   <div class"avatar-square">
-                    <!-- <a href="/motin/"><img src="https://www.boldprogressives.org/wp-content/uploads/2016/04/WEBSITE_325x325_JAYAPAL.png" width="50" height="50" alt="Aleksandr Motin"></a> -->
                     <a href="/article">
                     	<svg class="ico-svg" viewBox="0 0 17 14" xmlns="http://www.w3.org/2000/svg">
 												<g id="twitter" data-size="17 14">
@@ -554,7 +384,6 @@ C1.857,11.244,7.368,14,7.368,14s5.503-2.754,7.025-7.445C15.726,1.758,12.793,0,10
               <div class="box-left">
                 <div class="avatar">
                   <div class"avatar-square">
-                    <!-- <a href="/motin/"><img src="https://www.boldprogressives.org/wp-content/uploads/2016/04/WEBSITE_325x325_JAYAPAL.png" width="50" height="50" alt="Aleksandr Motin"></a> -->
                     <a href="/article">
                   		<svg class="ico-svg" viewBox="0 0 14 14" xmlns="http://www.w3.org/2000/svg" width="50px">
                         <g id="pinterest" data-size="11 14.075">
@@ -587,7 +416,6 @@ C1.857,11.244,7.368,14,7.368,14s5.503-2.754,7.025-7.445C15.726,1.758,12.793,0,10
               <div class="box-left">
                 <div class="avatar">
                   <div class"avatar-square">
-                    <!-- <a href="/motin/"><img src="https://www.boldprogressives.org/wp-content/uploads/2016/04/WEBSITE_325x325_JAYAPAL.png" width="50" height="50" alt="Aleksandr Motin"></a> -->
                     <a href="/article">
                   		<svg class="ico-svg" viewBox="0 0 14 14" xmlns="http://www.w3.org/2000/svg" width="50px">
                         <g id="linkedin" data-size="14 14">
@@ -622,12 +450,8 @@ C1.857,11.244,7.368,14,7.368,14s5.503-2.754,7.025-7.445C15.726,1.758,12.793,0,10
               <div class="box-left">
                 <div class="avatar">
                   <div class"avatar-square">
-                    <!-- <a href="/motin/"><img src="https://www.boldprogressives.org/wp-content/uploads/2016/04/WEBSITE_325x325_JAYAPAL.png" width="50" height="50" alt="Aleksandr Motin"></a> -->
                     <a href="/article">
                   		<svg class="ico-svg" viewBox="0 0 14 14" xmlns="http://www.w3.org/2000/svg" width="50px">
-												<!-- <g id="instagram" data-size="14 14">
-													<path d="M12.3,12.2c-0.1,0.1-0.3,0.2-0.4,0.2H2.1c-0.2,0-0.3-0.1-0.4-0.2c-0.1-0.1-0.2-0.3-0.2-0.4V5.9h1.3 C2.7,6.3,2.7,6.7,2.7,7.1c0,1.2,0.4,2.1,1.3,3c0.9,0.8,1.9,1.2,3.1,1.2c0.8,0,1.5-0.2,2.2-0.6c0.7-0.4,1.2-0.9,1.6-1.5 c0.4-0.6,0.6-1.3,0.6-2.1c0-0.4-0.1-0.8-0.2-1.2h1.2v5.9C12.4,12,12.4,12.1,12.3,12.2z M9,8.9C8.4,9.4,7.8,9.7,7,9.7 c-0.8,0-1.4-0.3-2-0.8C4.5,8.4,4.2,7.7,4.2,7c0-0.7,0.3-1.4,0.8-1.9c0.5-0.5,1.2-0.8,2-0.8c0.8,0,1.4,0.3,2,0.8 C9.6,5.6,9.8,6.2,9.8,7C9.8,7.7,9.6,8.4,9,8.9z M12.2,4.1c-0.1,0.1-0.3,0.2-0.4,0.2h-1.6c-0.2,0-0.3-0.1-0.4-0.2S9.6,3.9,9.6,3.7 V2.2c0-0.2,0-0.3,0.2-0.4s0.3-0.2,0.4-0.2h1.6c0.2,0,0.3,0.1,0.4,0.2s0.2,0.3,0.2,0.4v1.5C12.4,3.9,12.4,4,12.2,4.1z M13.5,0.5 C13.1,0.2,12.7,0,12.2,0H1.8C1.3,0,0.9,0.2,0.5,0.5S0,1.3,0,1.8v10.4c0,0.5,0.2,0.9,0.5,1.3S1.3,14,1.8,14h10.4 c0.5,0,0.9-0.2,1.3-0.5s0.5-0.8,0.5-1.3V1.8C14,1.3,13.8,0.9,13.5,0.5z"/>
-												</g> -->
 											</svg>
 
                     </a>
@@ -641,9 +465,6 @@ C1.857,11.244,7.368,14,7.368,14s5.503-2.754,7.025-7.445C15.726,1.758,12.793,0,10
               <div class="box-right">
                 <ul class="list-number-awards">
                   <li>
-
-
-
 
                   </li>
                 </ul>
@@ -686,7 +507,7 @@ C1.857,11.244,7.368,14,7.368,14s5.503-2.754,7.025-7.445C15.726,1.758,12.793,0,10
               <figure class="rollover">
                 <a href="/sites/bullying-and-behavior">
                   <div class="box-photo">
-                    <img src="http://media.spokesman.com/photos/2017/04/13/_OF_CHARITY_WARMING_CENTER_3.JPG_t300.jpg?e7a81b14b0528d55ee1c0715630ad10d450eda8d" data-srcset="http://media.spokesman.com/photos/2017/04/13/_OF_CHARITY_WARMING_CENTER_3.JPG_t300.jpg?e7a81b14b0528d55ee1c0715630ad10d450eda8d 1x, http://media.spokesman.com/photos/2017/04/13/_OF_CHARITY_WARMING_CENTER_3.JPG_t300.jpg?e7a81b14b0528d55ee1c0715630ad10d450eda8d 2x" alt="Leviev Group" class="lazy lazy-loaded" srcset="http://media.spokesman.com/photos/2017/04/13/_OF_CHARITY_WARMING_CENTER_3.JPG_t300.jpg?e7a81b14b0528d55ee1c0715630ad10d450eda8d 1x, http://media.spokesman.com/photos/2017/04/13/_OF_CHARITY_WARMING_CENTER_3.JPG_t300.jpg?e7a81b14b0528d55ee1c0715630ad10d450eda8d 2x">
+                    <img class="b-lazy article_top_image" src="/static/images/kristian2.jpeg" data-src="/static/images/article_images/519.jpg" data-src-small="/static/images/article_images/519.jpg" data-src-medium="/static/images/article_images/519.jpg" alt="Greater campaign information required by bills" />
                   </div>
                 </a>
                 <div class="hover-item bottom">
@@ -703,10 +524,10 @@ C1.857,11.244,7.368,14,7.368,14s5.503-2.754,7.025-7.445C15.726,1.758,12.793,0,10
               </figure>
               <div class="box-info">
                 <div class="content">
-                  <div class="row">
+                  <div class="row title_row">
                     <h3><a href="/sites/bullying-and-behavior" class="">Greater campaign information required by bills</a></h3>
                   </div>
-                  <div class="row">
+                  <div class="row source_row">
 
                     by <strong>
 
@@ -714,7 +535,7 @@ C1.857,11.244,7.368,14,7.368,14s5.503-2.754,7.025-7.445C15.726,1.758,12.793,0,10
   </strong>
 
                   </div>
-                  <div class="row">
+                  <div class="row date_row">
                     January 12, 2018
                       in
                     <strong>
@@ -731,7 +552,7 @@ C1.857,11.244,7.368,14,7.368,14s5.503-2.754,7.025-7.445C15.726,1.758,12.793,0,10
               <figure class="rollover">
                 <a href="/sites/julie-bonnemoy">
                   <div class="box-photo">
-                    <img src="http://crosscut.com/wp-content/uploads/2017/06/McKnight_OlympiaCapitol_01-550x440.jpg" data-srcset="http://crosscut.com/wp-content/uploads/2017/06/McKnight_OlympiaCapitol_01-550x440.jpg 1x, http://crosscut.com/wp-content/uploads/2017/06/McKnight_OlympiaCapitol_01-550x440.jpg 2x" alt="Leviev Group" class="lazy lazy-loaded" srcset="http://crosscut.com/wp-content/uploads/2017/06/McKnight_OlympiaCapitol_01-550x440.jpg 1x, http://crosscut.com/wp-content/uploads/2017/06/McKnight_OlympiaCapitol_01-550x440.jpg 2x">
+                    <img class="b-lazy article_top_image" src="/static/images/kristian2.jpeg" data-src="/static/images/article_images/529.jpg" data-src-small="/static/images/article_images/529.jpg" data-src-medium="/static/images/article_images/529.jpg" alt="6 environmental issues to watch in Olympia" />
                   </div>
                 </a>
                 <div class="hover-item bottom">
@@ -748,10 +569,10 @@ C1.857,11.244,7.368,14,7.368,14s5.503-2.754,7.025-7.445C15.726,1.758,12.793,0,10
               </figure>
               <div class="box-info">
                 <div class="content">
-                  <div class="row">
+                  <div class="row title_row">
                     <h3><a href="/sites/julie-bonnemoy" class="">6 environmental issues to watch in Olympia</a></h3>
                   </div>
-                  <div class="row">
+                  <div class="row source_row">
 
                     by <strong>
 
@@ -759,7 +580,7 @@ C1.857,11.244,7.368,14,7.368,14s5.503-2.754,7.025-7.445C15.726,1.758,12.793,0,10
   </strong>
 
                   </div>
-                  <div class="row">
+                  <div class="row date_row">
                     January 17, 2018
                       in
                     <strong>
@@ -776,7 +597,7 @@ C1.857,11.244,7.368,14,7.368,14s5.503-2.754,7.025-7.445C15.726,1.758,12.793,0,10
               <figure class="rollover">
                 <a href="/sites/one-last-beat">
                   <div class="box-photo">
-                    <img src="http://www.king5.com/img/resize/content.king5.com/photo/2017/12/14/KING_Inslee_1513287821884_11945756_ver1.0.JPG?preset=mb_large" data-srcset="http://www.king5.com/img/resize/content.king5.com/photo/2017/12/14/KING_Inslee_1513287821884_11945756_ver1.0.JPG?preset=mb_large 1x, http://www.king5.com/img/resize/content.king5.com/photo/2017/12/14/KING_Inslee_1513287821884_11945756_ver1.0.JPG?preset=mb_large 2x" alt="Leviev Group" class="lazy lazy-loaded" srcset="http://www.king5.com/img/resize/content.king5.com/photo/2017/12/14/KING_Inslee_1513287821884_11945756_ver1.0.JPG?preset=mb_large 1x, http://www.king5.com/img/resize/content.king5.com/photo/2017/12/14/KING_Inslee_1513287821884_11945756_ver1.0.JPG?preset=mb_large 2x">
+                    <img class="b-lazy article_top_image" src="/static/images/kristian2.jpeg" data-src="/static/images/article_images/539.jpg" data-src-small="/static/images/article_images/539.jpg" data-src-medium="/static/images/article_images/539.jpg" alt="Gov. Inslee demands Trump administration not drill off Washington coast" />
                   </div>
                 </a>
                 <div class="hover-item bottom">
@@ -793,17 +614,17 @@ C1.857,11.244,7.368,14,7.368,14s5.503-2.754,7.025-7.445C15.726,1.758,12.793,0,10
               </figure>
               <div class="box-info">
                 <div class="content">
-                  <div class="row">
+                  <div class="row title_row">
                     <h3><a href="/sites/one-last-beat" class="">Gov. Inslee demands Trump administration not drill off Washington coast</a></h3>
                   </div>
-                  <div class="row">
+                  <div class="row source_row">
 
                     by <strong>
 
   <a href="/hector-monerris/">King 5</a>
   </strong>
                   </div>
-                  <div class="row">
+                  <div class="row date_row">
                     January 11, 2018
                       in
                     <strong>
@@ -820,7 +641,7 @@ C1.857,11.244,7.368,14,7.368,14s5.503-2.754,7.025-7.445C15.726,1.758,12.793,0,10
               <figure class="rollover">
                 <a href="/sites/studio-ouam">
                   <div class="box-photo">
-                    <img src="http://media.spokesman.com/photos/2017/08/25/_White_Coat_3_.JPG_v1170x658.jpg?4abb7fdbe387e89446e10d34382b74649e0da645" data-srcset="http://media.spokesman.com/photos/2017/08/25/_White_Coat_3_.JPG_v1170x658.jpg?4abb7fdbe387e89446e10d34382b74649e0da645 1x, http://media.spokesman.com/photos/2017/08/25/_White_Coat_3_.JPG_v1170x658.jpg?4abb7fdbe387e89446e10d34382b74649e0da645 2x" alt="Leviev Group" class="lazy lazy-loaded" srcset="http://media.spokesman.com/photos/2017/08/25/_White_Coat_3_.JPG_v1170x658.jpg?4abb7fdbe387e89446e10d34382b74649e0da645 1x, http://media.spokesman.com/photos/2017/08/25/_White_Coat_3_.JPG_v1170x658.jpg?4abb7fdbe387e89446e10d34382b74649e0da645 2x">
+                    <img class="b-lazy article_top_image" src="/static/images/kristian2.jpeg" data-src="/static/images/article_images/559.jpg" data-src-small="/static/images/article_images/559.jpg" data-src-medium="/static/images/article_images/559.jpg" alt="WSU medical school would have a say in residency programs" />
                   </div>
                 </a>
                 <div class="hover-item bottom">
@@ -837,10 +658,10 @@ C1.857,11.244,7.368,14,7.368,14s5.503-2.754,7.025-7.445C15.726,1.758,12.793,0,10
               </figure>
               <div class="box-info">
                 <div class="content">
-                  <div class="row">
+                  <div class="row title_row">
                     <h3><a href="/sites/studio-ouam" class="">WSU medical school would have a say in residency programs</a></h3>
                   </div>
-                  <div class="row">
+                  <div class="row source_row">
 
                     by <strong>
 
@@ -848,7 +669,7 @@ C1.857,11.244,7.368,14,7.368,14s5.503-2.754,7.025-7.445C15.726,1.758,12.793,0,10
   </strong>
 
                   </div>
-                  <div class="row">
+                  <div class="row date_row">
                     January 17, 2018
                       in
                     <strong>
@@ -856,85 +677,6 @@ C1.857,11.244,7.368,14,7.368,14s5.503-2.754,7.025-7.445C15.726,1.758,12.793,0,10
                     </strong>
                   </div>
                 </div>
-                <!-- <div class="footer">
-                  <div class="box-left">
-                    <div class="box-users-likes">
-                      <ul class="list-users">
-
-                        <li>
-                          <div class="item js-user" data-username="pamela-landers">
-                            <a href="/pamela-landers/">
-                  <img src="https://assets.awwwards.com/awards/media/cache/thumb_user_70/default/user5.jpg" data-src="https://assets.awwwards.com/awards/media/cache/thumb_user_70/default/user5.jpg" width="27" height="27" alt="pamela-landers" class="lazy lazy-loaded"></a>
-                          </div>
-                        </li>
-
-
-                        <li>
-                          <div class="item js-user" data-username="joseluishv">
-                            <a href="/joseluishv/">
-                  <img src="https://assets.awwwards.com/awards/media/cache/thumb_user_70/default/user4.jpg" data-src="https://assets.awwwards.com/awards/media/cache/thumb_user_70/default/user4.jpg" width="27" height="27" alt="joseluishv" class="lazy lazy-loaded"></a>
-                          </div>
-                        </li>
-
-
-                        <li>
-                          <div class="item js-user" data-username="eunbi-jang">
-                            <a href="/eunbi-jang/">
-                  <img src="https://assets.awwwards.com/awards/media/cache/thumb_user_70/default/user8.jpg" data-src="https://assets.awwwards.com/awards/media/cache/thumb_user_70/default/user8.jpg" width="27" height="27" alt="eunbi-jang" class="lazy lazy-loaded"></a>
-                          </div>
-                        </li>
-
-
-                        <li>
-                          <div class="item js-user" data-username="xoxocrystyle">
-                            <a href="/xoxocrystyle/">
-                  <img src="https://assets.awwwards.com/awards/media/cache/thumb_user_70/default/user8.jpg" data-src="https://assets.awwwards.com/awards/media/cache/thumb_user_70/default/user8.jpg" width="27" height="27" alt="xoxocrystyle" class="lazy lazy-loaded"></a>
-                          </div>
-                        </li>
-
-                      </ul>
-
-
-                      <div class="container-bt-circle">
-                        <div class="tooltip">
-                          <div class="bt-like js-collect">
-                            <svg viewBox="0 0 27 27" class="circle">
-                      <path d="M13.513 26.5C6.326 26.5.5 20.68.5 13.5S6.326.5 13.513.5c7.023 0 12.73 5.564 12.987 12.52"></path>
-                  </svg>
-                            <svg class="ico-svg" viewBox="0 0 15.646 14" xmlns="http://www.w3.org/2000/svg">
-      <use xlink:href="/bundles/tvweb/images/sprite-icons.svg#heart-2" xmlns:xlink="http://www.w3.org/1999/xlink"></use>
-  </svg>
-
-                            <div class="number">48</div>
-                          </div>
-                          <div class="box-tooltip">
-                            <div class="tooltip-text">Add to collections!</div>
-                          </div>
-                        </div>
-                      </div>
-
-
-                    </div>
-
-                  </div>
-                  <div class="box-right">
-                    <div class="bt-icon">
-                      <div class="tooltip">
-                        <div class="bt-info-site">
-                          <span class="bt-content style2">D</span>
-                          <svg width="16px" height="10.25px" viewBox="0 0 16 10.25">
-                                      <path fill="none" stroke-miterlimit="10" d="M16,0v10.25L8.338,6.164c-0.166-0.089-0.364-0.09-0.532-0.002 L0,10.257V0"></path>
-                                  </svg>
-                        </div>
-                        <div class="box-tooltip">
-                          <div class="tooltip-text">
-                            Developer Award
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                </div> -->
               </div>
             </div>
           </li>

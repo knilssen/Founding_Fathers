@@ -78,9 +78,12 @@ def main(article_id):
         real_text = article_text
         article_text = article_text.encode('utf-8')
         chunk_portion = len(article_text)/5000
+        pay_units = len(article_text)/100
         if len(article_text)%5000 != 0:
             chunk_portion += 1
         chunk_size = len(article_text)/chunk_portion
+        print "\n", pay_units, "Units at 0.0001 cents per run"
+        print "This run cost you: $" + str(pay_units * 0.0001), "\n"
         print('Chunking: Article length exceeds 5000 bytes')
         print('Chunk Amounts needed to fit within 5000 byte limit:', chunk_portion)
         print('Chunk size:', chunk_size)
@@ -90,9 +93,8 @@ def main(article_id):
         for x in range(0, chunk_portion):
             # chunks.append(article_text[(chunk_size*x): (chunk_size*(x+1))])
             print "start chunk:", (chunk_size*x), "end chunk:", (chunk_size*(x+1))
-            print "\n"
             chunk = article_text[(chunk_size*x): (chunk_size*(x+1))]
-
+            chunk = chunk.replace("\n\n", ". ")
 
             print('Calling DetectEntities on chunk:', x+1)
             returned_aws = comprehend.detect_entities(Text=chunk, LanguageCode='en')

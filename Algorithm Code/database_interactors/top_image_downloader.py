@@ -1,4 +1,4 @@
-import urllib
+import urllib2
 import sys
 import mysql.connector
 from mysql.connector import errorcode
@@ -31,10 +31,17 @@ def main(start_point):
         cursor.execute("SELECT id, top_image FROM cyp.News_articles")
         image_url = cursor.fetchall()
 
+        # Pretend to be a browser Window
+        opener = urllib2.build_opener()
+        opener.addheaders = [('User-Agent', 'Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/34.0.1847.137 Safari/537.36')]
+
         for image in image_url[(start_point-1):]:
             try:
-                # print image[1], str(image[0]) + ".jpg"
-                urllib.urlretrieve(image[1], "/Users/kristiannilssen/Documents/GitHub/Founding_Fathers/CYP/CYP/static/images/article_images/" + str(image[0]) + ".jpg")
+                response = opener.open(image[1])
+                htmlData = response.read()
+                f = open("/Users/kristiannilssen/Documents/GitHub/Founding_Fathers/CYP/CYP/static/images/article_images/" + str(image[0]) + ".jpg",'wb')
+                f.write(htmlData)
+                f.close()
             except:
                 print "Error on url:", image[1]
             print image[1]

@@ -1352,6 +1352,7 @@ p, blockquote, .p {
 .list-social {
     display: inline-block;
     text-align: center;
+    margin-top: 10px;
 }
 
 #footer:not(.new) .list-social .ico-svg {

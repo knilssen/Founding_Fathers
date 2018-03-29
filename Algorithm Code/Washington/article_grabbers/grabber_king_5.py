@@ -55,8 +55,13 @@ def main(current_time):
             dateTimeForm[0][1] = pub_date[5][:-1]
             dateTimeForm[0][2] = pub_date[6][:]
             # Time [Hour,Min,Sec]
+
+            # If the time is in the afternoon, convert it to 24 hour or military time
             if pub_date[2] == "PM":
-                pub_date[0] = str(int(pub_date[0]) + 12)
+                # If the time is anything with 12 pm then dont turn it into 24, that is incorrect. Keep it as it is :)
+                if pub_date[0] != "12":
+                    pub_date[0] = str(int(pub_date[0]) + 12)
+
             dateTimeForm[1][0] = pub_date[0][:]
             dateTimeForm[1][1] = pub_date[1][:]
             dateTimeForm[1][2] = articleTime[1][2][:]

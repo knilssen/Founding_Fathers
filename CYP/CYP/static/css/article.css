@@ -1023,15 +1023,6 @@ article, aside, details, figcaption, figure, footer, header, nav, section {
     background-color: #202121;
 }
 
-.box-information .header .box-left, .box-information .header .box-right {
-    display: -webkit-box;
-    display: -ms-flexbox;
-    display: flex;
-    -webkit-box-align: center;
-    -ms-flex-align: center;
-    align-items: center;
-}
-
 .bt-info {
     position: relative;
     display: inline-block;
@@ -1060,47 +1051,6 @@ article, aside, details, figcaption, figure, footer, header, nav, section {
     transition: background-color 0.3s ease-in-out;
 }
 
-.tooltip .box-tooltip {
-    visibility: hidden;
-    opacity: 0;
-    position: absolute;
-    bottom: 100%;
-    left: 50%;
-    margin-bottom: 8px;
-    -webkit-transform: translateY(-10px);
-    transform: translateY(-10px);
-    -webkit-transition: all 0.3s ease-in-out;
-    transition: all 0.3s ease-in-out;
-}
-
-.tooltip .tooltip-text {
-    position: relative;
-    top: 0;
-    left: -50%;
-    width: auto;
-    padding: 10px;
-    background-color: #49c5b6;
-    white-space: nowrap;
-    color: #fff;
-    font-size: 14px;
-    line-height: normal;
-    text-align: center;
-    z-index: 970;
-}
-
-.tooltip .tooltip-text:after {
-    content: '';
-    position: absolute;
-    top: 100%;
-    left: 50%;
-    height: 0;
-    width: 0;
-    margin-left: -6px;
-    border: solid transparent;
-    border-top-color: #49c5b6;
-    border-width: 8px 6px;
-}
-
 .list-users-votes>li {
     display: -webkit-box;
     display: -ms-flexbox;
@@ -1127,6 +1077,7 @@ article, aside, details, figcaption, figure, footer, header, nav, section {
     overflow: hidden;
     -webkit-transition: all 0.3s ease-in-out;
     transition: all 0.3s ease-in-out;
+    object-fit: cover;
 }
 
 .list-users-votes .info {
@@ -1481,6 +1432,7 @@ figure {
     overflow: hidden;
     /* width: 417px; */
     /* height: 298px; */
+    object-fit: cover;
 }
 
 .rollover img {
@@ -1712,4 +1664,17 @@ p, blockquote, .p {
 
 .box-page-info .h4, .box-page-info .h5, .box-page-info .h6, .box-page-info h4, .box-page-info h5, .box-page-info h6 {
     margin-bottom: 25px !important;
+}
+
+.b-lazy {
+  -webkit-transition: opacity 500ms ease-in-out;
+   -moz-transition: opacity 500ms ease-in-out;
+   -o-transition: opacity 500ms ease-in-out;
+   transition: opacity 500ms ease-in-out;
+   max-width: 100%;
+   opacity: 0;
+}
+
+.b-lazy.b-loaded {
+   opacity: 1;
 }

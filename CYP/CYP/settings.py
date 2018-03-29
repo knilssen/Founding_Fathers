@@ -25,8 +25,12 @@ SECRET_KEY = '1*ruinr)(2*yi-$hs7&#g+pk8@k7@#j&-5^7m3amxs&pf#u=qe'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = [u'192.168.0.14', u'127.0.0.1']
+ALLOWED_HOSTS = [u'192.168.0.14', u'127.0.0.1',u'172.31.98.191',u'172.31.99.244','172.20.10.2']
 
+# If True, the SecurityMiddleware redirects all non-HTTPS requests to HTTPS (except for those URLs matching a regular expression listed in SECURE_REDIRECT_EXEMPT).
+# SECURE_SSL_REDIRECT = True
+#
+# SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
 
 # Application definition
 
@@ -43,6 +47,7 @@ INSTALLED_APPS = [
 ]
 
 MIDDLEWARE = [
+    'django.middleware.gzip.GZipMiddleware',
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',

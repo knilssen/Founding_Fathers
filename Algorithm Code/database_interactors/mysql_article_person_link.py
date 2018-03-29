@@ -47,9 +47,9 @@ def main(article_id, article_people, article_total_count_mentions):
             # person = person.split()
             # print person
             mention_percentage = round((float(article_people[person])/float(article_total_count_mentions)), 4) * 100
-            lname = " ".join(person.split()[1:])
-            fname = person.split()[0]
-            # print fname, lname
+            lname = str(" ".join(person.split()[1:]))
+            fname = str(person.split()[0])
+            # print "First Name:", fname, "Last Name:", lname, "\n"
             cursor.execute(("SELECT id FROM News_people WHERE last_name = '%s' AND first_name = '%s'") % (lname, fname))
             data = cursor.fetchall()
             try:
