@@ -2,6 +2,20 @@ from __future__ import unicode_literals
 from django.db import models
 # Create your models here.
 
+class Found_Url(models.Model):
+    id = models.AutoField(primary_key=True)
+    url = models.URLField(max_length = 255)
+    title = models.CharField(max_length=255)
+    used = models.BooleanField(default=False)
+    source = models.CharField(null=True, max_length=255)
+    post_date = models.DateTimeField(null=True)
+    found_date = models.DateTimeField(null=True)
+    author = models.TextField(null=True)
+    keywords = models.CharField(max_length=255, blank=True)
+    summary = models.TextField(null=True)
+    text = models.TextField(null=True)
+    top_image = models.URLField(null=True, max_length = 500)
+
 class Articles(models.Model):
     id = models.AutoField(primary_key=True)
     url = models.URLField(max_length = 255)
@@ -24,6 +38,7 @@ class People(models.Model):
     person_id = models.CharField(max_length=45, null=True)
     party = models.CharField(max_length=45)
     role = models.CharField(max_length=45)
+    state = models.CharField(max_length=45)
     legislative_since = models.CharField(max_length=255, null=True)
     image = models.URLField(null=True)
     biography = models.CharField(max_length=45, null=True)
@@ -137,3 +152,4 @@ class Social_Media(models.Model):
     pinterest_pins = models.IntegerField(default=0, null=True)
     linkedin_shares = models.IntegerField(default=0, null=True)
     total_count = models.IntegerField(default=0, null=True)
+    last_updated = models.DateTimeField(null=True)

@@ -2,26 +2,13 @@
 {% load staticfiles %}
 <html lang="en">
 
-<header id="header">
-	<div class="header-content">
-		<ul class="header">
-			<li><a href=" {% url 'index' %}">CYP</a></li>
-			<li><a href="{% url 'recent_news' %}">Recent News</a></li>
-			<li><a href="{% url 'house' %}">House</a></li>
-			<li><a href="{% url 'senate' %}">Senate</a></li>
-			<li><a href=" {% url 'About' %}">About</a></li>
-		</ul>
-	</div>
-        <!-- <img src="{% static 'images/founding.jpg' %}" align="middle" style='max-height:150px;' alt="Logo" /> -->
-</header>
-
 <head>
 	<link rel="stylesheet" href="{% static 'css/header.css' %}" type="text/css">
 
 <!-- <img src="{% static 'images/ffLogo.png' %}" class="responsive-img" align="middle" style='max-height:150px;' alt="face"> -->
 	<meta charset="utf-8" />
 
-	<link rel="stylesheet" href="{% static '/css/bootstrap.min.css' %}" type = "text/css"/>
+	<!-- <link rel="stylesheet" href="{% static '/css/bootstrap.min.css' %}" type = "text/css"/> -->
      <!-- we could also use /static/css/bootstrap.min.css to hard code.
             The example above uses a varible with jinja.
             We could make the static directory local by adding another directory in the static folder
@@ -29,22 +16,273 @@
             -->
 
 	<meta name="viewport" content = "width=device-width, initial-scale=1.0">
-
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+	<!-- <script type="text/javascript" src="{% static '/js/grid_image_size.js' %}"></script> -->
 		<!-- <h1> Choose Your Politics </h1> -->
 
 
 </head>
 
-	<body>
-	<div class="container-fluid" style="padding:0px;">
+<body>
+	<div class="wrapper">
+		<nav class="nav-main" id="nav-main">
 
-			   {% block content %}
-			   {% endblock %}
+	    <div class="top">
+	        <div class="header">
+	            <div class="pull-left">
+	                <span class="link-1 bt-back js-nav-menu" data-menu-id="menu-lang" id="js-nav-menu"></span>
+	            </div>
+	            <div class="pull-right">
+	                <div class="bt-close js-close-menu" onclick="closeNav()">CLOSE</div>
+	            </div>
+	        </div>
+	        <ul class="menu" data-menu-name=" " data-menu_type="menu_main" data-menu-id="menu-lang" id="menu-main">
+	            <li id="register_login"><span class="item open_login" onclick="closeNav()">Register / Login</span></li>
+							<li id="home"><span onclick="delay('/')" class="item">Home</a></li>
+							<li id="map_view"><span onclick="delay('/')" class="item">Map View</a></li>
+							<li data-menu-id="menu-states" id="states_menu_selector"><span class="item">States</a></li>
+							<!-- <li id="menu_sources"><span onclick="delay('/sources')" class="item">Sources</a></li> -->
+							<li id="menu_sources"><span onclick="closeNav()" class="item">Sources</span></li>
+							<li id="recent_news"><span onclick="delay('/recent_news')" class="item">Recent News</span></li>
+
+	            <!-- <li><a href="/websites/" class="item">Winners</a></li> -->
+	            <!-- <li><a href="/nominees/" class="item">Nominees</a></li> -->
+	            <!-- <li><a href="/collections/" class="item">Collections</a></li> -->
+	            <!-- <li class="directory"><a href="/directory/" class="item" data-count="7">Professional directory</a></li> -->
+	            <!-- <li class="jobs"><a href="/jobs/" class="item" data-count="7">Jobs</a></li> -->
+	            <!-- <li><a href="/blog/" class="item">Magazine</a></li> -->
+	            <!-- <li><a href="/books/" class="item">eBooks &amp; Publications</a></li> -->
+	            <!-- <li><a href="/about-us/" class="item">About Us</a></li> -->
+	           	<!-- <li>
+	            	<a href="/conferences" class="item-photo">
+	              	Conferences 2018
+									<i class="first-top">Berlin / 7-9 February</i>
+	                <i>San Francisco / 10-11 May</i>
+	            	</a>
+	            </li> -->
+	        </ul>
+
+					<ul class="menu" data-menu-name="BACK" data-menu_type="menu_states" data-menu-id="menu-main" id="menu-states">
+						<!-- How to do one normally if the link is working   -->
+						<!-- <li><a href="#">English<span class="bt-check active"><span class="bt-content"></span></span></a></li> -->
+						<li id="Alabama"><span onclick="delay('/state/alabama')" class="item">Alabama <span class="soon">Soon!</span></span></li>
+						<li id="Alaska"><span onclick="delay('/state/alaska')" class="item">Alaska <span class="soon">Soon!</span></span></li>
+						<li id="Arizona"><span onclick="delay('/state/arizona')" class="item">Arizona <span class="soon">Soon!</span></span></li>
+						<li id="Arkansas"><span onclick="delay('/state/arkansas')" class="item">Arkansas <span class="soon">Soon!</span></span></li>
+						<li id="California"><span onclick="delay('/state/California')" class="item">California <span class="soon">Soon!</span></span></li>
+						<li id="Colorado"><span onclick="delay('/state/Colorado')" class="item">Colorado <span class="soon">Soon!</span></span></li>
+						<li id="Connecticut"><span onclick="delay('/state/Connecticut')" class="item">Connecticut <span class="soon">Soon!</span></span></li>
+						<li id="Delaware"><span onclick="delay('/state/Delaware')" class="item">Delaware <span class="soon">Soon!</span></span></li>
+						<li id="Florida"><span onclick="delay('/state/Florida')" class="item">Florida <span class="soon">Soon!</span></span></li>
+						<li id="Georgia"><span onclick="delay('/state/Georgia')" class="item">Georgia <span class="soon">Soon!</span></span></li>
+						<li id="Hawaii"><span onclick="delay('/state/Hawaii')" class="item">Hawaii <span class="soon">Soon!</span></span></li>
+						<li id="Idaho"><span onclick="delay('/state/Idaho')" class="item">Idaho <span class="soon">Soon!</span></span></li>
+						<li id="Illinois"><span onclick="delay('/state/Illinois')" class="item">Illinois <span class="soon">Soon!</span></span></li>
+						<li id="Indiana"><span onclick="delay('/state/Indiana')" class="item">Indiana <span class="soon">Soon!</span></span></li>
+						<li id="Iowa"><span onclick="delay('/state/Iowa')" class="item">Iowa <span class="soon">Soon!</span></span></li>
+						<li id="Kansas"><span onclick="delay('/state/Kansas')" class="item">Kansas <span class="soon">Soon!</span></span></li>
+						<li id="Kentucky"><span onclick="delay('/state/Kentucky')" class="item">Kentucky <span class="soon">Soon!</span></span></li>
+						<li id="Louisiana"><span onclick="delay('/state/Louisiana')" class="item">Louisiana <span class="soon">Soon!</span></span></li>
+						<li id="Maine"><span onclick="delay('/state/Maine')" class="item">Maine <span class="soon">Soon!</span></span></li>
+						<li id="Maryland"><span onclick="delay('/state/Maryland')" class="item">Maryland <span class="soon">Soon!</span></span></li>
+						<li id="Massachusetts"><span onclick="delay('/state/Massachusetts')" class="item">Massachusetts <span class="soon">Soon!</span></span></li>
+						<li id="Michigan"><span onclick="delay('/state/Michigan')" class="item">Michigan <span class="soon">Soon!</span></span></li>
+						<li id="Minnesota"><span onclick="delay('/state/Minnesota')" class="item">Minnesota <span class="soon">Soon!</span></span></li>
+						<li id="Mississippi"><span onclick="delay('/state/Mississippi')" class="item">Mississippi <span class="soon">Soon!</span></span></li>
+						<li id="Missouri"><span onclick="delay('/state/Missouri')" class="item">Missouri <span class="soon">Soon!</span></span></li>
+						<li id="Montana"><span onclick="delay('/state/Montana')" class="item">Montana <span class="soon">Soon!</span></span></li>
+						<li id="Nebraska"><span onclick="delay('/state/Nebraska')" class="item">Nebraska <span class="soon">Soon!</span></span></li>
+						<li id="Nevada"><span onclick="delay('/state/Nevada')" class="item">Nevada <span class="soon">Soon!</span></span></li>
+						<li id="New_Hampshire"><span onclick="delay('/state/New_Hampshire')" class="item">New Hampshire <span class="soon">Soon!</span></span></li>
+						<li id="New_Jersey"><span onclick="delay('/state/New_Jersey')" class="item">New Jersey <span class="soon">Soon!</span></span></li>
+						<li id="New_Mexico"><span onclick="delay('/state/New_Mexico')" class="item">New Mexico <span class="soon">Soon!</span></span></li>
+						<li id="New_York"><span onclick="delay('/state/New_York')" class="item">New York <span class="soon">Soon!</span></span></li>
+						<li id="North_Carolina"><span onclick="delay('/state/North_Carolina')" class="item">North Carolina <span class="soon">Soon!</span></span></li>
+						<li id="North_Dakota"><span onclick="delay('/state/North_Dakota')" class="item">North Dakota <span class="soon">Soon!</span></span></li>
+						<li id="Ohio"><span onclick="delay('/state/Ohio')" class="item">Ohio <span class="soon">Soon!</span></span></li>
+						<li id="Oklahoma"><span onclick="delay('/state/Oklahoma')" class="item">Oklahoma <span class="soon">Soon!</span></span></li>
+						<li id="Oregon"><span onclick="delay('/state/Oregon')" class="item">Oregon <span class="soon">Soon!</span></span></li>
+						<li id="Pennsylvania"><span onclick="delay('/state/Pennsylvania')" class="item">Pennsylvania <span class="soon">Soon!</span></span></li>
+						<li id="Rhode_Island"><span onclick="delay('/state/Rhode_Island')" class="item">Rhode Island <span class="soon">Soon!</span></span></li>
+						<li id="South_Carolina"><span onclick="delay('/state/South_Carolina')" class="item">South Carolina <span class="soon">Soon!</span></span></li>
+						<li id="South_Dakota"><span onclick="delay('/state/South_Dakota')" class="item">South Dakota <span class="soon">Soon!</span></span></li>
+						<li id="Tennessee"><span onclick="delay('/state/Tennessee')" class="item">Tennessee <span class="soon">Soon!</span></span></li>
+						<li id="Texas"><span onclick="delay('/state/Texas')" class="item">Texas <span class="soon">Soon!</span></span></li>
+						<li id="Utah"><span onclick="delay('/state/Utah')" class="item">Utah <span class="soon">Soon!</span></span></li>
+						<li id="Vermont"><span onclick="delay('/state/Vermont')" class="item">Vermont <span class="soon">Soon!</span></span></li>
+						<li id="Virginia"><span onclick="delay('/state/Virginia')" class="item">Virginia <span class="soon">Soon!</span></span></li>
+						<li id="Washington"><span onclick="delay('/state/Washington')" class="item">Washington </span></li>
+						<li id="West_Virginia"><span onclick="delay('/state/West_Virginia')" class="item">West Virginia <span class="soon">Soon!</span></span></li>
+						<li id="Wisconsin"><span onclick="delay('/state/Wisconsin')" class="item">Wisconsin <span class="soon">Soon!</span></span></li>
+						<li id="Wyoming"><span onclick="delay('/state/Wyoming')" class="item">Wyoming <span class="soon">Soon!</span></span></li>
+
+
+        </ul>
+
+
+	    </div>
+
+	    <div class="box-bottom">
+	        <div class="box-version">
+	            <span class="box-version-text">A Site by Founding Fathers</span>
+						<br></br>
+							<span class="box-version-text">Kristian Nilssen</span>
+	            <!-- <div class="input-check-toggle check-small ">
+	                <input id="version-color" type="checkbox" class="js-dark">
+	                <label for="version-color">
+	                    <div class="ball"></div>
+	                </label>
+	            </div> -->
+	        </div>
+	    </div>
+		</nav>
+
+
+
+
+		<header id="header">
+			<div class="header-main">
+
+				<div class="box-left">
+					<!-- <div class="item bt-menu js-nav-main" data-menu-id="menu-main" onclick="openNav()"> -->
+					<div class="item bt-menu js-nav-main" data-menu-id="menu-main" id="js-nav-main">
+          	<div class="ico-menu">
+            	<div class="bar"></div>
+              <div class="bar"></div>
+              <div class="bar"></div>
+            </div>
+            <span>MENU</span>
+        	</div>
+				</div>
+
+				<div class="box-right">
+          <div class="item bt-search" id="js-search-container">
+          	<span id="location-path"></span>
+						<div class="has-mobile" id="phone-nav">
+							<svg xmlns="http://www.w3.org/2000/svg" data-name="Layer 1" viewBox="0 0 100 125" x="0px" y="0px" style="height: 38px; vertical-align: middle;">
+								<g data-name="Group">
+									<polygon data-name="Path" points="47 21.3 47 37 40 37 40 43 47 43 47 78.7 53 78.7 53 43 60 43 60 37 53 37 53 21.3 47 21.3"/>
+									<polygon data-name="Path" points="71 21.3 71 57 64 57 64 63 71 63 71 78.7 77 78.7 77 63 84 63 84 57 77 57 77 21.3 71 21.3"/>
+									<polygon data-name="Path" points="23 21.3 23 57 16 57 16 63 23 63 23 78.7 29 78.7 29 63 36 63 36 57 29 57 29 21.3 23 21.3"/>
+								</g>
+							</svg>
+					</div>
+          </div>
+          <div class="item login">
+      			<span>ARE YOU A MEMBER?</span>
+						<strong>
+							<a class="open_login" href="/">Register / log in</a>
+						</strong>
+  				</div>
+          <div class="item" id="bt-submit">
+          	<a href="/" class="button button-large">
+            	<span>FIND YOUR POLITICS!</span>
+            </a>
+            <div class="bt-gotop">
+            	<svg class="ico-svg" viewBox="0 0 14 14" xmlns="http://www.w3.org/2000/svg">
+								<g id="gotop" data-size="14 14">
+									<path d="M11.3,0L8.7,3.5h1.8v8.8H1.7V1.7H7c0.5,0,0.8-0.4,0.8-0.8C7.8,0.4,7.4,0,7,0H0.8C0.4,0,0,0.4,0,0.8v12.3 C0,13.6,0.4,14,0.8,14h10.5c0.5,0,0.8-0.4,0.8-0.8V3.5H14L11.3,0z M3.8,5.3H8.4v1.2H3.8V5.3z M3.8,8H8.4v1.2H3.8V8zz"/>
+								</g>
+							</svg>
+
+            </div>
+          </div>
+      	</div>
+
+				<div class="logo-header">
+					<div class="logo-header">
+            <a href="/">
+							<svg width="90px" height="22px" viewBox="0 0 90 22">
+								<text xml:space="preserve" text-anchor="start" font-family="Helvetica, Arial, sans-serif" font-size="24" id="svg_1" y="19.49908" x="0.99761" stroke-width="1.6" stroke="#000" fill="#000000" font-weight="normal">C  Y  P</text>
+								<path d="m84.07354,1.27644c1.853,0 3.328,1.497 3.328,3.383c0,1.896 -1.476,3.384 -3.328,3.384c-1.819,0 -3.287,-1.487 -3.287,-3.384c0,-1.884 1.468,-3.383 3.287,-3.383zm0,6.374c1.644,0 2.906,-1.299 2.906,-2.988c0,-1.683 -1.263,-2.989 -2.906,-2.989c-1.616,0 -2.87,1.31 -2.87,2.989c0,1.691 1.256,2.988 2.87,2.988zm-1.08,-4.857l1.24,0c0.632,0 1.085,0.432 1.085,1.085c0,0.551 -0.332,0.905 -0.72,0.999l0,0.018c0,0 0.033,0.049 0.124,0.207l0.738,1.43l-0.459,0l-0.794,-1.562l-0.805,0l0,1.562l-0.406,0l-0.003,-3.739l0,0zm1.194,1.82c0.43,0 0.71,-0.276 0.71,-0.736c0,-0.447 -0.28,-0.713 -0.71,-0.713l-0.785,0l0,1.449l0.785,0z" class="logo-fill" id="register"/>
+                </svg>
+            </a>
+        	</div>
+				</div>
+
+				<div class="box-search" id="box-search"></div>
 			</div>
-		  </div>
-		</div>
+		</header>
+
+
+
+
+		{% block content %}
+ 		{% endblock %}
+
+
+		<footer id="footer">
+    	<div class="inner">
+        <div class="box-top">
+          <div class="box-left">
+          	<h2 class="headline slogan not-mobile">The place for knowledgeable, informed and educated Voters</h2>
+            	<ul class="menu-footer">
+
+	              <li class="directory not-mobile"><a data-count="16">Sources</a></li>
+	              <li class="jobs not-mobile"><a href="/" data-count="2">States</a></li>
+	              <li><a >Contact Us</a></li>
+	              <li><a >Mission Statement</a></li>
+	              <li><a >Ranking Algorithm</a></li>
+          		</ul>
+      					<!-- <p style="margin-top: 25px">Private Cloud by <strong><a href="http://www.stackscale.com/" target="_blank" rel="noopener nofollow">Stackscale</a></strong></p> -->
+                <ul class="list-social">
+                	<li>
+        						<!-- <a href="https://www.instagram.com/awwwards/"> -->
+										<a>
+                  		<svg class="ico-svg" viewBox="0 0 14 14" xmlns="http://www.w3.org/2000/svg">
+												<g id="instagram" data-size="14 14">
+													<path d="M12.3,12.2c-0.1,0.1-0.3,0.2-0.4,0.2H2.1c-0.2,0-0.3-0.1-0.4-0.2c-0.1-0.1-0.2-0.3-0.2-0.4V5.9h1.3 C2.7,6.3,2.7,6.7,2.7,7.1c0,1.2,0.4,2.1,1.3,3c0.9,0.8,1.9,1.2,3.1,1.2c0.8,0,1.5-0.2,2.2-0.6c0.7-0.4,1.2-0.9,1.6-1.5 c0.4-0.6,0.6-1.3,0.6-2.1c0-0.4-0.1-0.8-0.2-1.2h1.2v5.9C12.4,12,12.4,12.1,12.3,12.2z M9,8.9C8.4,9.4,7.8,9.7,7,9.7 c-0.8,0-1.4-0.3-2-0.8C4.5,8.4,4.2,7.7,4.2,7c0-0.7,0.3-1.4,0.8-1.9c0.5-0.5,1.2-0.8,2-0.8c0.8,0,1.4,0.3,2,0.8 C9.6,5.6,9.8,6.2,9.8,7C9.8,7.7,9.6,8.4,9,8.9z M12.2,4.1c-0.1,0.1-0.3,0.2-0.4,0.2h-1.6c-0.2,0-0.3-0.1-0.4-0.2S9.6,3.9,9.6,3.7 V2.2c0-0.2,0-0.3,0.2-0.4s0.3-0.2,0.4-0.2h1.6c0.2,0,0.3,0.1,0.4,0.2s0.2,0.3,0.2,0.4v1.5C12.4,3.9,12.4,4,12.2,4.1z M13.5,0.5 C13.1,0.2,12.7,0,12.2,0H1.8C1.3,0,0.9,0.2,0.5,0.5S0,1.3,0,1.8v10.4c0,0.5,0.2,0.9,0.5,1.3S1.3,14,1.8,14h10.4 c0.5,0,0.9-0.2,1.3-0.5s0.5-0.8,0.5-1.3V1.8C14,1.3,13.8,0.9,13.5,0.5z"/>
+												</g>
+											</svg>
+
+                    </a>
+                  </li>
+                  <li>
+                  	<!-- <a href="https://twitter.com/awwwards"> -->
+										<a >
+                    	<svg class="ico-svg" viewBox="0 0 17 14" xmlns="http://www.w3.org/2000/svg">
+												<g id="twitter" data-size="17 14">
+													<path d="M15,2.2c0.8-0.5,1.3-1.1,1.5-2c-0.7,0.4-1.4,0.7-2.2,0.8C13.6,0.4,12.8,0,11.8,0S10,0.3,9.3,1 c-0.7,0.7-1,1.5-1,2.5c0,0.3,0,0.5,0.1,0.8C7,4.3,5.6,3.9,4.3,3.3C3.1,2.6,2,1.7,1.2,0.6C0.9,1.2,0.7,1.8,0.7,2.4 c0,0.6,0.1,1.1,0.4,1.7C1.4,4.6,1.8,5,2.3,5.4c-0.6,0-1.1-0.2-1.6-0.4v0c0,0.8,0.3,1.6,0.8,2.3c0.5,0.6,1.2,1,2,1.2 C3.2,8.5,2.9,8.6,2.6,8.6c-0.2,0-0.4,0-0.7-0.1c0.2,0.7,0.6,1.3,1.2,1.8s1.3,0.7,2,0.7c-1.3,1-2.7,1.5-4.3,1.5c-0.3,0-0.6,0-0.8-0.1 C1.6,13.5,3.4,14,5.4,14c1.2,0,2.4-0.2,3.5-0.6c1.1-0.4,2-0.9,2.8-1.6c0.8-0.7,1.4-1.5,2-2.3c0.6-0.8,1-1.8,1.2-2.7 c0.3-0.9,0.4-1.9,0.4-2.8c0-0.2,0-0.3,0-0.5C15.9,3,16.5,2.4,17,1.7C16.3,1.9,15.7,2.1,15,2.2z"/>
+												</g>
+											</svg>
+
+                  	</a>
+            			</li>
+                	<li>
+                  	<!-- <a href="https://www.facebook.com/awwwards/"> -->
+										<a >
+                  		<svg class="ico-svg" viewBox="0 0 6.5 14" xmlns="http://www.w3.org/2000/svg">
+												<g id="facebook" data-size="6.5 14">
+													<path d="M4.3,3.4c0-0.2,0-0.3,0-0.4c0-0.1,0.1-0.2,0.1-0.3c0.1-0.1,0.1-0.1,0.3-0.2c0.1-0.1,0.3-0.1,0.5-0.1h1.2V0	H4.5C3.5,0,2.7,0.2,2.2,0.8C1.7,1.3,1.4,2.1,1.4,3.1v1.5H0V7h1.4v7h2.9V7h1.9l0.3-2.4H4.3V3.4z"/>
+												</g>
+											</svg>
+
+                		</a>
+                  </li>
+  						</ul>
+  				</div>
+  				<div class="box-right">
+          	<div class="headline">
+            	Next to be Supported
+							<svg class="ico-svg" viewBox="0 0 14 14" xmlns="http://www.w3.org/2000/svg">
+								<g id="calendar" data-size="14 14">
+		<path d="M12.857,1.413h-1.68V0h-1.4v1.413h-5.6V0h-1.4v1.413H1.12C0.501,1.413,0,1.915,0,2.533V12.88 C0,13.498,0.501,14,1.12,14h11.737c0.619,0,1.121-0.502,1.121-1.12V2.533C13.978,1.915,13.476,1.413,12.857,1.413z M12.578,12.6 h-11.2v-7h11.2V12.6z M12.578,4.2h-11.2V2.8h11.2V4.2z M6.417,7h1.4v1.4h-1.4V7z M9.216,7h1.4v1.4h-1.4V7z M6.417,9.8h1.4v1.4h-1.4 V9.8z M3.617,9.8h1.4v1.4h-1.4V9.8z"></path>
+	</g>
+							</svg>
+
+              Oregon and California
+      			</div>
+      		</div>
+				</div>
+    	</div>
+		</footer>
+
+
+		<div id="overlay" onclick="closeNav()"></div>
 	</div>
 
+
+	<script type="text/javascript" src="{% static '/js/cyp.js' %}"></script>
 
 
 </body>

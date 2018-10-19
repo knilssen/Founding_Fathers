@@ -1,0 +1,1039 @@
+{% extends "CYP/header.html" %}
+{% load staticfiles %}
+
+{% block content %}
+
+<!-- <link rel="stylesheet" href="{% static 'css/article.css' %}" type="text/css"> -->
+<!-- <link rel="stylesheet" href="{% static 'css/recent_news.css' %}" type="text/css"> -->
+<link rel="stylesheet" href="{% static 'css/state.css' %}" type="text/css">
+<script src="/static/js/blazy.js"></script>
+
+<head>
+
+  <title>{{state_info.state_name}} State - CYP</title>
+
+</head>
+<body class="filters">
+
+
+  <div class="box-filters fixed seo has-tablet" id="box-filters-fixed">
+    <div class="bt-menu has-mobile js-mobilefilters">
+      <svg class="ico-svg" viewBox="0 0 12.344 14" xmlns="http://www.w3.org/2000/svg">
+        <g id="filter" data-size="12.344 14">
+      		<path d="M12.344,3.156C12.344,1.356,9.689,0,6.172,0C2.653,0,0,1.356,0,3.156C0,3.748,0.291,4.29,0.801,4.753 l4.197,5.645V14h2.458v-3.666l4.098-5.591C12.057,4.282,12.344,3.743,12.344,3.156 M6.172,1.513c2.801,0,4.658,0.989,4.658,1.644 C10.83,3.81,8.973,4.8,6.172,4.8c-2.8,0-4.659-0.99-4.659-1.644C1.513,2.502,3.372,1.513,6.172,1.513"/>
+      	</g>
+      </svg>
+
+    </div>
+    <div class="container">
+      <div class="box-left">
+        <ul id="article_filters" class="menu-filters active">
+
+          <li class="item item-text not-hover">
+            <strong><span id="current_filter_tag">Article Filters</span></strong>
+          </li>
+          <li class="item dropdown">
+            <span class="name-filter">Source</span>
+            <div class="menu-dropdown style2">
+              <ul>
+                <li><strong><a id='congressionial_districts' href="#" data-count="133th">Congressional Districts</a></strong></li>
+                <li><strong><a href="#" data-count="Soon">Legislative Districts</a></strong></li>
+                <li><strong><a id='counties-map' href="#" data-count="">Counties</a></strong></li>
+                <li><strong><a id='state-maps' href="#" data-count="">States</a></strong></li>
+              </ul>
+            </div>
+          </li>
+          <li class="item dropdown">
+            <span class="name-filter">Filters</span>
+            <div class="menu-dropdown">
+              <ul>
+                <li><strong><a href="#"  data-count="Soon">2016 Presidential Election</a></strong></li>
+                <li><strong><a href="#"  data-count="Soon">Legalized Marijuana</a></strong></li>
+                <li><strong><a href="#" data-count="Soon">Medical Marijuana</a></strong></li>
+                <li><strong><a href="#" data-count="Soon">Federal Funding</a></strong></li>
+                <li><strong><a href="#" data-count="TBD">TBD</a></strong></li>
+                <li><strong><a href="#" data-count="TBD">TBD</a></strong></li>
+                <li><strong><a href="#" data-count="TBD">TBD</a></strong></li>
+                <li><strong><a href="#" data-count="TBD">TBD</a></strong></li>
+                <li><strong><a href="#" data-count="TBD">TBD</a></strong></li>
+                <li><strong><a href="#" data-count="TBD">TBD</a></strong></li>
+                <li><strong><a href="#" data-count="TBD">TBD</a></strong></li>
+                <li><strong><a href="#" data-count="TBD">TBD</a></strong></li>
+                <li><strong><a href="#" data-count="TBD">TBD</a></strong></li>
+                <li><strong><a href="#" data-count="TBD">TBD</a></strong></li>
+                <li><strong><a href="#" data-count="TBD">TBD</a></strong></li>
+                <li><strong><a href="#" data-count="TBD">TBD</a></strong></li>
+                <li><strong><a href="#" data-count="TBD">TBD</a></strong></li>
+                <li><strong><a href="#" data-count="TBD">TBD</a></strong></li>
+              </ul>
+            </div>
+          </li>
+          <li class="item dropdown">
+            <span class="name-filter">Data</span>
+            <div class="menu-dropdown">
+              <ul>
+                <li><strong><a href="#" data-count="16">Sources</a></strong></li>
+                <li><strong><a href="#" data-count="TBD">TBD</a></strong></li>
+                <li><strong><a href="#" data-count="TBD">TBD</a></strong></li>
+                <li><strong><a href="#" data-count="TBD">TBD</a></strong></li>
+                <li><strong><a href="#" data-count="TBD">TBD</a></strong></li>
+                <li><strong><a href="#" data-count="TBD">TBD</a></strong></li>
+                <li><strong><a href="#" data-count="TBD">TBD</a></strong></li>
+                <li><strong><a href="#" data-count="TBD">TBD</a></strong></li>
+                <li><strong><a href="#" data-count="TBD">TBD</a></strong></li>
+                <li><strong><a href="#" data-count="TBD">TBD</a></strong></li>
+                <li><strong><a href="#" data-count="TBD">TBD</a></strong></li>
+                <li><strong><a href="#" data-count="TBD">TBD</a></strong></li>
+                <li><strong><a href="#" data-count="TBD">TBD</a></strong></li>
+                <li><strong><a href="#" data-count="TBD">TBD</a></strong></li>
+                <li><strong><a href="#" data-count="TBD">TBD</a></strong></li>
+                <li><strong><a href="#" data-count="TBD">TBD</a></strong></li>
+                <li><strong><a href="#" data-count="TBD">TBD</a></strong></li>
+                <li><strong><a href="#" data-count="TBD">TBD</a></strong></li>
+                <li><strong><a href="#" data-count="TBD">TBD</a></strong></li>
+                <li><strong><a href="#" data-count="TBD">TBD</a></strong></li>
+                <li><strong><a href="#" data-count="TBD">TBD</a></strong></li>
+                <li><strong><a href="#" data-count="TBD">TBD</a></strong></li>
+                <li><strong><a href="#" data-count="TBD">TBD</a></strong></li>
+              </ul>
+            </div>
+          </li>
+          <li class="item dropdown ">
+            <span class="name-filter">Map Features</span>
+            <div class="menu-dropdown">
+              <ul>
+                <li><strong><a href="#" data-count="Soon">Capitols</a></strong></li>
+                <li><strong><a href="#" data-count="Soon">Major Cities</a></strong></li>
+                <li><strong><a href="#" data-count="Soon">Population</a></strong></li>
+                <li><strong><a href="#" data-count="TBD">TBD</a></strong></li>
+                <li><strong><a href="#" data-count="TBD">TBD</a></strong></li>
+                <li><strong><a href="#" data-count="TBD">TBD</a></strong></li>
+                <li><strong><a href="#" data-count="TBD">TBD</a></strong></li>
+                <li><strong><a href="#" data-count="TBD">TBD</a></strong></li>
+                <li><strong><a href="#" data-count="TBD">TBD</a></strong></li>
+                <li><strong><a href="#" data-count="TBD">TBD</a></strong></li>
+                <li><strong><a href="#" data-count="TBD">TBD</a></strong></li>
+              </ul>
+            </div>
+          </li>
+          <li class="item dropdown ">
+            <span class="name-filter">Blank</span>
+            <div class="menu-dropdown">
+              <ul>
+                <li><strong><a href="#" data-count="TBD">TBD</a></strong></li>
+                <li><strong><a href="#" data-count="TBD">TBD</a></strong></li>
+                <li><strong><a href="#" data-count="TBD">TBD</a></strong></li>
+                <li><strong><a href="#" data-count="TBD">TBD</a></strong></li>
+                <li><strong><a href="#" data-count="TBD">TBD</a></strong></li>
+                <li><strong><a href="#" data-count="TBD">TBD</a></strong></li>
+                <li><strong><a href="#" data-count="TBD">TBD</a></strong></li>
+                <li><strong><a href="#" data-count="TBD">TBD</a></strong></li>
+                <li><strong><a href="#" data-count="TBD">TBD</a></strong></li>
+                <li><strong><a href="#" data-count="TBD">TBD</a></strong></li>
+                <li><strong><a href="#" data-count="TBD">TBD</a></strong></li>
+                <li><strong><a href="#" data-count="TBD">TBD</a></strong></li>
+                <li><strong><a href="#" data-count="TBD">TBD</a></strong></li>
+                <li><strong><a href="#" data-count="TBD">TBD</a></strong></li>
+                <li><strong><a href="#" data-count="TBD">TBD</a></strong></li>
+                <li><strong><a href="#" data-count="TBD">TBD</a></strong></li>
+                <li><strong><a href="#" data-count="TBD">TBD</a></strong></li>
+                <li><strong><a href="#" data-count="TBD">TBD</a></strong></li>
+                <li><strong><a href="#" data-count="TBD">TBD</a></strong></li>
+                <li><strong><a href="#" data-count="TBD">TBD</a></strong></li>
+                <li><strong><a href="#" data-count="TBD">TBD</a></strong></li>
+                <li><strong><a href="#" data-count="TBD">TBD</a></strong></li>
+                <li><strong><a href="#" data-count="TBD">TBD</a></strong></li>
+                <li><strong><a href="#" data-count="TBD">TBD</a></strong></li>
+                <li><strong><a href="#" data-count="TBD">TBD</a></strong></li>
+                <li><strong><a href="#" data-count="TBD">TBD</a></strong></li>
+                <li><strong><a href="#" data-count="TBD">TBD</a></strong></li>
+                <li><strong><a href="#" data-count="TBD">TBD</a></strong></li>
+                <li><strong><a href="#" data-count="TBD">TBD</a></strong></li>
+                <li><strong><a href="#" data-count="TBD">TBD</a></strong></li>
+                <li><strong><a href="#" data-count="TBD">TBD</a></strong></li>
+                <li><strong><a href="#" data-count="TBD">TBD</a></strong></li>
+                <li><strong><a href="#" data-count="TBD">TBD</a></strong></li>
+                <li><strong><a href="#" data-count="TBD">TBD</a></strong></li>
+                <li><strong><a href="#" data-count="TBD">TBD</a></strong></li>
+                <li><strong><a href="#" data-count="TBD">TBD</a></strong></li>
+              </ul>
+            </div>
+          </li>
+
+        </ul>
+
+
+
+        <ul id="represenative_filters" class="menu-filters">
+
+          <li class="item item-text not-hover">
+            <strong><span id="current_filter_tag">Representative Filters</span></strong>
+          </li>
+          <li class="item dropdown">
+            <span class="name-filter">Party</span>
+            <div class="menu-dropdown style2">
+              <ul>
+                <li><strong><a id='congressionial_districts' href="#" data-count="133th">Congressional Districts</a></strong></li>
+                <li><strong><a href="#" data-count="Soon">Legislative Districts</a></strong></li>
+                <li><strong><a id='counties-map' href="#" data-count="">Counties</a></strong></li>
+                <li><strong><a id='state-maps' href="#" data-count="">States</a></strong></li>
+              </ul>
+            </div>
+          </li>
+          <li class="item dropdown">
+            <span class="name-filter">Branch</span>
+            <div class="menu-dropdown">
+              <ul>
+                <li><strong><a href="#"  data-count="Soon">2016 Presidential Election</a></strong></li>
+                <li><strong><a href="#"  data-count="Soon">Legalized Marijuana</a></strong></li>
+                <li><strong><a href="#" data-count="Soon">Medical Marijuana</a></strong></li>
+                <li><strong><a href="#" data-count="Soon">Federal Funding</a></strong></li>
+                <li><strong><a href="#" data-count="TBD">TBD</a></strong></li>
+                <li><strong><a href="#" data-count="TBD">TBD</a></strong></li>
+                <li><strong><a href="#" data-count="TBD">TBD</a></strong></li>
+                <li><strong><a href="#" data-count="TBD">TBD</a></strong></li>
+                <li><strong><a href="#" data-count="TBD">TBD</a></strong></li>
+                <li><strong><a href="#" data-count="TBD">TBD</a></strong></li>
+                <li><strong><a href="#" data-count="TBD">TBD</a></strong></li>
+                <li><strong><a href="#" data-count="TBD">TBD</a></strong></li>
+                <li><strong><a href="#" data-count="TBD">TBD</a></strong></li>
+                <li><strong><a href="#" data-count="TBD">TBD</a></strong></li>
+                <li><strong><a href="#" data-count="TBD">TBD</a></strong></li>
+                <li><strong><a href="#" data-count="TBD">TBD</a></strong></li>
+                <li><strong><a href="#" data-count="TBD">TBD</a></strong></li>
+                <li><strong><a href="#" data-count="TBD">TBD</a></strong></li>
+              </ul>
+            </div>
+          </li>
+          <li class="item dropdown">
+            <span class="name-filter">District</span>
+            <div class="menu-dropdown">
+              <ul>
+                <li><strong><a href="#" data-count="16">Sources</a></strong></li>
+                <li><strong><a href="#" data-count="TBD">TBD</a></strong></li>
+                <li><strong><a href="#" data-count="TBD">TBD</a></strong></li>
+                <li><strong><a href="#" data-count="TBD">TBD</a></strong></li>
+                <li><strong><a href="#" data-count="TBD">TBD</a></strong></li>
+                <li><strong><a href="#" data-count="TBD">TBD</a></strong></li>
+                <li><strong><a href="#" data-count="TBD">TBD</a></strong></li>
+                <li><strong><a href="#" data-count="TBD">TBD</a></strong></li>
+                <li><strong><a href="#" data-count="TBD">TBD</a></strong></li>
+                <li><strong><a href="#" data-count="TBD">TBD</a></strong></li>
+                <li><strong><a href="#" data-count="TBD">TBD</a></strong></li>
+                <li><strong><a href="#" data-count="TBD">TBD</a></strong></li>
+                <li><strong><a href="#" data-count="TBD">TBD</a></strong></li>
+                <li><strong><a href="#" data-count="TBD">TBD</a></strong></li>
+                <li><strong><a href="#" data-count="TBD">TBD</a></strong></li>
+                <li><strong><a href="#" data-count="TBD">TBD</a></strong></li>
+                <li><strong><a href="#" data-count="TBD">TBD</a></strong></li>
+                <li><strong><a href="#" data-count="TBD">TBD</a></strong></li>
+                <li><strong><a href="#" data-count="TBD">TBD</a></strong></li>
+                <li><strong><a href="#" data-count="TBD">TBD</a></strong></li>
+                <li><strong><a href="#" data-count="TBD">TBD</a></strong></li>
+                <li><strong><a href="#" data-count="TBD">TBD</a></strong></li>
+                <li><strong><a href="#" data-count="TBD">TBD</a></strong></li>
+              </ul>
+            </div>
+          </li>
+          <li class="item dropdown ">
+            <span class="name-filter">Voting Record</span>
+            <div class="menu-dropdown">
+              <ul>
+                <li><strong><a href="#" data-count="Soon">Capitols</a></strong></li>
+                <li><strong><a href="#" data-count="Soon">Major Cities</a></strong></li>
+                <li><strong><a href="#" data-count="Soon">Population</a></strong></li>
+                <li><strong><a href="#" data-count="TBD">TBD</a></strong></li>
+                <li><strong><a href="#" data-count="TBD">TBD</a></strong></li>
+                <li><strong><a href="#" data-count="TBD">TBD</a></strong></li>
+                <li><strong><a href="#" data-count="TBD">TBD</a></strong></li>
+                <li><strong><a href="#" data-count="TBD">TBD</a></strong></li>
+                <li><strong><a href="#" data-count="TBD">TBD</a></strong></li>
+                <li><strong><a href="#" data-count="TBD">TBD</a></strong></li>
+                <li><strong><a href="#" data-count="TBD">TBD</a></strong></li>
+              </ul>
+            </div>
+          </li>
+          <li class="item dropdown ">
+            <span class="name-filter">Other</span>
+            <div class="menu-dropdown">
+              <ul>
+                <li><strong><a href="#" data-count="TBD">TBD</a></strong></li>
+                <li><strong><a href="#" data-count="TBD">TBD</a></strong></li>
+                <li><strong><a href="#" data-count="TBD">TBD</a></strong></li>
+                <li><strong><a href="#" data-count="TBD">TBD</a></strong></li>
+                <li><strong><a href="#" data-count="TBD">TBD</a></strong></li>
+                <li><strong><a href="#" data-count="TBD">TBD</a></strong></li>
+                <li><strong><a href="#" data-count="TBD">TBD</a></strong></li>
+                <li><strong><a href="#" data-count="TBD">TBD</a></strong></li>
+                <li><strong><a href="#" data-count="TBD">TBD</a></strong></li>
+                <li><strong><a href="#" data-count="TBD">TBD</a></strong></li>
+                <li><strong><a href="#" data-count="TBD">TBD</a></strong></li>
+                <li><strong><a href="#" data-count="TBD">TBD</a></strong></li>
+                <li><strong><a href="#" data-count="TBD">TBD</a></strong></li>
+                <li><strong><a href="#" data-count="TBD">TBD</a></strong></li>
+                <li><strong><a href="#" data-count="TBD">TBD</a></strong></li>
+                <li><strong><a href="#" data-count="TBD">TBD</a></strong></li>
+                <li><strong><a href="#" data-count="TBD">TBD</a></strong></li>
+                <li><strong><a href="#" data-count="TBD">TBD</a></strong></li>
+                <li><strong><a href="#" data-count="TBD">TBD</a></strong></li>
+                <li><strong><a href="#" data-count="TBD">TBD</a></strong></li>
+                <li><strong><a href="#" data-count="TBD">TBD</a></strong></li>
+                <li><strong><a href="#" data-count="TBD">TBD</a></strong></li>
+                <li><strong><a href="#" data-count="TBD">TBD</a></strong></li>
+                <li><strong><a href="#" data-count="TBD">TBD</a></strong></li>
+                <li><strong><a href="#" data-count="TBD">TBD</a></strong></li>
+                <li><strong><a href="#" data-count="TBD">TBD</a></strong></li>
+                <li><strong><a href="#" data-count="TBD">TBD</a></strong></li>
+                <li><strong><a href="#" data-count="TBD">TBD</a></strong></li>
+                <li><strong><a href="#" data-count="TBD">TBD</a></strong></li>
+                <li><strong><a href="#" data-count="TBD">TBD</a></strong></li>
+                <li><strong><a href="#" data-count="TBD">TBD</a></strong></li>
+                <li><strong><a href="#" data-count="TBD">TBD</a></strong></li>
+                <li><strong><a href="#" data-count="TBD">TBD</a></strong></li>
+                <li><strong><a href="#" data-count="TBD">TBD</a></strong></li>
+                <li><strong><a href="#" data-count="TBD">TBD</a></strong></li>
+                <li><strong><a href="#" data-count="TBD">TBD</a></strong></li>
+              </ul>
+            </div>
+          </li>
+
+        </ul>
+
+
+
+
+
+        <ul id="bill_filters" class="menu-filters">
+
+          <li class="item item-text not-hover">
+            <strong><span id="current_filter_tag">Bill Filters</span></strong>
+          </li>
+          <li class="item dropdown">
+            <span class="name-filter">Branch</span>
+            <div class="menu-dropdown style2">
+              <ul>
+                <li><strong><a id='congressionial_districts' href="#" data-count="133th">Congressional Districts</a></strong></li>
+                <li><strong><a href="#" data-count="Soon">Legislative Districts</a></strong></li>
+                <li><strong><a id='counties-map' href="#" data-count="">Counties</a></strong></li>
+                <li><strong><a id='state-maps' href="#" data-count="">States</a></strong></li>
+              </ul>
+            </div>
+          </li>
+          <li class="item dropdown">
+            <span class="name-filter">Party</span>
+            <div class="menu-dropdown">
+              <ul>
+                <li><strong><a href="#"  data-count="Soon">2016 Presidential Election</a></strong></li>
+                <li><strong><a href="#"  data-count="Soon">Legalized Marijuana</a></strong></li>
+                <li><strong><a href="#" data-count="Soon">Medical Marijuana</a></strong></li>
+                <li><strong><a href="#" data-count="Soon">Federal Funding</a></strong></li>
+                <li><strong><a href="#" data-count="TBD">TBD</a></strong></li>
+                <li><strong><a href="#" data-count="TBD">TBD</a></strong></li>
+                <li><strong><a href="#" data-count="TBD">TBD</a></strong></li>
+                <li><strong><a href="#" data-count="TBD">TBD</a></strong></li>
+                <li><strong><a href="#" data-count="TBD">TBD</a></strong></li>
+                <li><strong><a href="#" data-count="TBD">TBD</a></strong></li>
+                <li><strong><a href="#" data-count="TBD">TBD</a></strong></li>
+                <li><strong><a href="#" data-count="TBD">TBD</a></strong></li>
+                <li><strong><a href="#" data-count="TBD">TBD</a></strong></li>
+                <li><strong><a href="#" data-count="TBD">TBD</a></strong></li>
+                <li><strong><a href="#" data-count="TBD">TBD</a></strong></li>
+                <li><strong><a href="#" data-count="TBD">TBD</a></strong></li>
+                <li><strong><a href="#" data-count="TBD">TBD</a></strong></li>
+                <li><strong><a href="#" data-count="TBD">TBD</a></strong></li>
+              </ul>
+            </div>
+          </li>
+          <li class="item dropdown">
+            <span class="name-filter">Sponsors</span>
+            <div class="menu-dropdown">
+              <ul>
+                <li><strong><a href="#" data-count="16">Sources</a></strong></li>
+                <li><strong><a href="#" data-count="TBD">TBD</a></strong></li>
+                <li><strong><a href="#" data-count="TBD">TBD</a></strong></li>
+                <li><strong><a href="#" data-count="TBD">TBD</a></strong></li>
+                <li><strong><a href="#" data-count="TBD">TBD</a></strong></li>
+                <li><strong><a href="#" data-count="TBD">TBD</a></strong></li>
+                <li><strong><a href="#" data-count="TBD">TBD</a></strong></li>
+                <li><strong><a href="#" data-count="TBD">TBD</a></strong></li>
+                <li><strong><a href="#" data-count="TBD">TBD</a></strong></li>
+                <li><strong><a href="#" data-count="TBD">TBD</a></strong></li>
+                <li><strong><a href="#" data-count="TBD">TBD</a></strong></li>
+                <li><strong><a href="#" data-count="TBD">TBD</a></strong></li>
+                <li><strong><a href="#" data-count="TBD">TBD</a></strong></li>
+                <li><strong><a href="#" data-count="TBD">TBD</a></strong></li>
+                <li><strong><a href="#" data-count="TBD">TBD</a></strong></li>
+                <li><strong><a href="#" data-count="TBD">TBD</a></strong></li>
+                <li><strong><a href="#" data-count="TBD">TBD</a></strong></li>
+                <li><strong><a href="#" data-count="TBD">TBD</a></strong></li>
+                <li><strong><a href="#" data-count="TBD">TBD</a></strong></li>
+                <li><strong><a href="#" data-count="TBD">TBD</a></strong></li>
+                <li><strong><a href="#" data-count="TBD">TBD</a></strong></li>
+                <li><strong><a href="#" data-count="TBD">TBD</a></strong></li>
+                <li><strong><a href="#" data-count="TBD">TBD</a></strong></li>
+              </ul>
+            </div>
+          </li>
+          <li class="item dropdown ">
+            <span class="name-filter">Status</span>
+            <div class="menu-dropdown">
+              <ul>
+                <li><strong><a href="#" data-count="Soon">Capitols</a></strong></li>
+                <li><strong><a href="#" data-count="Soon">Major Cities</a></strong></li>
+                <li><strong><a href="#" data-count="Soon">Population</a></strong></li>
+                <li><strong><a href="#" data-count="TBD">TBD</a></strong></li>
+                <li><strong><a href="#" data-count="TBD">TBD</a></strong></li>
+                <li><strong><a href="#" data-count="TBD">TBD</a></strong></li>
+                <li><strong><a href="#" data-count="TBD">TBD</a></strong></li>
+                <li><strong><a href="#" data-count="TBD">TBD</a></strong></li>
+                <li><strong><a href="#" data-count="TBD">TBD</a></strong></li>
+                <li><strong><a href="#" data-count="TBD">TBD</a></strong></li>
+                <li><strong><a href="#" data-count="TBD">TBD</a></strong></li>
+              </ul>
+            </div>
+          </li>
+          <li class="item dropdown ">
+            <span class="name-filter">Other</span>
+            <div class="menu-dropdown">
+              <ul>
+                <li><strong><a href="#" data-count="TBD">TBD</a></strong></li>
+                <li><strong><a href="#" data-count="TBD">TBD</a></strong></li>
+                <li><strong><a href="#" data-count="TBD">TBD</a></strong></li>
+                <li><strong><a href="#" data-count="TBD">TBD</a></strong></li>
+                <li><strong><a href="#" data-count="TBD">TBD</a></strong></li>
+                <li><strong><a href="#" data-count="TBD">TBD</a></strong></li>
+                <li><strong><a href="#" data-count="TBD">TBD</a></strong></li>
+                <li><strong><a href="#" data-count="TBD">TBD</a></strong></li>
+                <li><strong><a href="#" data-count="TBD">TBD</a></strong></li>
+                <li><strong><a href="#" data-count="TBD">TBD</a></strong></li>
+                <li><strong><a href="#" data-count="TBD">TBD</a></strong></li>
+                <li><strong><a href="#" data-count="TBD">TBD</a></strong></li>
+                <li><strong><a href="#" data-count="TBD">TBD</a></strong></li>
+                <li><strong><a href="#" data-count="TBD">TBD</a></strong></li>
+                <li><strong><a href="#" data-count="TBD">TBD</a></strong></li>
+                <li><strong><a href="#" data-count="TBD">TBD</a></strong></li>
+                <li><strong><a href="#" data-count="TBD">TBD</a></strong></li>
+                <li><strong><a href="#" data-count="TBD">TBD</a></strong></li>
+                <li><strong><a href="#" data-count="TBD">TBD</a></strong></li>
+                <li><strong><a href="#" data-count="TBD">TBD</a></strong></li>
+                <li><strong><a href="#" data-count="TBD">TBD</a></strong></li>
+                <li><strong><a href="#" data-count="TBD">TBD</a></strong></li>
+                <li><strong><a href="#" data-count="TBD">TBD</a></strong></li>
+                <li><strong><a href="#" data-count="TBD">TBD</a></strong></li>
+                <li><strong><a href="#" data-count="TBD">TBD</a></strong></li>
+                <li><strong><a href="#" data-count="TBD">TBD</a></strong></li>
+                <li><strong><a href="#" data-count="TBD">TBD</a></strong></li>
+                <li><strong><a href="#" data-count="TBD">TBD</a></strong></li>
+                <li><strong><a href="#" data-count="TBD">TBD</a></strong></li>
+                <li><strong><a href="#" data-count="TBD">TBD</a></strong></li>
+                <li><strong><a href="#" data-count="TBD">TBD</a></strong></li>
+                <li><strong><a href="#" data-count="TBD">TBD</a></strong></li>
+                <li><strong><a href="#" data-count="TBD">TBD</a></strong></li>
+                <li><strong><a href="#" data-count="TBD">TBD</a></strong></li>
+                <li><strong><a href="#" data-count="TBD">TBD</a></strong></li>
+                <li><strong><a href="#" data-count="TBD">TBD</a></strong></li>
+              </ul>
+            </div>
+          </li>
+
+        </ul>
+
+
+
+
+
+
+      </div>
+
+
+      <div class="box-right">
+        <ul class="menu-filters">
+          <li class="item dropdown not-arrow">
+            <span class="name-filter grid-icon">
+              <a class="bt-info"></a>
+            </span>
+            <div class="menu-dropdown style3 position-center">
+              <ul class="icons">
+                <li class="change_grid" data-cols="3">
+                  <span class="ico-link">Small Screenshots</span>
+
+
+                </li>
+                <li class="change_grid" data-cols="4">
+                  <span class="ico-link">Big screenshots</span>
+
+
+                </li>
+              </ul>
+            </div>
+          </li>
+        </ul>
+      </div>
+
+
+
+    </div>
+    <div id="open-filter-scroll" style="display: none;" class="style2">
+      <div class="bts">
+        <div class="bt bt-close">
+        </div>
+      </div>
+      <div class="spinner" style="display: none;">
+      </div>
+    </div>
+  </div>
+
+
+
+
+
+
+
+
+
+
+
+  <div class="se-pre-con">
+    <div class="spinner">
+      <div class="bounce1"></div>
+      <div class="bounce2"></div>
+      <div class="bounce3"></div>
+    </div>
+  </div>
+
+<section id="content">
+  <div id="page_location" data-page="{{state_info.state_name_no_space}}" data-page_state_number="{{state_info.state_number}}" data-page_path="{{state_info.state_name}} State" data-page_number={{page_data.page_number}} data-page_number_start={{page_data.page_start}} data-page_number_end={{page_data.page_end}}></div>
+  <!-- <div class="content-view" style="border-bottom: 1px solid #E6EAEA;"> -->
+  <div class="content-view">
+
+    <div class="box-site-head">
+
+
+      <script src="https://d3js.org/d3.v3.min.js"></script>
+      <script src="https://d3js.org/queue.v1.min.js"></script>
+      <script src="https://d3js.org/topojson.v2.min.js"></script>
+
+      <div class="map active" id="united-states">
+      </div>
+
+
+      <div class="box-bg has-tablet top-image" id="back_image" style="display:none;"></div>
+
+
+      <!-- <div class="box-br"> -->
+        <div class="slide-nav has-tablet">
+      	<div id="state_page_nav" class="slide-nav__items bottom">
+
+      	   <div id="l_d" class="slide-nav__item">
+		           <div class="slide-nav__link" data-nav="legislative_districts" data-border="none">
+                 <font style="vertical-align: inherit;">
+                   <font style="vertical-align: inherit;">
+				                 Legislative Districts
+                   </font>
+                 </font>
+               </div>
+      			</div>
+  					<div id="counties_state" class="slide-nav__item">
+  				        <div class="slide-nav__link" data-label="b" data-nav="counties" data-border="county-borders">
+                    <font style="vertical-align: inherit;">
+                      <font style="vertical-align: inherit;">
+  					                 Counties
+                      </font>
+                    </font>
+                  </div>
+            </div>
+  					<div id="c_d" class="slide-nav__item">
+  				        <div class="slide-nav__link active" data-label="c" data-nav="districts" data-border="district_boundries">
+                    <font style="vertical-align: inherit;">
+                      <font style="vertical-align: inherit;">
+                        Congressional Districts
+                      </font>
+                    </font>
+                  </div>
+			      </div>
+  					<div id="senate_state" class="slide-nav__item">
+  				        <div class="slide-nav__link" data-label="d" data-nav="senate" data-border="none">
+                    <font style="vertical-align: inherit;">
+                      <font style="vertical-align: inherit;">
+  					                 Senate
+                      </font>
+                    </font>
+                  </div>
+           </div>
+           <div id="house_state" class="slide-nav__item">
+                 <div class="slide-nav__link" data-label="d" data-nav="house" data-border="none">
+                   <font style="vertical-align: inherit;">
+                     <font style="vertical-align: inherit;">
+                            House
+                     </font>
+                   </font>
+                 </div>
+          </div>
+      	</div>
+      </div>
+
+      <!-- <nav class="nav-footer ">
+    	<div class="nav-footer__item nav-footer__item--left">
+    		<a href="/platsen.html" class="nav-item">
+    			<svg width="135" height="80" viewBox="0 0 135 80" xmlns="http://www.w3.org/2000/svg">
+        <title>
+            Buttons/platsen-left
+        </title>
+        <g fill="none" fill-rule="evenodd">
+            <g class="icon__main">
+                <path vector-effect="non-scaling-stroke" stroke-width="2" d="M.797 47.99H83.18L69.397 19.957 59.4 16.606l-6.898-5.938-15.052 5.938L25.86 5.263 12.386 23.792z"></path>
+                <path vector-effect="non-scaling-stroke" d="M42.37 48.138l16.432-21.752 4.702-8.418M60.5 48l-1.698-21.615"></path>
+            </g>
+            <path class="icon__text" d="M13.889 68.106h2.25c1.368 0 2.196-.756 2.196-1.962 0-1.224-.828-1.998-2.196-1.998h-2.25v3.96zm2.574 1.908h-2.574V75h-2.16V62.238h4.734c2.448 0 4.068 1.656 4.068 3.888 0 2.25-1.62 3.888-4.068 3.888zM24.829 75V61.968h-2.088V75h2.088zm2.624-2.376c0-1.566 1.152-2.43 2.646-2.646l2.25-.342c.504-.072.648-.324.648-.63 0-.738-.504-1.332-1.656-1.332-1.098 0-1.71.702-1.8 1.584l-1.908-.432c.162-1.512 1.53-2.862 3.69-2.862 2.7 0 3.726 1.53 3.726 3.276v4.356c0 .792.09 1.314.108 1.404h-1.944c-.018-.054-.09-.414-.09-1.116-.414.666-1.278 1.386-2.7 1.386-1.836 0-2.97-1.26-2.97-2.646zm3.366 1.008c1.17 0 2.178-.558 2.178-2.268v-.396l-2.286.342c-.648.108-1.17.468-1.17 1.188 0 .594.45 1.134 1.278 1.134zm9.86-10.08h-1.89v1.314c0 .774-.414 1.368-1.35 1.368h-.45v1.854h1.62v4.41c0 1.638 1.008 2.61 2.628 2.61.756 0 1.152-.144 1.278-.198v-1.728c-.09.018-.432.072-.72.072-.774 0-1.116-.324-1.116-1.098v-4.068h1.818v-1.854h-1.818v-2.682zm3.83 9.072c.108.99 1.08 2.646 3.618 2.646 2.232 0 3.312-1.476 3.312-2.808 0-1.296-.864-2.304-2.52-2.664l-1.332-.27c-.54-.108-.882-.45-.882-.918 0-.54.522-1.008 1.26-1.008 1.17 0 1.548.81 1.62 1.314l1.764-.504c-.144-.864-.936-2.448-3.384-2.448-1.818 0-3.222 1.296-3.222 2.826 0 1.206.81 2.214 2.358 2.556l1.296.288c.702.144 1.026.504 1.026.972 0 .54-.45 1.008-1.314 1.008-1.116 0-1.71-.702-1.782-1.494l-1.818.504zm10.904-2.97h4.302c-.036-1.026-.72-1.944-2.16-1.944-1.314 0-2.07 1.008-2.142 1.944zm4.536 2.286l1.764.558c-.468 1.53-1.854 2.772-3.96 2.772-2.376 0-4.482-1.728-4.482-4.698 0-2.772 2.052-4.608 4.266-4.608 2.7 0 4.284 1.782 4.284 4.554 0 .342-.036.63-.054.666h-6.408c.054 1.332 1.098 2.286 2.394 2.286 1.26 0 1.908-.666 2.196-1.53zm6.458-1.998c0-1.152.63-2.07 1.818-2.07 1.314 0 1.8.864 1.8 1.944V75h2.088v-5.544c0-1.926-1.026-3.474-3.168-3.474-.972 0-2.016.414-2.592 1.422v-1.17h-2.034V75h2.088v-5.058z" fill="#818181"></path>
+            <g class="icon__arrow">
+                <path vector-effect="non-scaling-stroke" d="M135 27.323H96.444M114.78 9.009L95.635 27.323l19.145 18.316"></path>
+            </g>
+        </g>
+    </svg>
+
+    		</a>
+    	</div>
+    	<div class="nav-footer__item nav-footer__item--right">
+    		<a href="/lagenheter.html" class="nav-item">
+    			<svg width="146" height="80" viewBox="0 0 146 80" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+        <title>
+            Buttons/lagenheter-right
+        </title>
+        <defs>
+            <path d="M50.5 26.5h12" id="a"></path>
+        </defs>
+        <g fill="none" fill-rule="evenodd">
+            <g class="icon__main">
+                <path vector-effect="non-scaling-stroke" d="M123 48V9H60v39h63z" stroke-width="2"></path>
+                <g class="white-edge" transform="translate(60 9)">
+                    <path vector-effect="non-scaling-stroke" d="M39 0v16l-8-.083M.5 26.5h38"></path>
+                    <use vector-effect="non-scaling-stroke" stroke-linecap="square" xlink:href="#a"></use>
+                </g>
+            </g>
+            <path class="icon__text" d="M52.132 75v-2.052h-5.85v-10.71h-2.16V75h8.01zm1.814-2.376c0-1.566 1.152-2.43 2.646-2.646l2.25-.342c.504-.072.648-.324.648-.63 0-.738-.504-1.332-1.656-1.332-1.098 0-1.71.702-1.8 1.584l-1.908-.432c.162-1.512 1.53-2.862 3.69-2.862 2.7 0 3.726 1.53 3.726 3.276v4.356c0 .792.09 1.314.108 1.404h-1.944c-.018-.054-.09-.414-.09-1.116-.414.666-1.278 1.386-2.7 1.386-1.836 0-2.97-1.26-2.97-2.646zm3.366 1.008c1.17 0 2.178-.558 2.178-2.268v-.396l-2.286.342c-.648.108-1.17.468-1.17 1.188 0 .594.45 1.134 1.278 1.134zm-2.394-9.882c0 .666.504 1.17 1.152 1.17.666 0 1.188-.504 1.188-1.17 0-.648-.522-1.17-1.188-1.17-.648 0-1.152.522-1.152 1.17zm3.6 0c0 .666.504 1.17 1.152 1.17.648 0 1.17-.504 1.17-1.17 0-.648-.522-1.17-1.17-1.17-.648 0-1.152.522-1.152 1.17zm5.396 11.736l1.926-.504c.144 1.08.99 1.89 2.196 1.89 1.656 0 2.484-.846 2.484-2.628v-.918c-.378.684-1.26 1.278-2.538 1.278-2.34 0-4.05-1.8-4.05-4.266 0-2.34 1.638-4.266 4.05-4.266 1.368 0 2.214.558 2.592 1.278v-1.116h2.016v7.938c0 2.34-1.206 4.518-4.5 4.518-2.322 0-3.942-1.44-4.176-3.204zm4.41-2.664c1.332 0 2.25-.972 2.25-2.484 0-1.494-.954-2.466-2.25-2.466-1.332 0-2.286.972-2.286 2.466 0 1.53.918 2.484 2.286 2.484zm8.78-3.168h4.302c-.036-1.026-.72-1.944-2.16-1.944-1.314 0-2.07 1.008-2.142 1.944zm4.536 2.286l1.764.558c-.468 1.53-1.854 2.772-3.96 2.772-2.376 0-4.482-1.728-4.482-4.698 0-2.772 2.052-4.608 4.266-4.608 2.7 0 4.284 1.782 4.284 4.554 0 .342-.036.63-.054.666H77.05c.054 1.332 1.098 2.286 2.394 2.286 1.26 0 1.908-.666 2.196-1.53zm6.458-1.998c0-1.152.63-2.07 1.818-2.07 1.314 0 1.8.864 1.8 1.944V75h2.088v-5.544c0-1.926-1.026-3.474-3.168-3.474-.972 0-2.016.414-2.592 1.422v-1.17H86.01V75h2.088v-5.058zm10.832-.09c.036-1.116.666-1.98 1.818-1.98 1.314 0 1.8.864 1.8 1.944V75h2.088v-5.544c0-1.926-1.044-3.474-3.204-3.474-.918 0-1.908.324-2.502 1.098v-5.112h-2.088V75h2.088v-5.148zm10.202-.198h4.302c-.036-1.026-.72-1.944-2.16-1.944-1.314 0-2.07 1.008-2.142 1.944zm4.536 2.286l1.764.558c-.468 1.53-1.854 2.772-3.96 2.772-2.376 0-4.482-1.728-4.482-4.698 0-2.772 2.052-4.608 4.266-4.608 2.7 0 4.284 1.782 4.284 4.554 0 .342-.036.63-.054.666h-6.408c.054 1.332 1.098 2.286 2.394 2.286 1.26 0 1.908-.666 2.196-1.53zm7.016-8.388h-1.89v1.314c0 .774-.414 1.368-1.35 1.368h-.45v1.854h1.62v4.41c0 1.638 1.008 2.61 2.628 2.61.756 0 1.152-.144 1.278-.198v-1.728c-.09.018-.432.072-.72.072-.774 0-1.116-.324-1.116-1.098v-4.068h1.818v-1.854h-1.818v-2.682zm5.828 6.102h4.302c-.036-1.026-.72-1.944-2.16-1.944-1.314 0-2.07 1.008-2.142 1.944zm4.536 2.286l1.764.558c-.468 1.53-1.854 2.772-3.96 2.772-2.376 0-4.482-1.728-4.482-4.698 0-2.772 2.052-4.608 4.266-4.608 2.7 0 4.284 1.782 4.284 4.554 0 .342-.036.63-.054.666h-6.408c.054 1.332 1.098 2.286 2.394 2.286 1.26 0 1.908-.666 2.196-1.53zm9.5-5.76a2.99 2.99 0 0 0-.558-.054c-1.152 0-2.124.558-2.538 1.512v-1.404h-2.034V75h2.088v-4.176c0-1.638.738-2.574 2.358-2.574.216 0 .45.018.684.054V66.18z"></path>
+            <g class="icon__arrow">
+                <path vector-effect="non-scaling-stroke" d="M0 28.677h38.556M20.22 46.991l19.145-18.314L20.22 10.361"></path>
+            </g>
+        </g>
+    </svg>
+
+    		</a>
+    	</div>
+    </nav> -->
+
+
+        <!-- <ul id="nav-stateTop-menu" style="margin-left: calc((100vw / 2) - (576px / 2));width: fit-content;line-height:  60px;font-size: large;/* background-color: lightgray; */">
+          <li class="active" style="
+              /* flex: auto; */
+              display: inline-block;
+              -webkit-transition: all 0.3s ease-in-out;
+              transition: all 0.3s ease-in-out;
+              /* border: black; */
+              border: 1px solid black;
+              background-color: white;">
+            <span class="navscroll" data-idpage="article-text" data-diffscroll="70"> Congressional Districts </span>
+          </li>
+          <li style="
+              display: inline-block;
+              -webkit-transition: all 0.3s ease-in-out;
+              transition: all 0.3s ease-in-out;
+              border: 1px solid black;
+              background-color: white;">
+            <span class="navscroll" data-idpage="people-social" data-diffscroll="70">Legislative Districts</span>
+          </li>
+          <li style="
+            display: inline-block;
+            -webkit-transition: all 0.3s ease-in-out;
+            transition: all 0.3s ease-in-out;
+            border: 1px solid black;
+            background-color: white;">
+            <span class="navscroll" data-idpage="related-articles" data-diffscroll="70">Counties</span>
+          </li>
+
+          <li style="
+            display: inline-block;
+            -webkit-transition: all 0.3s ease-in-out;
+            transition: all 0.3s ease-in-out;
+            border: 1px solid black;
+            background-color: white;">
+            <span class="navscroll" data-idpage="related-articles" data-diffscroll="70">Senate</span>
+          </li>
+
+          <li style="
+            display: inline-block;
+            -webkit-transition: all 0.3s ease-in-out;
+            transition: all 0.3s ease-in-out;
+            border: 1px solid black;
+            background-color: white;">
+            <span class="navscroll" data-idpage="related-articles" data-diffscroll="70">House</span>
+          </li>
+        </ul> -->
+
+
+
+
+              <!-- <div class="box-bt-page right" id="state_top_nav">
+                <div class="tooltip">
+                  <a class="bt-page bt-prev" id="state-prev"></a>
+                  <div class="box-tooltip">
+                    <div class="tooltip-text">
+                      Previous
+                    </div>
+                  </div>
+                </div>
+              </div> -->
+              <!-- <div class="box-bt-page left">
+                <div class="tooltip">
+                  <a class="bt-page bt-next" id="state-next"></a>
+                  <div class="box-tooltip">
+                    <div class="tooltip-text">
+                      Next
+                    </div>
+                  </div>
+                </div>
+              </div> -->
+      <!-- </div> -->
+    </div>
+  </div>
+
+
+
+
+
+  <!-- End Image section -->
+  <!-- Start Title and Tags section -->
+
+  <div class="block">
+    <div class="inner width-3">
+      <div class="box-page-info">
+        <h3 class="heading-large">{{state_info.state_name}} State</h3>
+      </div>
+    </div>
+  </div>
+
+  <!-- End Title and Tags section -->
+  <!-- Start Nav section -->
+
+  <!-- <nav class="nav-sections style1 has-tablet">
+    <div class="slider"></div>
+    <ul id="nav-section-menu">
+      <li class="active">
+        <span class="navscroll" data-idpage="article-text" data-diffscroll="70">Articles for {{state_info.state_name}}</span>
+      </li>
+      <li>
+        <span class="navscroll" data-idpage="people-social" data-diffscroll="70">Representatives</span>
+      </li>
+      <li>
+        <span class="navscroll" data-idpage="related-articles" data-diffscroll="70">Related Articles</span>
+      </li>
+    </ul>
+  </nav> -->
+
+
+  <div class="slide-nav has-tablet" style="padding-bottom: 40px;">
+    <div id="state_page_nav_bottom" class="slide-nav__items top" style="padding-top: 0px;">
+
+
+        <!-- <div id="counties_state" class="slide-nav__item">
+              <div class="slide-nav__link" data-label="b" data-nav="counties" data-border="county-borders">
+                <font style="vertical-align: inherit;">
+                  <font style="vertical-align: inherit;">
+                         Counties
+                  </font>
+                </font>
+              </div>
+        </div> -->
+
+
+
+       <div id="nav_articles" class="slide-nav__item">
+         <div class="slide-nav__link active" data-label="a" data-nav="articles">
+           <!-- <a href="#" class="slide-nav__link active" data-label="a"> -->
+             <font style="vertical-align: inherit;">
+               <font style="vertical-align: inherit;">
+                     Articles for {{state_info.state_name}}
+               </font>
+             </font>
+           <!-- </a> -->
+         </div>
+        </div>
+        <div id="nav_representatives" class="slide-nav__item">
+               <div class="slide-nav__link" data-label="b" data-nav="people">
+                <font style="vertical-align: inherit;">
+                  <font style="vertical-align: inherit;">
+                         Representatives
+                  </font>
+                </font>
+              </div>
+        </div>
+        <div id="nav_bills" class="slide-nav__item">
+              <div class="slide-nav__link" data-label="c" data-nav="none">
+                <font style="vertical-align: inherit;">
+                  <font style="vertical-align: inherit;">
+                    Bills
+                  </font>
+                </font>
+              </div>
+        </div
+    </div>
+  </div>
+</div>
+
+
+
+
+  <div class="content-view">
+    <div class="block">
+      <div class="inner search-container map_mode_not_active" id="people">
+        <div class="grid" style="display:hidden">
+          <ul class="list-items list-flex">
+
+              <!--  Starts representatives  -->
+              {% for rperson in representatives %}
+              <li class="col-1">
+                <div class="box-item">
+                  <figure class="rollover" id="article_image">
+                    <a href='{{ rperson.id }}'>
+                      <div class="box-photo">
+                        <!-- {% with 'images/'|add:rperson.state|add:'/'|add:rperson.id|add:'.jpg' as rep_image %} -->
+                          <img class="b-lazy " src="/static/images/kristian2.jpeg" data-src="{% static rperson.image %}" data-src-small="{% static rperson.image %}" data-src-medium="{% static rperson.image %}" alt="{{rperson.name}}" />
+                        <!-- {% endwith %} -->
+
+
+                        <!-- {% with 'images/'|add:rperson.state|add:'/'|add:rperson.id|add:'.jpg' as rep_image %}
+                        <img class="b-lazy article_top_image" src="/static/images/kristian2.jpeg" data-src="{% static rep_image %}" data-src-small="{% static rep_image %}" data-src-medium="{% static rep_image %}" alt="{{people.name}}"/>
+                        {% endwith %} -->
+
+                      </div>
+                    </a>
+                    <div class="hover-item bottom">
+                      <!-- <a class="bt-item bt-link" href="#" target="_blank" rel="noopener nofollow">
+                        <svg class="ico-svg" viewBox="0 0 22.24 14" xmlns="http://www.w3.org/2000/svg">
+                          <g id="link" data-size="22.24 14">
+                            <path d="M13.84,14V9.801C8.492,8.463,4.42,9.041,0.408,12.144c-0.05,0.038-0.101,0.078-0.15,0.117 c-0.137,0.104-0.192,0.103-0.226,0.077c-0.035-0.027-0.055-0.066,0.014-0.234c0.092-0.228,0.196-0.445,0.298-0.658 C3.208,5.443,7.902,4.2,13.84,4.2V0l8.4,7L13.84,14z"/>
+                          </g>
+                        </svg>
+
+                      </a> -->
+                    </div>
+
+                  </figure>
+                  <div class="box-info">
+                    <div class="content">
+                      <div class="row title_row">
+                        <h3>
+                          <a href='{{ rperson.id }}' class="">{{rperson.name}}</a>
+                        </h3>
+                      </div>
+                      <!-- <div class="row source_row">
+                        by
+                        <strong>
+                          <a href="/article">{{article.source}}</a>
+                        </strong>
+                      </div> -->
+                      <!-- <div class="row date_row">
+                        {{article.post_date}}
+                          in
+                        <strong>
+                          <a href="/recent_news" class="text-black">Washington State</a>
+                        </strong>
+                      </div> -->
+                    </div>
+                    <!-- <div class="footer">
+                      <div class="box-left">
+                        <div class="box-users-likes">
+                          <ul class="list-users" data-number_people_linked='{{article.people_amount}}'>
+
+                            {% for people in article.people %}
+
+
+                            <li class="people">
+                              <div class="item js-user" data-username="{{people.name}}">
+                                <a title = "{{people.name}}" href="#">
+                                  {% with 'images/'|add:people.state|add:'/'|add:people.id|add:'.jpg' as person_image %}
+                                  <img class="b-lazy" src="/static/images/kristian2.jpeg" data-src="{% static person_image %}" data-src-small="{% static person_image %}" data-src-medium="{% static person_image %}" alt="{{people.name}}" width="27" height="27"/>
+                                  {% endwith %}
+                                </a>
+                              </div>
+                            </li>
+
+                            {% endfor %}
+
+
+                            <li class="more_people" style="display:none;">
+                              <div class="item js-user">
+                                <a title = "More Avatars" href="#">
+                                  <img class="b-lazy" src="/static/images/more_dots.png" data-src="/static/images/more_dots.png" data-src-small="/static/images/more_dots.png" data-src-medium="/static/images/more_dots.png" width="27" height="27"/>
+
+                                </a>
+                              </div>
+                            </li>
+
+
+
+
+                          <div class="container-bt-circle">
+                            <div class="tooltip">
+                              <div class="bt-like js-collect">
+                                <svg viewBox="0 0 27 27" class="circle">
+                                  <path d="M13.513 26.5C6.326 26.5.5 20.68.5 13.5S6.326.5 13.513.5c7.023 0 12.73 5.564 12.987 12.52"></path>
+                                </svg>
+                                <svg class="ico-svg" viewBox="0 0 15.646 14" xmlns="http://www.w3.org/2000/svg">
+                                  <g id="heart-2" data-size="14.727 14">
+                                    <path d="M10.612,0C9.217,0,7.956,0.731,7.369,1.871C6.782,0.731,5.505,0,4.109,0C1.928,0-0.997,1.758,0.335,6.555C1.857,11.244,7.368,14,7.368,14s5.503-2.754,7.025-7.445C15.726,1.758,12.793,0,10.612,0z"/>
+                                  </g>
+                                </svg>
+                                <div class="number">55</div>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div> -->
+                      {% endfor %}
+                  </div>
+                </div>
+              </li>
+
+          </ul>
+        </div>
+      </div>
+
+      <div class="inner search-container" id="articles">
+        <div class="grid" id="body" style="display:hidden">
+          <ul class="list-items list-flex">
+
+            <!--  Starts articles  -->
+            {% for article in scrolls %}
+            <li class="col-3">
+              <div class="box-item">
+                <figure class="rollover" id="article_image">
+                  <a href='{{ article.id }}'>
+                    <div class="box-photo">
+                      {% with 'images/article_images/'|add:article.top_image as top_image %}
+                      <img class="b-lazy article_top_image" src="/static/images/kristian2.jpeg" data-src="{% static top_image %}" data-src-small="{% static top_image %}" data-src-medium="{% static top_image %}" alt="{{article.title}}" />
+                      {% endwith %}
+                    </div>
+                  </a>
+                  <div class="hover-item bottom">
+                    <a class="bt-item bt-link" href={{article.source}} target="_blank" rel="noopener nofollow">
+                      <svg class="ico-svg" viewBox="0 0 22.24 14" xmlns="http://www.w3.org/2000/svg">
+                        <g id="link" data-size="22.24 14">
+                          <path d="M13.84,14V9.801C8.492,8.463,4.42,9.041,0.408,12.144c-0.05,0.038-0.101,0.078-0.15,0.117 c-0.137,0.104-0.192,0.103-0.226,0.077c-0.035-0.027-0.055-0.066,0.014-0.234c0.092-0.228,0.196-0.445,0.298-0.658 C3.208,5.443,7.902,4.2,13.84,4.2V0l8.4,7L13.84,14z"/>
+                        </g>
+                      </svg>
+
+                    </a>
+                  </div>
+
+                </figure>
+                <div class="box-info">
+                  <div class="content">
+                    <div class="row title_row">
+                      <h3>
+                        <a href='{{ article.id }}' class="">{{article.title}}</a>
+                      </h3>
+                    </div>
+                    <div class="row source_row">
+                      by
+                      <strong>
+                        <a href="/article">{{article.source}}</a>
+                      </strong>
+                    </div>
+                    <div class="row date_row">
+                      {{article.post_date}}
+                        in
+                      <strong>
+                        <a href="/recent_news" class="text-black">Washington State</a>
+                      </strong>
+                    </div>
+                  </div>
+                  <div class="footer">
+                    <div class="box-left">
+                      <div class="box-users-likes">
+                        <ul class="list-users" data-number_people_linked='{{article.people_amount}}'>
+
+                          {% for people in article.people %}
+
+
+                          <li class="people">
+                            <div class="tooltip">
+                              <div class="item js-user" data-username="{{people.name}}">
+                                <a title = "{{people.name}}" href="#">
+                                  {% with 'images/'|add:people.state|add:'/'|add:people.id|add:'.jpg' as person_image %}
+                                  <img class="b-lazy" src="/static/images/kristian2.jpeg" data-src="{% static person_image %}" data-src-small="{% static person_image %}" data-src-medium="{% static person_image %}" alt="{{people.name}}" width="27" height="27"/>
+                                  {% endwith %}
+                                </a>
+                              </div>
+                              <div class="box-tooltip">
+                                <div class="tooltip-text">{{people.name}}</div>
+                              </div>
+                            </div>
+                          </li>
+
+                          {% endfor %}
+
+
+                          <li class="more_people" style="display:none;">
+                            <div class="item js-user">
+                              <a title = "More Avatars" href="#">
+                                <img class="b-lazy" src="/static/images/more_dots.png" data-src="/static/images/more_dots.png" data-src-small="/static/images/more_dots.png" data-src-medium="/static/images/more_dots.png" width="27" height="27"/>
+
+                              </a>
+                            </div>
+                          </li>
+
+
+
+
+                        <div class="container-bt-circle">
+                          <div class="tooltip">
+                            <div class="bt-like js-collect">
+                              <svg viewBox="0 0 27 27" class="circle">
+                                <path d="M13.513 26.5C6.326 26.5.5 20.68.5 13.5S6.326.5 13.513.5c7.023 0 12.73 5.564 12.987 12.52"></path>
+                              </svg>
+                              <svg class="ico-svg" viewBox="0 0 15.646 14" xmlns="http://www.w3.org/2000/svg">
+                                <g id="heart-2" data-size="14.727 14">
+                                  <path d="M10.612,0C9.217,0,7.956,0.731,7.369,1.871C6.782,0.731,5.505,0,4.109,0C1.928,0-0.997,1.758,0.335,6.555C1.857,11.244,7.368,14,7.368,14s5.503-2.754,7.025-7.445C15.726,1.758,12.793,0,10.612,0z"/>
+                                </g>
+                              </svg>
+                              <div class="number">55</div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </li>
+
+            {% endfor %}
+
+          </ul>
+
+
+          <div class="paginate">
+            <div id="paginate_pages" class="cols-4"></div>
+            <div id="paginate_more" class="cols-4"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- <script type="text/javascript" src="{% static '/js/cyp.js' %}"></script> -->
+  <script type="text/javascript" src="{% static '/js/state-test.js' %}"></script>
+  <!-- <script type="text/javascript">
+  // $(document).ready(function() {
+  //     $('#body').css('visibility', 'visible');
+  // });
+  // </script> -->
+
+</section>
+</body>
+
+
+
+{% include "CYP/includes/htmlsnippet.html" %}
+{% endblock %}

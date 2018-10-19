@@ -13,29 +13,32 @@ Including another URLconf
     1. Import the include() function: from django.conf.urls import url, include
     2. Add a URL to urlpatterns:  url(r'^blog/', include('blog.urls'))
 """
-from django.conf.urls import url, include
+from django.conf.urls import url
 from django.views.generic import DetailView
 from django.contrib import admin
+# from django.conf.urls import path, include
 from . import views
 from News import models
 
 
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
-    url(r'^$', views.index, name = 'index'),
-    url(r'^aboutUS/$', views.aboutUs, name = 'About'),
-    url(r'^News/news_scroll_one.html$', views.news_scroll_one, name = 'news_scroll_one'),
-    url(r'^News/news_scroll_two.html$', views.news_scroll_two, name = 'news_scroll_two'),
-    url(r'^News/news_scroll_three.html$', views.news_scroll_three, name = 'news_scroll_three'),
-    url(r'^recent_news/News/news_scroll.html$', views.news_scroll, name = 'news_scroll'),
-    url(r'^house/News/republican_scroll.html$', views.republican_scroll, name = 'republican_scroll'),
-    url(r'^senate/News/democrat_scroll.html$', views.democrat_scroll, name = 'democrat_scroll'),
-    url(r'^recent_news/$', views.recent_news, name = 'recent_news'),
-    url(r'^house/$', views.house, name = 'house'),
-    url(r'^senate/$', views.senate, name = 'senate'),
-    url(r'^splash_page/$', views.splash_page, name = 'splash_page'),
-    url(r'^service.html$', views.service, name = 'serice'),
-    # url(r'^(?P<pk>\d+)$', views.article, name = 'Article'),
+    url(r'^$', views.index),
+    url(r'^aboutUS/$', views.aboutUs),
+    url(r'^state$/$', views.state),
+    url(r'^recent_news/$', views.recent_news),
+    url(r'^splash_page/$', views.splash_page),
+    url(r'^service.html$', views.service),
+    url(r'^article/$', views.article),
+    url(r'^article/(?P<pk>\d+)$', views.article),
+    url(r'^person/$', views.person),
+    url(r'^person/(?P<pk>\d+)$', views.person),
+
+    url(r'^state/(?P<state>[-\w]+)/$', views.state),
+    url(r'^state/(?P<pk>\d+)$', views.state),
+
+
+
     # url(r'^(?P<pk>\d+)$', DetailView.as_view(model=models.Articles, template_name='News/Article.html'))
     # url(r'^login/$', views.login, name = 'login'),
     #url(r'^accounts/login$', views.login, name = 'login'),
@@ -44,5 +47,8 @@ urlpatterns = [
     #url(r'^accounts/loggedin$', views.loggedin, name = 'loggedin'),
     #url(r'^accounts/invalid$', views.invalid, name = 'invalid'),
     #url(r'^accounts/register$', views.UserFormView, name ='register')
+
+
+    # url(r'^(?P<pk>\d+)$', views.article, name = 'Article'),
 
 ]

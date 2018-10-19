@@ -210,10 +210,11 @@ def main():
         if "homePhone" in legislator:
             home_phone = legislator["homePhone"]
         legislation = legislator["legislation"]
+        state = "Utah"
 
         # print (last_name, first_name, person_id, image, role, party, district, legislative_since, profession, profession_affiliations, education, recognitions_and_honors, counties, mailing_address, email, cell, work_phone, home_phone, committees, legislation)
 
-        mysql_person_entry.main(last_name, first_name, person_id, image, role, party, district, legislative_since, profession, profession_affiliations, education, recognitions_and_honors, counties, mailing_address, email, cell, work_phone, home_phone, legislation)
+        mysql_person_entry.main(last_name, first_name, person_id, image, role, party, district, legislative_since, profession, profession_affiliations, education, recognitions_and_honors, counties, mailing_address, email, cell, work_phone, home_phone, legislation, state)
 
 
 

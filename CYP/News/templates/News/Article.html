@@ -1,38 +1,824 @@
-
+{% extends "CYP/header.html" %}
 {% load staticfiles %}
-{% block content %}
-<!-- <link rel="stylesheet" href="{% static 'css/article.css' %}" type="text/css"> -->
 
-    <!-- <input action="action" type="button" value="Back" onclick="history.go(-1);" /> -->
-    <div class="article_container_article">
-      <!-- <div class="row">
-        <h3>{{title}}</h3>
-        <h6>on {{post_date}}</h6>
-        <h6>Author: {{author}}</h6>
-        <br>
-        <img src='{{top_image}}' style='float: left; padding: 2px;'>
-      </div> -->
-      <div class="row">
-        <div class="col-xs-12">
-          <h3>{{title}}</h3>
-          {{source}}
-          <p>{{post_date}} | {{author}}</p>
-          <!-- <h6>Author: {{author}}</h6> -->
-          <div class="article_image_row">
-            <img class="article_image" src='{{top_image}}' style='float: left; padding: 2px; width: 53.333333336vw;'>
+{% block content %}
+
+<link rel="stylesheet" href="{% static 'css/article.css' %}" type="text/css">
+<script src="/static/js/blazy.js"></script>
+
+<head>
+
+  <title>CYP</title>
+
+</head>
+<body>
+<section id="content">
+  {% with 'images/article_images/'|add:article_data.top_image as top_image %}
+  <div id="page_location" data-page="recent_news" data-page_path="Washington State | Recent News" data-page_picture='{% static top_image %}'></div>
+  {% endwith %}
+
+  <div class="block has-mobile" id="mobile-title">
+    <div class="inner width-3">
+      <div class="box-page-info-mobile">
+        <h3 class="top-title">{{article_data.title}}</h3>
+        <!-- <h3 class="top-author">By {{article_data.author}}</h3>
+        <h3 class="top-date">Posted {{article_data.post_date}}</h3> -->
+      </div>
+    </div>
+  </div>
+
+  <div class="content-view">
+
+    <div class="box-site-head">
+      {% with 'images/article_images/'|add:article_data.top_image as top_image %}
+      <div class="box-bg has-tablet top-image" id="back_image" style="background-image: url('{% static top_image %}');">
+      </div>
+      <div class="box-bg box-photo has-mobile">
+        <img src='{% static top_image %}'>
+        <!-- <a href='{{article_data.url}}' target="_blank">
+              {% with 'images/article_images/'|add:article_data.top_image as top_image %}
+              <img class="b-lazy" src="/static/images/kristian2.jpeg" data-src="{% static top_image %}" data-src-small="{% static top_image %}" data-src-medium="{% static top_image %}" alt="{{article_data.title}}" />
+              {% endwith %}
+            </a> -->
+      </div>
+      {% endwith %}
+      <div class="box-content" itemscope="" itemtype="http://schema.org/Article">
+
+        <meta itemprop="datePublished" content="2018-01-21">
+        <meta itemprop="headline" content='{{article_data.title}}'>
+        <meta itemprop="source" content='{{article_data.source}}'>
+        <meta itemprop="author" content='{{article_data.author}}'>
+
+        <div class="hidden" itemprop="image" itemscope="" itemtype="https://schema.org/ImageObject">
+          <meta itemprop="url" content="https://assets.awwwards.com/awards/submissions/2018/01/5a620fadc2143.jpg">
+        </div>
+
+        <div class="hidden" itemprop="publisher" itemscope="" itemtype="https://schema.org/Organization">
+          <meta itemprop="name" content="Awwwards">
+          <div itemprop="logo" itemscope="" itemtype="https://schema.org/ImageObject">
+            <meta itemprop="url" content="https://assets.awwwards.com/bundles/tvweb/images/logo-schema.png">
           </div>
-          <span class="text">
-            <br>
-            <br>
-            <!-- <h3>{{title}}</h3>
-            <h6>{{post_date}} | {{author}}</h6>
-            <!-- <h6>Author: {{author}}</h6> -->
-            <!-- <img class="article_image" src='{{top_image}}' style='float: left; padding: 2px;'> -->
-            <!-- <br> -->
-            <!-- <br> -->
-            {{texts|linebreaks}}
-          </span>
+        </div>
+
+        <a href='{{article_data.url}}' class="site-link" target="_blank"></a>
+        <div class="inner vertical-center">
+          <div class="box-info">
+            <div class="row">
+              <h1 class="heading-large"><a href='{{article_data.url}}' itemprop="name">{{article_data.title}}</a></h1>
+            </div>
+            <div class="row">
+              <div class="by" itemprop="aggregateRating" itemscope="" itemtype="http://schema.org/AggregateRating">
+                by
+                <strong>
+                    <a href="#"> {{article_data.source}} </a>
+                  </strong>
+                <i>
+                  </i>
+                <strong>
+                  </strong>
+                <strong itemprop="ratingValue">
+                  </strong>
+                <span class="hidden" itemprop="ratingCount">78</span>
+                <span class="hidden" itemprop="bestRating">10</span>
+              </div>
+            </div>
+
+          </div>
+          <div class="box-breadcrumb js-sotd" data-sotd="{&quot;id&quot;:31762,&quot;images&quot;:{&quot;thumbnail&quot;:&quot;submissions\/2018\/01\/5a620fadc2143.jpg&quot;},&quot;slug&quot;:&quot;you-are-the-stylist&quot;,&quot;title&quot;:&quot;You are the stylist&quot;,&quot;type&quot;:&quot;submission&quot;}">
+            <div class="box-left">
+              <span class="parent" style="font-weight: bold;">
+                  <a href="/awards-of-the-day/">
+                    {{article_data.source}}
+                  </a>
+                </span>
+              <span class="text-x-thin">
+                  {{article_data.post_date}}
+                </span>
+            </div>
+            <div class="box-right">
+
+            </div>
+          </div>
+          <div class="box-bl">
+
+            <a href="{{article_data.url}}" class="bt-default green-fill" target="_blank">
+              Visit Article
+            </a>
+            <!-- <a href="/sites/you-are-the-stylist/mobile-excellence" class="bt-default white">
+              Mobile Report
+            </a> -->
+
+            <div class="list-share-circles style2 light left" style="width:280px; height:36.5px;">
+              <div class="bt-circle bt-share js-social">
+                <svg class="ico-svg" viewBox="0 0 14 14" xmlns="http://www.w3.org/2000/svg">
+                  <g id="search" data-size="14 14">
+                    <g id="share" data-size="14 14">
+                  		<path d="M11.096,8.365c-0.823,0-1.559,0.367-2.066,0.945L5.565,7.578C5.6,7.385,5.618,7.21,5.618,7 S5.6,6.615,5.565,6.422L9.029,4.69c0.508,0.578,1.243,0.945,2.066,0.945c1.504,0,2.729-1.225,2.729-2.73 c0-1.505-1.226-2.73-2.729-2.73c-1.506,0-2.73,1.225-2.73,2.73c0,0.193,0.018,0.385,0.053,0.578L4.953,5.215 C4.445,4.638,3.71,4.27,2.888,4.27C1.4,4.27,0.175,5.495,0.175,7S1.4,9.73,2.905,9.73c0.823,0,1.558-0.368,2.065-0.945l3.465,1.732 C8.4,10.71,8.383,10.885,8.383,11.096c0,1.504,1.225,2.729,2.729,2.729s2.713-1.226,2.713-2.729 C13.825,9.59,12.6,8.365,11.096,8.365z M11.096,1.54c0.752,0,1.364,0.612,1.364,1.365c0,0.753-0.612,1.365-1.364,1.365 c-0.754,0-1.365-0.612-1.365-1.365C9.73,2.152,10.342,1.54,11.096,1.54z M2.905,8.365C2.152,8.365,1.54,7.752,1.54,7 c0-0.752,0.612-1.365,1.365-1.365C3.658,5.635,4.27,6.248,4.27,7C4.27,7.752,3.658,8.365,2.905,8.365z M11.096,12.46 c-0.754,0-1.365-0.612-1.365-1.364c0-0.754,0.611-1.365,1.365-1.365c0.752,0,1.364,0.611,1.364,1.365 C12.46,11.848,11.848,12.46,11.096,12.46z"/>
+                  	</g>
+                	</g>
+                </svg>
+
+              </div>
+              <div>
+                <li>
+                  <div class="bt-circle bt-googleplus popup" data-link="https://plus.google.com/share?url=https://www.awwwards.com/sites/you-are-the-stylist">
+                    <svg class="ico-svg" viewBox="0 0 21 14" xmlns="http://www.w3.org/2000/svg">
+                      <g id="googleplus" data-size="21 14">
+                    		<path d="M13.584,5.688c0.088,0.468,0.136,0.958,0.136,1.47C13.72,11.156,11.043,14,7,14c-3.868,0-7-3.133-7-7s3.132-7,7-7 c1.891,0,3.469,0.695,4.682,1.824L9.708,3.798V3.793C8.973,3.093,8.041,2.734,7,2.734c-2.31,0-4.187,1.951-4.187,4.261 S4.69,11.262,7,11.262c2.096,0,3.521-1.199,3.815-2.844H7v-2.73H13.584z M18.813,6.125V3.938h-1.75v2.188h-2.188v1.75h2.188v2.188 h1.75V7.875H21v-1.75H18.813z"></path>
+                    	</g>
+                    </svg>
+
+                  </div>
+                </li>
+                <li>
+                  <div class="bt-circle bt-facebook popup" data-link="http://www.facebook.com/sharer.php?u=https://www.awwwards.com/sites/you-are-the-stylist&amp;t=Winning design - You are the stylist @Awwwards!">
+                    <svg class="ico-svg" viewBox="0 0 6.5 14" xmlns="http://www.w3.org/2000/svg">
+                      <g id="facebook" data-size="6.5 14">
+                    		<path d="M4.3,3.4c0-0.2,0-0.3,0-0.4c0-0.1,0.1-0.2,0.1-0.3c0.1-0.1,0.1-0.1,0.3-0.2c0.1-0.1,0.3-0.1,0.5-0.1h1.2V0	H4.5C3.5,0,2.7,0.2,2.2,0.8C1.7,1.3,1.4,2.1,1.4,3.1v1.5H0V7h1.4v7h2.9V7h1.9l0.3-2.4H4.3V3.4z"/>
+                    	</g>
+                    </svg>
+
+                  </div>
+                </li>
+                <li>
+                  <div class="bt-circle bt-twitter popup" data-link="https://twitter.com/intent/tweet?text=Winning design - You are the stylist @Awwwards!&amp;url=https://www.awwwards.com/sites/you-are-the-stylist&amp;hashtags=AwwwardsSOTD">
+                    <svg class="ico-svg" viewBox="0 0 17 14" xmlns="http://www.w3.org/2000/svg">
+                      <g id="twitter" data-size="17 14">
+                    		<path d="M15,2.2c0.8-0.5,1.3-1.1,1.5-2c-0.7,0.4-1.4,0.7-2.2,0.8C13.6,0.4,12.8,0,11.8,0S10,0.3,9.3,1 c-0.7,0.7-1,1.5-1,2.5c0,0.3,0,0.5,0.1,0.8C7,4.3,5.6,3.9,4.3,3.3C3.1,2.6,2,1.7,1.2,0.6C0.9,1.2,0.7,1.8,0.7,2.4 c0,0.6,0.1,1.1,0.4,1.7C1.4,4.6,1.8,5,2.3,5.4c-0.6,0-1.1-0.2-1.6-0.4v0c0,0.8,0.3,1.6,0.8,2.3c0.5,0.6,1.2,1,2,1.2 C3.2,8.5,2.9,8.6,2.6,8.6c-0.2,0-0.4,0-0.7-0.1c0.2,0.7,0.6,1.3,1.2,1.8s1.3,0.7,2,0.7c-1.3,1-2.7,1.5-4.3,1.5c-0.3,0-0.6,0-0.8-0.1 C1.6,13.5,3.4,14,5.4,14c1.2,0,2.4-0.2,3.5-0.6c1.1-0.4,2-0.9,2.8-1.6c0.8-0.7,1.4-1.5,2-2.3c0.6-0.8,1-1.8,1.2-2.7 c0.3-0.9,0.4-1.9,0.4-2.8c0-0.2,0-0.3,0-0.5C15.9,3,16.5,2.4,17,1.7C16.3,1.9,15.7,2.1,15,2.2z"/>
+                    	</g>
+                    </svg>
+
+                  </div>
+                </li>
+                <li>
+                  <div class="bt-circle bt-pinterest popup" data-link="http://pinterest.com/pin/create/button/?url=https://www.awwwards.com/sites/you-are-the-stylist&amp;description=Winning design - You are the stylist @Awwwards!&amp;media=https://assets.awwwards.com/awards/submissions/2018/01/5a620fadc2143.jpg">
+                    <svg class="ico-svg" viewBox="0 0 11 14" xmlns="http://www.w3.org/2000/svg">
+                      <g id="pinterest" data-size="11 14.075">
+                    		<path d="M5.8,0C2,0,0,2.7,0,5c0,1.4,0.5,2.6,1.7,3.1c0.2,0.1,0.4,0,0.4-0.2c0-0.1,0.1-0.5,0.2-0.6 C2.3,7,2.3,7,2.1,6.8C1.8,6.4,1.6,5.9,1.6,5.2c0-2,1.5-3.9,4-3.9C7.8,1.4,9,2.7,9,4.5c0,2.3-1,4.3-2.6,4.3C5.6,8.7,4.9,8,5.1,7.2 c0.2-1,0.7-2.1,0.7-2.9c0-0.7-0.4-1.2-1.1-1.2C3.9,3.1,3.2,4,3.2,5.2c0,0.8,0.3,1.3,0.3,1.3s-0.9,3.7-1,4.4c-0.3,1.3,0,2.9,0,3.1 c0,0.1,0.1,0.1,0.2,0c0.1-0.1,1.1-1.4,1.5-2.6C4.1,11,4.6,9.1,4.6,9.1c0.3,0.5,1.1,1,2,1c2.6,0,4.4-2.4,4.4-5.5C11,2.2,9,0,5.8,0z"/>
+                    	</g>
+                    </svg>
+
+                  </div>
+                </li>
+                <li>
+                  <div class="bt-circle bt-linkedin popup" data-link="http://www.linkedin.com/shareArticle?mini=true&amp;url=https://www.awwwards.com/sites/you-are-the-stylist&amp;title=Winning design - You are the stylist @Awwwards!">
+                    <svg class="ico-svg" viewBox="0 0 14 14" xmlns="http://www.w3.org/2000/svg">
+                      <g id="linkedin" data-size="14 14">
+                    		<path d="M0.227,4.648h2.908V14H0.227V4.648z M1.687,0c0.929,0,1.686,0.757,1.686,1.687c0,0.929-0.757,1.686-1.686,1.686 C0.751,3.373,0,2.616,0,1.687C0,0.757,0.751,0,1.687,0 M4.941,4.648h2.784v1.282h0.037c0.388-0.735,1.335-1.51,2.751-1.51 C13.455,4.421,14,6.357,14,8.876V14h-2.902V9.454c0-1.087-0.016-2.481-1.508-2.481c-1.514,0-1.742,1.184-1.742,2.4V14H4.946 L4.941,4.648L4.941,4.648z"></path>
+                    	</g>
+                    </svg>
+
+                  </div>
+                </li>
+              </div>
+
+            </div>
+
+          </div>
+          <div class="box-br">
+            <div class="box-bt-page right">
+              <div class="tooltip">
+                <a href="/article/?id={{article_data.id_next}}" class="bt-page bt-prev"></a>
+                <div class="box-tooltip">
+                  <div class="tooltip-text">
+                    Previous
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="box-bt-page left">
+              <div class="tooltip">
+                <a href="/article/?id={{article_data.id_prev}}" class="bt-page bt-next"></a>
+                <div class="box-tooltip">
+                  <div class="tooltip-text">
+                    Next
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="box-filters fixed seo" id="box-filters-fixed">
+              <ul class="menu-filters">
+                <li id="text-settings-dropdown" class="item dropdown">
+
+
+            <div id="text-settings" class="box-bt-page right text-settings">
+              <div class="tooltip">
+                <a class="bt-text-settings bt-next">
+                  <svg viewBox="0 -14 100 100" style="height: 26px; widht: 26px; fill: white;" xml:space="preserve"><style type="text/css">
+                  	.st0{fill:#FFFFFF;}
+                  	.st1{fill:none;stroke:#000000;stroke-width:5;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:10;}
+                  </style><path d="M26.5,57.7V16c0-1.4-1.1-2.5-2.5-2.5s-2.5,1.1-2.5,2.5v41.7c-4.9,1.1-8.5,5.5-8.5,10.7s3.6,9.6,8.5,10.7v6.2  c0,1.4,1.1,2.5,2.5,2.5s2.5-1.1,2.5-2.5v-6.2c4.9-1.1,8.5-5.5,8.5-10.7S31.4,58.8,26.5,57.7z M24,74.4c-3.3,0-6-2.7-6-6s2.7-6,6-6  s6,2.7,6,6S27.3,74.4,24,74.4z"/><path d="M53.5,37.7V16c0-1.4-1.1-2.5-2.5-2.5s-2.5,1.1-2.5,2.5v21.7c-4.9,1.1-8.5,5.5-8.5,10.7s3.6,9.6,8.5,10.7v26.2  c0,1.4,1.1,2.5,2.5,2.5s2.5-1.1,2.5-2.5V59.1c4.9-1.1,8.5-5.5,8.5-10.7S58.4,38.8,53.5,37.7z M51,54.4c-3.3,0-6-2.7-6-6s2.7-6,6-6  s6,2.7,6,6S54.3,54.4,51,54.4z"/><path d="M89,27.7c0-5.2-3.6-9.6-8.5-10.7v-2.5c0-1.4-1.1-2.5-2.5-2.5s-2.5,1.1-2.5,2.5V17c-4.9,1.1-8.5,5.5-8.5,10.7  s3.6,9.6,8.5,10.7v46.8c0,1.4,1.1,2.5,2.5,2.5s2.5-1.1,2.5-2.5V38.4C85.4,37.3,89,32.9,89,27.7z M78,33.7c-3.3,0-6-2.7-6-6  c0-3.1,2.4-5.7,5.4-6c0.2,0,0.4,0.1,0.6,0.1s0.4,0,0.6-0.1c3,0.3,5.4,2.9,5.4,6C84,31,81.3,33.7,78,33.7z"/></svg>
+                </a>
+                <div class="box-tooltip">
+                  <div class="tooltip-text">
+                    View Adjustments
+                  </div>
+                </div>
+              </div>
+
+
+
+
+                    <div class="menu-dropdown">
+                      <ul>
+                        <li>
+                          <div class="sets">
+                            <strong>Font</strong>
+                          </div>
+                          <div class="sets right">
+                            <div id="font-last" class="text-setting-font-size-buttons">
+                              -
+                            </div>
+                            <div id="font-setting" class="text-setting-font-size">
+                            </div>
+                            <div id="font-next" class="text-setting-font-size-buttons">
+                              +
+                            </div>
+                          </div>
+                        </li>
+
+                        <li>
+                          <div class="sets">
+                            <strong>Font Size</strong>
+                          </div>
+                          <div class="sets right">
+                            <div id="font-decrease" class="text-setting-font-size-buttons">
+                              -
+                            </div>
+                            <div id="font-size-setting" class="text-setting-font-size">
+                            </div>
+                            <div id="font-increase" class="text-setting-font-size-buttons">
+                              +
+                            </div>
+                          </div>
+                        </li>
+
+                        <li>
+                          <div class="sets">
+                            <strong>Width of Text</strong>
+                          </div>
+                          <div class="sets right">
+                            <div id="text-width-decrease" class="text-setting-font-size-buttons">
+                              -
+                            </div>
+                            <div id="text-width-setting" class="text-setting-font-size">
+                            </div>
+                            <div id="text-width-increase" class="text-setting-font-size-buttons">
+                              +
+                            </div>
+                          </div>
+                        </li>
+                        <li id="revert_to_default">
+                          <div class="sets"><strong>Revert To Default</strong></div>
+                        </li>
+                      </ul>
+                    </div>
+                  <!-- </li>
+                </ul>
+              </div> -->
+
+
+
+
+            </div>
+
+          </li>
+        </ul>
+
+        <div id="open-filter-scroll" style="display: none;" class="style2">
+          <div class="bts">
+            <div class="bt bt-close">
+            </div>
+          </div>
+          <div class="spinner" style="display: none;">
+          </div>
+        </div>
+
+      </div>
+
+
+          </div>
         </div>
       </div>
-    {% endblock %}
     </div>
+
+  </div>
+
+
+
+
+  <!-- End Image section -->
+  <!-- Start Title and Tags section -->
+
+  <div class="block has-tablet">
+    <div class="inner width-3">
+      <div class="box-page-info">
+        <h3 class="h4">{{article_data.title}}</h3>
+        <h3 class="h4">{{article_data.post_date}}</h3>
+        <div class="list-tags list-center">
+          <ul>
+            <li><a href="#" class="item">Pramila Jayapal</a></li>
+            <li><a href="#" class="item">Emily Randall</a></li>
+            <li><a href="#" class="item">Jenny Durkan</a></li>
+            <li><a href="#" class="item">Seattle, Washington</a></li>
+            <li><a href="#" class="item">Washington State</a></li>
+            <li><a href="#" class="item">Protest</a></li>
+            <li><a href="#" class="item">Donald Trump</a></li>
+            <li><a href="#" class="item">Seattle Women’s March</a></li>
+            <li><a href="#" class="item">Women’s March</a></li>
+            <li><a href="#" class="item">Olympia, Washington</a></li>
+            <li><a href="#" class="item">Rally</a></li>
+            <li><a href="#" class="item">Political Awareness & Activism</a></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="block has-mobile" id="mobile-titles">
+    <div class="inner width-3">
+      <div class="box-page-info-mobile">
+        <!-- <h3 class="top-title">{{article_data.title}}</h3> -->
+        <h3 class="top-author"><b>By</b> {{article_data.author}}</h3>
+        <h3 class="top-date"><b>Posted</b> {{article_data.post_date}}</h3>
+      </div>
+    </div>
+  </div>
+
+  <!-- End Title and Tags section -->
+  <!-- Start Nav section -->
+
+  <nav class="nav-sections style1 has-tablet">
+    <div class="slider"></div>
+    <ul id="nav-section-menu">
+      <li class="active">
+        <span class="navscroll" data-idpage="article-text" data-diffscroll="70">Article Text</span>
+      </li>
+      <li>
+        <span class="navscroll" data-idpage="people-social" data-diffscroll="70">People & Social Media Scores</span>
+      </li>
+      <li>
+        <span class="navscroll" data-idpage="related-articles" data-diffscroll="70">Related Articles</span>
+      </li>
+    </ul>
+  </nav>
+
+
+  <!-- End Nav -->
+  <!-- Start Text Section -->
+    <div class="block pt-0 article-text" id="article-text">
+      {{ article_data.texts|linebreaks }}
+    </div>
+
+  <!-- End Text Section -->
+
+  <!-- Start Nav Blocks? -->
+
+  <div class="block pt-0">
+    <div class="inner width-1">
+
+      <div class="box-page-votation" id="people-social">
+        <div class="box-information">
+          <div class="header">
+            <div class="box-left">
+              <span class="title">D A T A</span>
+              <ul class="menu-tabs">
+                <li class="active">
+                  <div class="menu-item jury_votes">{{article_data.total_people}}</div>
+                </li>
+                <li>
+                  <div class="menu-item user_votes">SOCIAL MEDIA</div>
+                </li>
+              </ul>
+            </div>
+            <div class="box-right has-tablet">
+              <div class="tooltip">
+                <a href="/about-evaluation/" class="bt-info"></a>
+                <div class="box-tooltip">
+                  <div class="tooltip-text">Data -- Read more</div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!--  start people section -->
+
+          <ul class="list-users-votes" id="jury_votes">
+            {% for person in people %}
+            <li>
+              <div class="box-left">
+                <div class="avatar">
+                  <div class"avatar-square">
+                    {% with 'images/'|add:person.state|add:'/'|add:person.person_id|add:'.jpg' as person_image %}
+                    <a href="#">
+                      <img class="b-lazy" src="/static/images/kristian2.jpeg" data-src="{% static person_image %}" data-src-small="{% static person_image %}" data-src-medium="{% static person_image %}" alt="{{person.name}}" width="50" height="50"/>
+                    </a>
+                    {% endwith %}
+                  </div>
+                </div>
+                <div class="info">
+                  <div class="row"><strong><a href="#">{{person.name}}</a></strong> <i>from</i> <strong>{{person.state}}</strong></div>
+                  <div class="row">{{person.role}} | District 7</div>
+                </div>
+              </div>
+              <div class="box-right">
+                <ul class="list-number-awards">
+                  <li>
+
+                  </li>
+                </ul>
+                <div class="item">
+                  <span class="note">{{person.name_mentions}}</span>
+                </div>
+              </div>
+            </li>
+
+            {% endfor %}
+          </ul>
+
+          <!-- End People Data -->
+          <!-- Start Social Data -->
+
+          <ul class="list-users-votes" id="user_votes" style="display:none">
+            <li>
+              <div class="box-left">
+                <div class="avatar">
+                  <div class"avatar-square">
+                    <a href="/article">
+                  		<svg class="ico-svg" viewBox="0 0 6.5 14" xmlns="http://www.w3.org/2000/svg">
+												<g id="facebook" data-size="6.5 14">
+													<path d="M4.3,3.4c0-0.2,0-0.3,0-0.4c0-0.1,0.1-0.2,0.1-0.3c0.1-0.1,0.1-0.1,0.3-0.2c0.1-0.1,0.3-0.1,0.5-0.1h1.2V0	H4.5C3.5,0,2.7,0.2,2.2,0.8C1.7,1.3,1.4,2.1,1.4,3.1v1.5H0V7h1.4v7h2.9V7h1.9l0.3-2.4H4.3V3.4z"/>
+												</g>
+											</svg>
+
+                		</a>
+                  </div>
+                </div>
+                <div class="info">
+                  <div class="row"><strong><a href="/motin/">Facebook</a></strong></div>
+                  <div class="row">Share Count</div>
+                </div>
+              </div>
+              <div class="box-right">
+                <ul class="list-number-awards">
+                  <li>
+
+                  </li>
+                </ul>
+                <div class="item">
+                  <span class="note">{{ social_media.facebook }}</span>
+                </div>
+              </div>
+            </li>
+
+
+            <li>
+              <div class="box-left">
+                <div class="avatar">
+                  <div class"avatar-square">
+                    <a href="/article">
+                    	<svg class="ico-svg" viewBox="0 0 17 14" xmlns="http://www.w3.org/2000/svg">
+												<g id="twitter" data-size="17 14">
+													<path d="M15,2.2c0.8-0.5,1.3-1.1,1.5-2c-0.7,0.4-1.4,0.7-2.2,0.8C13.6,0.4,12.8,0,11.8,0S10,0.3,9.3,1 c-0.7,0.7-1,1.5-1,2.5c0,0.3,0,0.5,0.1,0.8C7,4.3,5.6,3.9,4.3,3.3C3.1,2.6,2,1.7,1.2,0.6C0.9,1.2,0.7,1.8,0.7,2.4 c0,0.6,0.1,1.1,0.4,1.7C1.4,4.6,1.8,5,2.3,5.4c-0.6,0-1.1-0.2-1.6-0.4v0c0,0.8,0.3,1.6,0.8,2.3c0.5,0.6,1.2,1,2,1.2 C3.2,8.5,2.9,8.6,2.6,8.6c-0.2,0-0.4,0-0.7-0.1c0.2,0.7,0.6,1.3,1.2,1.8s1.3,0.7,2,0.7c-1.3,1-2.7,1.5-4.3,1.5c-0.3,0-0.6,0-0.8-0.1 C1.6,13.5,3.4,14,5.4,14c1.2,0,2.4-0.2,3.5-0.6c1.1-0.4,2-0.9,2.8-1.6c0.8-0.7,1.4-1.5,2-2.3c0.6-0.8,1-1.8,1.2-2.7 c0.3-0.9,0.4-1.9,0.4-2.8c0-0.2,0-0.3,0-0.5C15.9,3,16.5,2.4,17,1.7C16.3,1.9,15.7,2.1,15,2.2z"/>
+												</g>
+											</svg>
+
+                  	</a>
+                  </div>
+                </div>
+                <div class="info">
+                  <div class="row"><strong><a href="/motin/">Reddit</a></strong></div>
+                  <div class="row">Share Count</div>
+                </div>
+              </div>
+              <div class="box-right">
+                <ul class="list-number-awards">
+                  <li>
+
+
+
+                  </li>
+                </ul>
+                <div class="item">
+                  <span class="note">{{ social_media.reddit }}</span>
+                </div>
+              </div>
+            </li>
+
+
+            <li>
+              <div class="box-left">
+                <div class="avatar">
+                  <div class"avatar-square">
+                    <a href="/article">
+                  		<svg class="ico-svg" viewBox="0 0 14 14" xmlns="http://www.w3.org/2000/svg" width="50px">
+                        <g id="pinterest" data-size="11 14.075">
+                      		<path d="M5.8,0C2,0,0,2.7,0,5c0,1.4,0.5,2.6,1.7,3.1c0.2,0.1,0.4,0,0.4-0.2c0-0.1,0.1-0.5,0.2-0.6 C2.3,7,2.3,7,2.1,6.8C1.8,6.4,1.6,5.9,1.6,5.2c0-2,1.5-3.9,4-3.9C7.8,1.4,9,2.7,9,4.5c0,2.3-1,4.3-2.6,4.3C5.6,8.7,4.9,8,5.1,7.2 c0.2-1,0.7-2.1,0.7-2.9c0-0.7-0.4-1.2-1.1-1.2C3.9,3.1,3.2,4,3.2,5.2c0,0.8,0.3,1.3,0.3,1.3s-0.9,3.7-1,4.4c-0.3,1.3,0,2.9,0,3.1 c0,0.1,0.1,0.1,0.2,0c0.1-0.1,1.1-1.4,1.5-2.6C4.1,11,4.6,9.1,4.6,9.1c0.3,0.5,1.1,1,2,1c2.6,0,4.4-2.4,4.4-5.5C11,2.2,9,0,5.8,0z"/>
+                      	</g>
+											</svg>
+
+                    </a>
+                  </div>
+                </div>
+                <div class="info">
+                  <div class="row"><strong><a href="/motin/">Pinterest</a></strong></div>
+                  <div class="row">Share Count</div>
+                </div>
+              </div>
+              <div class="box-right">
+                <ul class="list-number-awards">
+                  <li>
+
+
+                  </li>
+                </ul>
+                <div class="item">
+                  <span class="note">{{ social_media.pinterest }}</span>
+                </div>
+              </div>
+            </li>
+
+            <li>
+              <div class="box-left">
+                <div class="avatar">
+                  <div class"avatar-square">
+                    <a href="/article">
+                  		<svg class="ico-svg" viewBox="0 0 14 14" xmlns="http://www.w3.org/2000/svg" width="50px">
+                        <g id="linkedin" data-size="14 14">
+                      		<path d="M0.227,4.648h2.908V14H0.227V4.648z M1.687,0c0.929,0,1.686,0.757,1.686,1.687c0,0.929-0.757,1.686-1.686,1.686 C0.751,3.373,0,2.616,0,1.687C0,0.757,0.751,0,1.687,0 M4.941,4.648h2.784v1.282h0.037c0.388-0.735,1.335-1.51,2.751-1.51 C13.455,4.421,14,6.357,14,8.876V14h-2.902V9.454c0-1.087-0.016-2.481-1.508-2.481c-1.514,0-1.742,1.184-1.742,2.4V14H4.946 L4.941,4.648L4.941,4.648z"></path>
+                      	</g>
+											</svg>
+
+                    </a>
+                  </div>
+                </div>
+                <div class="info">
+                  <div class="row"><strong><a href="/motin/">LinkedIn</a></strong></div>
+                  <div class="row">Share Count</div>
+                </div>
+              </div>
+              <div class="box-right">
+                <ul class="list-number-awards">
+                  <li>
+
+
+
+                  </li>
+                </ul>
+                <div class="item">
+                  <span class="note">{{ social_media.linkedin }}</span>
+                </div>
+              </div>
+            </li>
+
+
+            <li>
+              <div class="box-left">
+                <div class="avatar">
+                  <div class"avatar-square">
+                    <a href="/article">
+                  		<svg class="ico-svg" viewBox="0 0 14 14" xmlns="http://www.w3.org/2000/svg" width="50px">
+											</svg>
+
+                    </a>
+                  </div>
+                </div>
+                <div class="info">
+                  <div class="row"><strong><a href="/motin/">Total</a></strong></div>
+                  <div class="row">Share Count</div>
+                </div>
+              </div>
+              <div class="box-right">
+                <ul class="list-number-awards">
+                  <li>
+
+                  </li>
+                </ul>
+                <div class="item">
+                  <span class="note">{{ social_media.total }}</span>
+                </div>
+              </div>
+            </li>
+
+
+          </ul>
+        </div>
+      </div>
+
+
+
+
+
+    </div>
+  </div>
+
+
+
+  <!-- End ratings -->
+  <!-- Start Similars -->
+
+
+  <div class="block pt-0" id="related-articles">
+    <div class="inner">
+      <div class="box-heading pt-0">
+        <div class="box-left">
+          <h2 class="title"><a href="/awards-of-the-day/">Related Articles For...</a></h2>
+          <span>{{article_data.title}}</span>
+        </div>
+      </div>
+      <div class="grid">
+        <ul class="list-items list-flex list-one-row" id="previous_sotds">
+          <li class="col-3" data-model="{&quot;id&quot;:31753,&quot;images&quot;:{&quot;thumbnail&quot;:&quot;submissions\/2018\/01\/5a61a26cdc4ba.jpg&quot;},&quot;slug&quot;:&quot;bullying-and-behavior&quot;,&quot;title&quot;:&quot;Bullying and Behavior&quot;,&quot;type&quot;:&quot;submission&quot;}">
+            <div class="box-item">
+              <figure class="rollover">
+                <a href="/sites/bullying-and-behavior">
+                  <div class="box-photo">
+                    <img class="b-lazy article_top_image" src="/static/images/kristian2.jpeg" data-src="/static/images/article_images/519.jpg" data-src-small="/static/images/article_images/519.jpg" data-src-medium="/static/images/article_images/519.jpg" alt="Greater campaign information required by bills" />
+                  </div>
+                </a>
+                <div class="hover-item bottom">
+                  <a class="bt-item bt-link" href="https://bullyingandbehavior.com" target="_blank" rel="noopener nofollow">
+              <svg class="ico-svg" viewBox="0 0 22.24 14" xmlns="http://www.w3.org/2000/svg">
+      <g id="link" data-size="22.24 14">
+  <path d="M13.84,14V9.801C8.492,8.463,4.42,9.041,0.408,12.144c-0.05,0.038-0.101,0.078-0.15,0.117 c-0.137,0.104-0.192,0.103-0.226,0.077c-0.035-0.027-0.055-0.066,0.014-0.234c0.092-0.228,0.196-0.445,0.298-0.658 C3.208,5.443,7.902,4.2,13.84,4.2V0l8.4,7L13.84,14z"/>
+</g>
+  </svg>
+
+          </a>
+                </div>
+
+              </figure>
+              <div class="box-info">
+                <div class="content">
+                  <div class="row title_row">
+                    <h3><a href="/sites/bullying-and-behavior" class="">Greater campaign information required by bills</a></h3>
+                  </div>
+                  <div class="row source_row">
+
+                    by <strong>
+
+  <a href="/GardenEight/">Spokesman Review</a>
+  </strong>
+
+                  </div>
+                  <div class="row date_row">
+                    January 12, 2018
+                      in
+                    <strong>
+                      <a href="/recent_news" class="text-black">Washington State</a>
+                    </strong>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </li>
+
+          <li class="col-3" data-model="{&quot;id&quot;:31725,&quot;images&quot;:{&quot;thumbnail&quot;:&quot;submissions\/2018\/01\/5a5e879690c2b.jpg&quot;},&quot;slug&quot;:&quot;julie-bonnemoy&quot;,&quot;title&quot;:&quot;Julie Bonnemoy&quot;,&quot;type&quot;:&quot;submission&quot;}">
+            <div class="box-item">
+              <figure class="rollover">
+                <a href="/sites/julie-bonnemoy">
+                  <div class="box-photo">
+                    <img class="b-lazy article_top_image" src="/static/images/kristian2.jpeg" data-src="/static/images/article_images/529.jpg" data-src-small="/static/images/article_images/529.jpg" data-src-medium="/static/images/article_images/529.jpg" alt="6 environmental issues to watch in Olympia" />
+                  </div>
+                </a>
+                <div class="hover-item bottom">
+                  <a class="bt-item bt-link" href="https://juliebonnemoy.com" target="_blank" rel="noopener nofollow">
+              <svg class="ico-svg" viewBox="0 0 22.24 14" xmlns="http://www.w3.org/2000/svg">
+      <g id="link" data-size="22.24 14">
+  <path d="M13.84,14V9.801C8.492,8.463,4.42,9.041,0.408,12.144c-0.05,0.038-0.101,0.078-0.15,0.117 c-0.137,0.104-0.192,0.103-0.226,0.077c-0.035-0.027-0.055-0.066,0.014-0.234c0.092-0.228,0.196-0.445,0.298-0.658 C3.208,5.443,7.902,4.2,13.84,4.2V0l8.4,7L13.84,14z"/>
+</g>
+  </svg>
+
+          </a>
+                </div>
+
+              </figure>
+              <div class="box-info">
+                <div class="content">
+                  <div class="row title_row">
+                    <h3><a href="/sites/julie-bonnemoy" class="">6 environmental issues to watch in Olympia</a></h3>
+                  </div>
+                  <div class="row source_row">
+
+                    by <strong>
+
+  <a href="/julie-bonnemoy/">CrossCut</a>
+  </strong>
+
+                  </div>
+                  <div class="row date_row">
+                    January 17, 2018
+                      in
+                    <strong>
+                      <a href="/recent_news" class="text-black">Washington State</a>
+                    </strong>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </li>
+
+          <li class="col-3" data-model="{&quot;id&quot;:31709,&quot;images&quot;:{&quot;thumbnail&quot;:&quot;submissions\/2018\/01\/5a5dc0aaab2fe.jpg&quot;},&quot;slug&quot;:&quot;one-last-beat&quot;,&quot;title&quot;:&quot;One Last Beat&quot;,&quot;type&quot;:&quot;submission&quot;}">
+            <div class="box-item">
+              <figure class="rollover">
+                <a href="/sites/one-last-beat">
+                  <div class="box-photo">
+                    <img class="b-lazy article_top_image" src="/static/images/kristian2.jpeg" data-src="/static/images/article_images/539.jpg" data-src-small="/static/images/article_images/539.jpg" data-src-medium="/static/images/article_images/539.jpg" alt="Gov. Inslee demands Trump administration not drill off Washington coast" />
+                  </div>
+                </a>
+                <div class="hover-item bottom">
+                  <a class="bt-item bt-link" href="http://onelastbeat.com/" target="_blank" rel="noopener nofollow">
+              <svg class="ico-svg" viewBox="0 0 22.24 14" xmlns="http://www.w3.org/2000/svg">
+      <g id="link" data-size="22.24 14">
+  <path d="M13.84,14V9.801C8.492,8.463,4.42,9.041,0.408,12.144c-0.05,0.038-0.101,0.078-0.15,0.117 c-0.137,0.104-0.192,0.103-0.226,0.077c-0.035-0.027-0.055-0.066,0.014-0.234c0.092-0.228,0.196-0.445,0.298-0.658 C3.208,5.443,7.902,4.2,13.84,4.2V0l8.4,7L13.84,14z"/>
+</g>
+  </svg>
+
+          </a>
+                </div>
+
+              </figure>
+              <div class="box-info">
+                <div class="content">
+                  <div class="row title_row">
+                    <h3><a href="/sites/one-last-beat" class="">Gov. Inslee demands Trump administration not drill off Washington coast</a></h3>
+                  </div>
+                  <div class="row source_row">
+
+                    by <strong>
+
+  <a href="/hector-monerris/">King 5</a>
+  </strong>
+                  </div>
+                  <div class="row date_row">
+                    January 11, 2018
+                      in
+                    <strong>
+                      <a href="/recent_news" class="text-black">Washington State</a>
+                    </strong>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </li>
+
+          <li class="col-3" data-model="{&quot;id&quot;:31707,&quot;images&quot;:{&quot;thumbnail&quot;:&quot;submissions\/2018\/01\/5a5cffd7105ef.jpg&quot;},&quot;slug&quot;:&quot;studio-ouam&quot;,&quot;title&quot;:&quot;Studio OUAM&quot;,&quot;type&quot;:&quot;submission&quot;}">
+            <div class="box-item">
+              <figure class="rollover">
+                <a href="/sites/studio-ouam">
+                  <div class="box-photo">
+                    <img class="b-lazy article_top_image" src="/static/images/kristian2.jpeg" data-src="/static/images/article_images/559.jpg" data-src-small="/static/images/article_images/559.jpg" data-src-medium="/static/images/article_images/559.jpg" alt="WSU medical school would have a say in residency programs" />
+                  </div>
+                </a>
+                <div class="hover-item bottom">
+                  <a class="bt-item bt-link" href="http://studioouam.com/" target="_blank" rel="noopener nofollow">
+              <svg class="ico-svg" viewBox="0 0 22.24 14" xmlns="http://www.w3.org/2000/svg">
+      <g id="link" data-size="22.24 14">
+  <path d="M13.84,14V9.801C8.492,8.463,4.42,9.041,0.408,12.144c-0.05,0.038-0.101,0.078-0.15,0.117 c-0.137,0.104-0.192,0.103-0.226,0.077c-0.035-0.027-0.055-0.066,0.014-0.234c0.092-0.228,0.196-0.445,0.298-0.658 C3.208,5.443,7.902,4.2,13.84,4.2V0l8.4,7L13.84,14z"/>
+</g>
+  </svg>
+
+          </a>
+                </div>
+
+              </figure>
+              <div class="box-info">
+                <div class="content">
+                  <div class="row title_row">
+                    <h3><a href="/sites/studio-ouam" class="">WSU medical school would have a say in residency programs</a></h3>
+                  </div>
+                  <div class="row source_row">
+
+                    by <strong>
+
+  <a href="/studioOUAM/">Spokesman Review</a>
+  </strong>
+
+                  </div>
+                  <div class="row date_row">
+                    January 17, 2018
+                      in
+                    <strong>
+                      <a href="/recent_news" class="text-black">Washington State</a>
+                    </strong>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </li>
+
+        </ul>
+      </div>
+    </div>
+  </div>
+
+</section>
+</body>
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/jquery.transit@0.9.12/jquery.transit.min.js"></script>
+<script type="text/javascript" src="{% static '/js/article.js' %}"></script>
+
+{% include "CYP/includes/htmlsnippet.html" %}
+{% endblock %}

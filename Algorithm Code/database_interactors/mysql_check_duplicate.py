@@ -39,14 +39,15 @@ def main(url):
 
         cursor = cnx.cursor()
 
-        cursor.execute("SELECT * FROM News_articles WHERE url = %s", (url,))
+        cursor.execute("SELECT id FROM News_articles WHERE url = %s", (url,))
         data = cursor.fetchall()
         # data = data[0]
 
         if len(data) == 0:
             return_value = 0
         else:
-            return_value = 1
+            data = data[0]
+            return_value = data[0]
 
         # Make sure data is committed to the database
         cnx.commit()
