@@ -152,3 +152,4 @@ class Social_Media(models.Model):
     pinterest_pins = models.IntegerField(default=0, null=True)
     linkedin_shares = models.IntegerField(default=0, null=True)
     total_count = models.IntegerField(default=0, null=True)
+    last_updated = models.DateTimeField(null=True)

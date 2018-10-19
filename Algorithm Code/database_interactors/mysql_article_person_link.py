@@ -50,7 +50,7 @@ def main(article_id, article_people, article_total_count_mentions):
             lname = str(" ".join(person.split()[1:]))
             fname = str(person.split()[0])
             # print "First Name:", fname, "Last Name:", lname, "\n"
-            cursor.execute(("SELECT id FROM News_people WHERE last_name = '%s' AND first_name = '%s'") % (lname, fname))
+            cursor.execute(('SELECT id FROM News_people WHERE last_name = "%s" AND first_name = "%s"') % (lname, fname))
             data = cursor.fetchall()
             try:
                 data = data[0]

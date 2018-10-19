@@ -34,7 +34,7 @@ a {
 }
 
 .has-mobile, .hiden, .hidden {
-  display: none
+  display: none !important;
 }
 
 @media (max-width: 1024px) {
@@ -268,7 +268,7 @@ media (max-width: 1900px) {
     display: none !important
   }
   .has-mobile {
-    display: block
+    display: block !important
   }
   .inner:not(.full-width) {
     padding-left: 23px !important;
@@ -288,8 +288,8 @@ media (max-width: 1900px) {
     font-size: 25px
   }
   .block {
-    padding-top: 23px;
-    padding-bottom: 23px
+    padding-top: 23px !important;
+    padding-bottom: 23px !important
   }
   .breadcrumb {
     margin-bottom: 23px
@@ -299,14 +299,15 @@ media (max-width: 1900px) {
     overflow: hidden
   }
   #header .bt-menu {
-    width: 65px;
-    min-width: inherit
+    /* width: 65px; */
+    min-width: inherit !important
   }
   #header .box-right {
     display: block
   }
   #header .bt-search {
-    height: 70px
+    height: 70px;
+    /* border-left: 1px solid #E6EAEA; */
   }
   #header .bt-search .ico-svg {
     position: absolute;
@@ -331,13 +332,13 @@ media (max-width: 1900px) {
     width: 100%
   }
   .box-site-head .box-content {
-    position: relative;
-    padding: 23px 0;
-    background-color: #fcfcfc;
-    color: #202121
+    position: relative !important;
+    /* padding: 23px 0; */
+    /* background-color: #fcfcfc; */
+    /* color: #202121 */
   }
   .box-site-head .box-content .inner {
-    display: block
+    display: none !important
   }
   .box-site-head .box-content .box-info {
     text-align: left
@@ -346,7 +347,7 @@ media (max-width: 1900px) {
     font-size: 18px
   }
   .box-site-head .box-content .box-info h1 a, .box-site-head .box-content .box-info h2 a {
-    color: #202121
+    color: #202121 !important;
   }
   .box-site-head .box-content .box-info .by a:hover {
     color: #202121
@@ -413,7 +414,7 @@ media (max-width: 1900px) {
     font-weight: bold
   }
   .list-users-votes .avatar {
-    width: 40px
+    width: 100px !important;
   }
   .list-items .box-style4 .list-number-awards {
     overflow: hidden
@@ -442,7 +443,7 @@ media (max-width: 1900px) {
     display: flex
   }
   .list-users-votes .info {
-    padding-top: 0
+    padding-top: 0 !important;
   }
   .box-halves-fs .bg-cover {
     display: none
@@ -492,6 +493,20 @@ media (max-width: 1900px) {
   }
   #footer .box-top {
     padding: 35px 0
+  }
+  .article-text {
+    font-size: 1.35em !important;
+    padding-left: 6% !important;
+    padding-right: 6% !important;
+    padding-top: 23px !important;
+    -webkit-hyphens: auto;
+  -moz-hyphens: auto;
+  -ms-hyphens: auto;
+  hyphens: auto;
+  }
+  .box-site-head .box-bg {
+    height: auto !important;
+    filter: brightness(100%) !important;
   }
 }
 
@@ -853,7 +868,8 @@ article, aside, details, figcaption, figure, footer, header, nav, section {
 }
 
 #header {
-  position: absolute;
+  /* position: absolute; */
+  position: fixed;
     top: 0;
     left: 0;
     width: 100%;
@@ -862,10 +878,26 @@ article, aside, details, figcaption, figure, footer, header, nav, section {
     font-size: 13px;
     font-weight: 400;
     background-color: #f4f7f6;
-    z-index: 302;
+    z-index: 900;
     border-bottom: 1px solid #E6EAEA;
+    will-change: transform;
     /* transform: translateX(0); */
+
+    /* &::before {
+    content: ' ';
+    position: fixed; */
+    /* width: 100%; */
+    /* height: 100%; */
+    /* top: 0; */
+    /* left: 0; */
+    /* background-color: white; */
+    /* background: url('/img/front/strategy.jpg') no-repeat center center; */
+    /* background-size: cover; */
+    /* will-change: transform; // creates a new paint layer */
+    /* z-index: -1; */
+  /* } */
 }
+
 
 #header .bt-search {
     cursor: pointer;
@@ -957,11 +989,36 @@ article, aside, details, figcaption, figure, footer, header, nav, section {
     width: 320px;
     height: 100vh;
     background: #f4f7f6;
-    overflow-y: auto;
+    overflow-y: scroll;
     z-index: 301;
     transition: 0.5s; /* 0.5 second transition effect to slide in the sidenav */
     -webkit-transform: translateX(-320px);
     transform: translateX(-320px);
+}
+
+.nav-mobile-settings {
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-orient: vertical;
+    -webkit-box-direction: normal;
+    -ms-flex-direction: column;
+    flex-direction: column;
+    -webkit-box-pack: justify;
+    -ms-flex-pack: justify;
+    justify-content: space-between;
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    width: 320px;
+    height: 100vh;
+    background: #f4f7f6;
+    overflow-y: scroll;
+    z-index: 301;
+    transition: 0.5s;
+    -webkit-transform: translateX(calc(100vw + 320px));
+    transform: translateX(calc(100vw + 320px)%);
 }
 
 .nav-main .header {

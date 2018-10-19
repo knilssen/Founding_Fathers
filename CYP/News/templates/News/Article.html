@@ -16,18 +16,32 @@
   {% with 'images/article_images/'|add:article_data.top_image as top_image %}
   <div id="page_location" data-page="recent_news" data-page_path="Washington State | Recent News" data-page_picture='{% static top_image %}'></div>
   {% endwith %}
+
+  <div class="block has-mobile" id="mobile-title">
+    <div class="inner width-3">
+      <div class="box-page-info-mobile">
+        <h3 class="top-title">{{article_data.title}}</h3>
+        <!-- <h3 class="top-author">By {{article_data.author}}</h3>
+        <h3 class="top-date">Posted {{article_data.post_date}}</h3> -->
+      </div>
+    </div>
+  </div>
+
   <div class="content-view">
 
     <div class="box-site-head">
-      <div class="box-bg has-tablet top-image" id="back_image">
+      {% with 'images/article_images/'|add:article_data.top_image as top_image %}
+      <div class="box-bg has-tablet top-image" id="back_image" style="background-image: url('{% static top_image %}');">
       </div>
-      <div class="box-photo has-mobile">
-        <a href='{{article_data.url}}' target="_blank">
+      <div class="box-bg box-photo has-mobile">
+        <img src='{% static top_image %}'>
+        <!-- <a href='{{article_data.url}}' target="_blank">
               {% with 'images/article_images/'|add:article_data.top_image as top_image %}
               <img class="b-lazy" src="/static/images/kristian2.jpeg" data-src="{% static top_image %}" data-src-small="{% static top_image %}" data-src-medium="{% static top_image %}" alt="{{article_data.title}}" />
               {% endwith %}
-            </a>
+            </a> -->
       </div>
+      {% endwith %}
       <div class="box-content" itemscope="" itemtype="http://schema.org/Article">
 
         <meta itemprop="datePublished" content="2018-01-21">
@@ -72,11 +86,11 @@
           </div>
           <div class="box-breadcrumb js-sotd" data-sotd="{&quot;id&quot;:31762,&quot;images&quot;:{&quot;thumbnail&quot;:&quot;submissions\/2018\/01\/5a620fadc2143.jpg&quot;},&quot;slug&quot;:&quot;you-are-the-stylist&quot;,&quot;title&quot;:&quot;You are the stylist&quot;,&quot;type&quot;:&quot;submission&quot;}">
             <div class="box-left">
-              <strong class="parent">
+              <span class="parent" style="font-weight: bold;">
                   <a href="/awards-of-the-day/">
-                    {{article_data.author}}
+                    {{article_data.source}}
                   </a>
-                </strong>
+                </span>
               <span class="text-x-thin">
                   {{article_data.post_date}}
                 </span>
@@ -182,12 +196,115 @@
                 </div>
               </div>
             </div>
+
+            <div class="box-filters fixed seo" id="box-filters-fixed">
+              <ul class="menu-filters">
+                <li id="text-settings-dropdown" class="item dropdown">
+
+
+            <div id="text-settings" class="box-bt-page right text-settings">
+              <div class="tooltip">
+                <a class="bt-text-settings bt-next">
+                  <svg viewBox="0 -14 100 100" style="height: 26px; widht: 26px; fill: white;" xml:space="preserve"><style type="text/css">
+                  	.st0{fill:#FFFFFF;}
+                  	.st1{fill:none;stroke:#000000;stroke-width:5;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:10;}
+                  </style><path d="M26.5,57.7V16c0-1.4-1.1-2.5-2.5-2.5s-2.5,1.1-2.5,2.5v41.7c-4.9,1.1-8.5,5.5-8.5,10.7s3.6,9.6,8.5,10.7v6.2  c0,1.4,1.1,2.5,2.5,2.5s2.5-1.1,2.5-2.5v-6.2c4.9-1.1,8.5-5.5,8.5-10.7S31.4,58.8,26.5,57.7z M24,74.4c-3.3,0-6-2.7-6-6s2.7-6,6-6  s6,2.7,6,6S27.3,74.4,24,74.4z"/><path d="M53.5,37.7V16c0-1.4-1.1-2.5-2.5-2.5s-2.5,1.1-2.5,2.5v21.7c-4.9,1.1-8.5,5.5-8.5,10.7s3.6,9.6,8.5,10.7v26.2  c0,1.4,1.1,2.5,2.5,2.5s2.5-1.1,2.5-2.5V59.1c4.9-1.1,8.5-5.5,8.5-10.7S58.4,38.8,53.5,37.7z M51,54.4c-3.3,0-6-2.7-6-6s2.7-6,6-6  s6,2.7,6,6S54.3,54.4,51,54.4z"/><path d="M89,27.7c0-5.2-3.6-9.6-8.5-10.7v-2.5c0-1.4-1.1-2.5-2.5-2.5s-2.5,1.1-2.5,2.5V17c-4.9,1.1-8.5,5.5-8.5,10.7  s3.6,9.6,8.5,10.7v46.8c0,1.4,1.1,2.5,2.5,2.5s2.5-1.1,2.5-2.5V38.4C85.4,37.3,89,32.9,89,27.7z M78,33.7c-3.3,0-6-2.7-6-6  c0-3.1,2.4-5.7,5.4-6c0.2,0,0.4,0.1,0.6,0.1s0.4,0,0.6-0.1c3,0.3,5.4,2.9,5.4,6C84,31,81.3,33.7,78,33.7z"/></svg>
+                </a>
+                <div class="box-tooltip">
+                  <div class="tooltip-text">
+                    View Adjustments
+                  </div>
+                </div>
+              </div>
+
+
+
+
+                    <div class="menu-dropdown">
+                      <ul>
+                        <li>
+                          <div class="sets">
+                            <strong>Font</strong>
+                          </div>
+                          <div class="sets right">
+                            <div id="font-last" class="text-setting-font-size-buttons">
+                              -
+                            </div>
+                            <div id="font-setting" class="text-setting-font-size">
+                            </div>
+                            <div id="font-next" class="text-setting-font-size-buttons">
+                              +
+                            </div>
+                          </div>
+                        </li>
+
+                        <li>
+                          <div class="sets">
+                            <strong>Font Size</strong>
+                          </div>
+                          <div class="sets right">
+                            <div id="font-decrease" class="text-setting-font-size-buttons">
+                              -
+                            </div>
+                            <div id="font-size-setting" class="text-setting-font-size">
+                            </div>
+                            <div id="font-increase" class="text-setting-font-size-buttons">
+                              +
+                            </div>
+                          </div>
+                        </li>
+
+                        <li>
+                          <div class="sets">
+                            <strong>Width of Text</strong>
+                          </div>
+                          <div class="sets right">
+                            <div id="text-width-decrease" class="text-setting-font-size-buttons">
+                              -
+                            </div>
+                            <div id="text-width-setting" class="text-setting-font-size">
+                            </div>
+                            <div id="text-width-increase" class="text-setting-font-size-buttons">
+                              +
+                            </div>
+                          </div>
+                        </li>
+                        <li id="revert_to_default">
+                          <div class="sets"><strong>Revert To Default</strong></div>
+                        </li>
+                      </ul>
+                    </div>
+                  <!-- </li>
+                </ul>
+              </div> -->
+
+
+
+
+            </div>
+
+          </li>
+        </ul>
+
+        <div id="open-filter-scroll" style="display: none;" class="style2">
+          <div class="bts">
+            <div class="bt bt-close">
+            </div>
+          </div>
+          <div class="spinner" style="display: none;">
+          </div>
+        </div>
+
+      </div>
+
+
           </div>
         </div>
       </div>
     </div>
 
   </div>
+
 
 
 
@@ -215,6 +332,16 @@
             <li><a href="#" class="item">Political Awareness & Activism</a></li>
           </ul>
         </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="block has-mobile" id="mobile-titles">
+    <div class="inner width-3">
+      <div class="box-page-info-mobile">
+        <!-- <h3 class="top-title">{{article_data.title}}</h3> -->
+        <h3 class="top-author"><b>By</b> {{article_data.author}}</h3>
+        <h3 class="top-date"><b>Posted</b> {{article_data.post_date}}</h3>
       </div>
     </div>
   </div>
@@ -265,11 +392,11 @@
                 </li>
               </ul>
             </div>
-            <div class="box-right">
+            <div class="box-right has-tablet">
               <div class="tooltip">
                 <a href="/about-evaluation/" class="bt-info"></a>
                 <div class="box-tooltip">
-                  <div class="tooltip-text">Evaluation System - Read more</div>
+                  <div class="tooltip-text">Data -- Read more</div>
                 </div>
               </div>
             </div>
@@ -496,7 +623,7 @@
     <div class="inner">
       <div class="box-heading pt-0">
         <div class="box-left">
-          <h2 class="title"><a href="/awards-of-the-day/">Related Articles</a></h2>
+          <h2 class="title"><a href="/awards-of-the-day/">Related Articles For...</a></h2>
           <span>{{article_data.title}}</span>
         </div>
       </div>

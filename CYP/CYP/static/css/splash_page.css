@@ -313,7 +313,7 @@ a:hover {
 
 
 body.filters .box-filters.fixed {
-    position: absolute;
+    position: fixed;
     top: 70px;
     z-index: 500;
 }
@@ -598,7 +598,7 @@ body.filters .box-filters.fixed {
     width: 100%;
     height: 100%;
     background-color: rgba(0,0,0,0.75);
-    z-index: 890;
+    z-index: 901;
 }
 
 .box-loading {

@@ -42,7 +42,13 @@ $("#outlines .land").hover(function(){
   });
 
 
-
+  $('.tooltip').on({
+    mouseenter: function(){
+      $(this).find('.box-tooltip').css({ visibility: 'visible', opacity: 1 });
+    }, mouseleave: function(){
+      $(this).find('.box-tooltip').css({ opacity: 0, visibility: 'hidden' });
+    }
+  });
 
 // $(window).on('resize', function() {
 //     var height = Math.ceil((($('body').height() - 70) - $('#states').height()) / 2);
@@ -98,6 +104,11 @@ document.getElementById('js-nav-main').onclick = function(t) {
   document.body.classList.toggle("nav-sidebar-open");
   _openMenu(t.currentTarget);
 };
+
+$('.nav-sidebar-open .wrapper:before').click(function() {
+  console.log("hello");
+  closeNav();
+});
 
 function closeNav() {
     var wrappershit = document.getElementsByClassName("wrapper")[0];

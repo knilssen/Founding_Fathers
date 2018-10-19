@@ -76,6 +76,16 @@ def state(request, state):
 
     state_info = {"state_number":state_to_number_dict[state], "state_name":number_to_state_dict[state_to_number_dict[state]], "state_name_no_space":state}
 
+    representatives = []
+
+    with connection.cursor() as person_link:
+        person_link.execute(("SELECT id, first_name, last_name, party FROM cyp.News_people WHERE cyp.News_people.state  = '%s'") % (state))
+        people_linked = person_link.fetchall()
+        for database_returned_people in people_linked:
+            # print database_returned_people
+            representative_name = database_returned_people[1]+" "+database_returned_people[2]
+            representatives.append({"id": database_returned_people[0], "name": representative_name.title(), "party": database_returned_people[3], "state": state, "image": "images/" + state + "/" + str(database_returned_people[0]) + ".jpg"})
+
 
     if (request.GET.get('page')):
         id_num = int(request.GET.get('page'))
@@ -109,7 +119,7 @@ def state(request, state):
                         person_data = people_cursor.fetchall()[0]
                         person_name = person_data[0]+" "+person_data[1]
                         person_image = person_data[2]
-                        person_dict = {"name": person_name, "image": person_image, "id": str(person_data[3]), "state": person_data[4]}
+                        person_dict = {"name": person_name.title, "image": person_image, "id": str(person_data[3]), "state": person_data[4]}
                         people_list.append(person_dict)
 
             scroll.append({'id': ("/article/?id=" + str(scrolls[x][0])), 'url': scrolls[x][1], 'source': scrolls[x][2], 'post_date': (scrolls[x][3]).date(), 'title': scrolls[x][4], 'top_image': str(scrolls[x][0]) + ".jpg", 'people': people_list, 'people_amount': len(people_linked)})
@@ -132,7 +142,7 @@ def state(request, state):
 
         page_data = {'page_number': id_num, 'page_start': page_start, 'page_end': page_end}
 
-    return render_to_response('News/state.html', {'scrolls': scroll, 'page_data': page_data, 'state_info': state_info})
+    return render_to_response('News/state.html', {'scrolls': scroll, 'page_data': page_data, 'state_info': state_info, 'representatives': representatives})
 
 def recent_news(request):
     if (request.GET.get('page')):

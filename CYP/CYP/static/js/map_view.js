@@ -410,9 +410,7 @@ $('#state-maps').click(function(e) {
 });
 
 
-$('.menu-dropdown li').click(function(e) {
-  close_filters();
-})
+
 
 
 function exit_view_toggle(elementID){
@@ -426,7 +424,9 @@ function toggledisplay(elementID){
 }
 
 
-
+$('.menu-dropdown li').click(function(e) {
+  close_filters();
+})
 
 $('.menu-filters .item.dropdown').click(function(e) {
   this.classList.toggle("open");

@@ -237,6 +237,7 @@ def article_processor(stuff):
         #
         # print taged
         # print "\n"
+        # print taged
 
         for itemPosition in range(0,len(taged)-1):
             item = taged[itemPosition]
@@ -247,6 +248,7 @@ def article_processor(stuff):
                 else:
                     categories[item[1]].append(firstItem)
                 if item[1] == Type:
+                    # print item[0]
                     # totoltypecount += 1
                     found_real_type_find = ""
 
@@ -278,7 +280,7 @@ def article_processor(stuff):
                                 itemPosition += 1
 
                             temp_realtypefind = " ".join(temp_realtypefind)
-                            print 'temp_realtypefind: ', temp_realtypefind
+                            print 'temp_realtypefind: ', title_tag, temp_realtypefind
 
                             # If our found title is a nickname such as rep. for represenative, then change the nickname to its respected title.
                             # If not, continue
@@ -286,8 +288,9 @@ def article_processor(stuff):
                                 title_tag = alt_position_titles[title_tag]
 
                             # If our last name is in their respected title, then we have found their first name and concluded they are of value and interest
-                            if temp_realtypefind in Keywords[title_tag]:
-                                found_real_type_find = (Keywords[(taged[itemPosition - 1][0]).lower()][temp_realtypefind]).lower() + " " + temp_realtypefind
+                            if temp_realtypefind.title() in Keywords[title_tag]:
+                                found_real_type_find = (Keywords[title_tag.lower()][temp_realtypefind.title()]).lower() + " " + temp_realtypefind
+
 
                         # If the persons title is not in our list of approved titles then add that title so we can check later if we are skipping something that
                         # matters. Also check if a person is mentioned but has no title reference, this could be extreamly complex or basicly simple, all depends on
@@ -324,7 +327,6 @@ def article_processor(stuff):
 
 
 
-
                     # Post Case:
                     # If we find a persons name
                     if found_real_type_find != "":
@@ -337,7 +339,8 @@ def article_processor(stuff):
                         if found_real_type_find not in realtypefind:
                             realtypefind[found_real_type_find] = 1
                             found_real_type_find = found_real_type_find.split()
-                            found_people_by_last_name[found_real_type_find[0]] = " ".join(found_real_type_find[1:])
+                            found_people_by_last_name[" ".join(found_real_type_find[1:])] = found_real_type_find[0]
+
                         # If the person has already been found in the acticle, increment their occurance count
                         else:
                             realtypefind[found_real_type_find] += 1
@@ -375,11 +378,15 @@ def article_processor(stuff):
                         real_people_not_found[key] += realtypefind[key]
 
 
+        # print "\n"
+        # print article_people
 
         # Create a better output of people
         output_people = []
         for people in article_people:
             output_people.append(people)
+
+        # print output_people
 
 
         # If the article has one or more people of interest, then add the article to our database
@@ -432,6 +439,7 @@ def main(Urls, Keywords, otherNames, total_article_count):
     queue = Queue()
     article_dict = {}
     found_possible_position_titles = {}
+    thread_article_titles = {}
 
     # Create 4 worker threads
     for x in range(maxthreads):
@@ -471,25 +479,28 @@ def main(Urls, Keywords, otherNames, total_article_count):
         if check_duplicate == 0 and check_found_url == 0:
             t = threading.Thread(target=lambda q, arg1: q.put(article_processor(arg1)),  args=(people_queue, [Url, article_dict[Url][0], article_dict[Url][1], article_dict[Url][2], Keywords, otherNames, y]))
             thread.append(t)
+            thread_article_titles[t] = [article_dict[Url][0], article_dict[Url][1].title]
             t.start()
         else:
             # If the article has already been found and is of use and in News_articles, dont run NLP and NER on it, instead save time and resources and just print out its ID and
             # that we have already found it before.
             if check_duplicate != 0:
                 print "        ", y, (3-len(str(y))) * " " + "                  ", check_duplicate, (3-len(str(check_duplicate))) * " " + "                  ", "ARTICLE ALREADY FOUND:", Url
-                print "        ", y, (3-len(str(y))) * " " + "                  ", check_duplicate, (3-len(str(check_duplicate))) * " " + "                  ", "NOTHING ADDED TO DATABASE"
-                print "\n"
+                # print "        ", y, (3-len(str(y))) * " " + "                  ", check_duplicate, (3-len(str(check_duplicate))) * " " + "                  ", "NOTHING ADDED TO DATABASE"
+                # print "\n"
             else:
                 if check_found_url != 0:
                     print "        ", y, (3-len(str(y))) * " " + "                  ", check_duplicate, (3-len(str(check_duplicate))) * " " + "                  ", "URL ALREADY FOUND:", Url
-                    print "        ", y, (3-len(str(y))) * " " + "                  ", check_duplicate, (3-len(str(check_duplicate))) * " " + "                  ", "NOT RAN THROUGH COMPREHEND"
-                    print "\n"
+                    # print "        ", y, (3-len(str(y))) * " " + "                  ", check_duplicate, (3-len(str(check_duplicate))) * " " + "                  ", "NOT RAN THROUGH COMPREHEND"
+                    # print "\n"
         # else:
         #     print "DUPLICATE FOUND:", Url
-    print "length of threads:", len(thread)
+    print "\n"
+    print "Number of articles ran through Petext (length of threads):", len(thread)
 
     for t in thread:
-        print "joining thread", t
+        print "joining thread", t, "            ", thread_article_titles[t][0], "       ",  thread_article_titles[t][1]
+        # print "               Thread,", t, " with title,", thread_article_titles[t]
         t.join()
 
     # Check thread's return value

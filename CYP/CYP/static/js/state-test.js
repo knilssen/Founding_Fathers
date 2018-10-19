@@ -66,9 +66,8 @@ $('.source_row').each(function(){
 var tops = document.getElementById('article_image');
 var sides = $('.box-photo').width();
 
-// Lazy loads all images on the page
-$( document ).ready(function() {
 
+function initBLazy() {
   var bLazy = new Blazy({
     selector: 'img' // all images
 
@@ -110,7 +109,15 @@ $( document ).ready(function() {
         }
 
     }
-  });
+    });
+}
+
+
+
+// Lazy loads all images on the page
+$( document ).ready(function() {
+
+  initBLazy();
 
 });
 
@@ -399,7 +406,7 @@ function state_leave(d) {
   $(this).css("fill", "#aaa")
 };
 
-// State page Top Navigation 
+// State page Top Navigation
 
 document.getElementById('l_d').onclick = function(e) {
   s = document.querySelectorAll("#state_page_nav .slide-nav__link");
@@ -524,3 +531,128 @@ document.getElementById('house_state').onclick = function(e) {
   e.currentTarget.firstElementChild.classList.add("active");
   document.getElementById('states').classList.toggle("map_mode_not_active");
 };
+
+
+// Bottom half navigation
+
+      // articles
+document.getElementById('nav_articles').onclick = function(e) {
+  s = document.querySelectorAll("#state_page_nav_bottom .slide-nav__link");
+  [].forEach.call(s, function(d) {
+    if (d.classList.contains("active")){
+      if (d.dataset.nav !== "none") {
+        document.getElementById(d.dataset.nav).classList.toggle("map_mode_not_active");
+        console.log(document.getElementById(d.dataset.nav).classList);
+      }
+    }
+    d.classList.remove("active")
+  });
+  e.currentTarget.firstElementChild.classList.add("active");
+  initBLazy();
+
+  m_f = document.querySelectorAll(".menu-filters");
+  [].forEach.call(m_f, function(m_f_d) {
+    m_f_d.classList.remove("active")
+  });
+
+  document.getElementById('article_filters').classList.toggle("active");
+  document.getElementById(e.currentTarget.firstElementChild.dataset.nav).classList.toggle("map_mode_not_active")
+  // document.getElementById('states').classList.toggle("map_mode_not_active");
+};
+
+        // represenatives
+document.getElementById('nav_representatives').onclick = function(e) {
+  s = document.querySelectorAll("#state_page_nav_bottom .slide-nav__link");
+  [].forEach.call(s, function(d) {
+    if (d.classList.contains("active")){
+      if (d.dataset.nav !== "none") {
+        document.getElementById(d.dataset.nav).classList.toggle("map_mode_not_active");
+        console.log(document.getElementById(d.dataset.nav).classList);
+      }
+    }
+    d.classList.remove("active")
+  });
+  e.currentTarget.firstElementChild.classList.add("active");
+  initBLazy();
+
+  m_f = document.querySelectorAll(".menu-filters");
+  [].forEach.call(m_f, function(m_f_d) {
+    m_f_d.classList.remove("active")
+  });
+
+  document.getElementById('represenative_filters').classList.toggle("active");
+  document.getElementById(e.currentTarget.firstElementChild.dataset.nav).classList.toggle("map_mode_not_active")
+  // document.getElementById('states').classList.toggle("map_mode_not_active");
+};
+
+        // bills
+
+
+
+
+
+
+
+
+
+
+
+// filter interactions
+
+$('.menu-dropdown li').click(function(e) {
+  close_filters();
+})
+
+$('.menu-filters .item.dropdown').click(function(e) {
+  this.classList.toggle("open");
+  document.getElementById('box-filters-fixed').classList.toggle("active");
+  var re_use = document.getElementById('open-filter-scroll');
+    re_use.style.display = "block";
+    re_use.classList.add('box-loading');
+    re_use.classList.add('style2');
+    re_use.classList.add('show');
+    re_use.classList.add('open');
+  document.getElementById('box-filters-fixed').style.position = "fixed";
+  document.getElementById('header').style.position = "fixed";
+});
+
+$('#open-filter-scroll').click(function(e) {
+  document.getElementById('open-filter-scroll').classList.remove("show"), setTimeout(function() {
+    document.getElementById('open-filter-scroll').style.display = "none",
+    document.getElementById('open-filter-scroll').classList.remove("box-loading", "style2", "open", "show"),
+    document.getElementById('open-filter-scroll').isOpen = !1,
+    [].forEach.call(document.querySelectorAll(".menu-filters li.dropdown"),
+    function(e) {e.classList.remove("open")})
+    // document.getElementById('box-filters-fixed').style.position = "absolute",
+    // document.getElementById('header').style.position = "absolute"
+  }, 400);
+});
+
+function close_filters() {
+  document.getElementById('open-filter-scroll').classList.remove("show"), setTimeout(function() {
+    document.getElementById('open-filter-scroll').style.display = "none",
+    document.getElementById('open-filter-scroll').classList.remove("box-loading", "style2", "open", "show"),
+    document.getElementById('open-filter-scroll').isOpen = !1,
+    [].forEach.call(document.querySelectorAll(".menu-filters li.dropdown"),
+    function(e) {e.classList.remove("open")})
+    // document.getElementById('box-filters-fixed').style.position = "absolute",
+    // document.getElementById('header').style.position = "absolute"
+  }, 400);
+}
+
+
+
+
+
+
+
+
+$(document).ready(function() {
+    var $header = $("#box-filters-fixed");
+        // $clone = $header.before($header.clone().addClass("clone"));
+
+    $(window).on("scroll", function() {
+        var fromTop = $(window).scrollTop();
+        $("body").toggleClass("down", (fromTop > 825));
+    });
+});
